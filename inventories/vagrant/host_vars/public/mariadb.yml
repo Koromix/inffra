@@ -11,27 +11,4 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: mla
-
-  hosts: all
-
-  roles:
-    - name: base
-      tags:
-        - base
-    - name: nginx
-      when: 'nginx_domains is defined'
-      tags:
-        - nginx
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-      tags:
-        - prometheus
-    - name: mariadb
-      when: 'mariadb_enabled'
-      tags:
-        - postgresql
-    - name: postgresql
-      when: 'postgresql_enabled'
-      tags:
-        - postgresql
+mariadb_enabled: yes
