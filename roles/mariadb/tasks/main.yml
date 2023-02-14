@@ -16,6 +16,8 @@
     update_cache: yes
     pkg:
       - mariadb-server
+      - python3-pymysql
+      - acl
     state: latest
   become: yes
 
@@ -24,4 +26,31 @@
     name: mariadb
     state: started
     enabled: yes
+  become: yes
+
+- name: Secure default MariaDB installation
+  shell: |
+    /usr/bin/mysql -uroot -proot -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH auth_socket;"
+    /usr/bin/mysql -uroot -proot -e "DROP DATABASE IF EXISTS test;"
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Create databases
+  community.mysql.mysql_db:
+    login_unix_socket: /run/mysqld/mysqld.sock
+    login_user: root
+    name: '{{ item.database }}'
+    state: present
+  loop: '{{ mariadb_databases }}'
+  become: yes
+
+- name: Create database-specific users
+  community.mysql.mysql_user:
+    login_unix_socket: /run/mysqld/mysqld.sock
+    login_user: root
+    name: '{{ item.user }}'
+    password: '{{ item.password }}'
+    priv: '{{ item.database }}.*:ALL'
+    state: present
+  loop: '{{ mariadb_databases }}'
   become: yes
