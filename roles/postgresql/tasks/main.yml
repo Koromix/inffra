@@ -17,6 +17,8 @@
     pkg:
       - postgresql
       - postgresql-client
+      - python3-psycopg2
+      - acl
     state: latest
   become: yes
 
@@ -26,3 +28,31 @@
     state: started
     enabled: yes
   become: yes
+
+- name: Create database-specific users
+  community.postgresql.postgresql_user:
+    name: '{{ item.user }}'
+    password: '{{ item.password }}'
+    state: present
+  loop: '{{ postgresql_databases }}'
+  become: yes
+  become_user: postgres
+
+- name: Create databases
+  community.postgresql.postgresql_db:
+    name: '{{ item.database }}'
+    state: present
+  loop: '{{ postgresql_databases }}'
+  become: yes
+  become_user: postgres
+
+- name: Grant database access to specific users
+  community.postgresql.postgresql_privs:
+    type: database
+    database: '{{ item.database }}'
+    roles: '{{ item.user }}'
+    grant_option: no
+    privs: all
+  loop: '{{ postgresql_databases }}'
+  become: yes
+  become_user: postgres

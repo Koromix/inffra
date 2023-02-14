@@ -12,3 +12,5 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 postgresql_enabled: no
+
+postgresql_databases: []
