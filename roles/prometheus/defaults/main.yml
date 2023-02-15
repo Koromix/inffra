@@ -16,6 +16,7 @@
 # ------------------------------------------------------------------------
 
 prometheus_public_addr: '{{ ansible_default_ipv4.address }}'
+prometheus_public_port: 443
 
 prometheus_root_path: /opt/prometheus # Installation directory
 

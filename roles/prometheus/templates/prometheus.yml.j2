@@ -30,7 +30,7 @@ scrape_configs:
 {% for host, vars in hostvars.items() %}
 {% if vars.prometheus_exporters is defined and pkg in vars.prometheus_exporters %}
       - targets:
-          - {{ vars.prometheus_public_addr }}
+          - {{ vars.prometheus_public_addr | default(prometheus_public_addr) }}:{{ vars.prometheus_public_port | default(prometheus_public_port) }}
         labels:
           instance: {{ host }}
 {% endif %}

@@ -11,31 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: mla
-
-  hosts: all
-
-  roles:
-    - name: base
-      tags:
-        - base
-    - name: nginx
-      when: 'nginx_domains is defined'
-      tags:
-        - nginx
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-      tags:
-        - prometheus
-    - name: mariadb
-      when: 'mariadb_enabled'
-      tags:
-        - postgresql
-    - name: postgresql
-      when: 'postgresql_enabled'
-      tags:
-        - postgresql
-    - name: globaleaks
-      when: 'globaleaks_enabled'
-      tags:
-        - globaleaks
+ansible_host: 192.168.59.4
+ansible_port: 22
+ansible_user: vagrant
+ansible_ssh_private_key_file: .vagrant/machines/vault/virtualbox/private_key
+ansible_python_interpreter: /usr/bin/python3

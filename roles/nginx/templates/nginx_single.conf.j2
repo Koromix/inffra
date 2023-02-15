@@ -40,8 +40,10 @@ http {
     limit_req_status 429;
     limit_req zone=default burst=100 nodelay;
 
+{% if nginx_default_server %}
+
     server {
-        {{ util.configure_http('_') }}
+        {{ util.configure_http('_', nginx_http_port) }}
 
         location / {
             return 404;
@@ -57,7 +59,7 @@ http {
     }
 
     server {
-        {{ util.configure_https('_') }}
+        {{ util.configure_https('_', nginx_https_port) }}
 
         ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
         ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
@@ -71,10 +73,12 @@ http {
         }
     }
 
+{% endif %}
+
 {% for domain in nginx_domains %}
 
     server {
-        {{ util.configure_http(domain.name) }}
+        {{ util.configure_http(domain.name, domain.http_port if domain.http_port is defined else nginx_http_port) }}
 
         location / {
             return 301 https://$host$request_uri;
@@ -95,7 +99,7 @@ http {
     }
 
     server {
-        {{ util.configure_https(domain.name) }}
+        {{ util.configure_https(domain.name, domain.https_port if domain.https_port is defined else nginx_https_port) }}
 
         ssl_certificate /etc/letsencrypt/live/{{ domain.name }}/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/{{ domain.name }}/privkey.pem;
