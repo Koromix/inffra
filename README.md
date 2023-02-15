@@ -27,9 +27,15 @@ sudo zerotier-cli join <network ID>
 
 Once this is done, go to the ZeroTier dashboard and allow the machine (use the "Auth" checkbox) and give it a name. That's it!
 
-## Integrate with to Ansible
+## Integrate with Ansible
 
 Not yet!
+
+## First playbook launch
+
+```sh
+ansible-playbook -i inventories/preprod mla.yml --vault-password-file ansible-mla.vault --tags=base -e ansible_user=debian -e ansible_ssh_private_key_file=~/.ssh/id_rsa
+```
 
 # Deploying with ansible
 
