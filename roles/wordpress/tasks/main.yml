@@ -1,0 +1,75 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Install packages
+  apt:
+    update_cache: yes
+    pkg:
+      - php7.4-cli
+      - php7.4-mysql
+      - php7.4-curl
+      - php7.4-gd
+      - php7.4-intl
+      - php7.4-fpm
+    state: latest
+  become: yes
+
+- name: Prepare WordPress base directory
+  file:
+    path: '{{ wordpress_root_path }}/{{ wordpress_name }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Install WordPress (latest version)
+  unarchive:
+    src: 'https://wordpress.org/latest.tar.gz'
+    dest: '{{ wordpress_root_path }}/{{ wordpress_name }}'
+    remote_src: yes
+    creates: '{{ wordpress_root_path }}/{{ wordpress_name }}/wordpress'
+    owner: www-data
+    group: www-data
+    mode: 'u=rwX,g=rX,o=rX'
+  become: yes
+
+- name: Generate random salts
+  block:
+  - stat:
+      path: '{{ wordpress_root_path }}/{{ wordpress_name }}/salt'
+    register: salt1
+    become: yes
+  - get_url:
+      url: 'https://api.wordpress.org/secret-key/1.1/salt'
+      dest: '{{ wordpress_root_path }}/{{ wordpress_name }}/salt'
+      owner: root
+      group: root
+      mode: '0644'
+    when: 'not salt1.stat.exists'
+    become: yes
+  - slurp:
+      src: '{{ wordpress_root_path }}/{{ wordpress_name }}/salt'
+    register: salt2
+    become: yes
+  - set_fact:
+      wordpress_salts: '{{ salt2.content | b64decode }}'
+
+- name: Configure WordPress
+  template:
+    src: wp-config.php.j2
+    dest: '{{ wordpress_root_path }}/{{ wordpress_name }}/wordpress/wp-config.php'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes

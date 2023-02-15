@@ -12,3 +12,8 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 mariadb_enabled: yes
+
+mariadb_databases:
+  - database: wp_mlalerte
+    user: mlalerte
+    password: mlalerte
