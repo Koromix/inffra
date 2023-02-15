@@ -5,7 +5,7 @@ First, [install the ZeroTier client](https://www.zerotier.com/download/). Follow
 After that, use the graphical ZeroTier client or the console client to join the ZeroTier network. For example on Linux, do it like this:
 
 ```sh
-sudo zerotier join <network ID>
+sudo zerotier-cli join <network ID>
 ```
 
 Once this is done, go to the ZeroTier dashboard and allow the machine (use the "Auth" checkbox) and give it a name. That's it!
@@ -17,9 +17,12 @@ Once this is done, go to the ZeroTier dashboard and allow the machine (use the "
 Once the machine exists, you must manually SSH to it and add it to the ZeroTier network:
 
 ```sh
+sudo apt update
+sudo apt install gpg
+
 sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
     if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
-sudo zerotier join <network ID>
+sudo zerotier-cli join <network ID>
 ```
 
 Once this is done, go to the ZeroTier dashboard and allow the machine (use the "Auth" checkbox) and give it a name. That's it!
