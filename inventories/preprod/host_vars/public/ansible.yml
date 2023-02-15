@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ansible_host: 4.3.2.3
+ansible_host: 152.228.209.136
 ansible_port: 22
 ansible_user: ansible
-ansible_ssh_private_key_file: ~/.ssh/mla/prod
+ansible_ssh_private_key_file: ~/.ssh/mla/preprod
 ansible_python_interpreter: /usr/bin/python3

@@ -1,0 +1,29 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+wordpress_enabled: yes
+
+wordpress_name: mlalerte.org
+
+wordpress_database:
+  host: localhost
+  user: mlalerte
+  password: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    34323730316334393236626365653235303664343763346633333430613264633938613964303132
+    3936613338343063353366626431333634343732393837300a623736383264303866303031316530
+    64383132373130626638646533316164343837343235303765316338373464313739343464393238
+    3130643463636636620a613363356363393163313236666335616330393935613764643734363266
+    66353838653033306130623663613237353336333166393437363265613336376263623336316164
+    6565313134646565343539376134623963393662366532363234
+  name: wp_mlalerte

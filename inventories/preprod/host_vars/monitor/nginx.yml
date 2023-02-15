@@ -33,8 +33,8 @@ nginx_domains:
       }
       {% endfor %}
 
-  - name: monitor.intra.mlalerte.org
-    ssl_certbot_email: niels.martignene@protonmail.com
+  - name: monitor.premla.koromix.dev
+    # ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
           limit_req zone=default burst=100 nodelay;

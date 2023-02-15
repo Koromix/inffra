@@ -32,3 +32,18 @@ nginx_domains:
           proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
       }
       {% endfor %}
+
+  - name: premla.koromix.dev
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          root {{ wordpress_root_path }}/mlalerte.org/wordpress;
+          index index.php index.html index.htm;
+          try_files $uri $uri/ /index.php?$args;
+
+          location ~ \.php$ {
+              include fastcgi_params;
+              fastcgi_param SCRIPT_FILENAME $request_filename;
+              fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+          }
+      }
