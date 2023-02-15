@@ -14,6 +14,7 @@
 monitor_ip = '192.168.59.2'
 public_ip = '192.168.59.3'
 vault_ip = '192.168.59.4'
+leaks_ip = '192.168.59.5'
 
 Vagrant.configure('2') do |config|
     config.hostmanager.enabled = true
@@ -40,8 +41,8 @@ Vagrant.configure('2') do |config|
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_public'
-            v.memory = 4096
-            v.cpus = 4
+            v.memory = 2048
+            v.cpus = 2
             v.linked_clone = true
             v.gui = false
         end
@@ -54,6 +55,28 @@ Vagrant.configure('2') do |config|
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_vault'
+            v.memory = 4096
+            v.cpus = 4
+            v.linked_clone = true
+            v.gui = false
+        end
+
+        m.vm.provision 'ansible' do |ansible|
+            ansible.playbook = '../mla.yml'
+            ansible.limit = 'all'
+            ansible.inventory_path = '../inventories/vagrant/hosts.yml'
+            ansible.extra_vars = { ansible_python_interpreter: '/usr/bin/python3' }
+            # ansible.raw_arguments = ['--check']
+        end
+    end
+
+    config.vm.define 'leaks' do |m|
+        m.vm.box = 'generic/debian11'
+        m.vm.hostname = 'leaks.mla.local'
+        m.vm.network 'private_network', ip: leaks_ip
+
+        m.vm.provider 'virtualbox' do |v|
+            v.name = 'mla_leaks'
             v.memory = 4096
             v.cpus = 4
             v.linked_clone = true

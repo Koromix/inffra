@@ -13,6 +13,8 @@
 
 nginx_public_addr: '{{ ansible_host }}'
 
+nginx_default_server: no
+
 nginx_domains:
   - name: '{{ prometheus_public_addr }}'
     config: |
@@ -32,3 +34,5 @@ nginx_domains:
           proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
       }
       {% endfor %}
+    http_port: 180
+    https_port: 543
