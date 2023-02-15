@@ -110,19 +110,7 @@
     rule: '{{ item.rule }}'
     port: '{{ item.port }}'
     proto: '{{ item.proto }}'
-  loop:
-    - rule: limit
-      port: 22
-      proto: tcp
-    - rule: allow
-      port: 80
-      proto: tcp
-    - rule: allow
-      port: 443
-      proto: tcp
-    - rule: allow # XXX: Temporary
-      port: 53
-      proto: udp
+  loop: '{{ ufw_rules }}'
   become: yes
 
 - name: Configure ufw defaults
