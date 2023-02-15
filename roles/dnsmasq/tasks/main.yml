@@ -11,12 +11,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ansible_host: 192.168.59.2
-ansible_port: 22
-ansible_user: vagrant
-ansible_ssh_private_key_file: .vagrant/machines/monitor/virtualbox/private_key
-ansible_python_interpreter: /usr/bin/python3
+- name: Install packages
+  package:
+    update_cache: yes
+    pkg:
+      - dnsmasq
+    state: latest
+  become: yes
 
-dnsmasq_addr: '{{ ansible_host }}'
-dnsmasq_domains:
-  - monitor.mla.local
+- name: Configure DNS server
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  loop:
+    - src: dnsmasq.conf.j2
+      dest: /etc/dnsmasq.conf
+    - src: hosts.conf.j2
+      dest: /etc/dnsmasq_hosts.conf
+  become: yes
+
+- name: Reload DNS server
+  service:
+    name: nginx
+    state: reloaded
+  when: 'not ansible_check_mode'
+  become: yes

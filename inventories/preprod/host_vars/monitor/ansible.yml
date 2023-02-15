@@ -18,3 +18,7 @@ ansible_ssh_private_key_file: ~/.ssh/mla/preprod
 ansible_python_interpreter: /usr/bin/python3
 
 ssh_bind: '{{ ansible_host }}'
+
+dnsmasq_addr: '{{ ansible_host }}'
+dnsmasq_domains:
+  - monitor.intra.premla.groupile.fr

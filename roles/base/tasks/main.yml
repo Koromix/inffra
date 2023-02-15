@@ -120,6 +120,9 @@
     - rule: allow
       port: 443
       proto: tcp
+    - rule: allow # XXX: Temporary
+      port: 53
+      proto: udp
   become: yes
 
 - name: Configure ufw defaults
