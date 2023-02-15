@@ -1,2 +1,4 @@
 vagrant/*.log
 .vagrant
+*.vault
+/tmp_interhop_ssl/
