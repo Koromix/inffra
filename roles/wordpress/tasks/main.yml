@@ -26,11 +26,14 @@
 
 - name: Prepare WordPress base directory
   file:
-    path: '{{ wordpress_root_path }}/{{ wordpress_name }}'
+    path: '{{ item }}'
     state: directory
     owner: root
     group: root
     mode: '0755'
+  loop:
+    - '{{ wordpress_root_path }}'
+    - '{{ wordpress_root_path }}/{{ wordpress_name }}'
   become: yes
 
 - name: Install WordPress (latest version)
