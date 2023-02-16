@@ -42,7 +42,7 @@ Vagrant.configure('2') do |config|
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_public'
             v.memory = 2048
-            v.cpus = 2
+            v.cpus = 1
             v.linked_clone = true
             v.gui = false
         end
@@ -55,8 +55,8 @@ Vagrant.configure('2') do |config|
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_vault'
-            v.memory = 4096
-            v.cpus = 4
+            v.memory = 2048
+            v.cpus = 1
             v.linked_clone = true
             v.gui = false
         end
@@ -69,8 +69,8 @@ Vagrant.configure('2') do |config|
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_leaks'
-            v.memory = 4096
-            v.cpus = 4
+            v.memory = 2048
+            v.cpus = 1
             v.linked_clone = true
             v.gui = false
         end
