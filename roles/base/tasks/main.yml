@@ -16,6 +16,7 @@
     update_cache: yes
     pkg:
       - ufw
+      - lego
     state: latest
   become: yes
 
@@ -151,6 +152,9 @@
     state: '{{ "present" if weekly_upgrade else "absent" }}'
     job: '/usr/bin/apt update -y && /usr/bin/apt upgrade -y && /usr/sbin/shutdown -r now'
   become: yes
+
+- name: Setup LEGO for Let's Encrypt certificates
+  include_tasks: lego.yml
 
 # - name: Delete default debian user
 #   user:

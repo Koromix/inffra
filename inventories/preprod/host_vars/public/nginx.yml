@@ -33,7 +33,7 @@ nginx_domains:
       }
       {% endfor %}
 
-  - name: premla.groupile.fr
+  - name: premla.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {

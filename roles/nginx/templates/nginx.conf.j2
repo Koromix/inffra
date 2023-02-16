@@ -92,8 +92,8 @@ http {
     server {
         {{ util.configure_https(domain.name, domain.https_port if domain.https_port is defined else nginx_https_port) }}
 
-        ssl_certificate /etc/letsencrypt/live/{{ domain.name }}/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/{{ domain.name }}/privkey.pem;
+        ssl_certificate {{ domain.ssl_file_crt | default('/etc/letsencrypt/live/' ~ domain.name ~ '/fullchain.pem') }};
+        ssl_certificate_key {{ domain.ssl_file_key | default('/etc/letsencrypt/live/' ~ domain.name ~ '/privkey.pem') }};
 
         add_header Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
 

@@ -11,27 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-weekly_upgrade: yes
+[Unit]
+Description = Renew LEGO certificates
 
-# ssh_bind:
-ssh_port: 22
+[Timer]
+OnCalendar = *-*-* 1:54
+Persistent = true
+RandomizedDelaySec = 1h
 
-ufw_rules:
-  - rule: limit
-    port: 22
-    proto: tcp
-  - rule: allow
-    port: 80
-    proto: tcp
-  - rule: allow
-    port: 443
-    proto: tcp
-
-# Use these variables to set up IPv6 on OVH VPS
-# Documentation here: https://docs.ovh.com/fr/vps/configurer-ipv6/
-# ovh_ipv6_addr:
-# ovh_ipv6_netmask:
-# ovh_ipv6_gateway:
-
-lego_root_path: /opt/lego
-lego_domains: []
+[Install]
+WantedBy = timers.target

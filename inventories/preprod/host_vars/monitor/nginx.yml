@@ -33,8 +33,9 @@ nginx_domains:
       }
       {% endfor %}
 
-  - name: monitor.intra.premla.groupile.fr
-    # ssl_certbot_email: niels.martignene@protonmail.com
+  - name: monitor.intra.premla.fr
+    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/monitor.intra.premla.fr.crt'
+    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/monitor.intra.premla.fr.key'
     config: |
       location / {
           limit_req zone=default burst=100 nodelay;
