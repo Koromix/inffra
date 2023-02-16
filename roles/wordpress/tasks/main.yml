@@ -36,9 +36,16 @@
     - '{{ wordpress_root_path }}/{{ wordpress_name }}'
   become: yes
 
-- name: Install WordPress (latest version)
+- name: Fetch WordPress archive
+  get_url:
+    url: '{{ wordpress_url }}'
+    dest: '{{ wordpress_root_path }}/{{ wordpress_name }}.tar.gz'
+    checksum: 'sha256:{{ wordpress_sha256 }}'
+  become: yes
+
+- name: Install WordPress
   unarchive:
-    src: 'https://wordpress.org/latest.tar.gz'
+    src: '{{ wordpress_root_path }}/{{ wordpress_name }}.tar.gz'
     dest: '{{ wordpress_root_path }}/{{ wordpress_name }}'
     remote_src: yes
     creates: '{{ wordpress_root_path }}/{{ wordpress_name }}/wordpress'
