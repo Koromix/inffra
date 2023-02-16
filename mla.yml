@@ -12,40 +12,31 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: mla
-
   hosts: all
-
   roles:
     - name: base
-      tags:
-        - base
     - name: nginx
       when: 'nginx_domains is defined'
-      tags:
-        - nginx
     - name: prometheus
       when: 'prometheus_exporters is defined or grafana_url is defined'
-      tags:
-        - prometheus
+  tags: [system]
 
-    - name: mariadb
-      when: 'mariadb_enabled'
-      tags:
-        - mariadb
-    - name: postgresql
-      when: 'postgresql_enabled'
-      tags:
-        - postgresql
+- name: mla_pub_globaleaks
+  hosts: leaks
+  roles:
+    - globaleaks
+  tags: [host]
 
-    - name: globaleaks
-      when: 'globaleaks_enabled'
-      tags:
-        - globaleaks
-    - name: wordpress
-      when: 'wordpress_enabled'
-      tags:
-        - wordpress
-    - name: nextcloud
-      when: 'nextcloud_enabled'
-      tags:
-        - nextcloud
+- name: mla_pub_wordpress
+  hosts: public
+  roles:
+    - mariadb
+    - wordpress
+  tags: [host]
+
+- name: mla_pri_nextcloud
+  hosts: vault
+  roles:
+    - mariadb
+    - nextcloud
+  tags: [host]

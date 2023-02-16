@@ -35,7 +35,7 @@ nginx_domains:
       {% endfor %}
   - name: mla.local
     config: |
-      root {{ wordpress_root_path }}/mlalerte.org/wordpress;
+      root /opt/wordpress/mlalerte.org/wordpress;
 
       location / {
           index index.php index.html index.htm;

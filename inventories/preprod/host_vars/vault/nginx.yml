@@ -37,7 +37,7 @@ nginx_domains:
     ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/cloud.intra.premla.fr.crt'
     ssl_file_key: '{{ lego_root_path }}/.lego/certificates/cloud.intra.premla.fr.key'
     config: |
-      root {{ nextcloud_root_path }}/employee;
+      root /opt/nextcloud/employee;
 
       client_body_timeout 300s;
       fastcgi_buffers 64 4K;

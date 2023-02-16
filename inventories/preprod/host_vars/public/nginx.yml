@@ -36,7 +36,7 @@ nginx_domains:
   - name: premla.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
-      root {{ wordpress_root_path }}/mlalerte.org/wordpress;
+      root /opt/wordpress/mlalerte.org/wordpress;
 
       location / {
           index index.php index.html index.htm;
