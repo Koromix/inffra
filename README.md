@@ -25,8 +25,8 @@ Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machi
 
 L'environnement de production et celui de préproduction utilisent tous deux deux réseaux VPN basés sur ZeroTier :
 
-- Les machines vulnérables (accès publique) sont sur le réseau `mla/unsafe`. L'accès SSH à ces machines nécessite de passer par ce réseau.
-- Les machines sécurisées (accès privé) sont sur le réseau `mla/safe`. L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors de ce réseau.
+- Les machines vulnérables (accès publique) sont sur le réseau `mla/public` (ou `premla/public`). L'accès SSH à ces machines nécessite de passer par ce réseau.
+- Les machines sécurisées (accès privé) sont sur le réseau `mla/safe` (ou `premla/safe`). L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors de ce réseau.
 
 La machine utilisée pour le déploiement Ansible doit être connectée aux deux réseaux privés au moment du déploiement !
 
