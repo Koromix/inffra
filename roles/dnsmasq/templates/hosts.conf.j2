@@ -1,7 +1,0 @@
-{% for host, vars in hostvars.items() %}
-{% if vars.dnsmasq_addr is defined %}
-{% for domain in vars.dnsmasq_domains %}
-{{ vars.dnsmasq_addr }} {{ domain }}
-{% endfor %}
-{% endif %}
-{% endfor %}

@@ -19,10 +19,6 @@
     - name: base
       tags:
         - base
-    - name: dnsmasq
-      when: 'dnsmasq_enabled'
-      tags:
-        - dnsmasq
     - name: nginx
       when: 'nginx_domains is defined'
       tags:
@@ -31,6 +27,7 @@
       when: 'prometheus_exporters is defined or grafana_url is defined'
       tags:
         - prometheus
+
     - name: mariadb
       when: 'mariadb_enabled'
       tags:

@@ -11,4 +11,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-dnsmasq_enabled: yes
+- name: Install packages
+  package:
+    update_cache: yes
+    pkg:
+      - dnsmasq
+    state: latest
+  when: 'dns_server'
+  become: yes
+
+- name: Configure DNS server
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+  loop:
+    - src: dnsmasq.conf.j2
+      dest: /etc/dnsmasq.conf
+    - src: dnsmasq_hosts.conf.j2
+      dest: /etc/dnsmasq_hosts.conf
+  when: 'dns_server'
+  become: yes
+
+- name: Reload DNS server
+  service:
+    name: dnsmasq
+    state: reloaded
+  when: 'dns_server and not ansible_check_mode'
+  become: yes

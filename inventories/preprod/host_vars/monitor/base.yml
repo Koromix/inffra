@@ -33,8 +33,8 @@ ufw_rules:
     port: 53
     proto: udp
 
-dnsmasq_addr: '{{ ansible_host }}'
-dnsmasq_domains:
+dns_addr: '{{ ansible_host }}'
+dns_domains:
   - monitor.intra.premla.fr
 
 lego_domains:

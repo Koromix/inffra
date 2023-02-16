@@ -153,6 +153,9 @@
     job: '/usr/bin/apt update -y && /usr/bin/apt upgrade -y && /usr/sbin/shutdown -r now'
   become: yes
 
+- name: Configure DNS system
+  include_tasks: dnsmasq.yml
+
 - name: Setup LEGO for Let's Encrypt certificates
   include_tasks: lego.yml
 
