@@ -32,9 +32,9 @@
   when: 'dns_server'
   become: yes
 
-- name: Reload DNS server
+- name: Restart DNS server
   service:
     name: dnsmasq
-    state: reloaded
+    state: restarted
   when: 'dns_server and not ansible_check_mode'
   become: yes
