@@ -49,11 +49,13 @@
 
 - name: Generate random salts
   block:
-  - stat:
+  - name: Generate random salts 1/4
+    stat:
       path: '{{ wordpress_root_path }}/{{ wordpress_name }}/salt'
     register: salt1
     become: yes
-  - get_url:
+  - name: Generate random salts 2/4
+    get_url:
       url: 'https://api.wordpress.org/secret-key/1.1/salt'
       dest: '{{ wordpress_root_path }}/{{ wordpress_name }}/salt'
       owner: root
@@ -61,11 +63,13 @@
       mode: '0644'
     when: 'not salt1.stat.exists'
     become: yes
-  - slurp:
+  - name: Generate random salts 3/4
+    slurp:
       src: '{{ wordpress_root_path }}/{{ wordpress_name }}/salt'
     register: salt2
     become: yes
-  - set_fact:
+  - name: Generate random salts 4/4
+    set_fact:
       wordpress_salts: '{{ salt2.content | b64decode }}'
 
 - name: Configure WordPress
