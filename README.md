@@ -1,69 +1,61 @@
-# Connect machine to VPS
+# Connecter une machine utilisateur au VPN
 
-First, [install the ZeroTier client](https://www.zerotier.com/download/). Follow the instructions on the ZeroTier download page for your platform.
+## Client graphique (ZeroTier one)
 
-After that, use the graphical ZeroTier client or the console client to join the ZeroTier network. For example on Linux, do it like this:
+Commencez par faut [installer le client ZeroTier One](https://www.zerotier.com/download/). Il suffit ensuite de suivre les instructions indiquées sur cette page pour vous connecter.
+
+Ensuite, il faut faut également activer l'option `Allow DNS configuration` (non active par défaut) dans l'interface graphique.
+
+![Allow DNS in GUI client](https://www.zerotier.com/wp-content/uploads/2022/04/dns-1-1024x648.jpg)
+
+Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+
+## ZeroTier en console
+
+Une fois ZeroTier installé (https://www.zerotier.com/download/), 2 commandes suffisent :
 
 ```sh
 sudo zerotier-cli join <network ID>
 sudo zerotier-cli set <network ID> allowDNS=1
 ```
 
-Once this is done, go to the ZeroTier dashboard and allow the machine (use the "Auth" checkbox) and give it a name. That's it!
+Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
 
-# Add new VPS
+# Architecture globale
 
-## Join ZeroTier network
+L'environnement de production et celui de préproduction utilisent tous deux deux réseaux VPN basés sur ZeroTier :
 
-Once the machine exists, you must manually SSH to it and add it to the ZeroTier network:
+- Les machines vulnérables (accès publique) sont sur le réseau `mla/unsafe`. L'accès SSH à ces machines nécessite de passer par ce réseau.
+- Les machines sécurisées (accès privé) sont sur le réseau `mla/safe`. L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors de ce réseau.
 
-```sh
-sudo apt update
-sudo apt install gpg
+La machine utilisée pour le déploiement Ansible doit être connectée aux deux réseaux privés au moment du déploiement !
 
-sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
-    if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
+# Déploiement Ansible
 
-sudo zerotier-cli join <network ID>
-```
+## Environnement de préproduction (PreMLA)
 
-Once this is done, go to the ZeroTier dashboard and allow the machine (use the "Auth" checkbox) and give it a name. That's it!
+La machine utilisée pour le déploiement doit être connectée aux deux réseaux VPN décrits ci-dessous. Idéalement, l'accès de cette machine aux deux réseaux n'est activé que temporairement lors des déploiements, en passant par l'interface d'administration ZeroTier.
 
-## Integrate with Ansible
+Par ailleurs, l'utilisation de ce playbook nécessite la possession de la clé Ansible Vault privée, qui ne doit **en aucun cas être enregistrée dans le dépôt** ! A cette fin, le fichier `.gitignore` est paramétré pour ignorer les fichiers ayant l'extension `.vault`.
 
-Not yet!
-
-## First playbook launch
+Une fois les deux réseaux ZeroTier connectés et la clé en votre posession, vous pouvez lancer le déploiement complet avec la commande suivante :
 
 ```sh
-ansible-playbook -i inventories/preprod mla.yml --vault-password-file ansible-mla.vault --tags=base -e ansible_user=debian -e ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible-playbook mla.yml -i inventories/preprod --vault-password-file ansible-mla.vault
 ```
 
-# Deploying with ansible
+## Environnement Vagrant
 
-## Production
-
-Not yet!
-
-## Vagrant
-
-Install the following packagers first:
+### Installation de Vagrant
 
 ```sh
 sudo apt install vagrant vagrant-hostmanager
 ```
 
-### Initialize VMs
-
-Execute from the vagrant directory:
+### Mise en route et déploiement
 
 ```sh
 cd vagrant
-vagrant up --no-provision
-```
-
-### Deploy
-
-```sh
-vagrant provision
+vagrant up --no-provision # Démarrage des machines
+vagrant provision # Exécution d'Ansible
 ```
