@@ -1,0 +1,39 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+nextcloud_enabled: yes
+
+nextcloud_name: employee
+nextcloud_domain: cloud.intra.premla.fr
+
+nextcloud_default_user: admin
+nextcloud_default_password: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  39356666333663336631356234386439653434656635353934373437306233613562383665333136
+  3234656138366161353534616161626465653364653638320a376339336332656337336630656330
+  32623239626130313635646332656430623839313364356232326132633938666163373737383839
+  6632626462383533650a373965326632306134646639633535393964346264356337383965373332
+  3234
+
+nextcloud_database:
+  provider: mysql
+  host: localhost
+  user: employee
+  password: !vault |
+    $ANSIBLE_VAULT;1.1;AES256
+    36303239366431633034333064303733313134613637353361383533633039336565303131383762
+    6361343765356566396233316462363239376264643737360a366233663838663430623732396338
+    63343633383139626230636236303262663961643534643836616164663835653730633264643166
+    3631316362373430640a376536636566373932393631373135623062353934383261393732333266
+    37653937356362373266633562386134393935353762386237363233386262363065
+  name: nc_employee

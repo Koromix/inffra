@@ -45,3 +45,7 @@
       when: 'wordpress_enabled'
       tags:
         - wordpress
+    - name: nextcloud
+      when: 'nextcloud_enabled'
+      tags:
+        - nextcloud

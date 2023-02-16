@@ -1,0 +1,90 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Install packages
+  apt:
+    update_cache: yes
+    pkg:
+      - php7.4-cli
+      - php7.4-mysql
+      - php7.4-curl
+      - php7.4-gd
+      - php7.4-intl
+      - php7.4-xml
+      - php7.4-mbstring
+      - php7.4-zip
+      - php7.4-fpm
+      - bzip2
+      - acl
+    state: latest
+  become: yes
+
+- name: Prepare Nextcloud base directory
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - '{{ nextcloud_root_path }}'
+    - '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+  become: yes
+
+- name: Fetch Nextcloud archive
+  get_url:
+    url: '{{ nextcloud_url }}'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}.tar.bz2'
+    checksum: 'sha256:{{ nextcloud_sha256 }}'
+  become: yes
+
+- name: Check for existing Nextcloud install
+  stat:
+    path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/config/config.php'
+  register: install_check
+  become: yes
+
+- name: Install Nextcloud
+  unarchive:
+    src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}.tar.bz2'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+    remote_src: yes
+    owner: www-data
+    group: www-data
+    mode: 'u=rwX,g=rX,o=rX'
+    extra_opts:
+      - '--strip-components=1'
+  when: 'not install_check.stat.exists'
+  become: yes
+
+- name: Configure Nextcloud
+  shell:
+    cmd: |
+      /usr/bin/php7.4 occ maintenance:install \
+        --database "{{ nextcloud_database.provider }}" --database-name "{{ nextcloud_database.name }}" \
+        --database-user "{{ nextcloud_database.user }}" --database-pass "{{ nextcloud_database.password }}" \
+        --admin-user "{{ nextcloud_default_user }}" --admin-pass "{{ nextcloud_default_password }}"
+      rm -f config/CAN_INSTALL
+      chmod 555 .
+    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+  when: 'not install_check.stat.exists'
+  become: yes
+  become_user: www-data
+
+- name: Set Nextcloud trusted domains
+  lineinfile:
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/config/config.php'
+    regexp: "^ *0 => "
+    line: "    0 => '{{ nextcloud_domain }}'"
+    state: present
+  become: yes
