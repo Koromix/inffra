@@ -20,5 +20,3 @@ ansible_python_interpreter: /usr/bin/python3
 dns_server: yes
 
 dns_addr: '{{ ansible_host }}'
-dns_domains:
-  - monitor.intra.mla.local

@@ -18,7 +18,7 @@ prometheus_exporters:
   - nginx_exporter
   - systemd_exporter
 
-grafana_url: 'https://monitor.intra.premla.fr/'
+grafana_url: 'https://monitor.{{ private_domain }}'
 grafana_default_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   31393063386538303161653830336533353261343936393063643866353635643438663861663765

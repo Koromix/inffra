@@ -1,0 +1,62 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+dns_domains:
+  - 'monitor.{{ private_domain }}'
+
+lego_domains:
+  - domain: 'monitor.{{ private_domain }}'
+    command: '--email niels.martignene@protonmail.com --dns gandiv5 --domains monitor.{{ private_domain }}'
+    environment:
+      GANDIV5_API_KEY: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        35383730623863316366663739396237666565646261376666366663623433643636336537336235
+        3366663535613131646530336635343339656261633962360a373934383566623738353030353634
+        62306239346637353366396136306665623137303866323031383065326132333038363066663462
+        6133633363346534660a356361623764303537663134643932383438346262303130346639646438
+        31336661646263383434343332346566646662313934376361346234653961313962
+
+nginx_public_addr: '{{ ansible_host }}'
+
+nginx_domains:
+  - name: '{{ prometheus_public_addr }}'
+    config: |
+      ssl_client_certificate /opt/nginx/ssl/internal/ca.crt;
+      ssl_verify_client on;
+      ssl_verify_depth 2;
+
+      {% for exporter in prometheus_exporters %}
+
+      location /metrics/{{ exporter }} {
+          allow {{ hostvars.monitor.nginx_public_addr }};
+          deny all;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
+      }
+      {% endfor %}
+
+  - name: 'monitor.{{ private_domain }}'
+    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/monitor.{{ private_domain }}.crt'
+    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/monitor.{{ private_domain }}.key'
+    config: |
+      location / {
+          limit_req zone=default burst=100 nodelay;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:9200;
+      }

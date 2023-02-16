@@ -154,10 +154,11 @@
   become: yes
 
 - name: Configure DNS system
-  include_tasks: dnsmasq.yml
+  import_tasks: dnsmasq.yml
 
 - name: Setup LEGO for Let's Encrypt certificates
-  include_tasks: lego.yml
+  import_tasks: lego.yml
+  when: 'not force_self_ssl'
 
 # - name: Delete default debian user
 #   user:

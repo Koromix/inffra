@@ -11,14 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    monitor:
-    public:
-    vault:
-    leaks:
-
-  vars:
-    public_domain: mla.local
-    private_domain: intra.mla.local
-    force_self_ssl: yes
+- name: Public Globaleaks
+  hosts: leaks
+  roles:
+    - role: ../roles/globaleaks
+  tags: [specific]
