@@ -22,7 +22,7 @@ Vagrant.configure('2') do |config|
 
     config.vm.define 'monitor' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'monitor.mla.local'
+        m.vm.hostname = 'monitor.intra.mla.local'
         m.vm.network 'private_network', ip: monitor_ip
 
         m.vm.provider 'virtualbox' do |v|
@@ -50,7 +50,7 @@ Vagrant.configure('2') do |config|
 
     config.vm.define 'vault' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'vault.mla.local'
+        m.vm.hostname = 'vault.intra.mla.local'
         m.vm.network 'private_network', ip: vault_ip
 
         m.vm.provider 'virtualbox' do |v|

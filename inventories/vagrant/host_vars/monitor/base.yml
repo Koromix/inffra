@@ -21,4 +21,4 @@ dns_server: yes
 
 dns_addr: '{{ ansible_host }}'
 dns_domains:
-  - monitor.mla.local
+  - monitor.intra.mla.local
