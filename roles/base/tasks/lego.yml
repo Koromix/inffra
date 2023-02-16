@@ -18,15 +18,6 @@
     mode: '0755'
   become: yes
 
-- name: Obtain new LEGO certificates
-  shell:
-    cmd: '/usr/bin/lego -a {{ item.command }} run'
-    chdir: '{{ lego_root_path }}'
-    creates: '{{ lego_root_path }}/.lego/certificates/{{ item.domain }}.crt'
-  environment: '{{ item.environment | default({}) }}'
-  loop: '{{ lego_domains }}'
-  become: yes
-
 - name: Create LEGO renewal script
   template:
     src: lego.renew.j2
@@ -34,6 +25,15 @@
     owner: root
     group: root
     mode: '0700'
+  become: yes
+
+- name: Obtain new LEGO certificates
+  shell:
+    cmd: '/usr/bin/lego -a {{ item.command }} run'
+    chdir: '{{ lego_root_path }}'
+    creates: '{{ lego_root_path }}/.lego/certificates/{{ item.domain }}.crt'
+  environment: '{{ item.environment | default({}) }}'
+  loop: '{{ lego_domains }}'
   become: yes
 
 - name: Install scheduled LEGO systemd units
