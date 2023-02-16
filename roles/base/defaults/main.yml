@@ -17,7 +17,7 @@ weekly_upgrade: yes
 ssh_port: 22
 
 ufw_rules:
-  - rule: limit
+  - rule: allow
     port: 22
     proto: tcp
   - rule: allow
