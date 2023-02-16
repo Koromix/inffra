@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: mla
+- name: System configuration
   hosts: all
   roles:
     - name: base
@@ -19,24 +19,24 @@
       when: 'nginx_domains is defined'
     - name: prometheus
       when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [system]
+  tags: [global]
 
-- name: mla_pub_globaleaks
+- name: Public Globaleaks
   hosts: leaks
   roles:
-    - globaleaks
-  tags: [host]
+    - name: globaleaks
+  tags: [specific]
 
-- name: mla_pub_wordpress
+- name: Public WordPress
   hosts: public
   roles:
-    - mariadb
-    - wordpress
-  tags: [host]
+    - name: mariadb
+    - name: wordpress
+  tags: [specific]
 
-- name: mla_pri_nextcloud
+- name: Private Nextcloud
   hosts: vault
   roles:
-    - mariadb
-    - nextcloud
-  tags: [host]
+    - name: mariadb
+    - name: nextcloud
+  tags: [specific]

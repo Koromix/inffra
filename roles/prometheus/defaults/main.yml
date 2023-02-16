@@ -33,7 +33,7 @@ prometheus_packages:
           --storage.tsdb.retention.time 14d \
           --web.console.templates "{{ prometheus_root_path }}/packages/prometheus/prometheus-2.27.1.linux-amd64/consoles" \
           --web.console.libraries "{{ prometheus_root_path }}/packages/prometheus/prometheus-2.27.1.linux-amd64/console_libraries" \
-          --web.page-title "{{ ansible_play_name }} monitoring"
+          --web.page-title "Monitoring"
   node_exporter:
     url: 'https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz'
     checksum: 'sha256:8c1f6a317457a658e0ae68ad710f6b4098db2cad10204649b51e3c043aa3e70d'
