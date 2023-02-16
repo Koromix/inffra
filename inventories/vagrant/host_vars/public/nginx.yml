@@ -35,14 +35,15 @@ nginx_domains:
       {% endfor %}
   - name: mla.local
     config: |
+      root {{ wordpress_root_path }}/mlalerte.org/wordpress;
+
       location / {
-          root {{ wordpress_root_path }}/mlalerte.org/wordpress;
           index index.php index.html index.htm;
           try_files $uri $uri/ /index.php?$args;
+      }
 
-          location ~ \.php$ {
-              include fastcgi_params;
-              fastcgi_param SCRIPT_FILENAME $request_filename;
-              fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-          }
+      location ~ \.php$ {
+          include fastcgi_params;
+          fastcgi_param SCRIPT_FILENAME $request_filename;
+          fastcgi_pass unix:/run/php/php7.4-fpm.sock;
       }
