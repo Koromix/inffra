@@ -19,4 +19,4 @@ nginx_https_port: 443
 # nginx_back_addr:
 
 # List of domains to serve
-nginx_domains:
+# nginx_domains:
