@@ -2,7 +2,7 @@
 
 ## Client graphique (ZeroTier one)
 
-Commencez par faut [installer le client ZeroTier One](https://www.zerotier.com/download/). Il suffit ensuite de suivre les instructions indiquées sur cette page pour vous connecter.
+Commencez par [installer le client ZeroTier One](https://www.zerotier.com/download/). Il suffit ensuite de suivre les instructions indiquées sur cette page pour vous connecter.
 
 Ensuite, il faut faut également activer l'option `Allow DNS configuration` (non active par défaut) dans l'interface graphique.
 
@@ -23,7 +23,7 @@ Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machi
 
 # Architecture globale
 
-L'environnement de production et celui de préproduction utilisent tous deux deux réseaux VPN basés sur ZeroTier :
+L'environnement de production et celui de préproduction utilisent chacun deux réseaux VPN basés sur ZeroTier :
 
 - Les machines vulnérables (accès publique) sont sur le réseau `mla/public` (ou `premla/public`). L'accès SSH à ces machines nécessite de passer par ce réseau.
 - Les machines sécurisées (accès privé) sont sur le réseau `mla/safe` (ou `premla/safe`). L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors de ce réseau.
