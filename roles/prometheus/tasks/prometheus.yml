@@ -110,13 +110,12 @@
     owner: root
     group: root
     mode: '0644'
-  register: service_config
   become: yes
 
 - name: Reload systemd units
   systemd:
     daemon_reload: yes
-  when: service_config.changed
+  when: 'not ansible_check_mode'
   become: yes
 
 - name: Restart Prometheus services

@@ -88,13 +88,12 @@
   loop:
     - mariadb_backup.service
     - mariadb_backup.timer
-  register: service_config
   become: yes
 
 - name: Reload systemd units
   systemd:
     daemon_reload: yes
-  when: service_config.changed
+  when: 'not ansible_check_mode'
   become: yes
 
 - name: Enabled scheduled backups
