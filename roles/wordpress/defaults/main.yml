@@ -11,8 +11,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-wordpress_enabled: no
-
 wordpress_url: https://wordpress.org/wordpress-6.1.1.tar.gz
 wordpress_sha256: 211e854a69b73ddf1c0873504c7d6821a2d8b043f5a1b563af46c32640fb1fad
 
