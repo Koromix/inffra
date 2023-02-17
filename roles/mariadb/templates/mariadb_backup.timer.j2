@@ -11,8 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-mariadb_backup_path: /opt/mariadb
-mariadb_backup_schedule: '*-*-* 03:00'
-mariadb_backup_randomize: 20m
+[Unit]
+Description = Perform MariaDB backups
 
-mariadb_databases: []
+[Timer]
+OnCalendar = {{ mariadb_backup_schedule }}
+Persistent = true
+RandomizedDelaySec = {{ mariadb_backup_randomize }}
+
+[Install]
+WantedBy = timers.target
