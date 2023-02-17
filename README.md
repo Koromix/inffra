@@ -41,24 +41,46 @@ Par ailleurs, l'utilisation de ce playbook nécessite la possession de la clé A
 Une fois les deux réseaux ZeroTier connectés et la clé en votre posession, vous pouvez lancer le déploiement complet avec la commande suivante :
 
 ```sh
-ansible-playbook mla.yml -i inventories/preprod --vault-password-file ansible-mla.vault
+ansible-playbook mla.yml -i inventories/preprod --vault-password-file ansible_mla.vault
 ```
 
 ## Environnement Vagrant
 
-### Installation de Vagrant
-
-```sh
-sudo apt install vagrant vagrant-hostmanager
-```
-
-### Mise en route et déploiement
-
 ```sh
 cd vagrant
-vagrant up --no-provision # Démarrage des machines
-vagrant provision # Exécution d'Ansible
+
+sudo apt install vagrant vagrant-hostmanager
+vagrant up
+
+ansible-playbook ../mla.yml -i ../inventories/vagrant --vault-password-file ../ansible_mla.vault
 ```
+
+# Environnements (stages)
+
+## Préproduction
+
+Cet environnement est déployé sur une instance OVHcloud comprenant 4 instances, et un nom de domaine `premla.fr` enregistré via Gandi.
+
+Les domaines suivants sont accessibles publiquement :
+
+- https://premla.fr/ (WordPress)
+- https://leaks.premla.fr/ (Globaleaks)
+
+Les domaines suivants sont accessibles via le VPN :
+
+- https://cloud.intra.premla.fr/ (Nextcloud)
+- https://monitor.intra.premla.fr/ (Grafana)
+
+## Vagrant
+
+Il s'agit d'un environnement de test, entièrement local (machines virtuelles vagrant), sans VPN et avec des certificats SSL auto-signés.
+
+Les domaines comprennent :
+
+- https://mla.local/ (WordPress)
+- https://leaks.mla.local/ (Globaleaks)
+- https://cloud.intra.mla.local/ (Nextcloud)
+- https://monitor.intra.mla.local/ (Grafana)
 
 # Stratégie de sauvegarde
 
