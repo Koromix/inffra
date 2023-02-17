@@ -11,18 +11,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+[Unit]
+Description = Perform rclone backups
+Wants = network-online.target
+After = network-online.target
 
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/wordpress.yml
+[Service]
+Type = oneshot
+{% for dir in rclone_directories %}
+{% set outer = loop %}
+{% for remote in rclone_remotes %}
+ExecStart = rclone sync --config "{{ rclone_root_path }}/rclone.cfg" "{{ dir.src }}" "crypt_{{ loop.index }}_{{ outer.index }}:"
+{% endfor %}
+{% endfor %}
