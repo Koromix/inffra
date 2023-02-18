@@ -34,6 +34,11 @@ Une fois ZeroTier installé (https://www.zerotier.com/download/), vous pouvez jo
 sudo zerotier-cli join <network ID>
 ```
 
+La configuration automatisée du DNS n'est pas disponible avec le client Linux. Il est donc nécessaire d'ajouter manuellement le serveur DNS à la configuration réseau, comme serveur supplémentaire :
+
+- Préproduction : 172.30.239.2
+- Production : *non disponible pour le moment*
+
 Pour que l'accès soit fonctionnel, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
 
 ## Autorisation de la machine sur ZeroTier Central
