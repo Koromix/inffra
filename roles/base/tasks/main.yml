@@ -77,6 +77,11 @@
   when: ovh_ipv6_config.changed
   become: yes
 
+- name: Disable ufw logging
+  ufw:
+    logging: no
+  become: yes
+
 - name: Configure ufw rules
   ufw:
     rule: '{{ item.rule }}'
