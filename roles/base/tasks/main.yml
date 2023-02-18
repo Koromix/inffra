@@ -48,7 +48,7 @@
   user:
     name: root
     state: present
-    password: '{{ root_password }}'
+    password: '{{ root_password | string | password_hash(salt = (root_salt | string)) }}'
   when: 'root_password is defined'
   become: yes
 
