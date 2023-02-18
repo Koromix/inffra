@@ -85,11 +85,10 @@ ansible-playbook mla.yml -i inventories/preprod --vault-password-file ansible_ml
 ## Environnement Vagrant
 
 ```sh
-cd vagrant
-
 sudo apt install vagrant vagrant-hostmanager
-vagrant up
 
+cd vagrant
+vagrant up
 ansible-playbook ../mla.yml -i ../inventories/vagrant --vault-password-file ../ansible_mla.vault
 ```
 
