@@ -14,7 +14,7 @@ Ensuite, vous devez activer l'option `Allow DNS configuration` (non active par d
 
 ![Autoriser la gestion DNS dans ZeroTier](doc/assets/dns.png)
 
-Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+Enfin, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
 
 ## Linux
 
@@ -24,7 +24,7 @@ Une fois ZeroTier installé (https://www.zerotier.com/download/), vous pouvez jo
 sudo zerotier-cli join <network ID>
 ```
 
-Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+Pour que l'accès soit fonctionnel, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
 
 ## Autorisation de la machine sur ZeroTier Central
 
@@ -64,7 +64,7 @@ Les domaines comprennent :
 L'environnement de production et celui de préproduction utilisent chacun deux réseaux VPN basés sur ZeroTier :
 
 - Les machines vulnérables (accès publique) sont sur le réseau `mla/public` (ou `premla/public`). L'accès SSH à ces machines nécessite de passer par ce réseau.
-- Les machines sécurisées (accès privé) sont sur le réseau `mla/safe` (ou `premla/safe`). L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors de ce réseau.
+- Les machines sécurisées (accès privé) sont sur le réseau `mla/safe` (ou `premla/safe`). L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors du VPN.
 
 La machine utilisée pour le déploiement Ansible doit être connectée aux deux réseaux privés au moment du déploiement !
 
