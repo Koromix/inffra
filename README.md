@@ -8,13 +8,23 @@ Commencez par [installer le client ZeroTier One](https://www.zerotier.com/downlo
 
 Une fois cela fait, joignez le réseau à l'aide de son identifiant alphanumérique (16 caractères) :
 
-![Rejoindre un réseau ZeroTier](doc/assets/join.png)
+![Rejoindre un réseau ZeroTier](doc/assets/join_desktop.png)
 
 Ensuite, vous devez activer l'option `Allow DNS configuration` (non active par défaut) dans l'interface graphique.
 
 ![Autoriser la gestion DNS dans ZeroTier](doc/assets/dns.png)
 
 Enfin, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+
+## Android
+
+Commencez par [installer le client ZeroTier One](https://www.zerotier.com/download/).
+
+Une fois cela fait, joignez le réseau à l'aide de son identifiant alphanumérique (16 caractères) :
+
+![Rejoindre un réseau ZeroTier](doc/assets/join_mobile.png)
+
+Pensez bien à activer l'onglet "Network DNS" comme illustré dans la capture ! Pour finir, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
 
 ## Linux
 
