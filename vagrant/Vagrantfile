@@ -50,7 +50,7 @@ Vagrant.configure('2') do |config|
 
     config.vm.define 'vault' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'vault.intra.mla.local'
+        m.vm.hostname = 'cloud.intra.mla.local'
         m.vm.network 'private_network', ip: vault_ip
 
         m.vm.provider 'virtualbox' do |v|
