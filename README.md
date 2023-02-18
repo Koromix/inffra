@@ -1,25 +1,63 @@
 # Connecter une machine utilisateur au VPN
 
-## Client graphique (ZeroTier one)
+## Configuration du client
 
-Commencez par [installer le client ZeroTier One](https://www.zerotier.com/download/). Il suffit ensuite de suivre les instructions indiquées sur cette page pour vous connecter.
+## Windows et macOS
 
-Ensuite, il faut faut également activer l'option `Allow DNS configuration` (non active par défaut) dans l'interface graphique.
+Commencez par [installer le client ZeroTier One](https://www.zerotier.com/download/).
 
-![Allow DNS in GUI client](https://www.zerotier.com/wp-content/uploads/2022/04/dns-1-1024x648.jpg)
+Une fois cela fait, joignez le réseau à l'aide de son identifiant alphanumérique (16 caractères) :
+
+![Rejoindre un réseau ZeroTier](doc/assets/join.png)
+
+Ensuite, vous devez activer l'option `Allow DNS configuration` (non active par défaut) dans l'interface graphique.
+
+![Autoriser la gestion DNS dans ZeroTier](doc/assets/dns.png)
 
 Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
 
-## ZeroTier en console
+## Linux
 
-Une fois ZeroTier installé (https://www.zerotier.com/download/), 2 commandes suffisent :
+Une fois ZeroTier installé (https://www.zerotier.com/download/), vous pouvez joindre le réseau ZeroTier à l'aide de cette commande :
 
 ```sh
 sudo zerotier-cli join <network ID>
-sudo zerotier-cli set <network ID> allowDNS=1
 ```
 
 Une fois cela fait, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+
+## Autorisation de la machine sur ZeroTier Central
+
+L'administrateur du réseau ZeroTier concerné doit autoriser la machine au sein de l'interface web, et lui assigner un nom facile à identifier (optionnel mais recommandé).
+
+![Autoriser la machine](doc/assets/allow.png)
+
+# Environnements (stages)
+
+## Préproduction
+
+Cet environnement est déployé sur une instance OVHcloud comprenant 4 instances, et un nom de domaine `premla.fr` enregistré via Gandi.
+
+Les domaines suivants sont accessibles publiquement :
+
+- https://premla.fr/ (WordPress)
+- https://leaks.premla.fr/ (Globaleaks)
+
+Les domaines suivants sont accessibles via le VPN :
+
+- https://cloud.intra.premla.fr/ (Nextcloud)
+- https://monitor.intra.premla.fr/ (Grafana)
+
+## Vagrant
+
+Il s'agit d'un environnement de test, entièrement local (machines virtuelles vagrant), sans VPN et avec des certificats SSL auto-signés.
+
+Les domaines comprennent :
+
+- https://mla.local/ (WordPress)
+- https://leaks.mla.local/ (Globaleaks)
+- https://cloud.intra.mla.local/ (Nextcloud)
+- https://monitor.intra.mla.local/ (Grafana)
 
 # Architecture globale
 
@@ -54,33 +92,6 @@ vagrant up
 
 ansible-playbook ../mla.yml -i ../inventories/vagrant --vault-password-file ../ansible_mla.vault
 ```
-
-# Environnements (stages)
-
-## Préproduction
-
-Cet environnement est déployé sur une instance OVHcloud comprenant 4 instances, et un nom de domaine `premla.fr` enregistré via Gandi.
-
-Les domaines suivants sont accessibles publiquement :
-
-- https://premla.fr/ (WordPress)
-- https://leaks.premla.fr/ (Globaleaks)
-
-Les domaines suivants sont accessibles via le VPN :
-
-- https://cloud.intra.premla.fr/ (Nextcloud)
-- https://monitor.intra.premla.fr/ (Grafana)
-
-## Vagrant
-
-Il s'agit d'un environnement de test, entièrement local (machines virtuelles vagrant), sans VPN et avec des certificats SSL auto-signés.
-
-Les domaines comprennent :
-
-- https://mla.local/ (WordPress)
-- https://leaks.mla.local/ (Globaleaks)
-- https://cloud.intra.mla.local/ (Nextcloud)
-- https://monitor.intra.mla.local/ (Grafana)
 
 # Stratégie de sauvegarde
 
