@@ -28,18 +28,27 @@ Pensez bien à activer l'onglet "Network DNS" comme illustré dans la capture ! 
 
 ## Linux
 
-Une fois ZeroTier installé (https://www.zerotier.com/download/), vous pouvez joindre le réseau ZeroTier à l'aide de cette commande :
+Commencez par installer le service ZeroTier One, ainsi que le petit outil `rezolved` qui est nécessaire sur Linux pour l'application des réglages DNS paramétrés dans ZeroTier :
+
+```sh
+sudo apt update
+sudo apt install gpg
+
+sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
+    if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
+sudo apt install zerotier-one
+
+curl -q 'https://framagit.org/interhop/mla/-/raw/main/tools/rezolved/install.sh' | bash
+```
+
+Ensuite, vous pouvez joindre le réseau de cette manière :
 
 ```sh
 sudo zerotier-cli join <network ID>
+sudo zerotier-cli set <network ID> allowDNS=1
 ```
 
-La configuration automatisée du DNS n'est pas disponible avec le client Linux. Il est donc nécessaire d'ajouter manuellement le serveur DNS à la configuration réseau, comme serveur supplémentaire :
-
-- Préproduction : 172.30.239.2
-- Production : *non disponible pour le moment*
-
-Pour que l'accès soit fonctionnel, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+Attendez jusqu'à une minute après la configuration pour que les changements soient effectifs.
 
 ## Autorisation de la machine sur ZeroTier Central
 
