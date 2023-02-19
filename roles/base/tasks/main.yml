@@ -20,12 +20,11 @@
     state: latest
   become: yes
 
-- name: Bind SSH to public address
+- name: Avoid SSH IP binding (too fragile with VPN)
   lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: '^ListenAddress'
-    line: 'ListenAddress {{ ssh_bind | default("") }}'
-    state: '{{ "present" if ssh_bind is defined else "absent" }}'
+    state: absent
   become: yes
 
 - name: Set public SSH port
@@ -85,6 +84,7 @@
 - name: Configure ufw rules
   ufw:
     rule: '{{ item.rule }}'
+    to: '{{ item.to | default("any") }}'
     port: '{{ item.port }}'
     proto: '{{ item.proto }}'
   loop: '{{ ufw_rules }}'

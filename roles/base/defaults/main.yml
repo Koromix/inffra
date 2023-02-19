@@ -13,7 +13,6 @@
 
 weekly_upgrade: yes
 
-# ssh_bind:
 ssh_port: 22
 
 ufw_rules:
