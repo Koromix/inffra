@@ -78,7 +78,7 @@
 
 - name: Disable ufw logging
   ufw:
-    logging: no
+    logging: off
   become: yes
 
 - name: Configure ufw rules
