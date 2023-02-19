@@ -29,6 +29,9 @@ ufw_rules:
     port: 443
     proto: tcp
   - rule: allow
+    port: 9993
+    proto: udp
+  - rule: allow
     port: 53
     proto: udp
 
