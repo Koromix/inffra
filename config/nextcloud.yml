@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Private Nextcloud
-  hosts: vault
+  hosts: pri_cloud
   roles:
     - role: ../roles/mariadb
       vars:

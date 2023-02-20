@@ -13,7 +13,7 @@
 
 rclone_directories:
   - src: /opt
-    dest: mla/preprod/leaks/opt
+    dest: mla/preprod/pub_leaks/opt
 
 rclone_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256

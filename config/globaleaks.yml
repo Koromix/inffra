@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Public Globaleaks
-  hosts: leaks
+  hosts: pub_leaks
   roles:
     - role: ../roles/globaleaks
   tags: [specific]

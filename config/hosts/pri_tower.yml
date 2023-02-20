@@ -38,7 +38,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.monitor.nginx_public_addr }};
+          allow {{ hostvars.pri_tower.nginx_public_addr }};
           deny all;
 
           proxy_set_header Host $host;
