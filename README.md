@@ -71,6 +71,7 @@ Les domaines suivants sont accessibles via le VPN :
 
 - https://cloud.intra.premla.fr/ (Nextcloud)
 - https://monitor.intra.premla.fr/ (Grafana)
+- https://wekan.intra.premla.fr/ (Wekan)
 
 ## Vagrant
 
@@ -82,6 +83,7 @@ Les domaines comprennent :
 - https://leaks.mla.local/ (Globaleaks)
 - https://cloud.intra.mla.local/ (Nextcloud)
 - https://monitor.intra.mla.local/ (Grafana)
+- https://wekan.intra.mla.local/ (Wekan)
 
 # Architecture globale
 

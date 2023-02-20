@@ -1,0 +1,112 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Configure wekan user
+  user:
+    name: wekan
+    state: present
+  become: yes
+
+- name: Configure Node repository key
+  apt_key:
+    url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+    id: '68576280'
+    state: present
+  become: yes
+
+- name: Configure Node 14.x repository
+  apt_repository:
+    repo: 'deb https://deb.nodesource.com/node_14.x {{ ansible_distribution_release }} main'
+    state: present
+  become: yes
+
+- name: Install packages
+  apt:
+    update_cache: yes
+    pkg:
+      - nodejs
+      - unzip
+    state: latest
+  become: yes
+
+- name: Prepare Wekan base directory
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - '{{ wekan_root_path }}'
+    - '{{ wekan_root_path }}/{{ wekan_name }}'
+    - '{{ wekan_root_path }}/{{ wekan_name }}/data'
+  become: yes
+
+- name: Prepare Wekan data directory
+  file:
+    path: '{{ wekan_root_path }}/{{ wekan_name }}/data'
+    state: directory
+    owner: wekan
+    group: wekan
+    mode: '0755'
+  become: yes
+
+- name: Fetch Wekan archive
+  get_url:
+    url: '{{ wekan_url }}'
+    dest: '{{ wekan_root_path }}/{{ wekan_name }}.zip'
+    checksum: 'sha256:{{ wekan_sha256 }}'
+  become: yes
+
+- name: Install Wekan
+  unarchive:
+    src: '{{ wekan_root_path }}/{{ wekan_name }}.zip'
+    dest: '{{ wekan_root_path }}/{{ wekan_name }}'
+    remote_src: yes
+    creates: '{{ wekan_root_path }}/{{ wekan_name }}/bundle'
+    owner: wekan
+    group: wekan
+    mode: 'u=rwX,g=rX,o=rX'
+  become: yes
+
+- name: Install Wekan service file
+  template:
+    src: wekan@.service.j2
+    dest: '/etc/systemd/system/wekan@.service'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Install Wekan ENV file
+  template:
+    src: ENV.j2
+    dest: '{{ wekan_root_path }}/{{ wekan_name }}/ENV'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart Wekan services
+  service:
+    name: 'wekan@{{ wekan_name }}'
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes

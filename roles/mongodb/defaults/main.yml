@@ -11,19 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+mongodb_version: 6.0
 
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+mongodb_backup_path: /opt/mongodb
+mongodb_backup_schedule: '*-*-* 03:00'
+mongodb_backup_randomize: 20m

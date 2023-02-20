@@ -1,3 +1,5 @@
+#!/bin/sh -e
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -11,19 +13,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+cd "{{ mongodb_backup_path }}"
 
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+mongodump --archive > backups/$(date -Iseconds).dump
+ls -1 backups/* | sort -r | tail -n +6 | xargs rm -f
