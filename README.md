@@ -38,7 +38,7 @@ sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/
     if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
 sudo apt install zerotier-one
 
-curl -q 'https://framagit.org/interhop/mla/-/raw/main/tools/rezolved/install.sh' | bash
+curl -sL 'https://framagit.org/interhop/mla/-/raw/main/tools/rezolved/install.sh' | bash
 ```
 
 Ensuite, vous pouvez joindre le réseau de cette manière :
