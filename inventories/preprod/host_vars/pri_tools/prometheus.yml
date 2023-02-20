@@ -11,15 +11,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    pri_cloud:
-    pri_tools:
-    pri_tower:
-    pub_leaks:
-    pub_web:
+prometheus_public_addr: '{{ ansible_host }}'
 
-  vars:
-    public_domain: mla.local
-    private_domain: intra.mla.local
-    force_self_ssl: yes
+prometheus_exporters:
+  - node_exporter
+  - nginx_exporter
+  - systemd_exporter

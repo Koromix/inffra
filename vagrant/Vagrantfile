@@ -12,6 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 pri_cloud_ip = '192.168.59.4'
+pri_tools_ip = '192.168.59.6'
 pri_tower_ip = '192.168.59.2'
 pub_leaks_ip = '192.168.59.5'
 pub_web_ip = '192.168.59.3'
@@ -27,6 +28,20 @@ Vagrant.configure('2') do |config|
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_pri_cloud'
+            v.memory = 2048
+            v.cpus = 1
+            v.linked_clone = true
+            v.gui = false
+        end
+    end
+
+    config.vm.define 'pri_tools' do |m|
+        m.vm.box = 'generic/debian11'
+        m.vm.hostname = 'wekan.intra.mla.local'
+        m.vm.network 'private_network', ip: pri_tools_ip
+
+        m.vm.provider 'virtualbox' do |v|
+            v.name = 'mla_pri_tools'
             v.memory = 2048
             v.cpus = 1
             v.linked_clone = true
