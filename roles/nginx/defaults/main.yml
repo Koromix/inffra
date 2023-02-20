@@ -15,8 +15,5 @@ nginx_default_server: yes
 nginx_http_port: 80
 nginx_https_port: 443
 
-# Define when using dual NGINX configuration
-# nginx_back_addr:
-
 # List of domains to serve
 # nginx_domains:
