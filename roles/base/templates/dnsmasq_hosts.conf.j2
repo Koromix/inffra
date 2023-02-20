@@ -1,5 +1,5 @@
 {% for host, vars in hostvars.items() %}
-{% if vars.dns_addr is defined %}
+{% if vars.dns_domains is defined %}
 {% for domain in vars.dns_domains %}
 {{ vars.dns_addr }} {{ domain }}
 {% endfor %}
