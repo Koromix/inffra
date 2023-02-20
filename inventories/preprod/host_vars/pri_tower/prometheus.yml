@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-prometheus_public_addr: 172.28.239.2
+prometheus_public_addr: '{{ ansible_host }}'
 
 prometheus_exporters:
   - node_exporter
