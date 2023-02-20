@@ -22,3 +22,5 @@ nextcloud_default_password: admin
 # nextcloud_name:
 # nextcloud_domain:
 # nextcloud_database:
+
+# nextcloud_smtp:
