@@ -65,7 +65,7 @@
   get_url:
     url: '{{ wekan_url }}'
     dest: '{{ wekan_root_path }}/{{ wekan_name }}.zip'
-    checksum: 'sha256:{{ wekan_sha256 }}'
+    checksum: '{{ wekan_checksum }}'
   become: yes
 
 - name: Install Wekan

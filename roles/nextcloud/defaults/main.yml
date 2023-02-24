@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 nextcloud_url: https://download.nextcloud.com/server/releases/nextcloud-25.0.3.tar.bz2
-nextcloud_sha256: 4b2b1423736ef92469096fe24f61c24cad87a34e07c1c7a81b385d3ea25c00ec
+nextcloud_checksum: 'sha256:4b2b1423736ef92469096fe24f61c24cad87a34e07c1c7a81b385d3ea25c00ec'
 
 nextcloud_root_path: /opt/nextcloud
 

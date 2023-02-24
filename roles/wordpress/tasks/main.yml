@@ -40,7 +40,7 @@
   get_url:
     url: '{{ wordpress_url }}'
     dest: '{{ wordpress_root_path }}/{{ wordpress_name }}.tar.gz'
-    checksum: 'sha256:{{ wordpress_sha256 }}'
+    checksum: '{{ wordpress_checksum }}'
   become: yes
 
 - name: Install WordPress

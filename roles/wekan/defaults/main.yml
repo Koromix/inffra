@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 wekan_url: https://github.com/wekan/wekan/releases/download/v6.74/wekan-6.74-amd64.zip
-wekan_sha256: 912c1781bcc186c9bd2a9b06c4e83e9ed632e32b3a993fda9c9171f9b10d28a2
+wekan_checksum: 'sha256:912c1781bcc186c9bd2a9b06c4e83e9ed632e32b3a993fda9c9171f9b10d28a2'
 
 wekan_root_path: /opt/wekan
 

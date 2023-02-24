@@ -45,7 +45,7 @@
   get_url:
     url: '{{ nextcloud_url }}'
     dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}.tar.bz2'
-    checksum: 'sha256:{{ nextcloud_sha256 }}'
+    checksum: '{{ nextcloud_checksum }}'
   become: yes
 
 - name: Check for existing Nextcloud install
