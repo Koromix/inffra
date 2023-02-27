@@ -32,7 +32,6 @@ ufw_rules:
     proto: udp
   - rule: allow
     port: 53
-    proto: udp
 
 dns_server: yes
 dns_addr: '{{ ansible_host }}'

@@ -86,7 +86,7 @@
     rule: '{{ item.rule }}'
     to: '{{ item.to | default("any") }}'
     port: '{{ item.port }}'
-    proto: '{{ item.proto }}'
+    proto: '{{ item.proto | default("any") }}'
   loop: '{{ ufw_rules }}'
   become: yes
 
