@@ -15,5 +15,5 @@
 
 cd "{{ mongodb_backup_path }}"
 
-mongodump --archive > backups/$(date -Iseconds).dump
+mongodump --archive > backups/$(date +%Y%m%d_%H%M%S).dump
 ls -1 backups/* | sort -r | tail -n +6 | xargs rm -f
