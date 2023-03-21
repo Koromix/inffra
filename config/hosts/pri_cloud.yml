@@ -52,7 +52,7 @@ nginx_domains:
     ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/cloud.{{ private_domain }}.crt'
     ssl_file_key: '{{ lego_root_path }}/.lego/certificates/cloud.{{ private_domain }}.key'
     config: |
-      root /opt/nextcloud/team;
+      root /opt/nextcloud/team/live;
 
       client_body_timeout 300s;
       fastcgi_buffers 64 4K;

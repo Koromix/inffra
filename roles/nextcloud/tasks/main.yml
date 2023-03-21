@@ -52,6 +52,8 @@
   loop:
     - '{{ nextcloud_root_path }}'
     - '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+    - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new'
+    - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
   become: yes
 
 - name: Fetch Nextcloud archive
@@ -61,16 +63,10 @@
     checksum: '{{ nextcloud_checksum }}'
   become: yes
 
-- name: Check for existing Nextcloud install
-  stat:
-    path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/config/config.php'
-  register: install_check
-  become: yes
-
-- name: Install Nextcloud
+- name: Extract Nextcloud archive
   unarchive:
     src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}.tar.bz2'
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new'
     remote_src: yes
     owner: www-data
     group: www-data
@@ -79,7 +75,25 @@
       - '--strip-components=1'
   become: yes
 
-- name: Configure Nextcloud
+- name: Check for existing Nextcloud install
+  stat:
+    path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
+  register: install_check
+  become: yes
+
+- name: Copy Nextcloud install
+  synchronize:
+    src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new/'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/'
+    delete: yes
+    recursive: yes
+    owner: true
+    group: true
+  delegate_to: '{{ inventory_hostname }}'
+  when: 'not install_check.stat.exists'
+  become: yes
+
+- name: Configure Nextcloud install
   shell:
     cmd: |
       /usr/bin/php8.2 occ maintenance:install \
@@ -88,25 +102,37 @@
         --admin-user "{{ nextcloud_default_user }}" --admin-pass "{{ nextcloud_default_password }}"
       rm -f config/CAN_INSTALL
       chmod 555 .
-    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
   when: 'not install_check.stat.exists'
   become: yes
   become_user: www-data
 
-- name: Upgrade Nextcloud (just in case)
+- name: Synchronize new Nextcloud version
+  synchronize:
+    src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new/'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/'
+    delete: yes
+    recursive: yes
+    owner: true
+    group: true
+    rsync_opts:
+      - "--exclude=config"
+      - "--exclude=data"
+  delegate_to: '{{ inventory_hostname }}'
+  when: 'install_check.stat.exists'
+  become: yes
+
+- name: Upgrade Nextcloud
   shell:
-    cmd: |
-      /usr/bin/php8.2 occ maintenance:mode --on
-      /usr/bin/php8.2 occ upgrade
-      /usr/bin/php8.2 occ maintenance:mode --off
-      /usr/bin/php8.2 occ integrity:check-core
-    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+    cmd: /usr/bin/php8.2 occ upgrade
+    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
+  when: 'install_check.stat.exists'
   become: yes
   become_user: www-data
 
 - name: Set Nextcloud trusted domains
   lineinfile:
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/config/config.php'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
     regexp: "^ *0 => "
     line: "    0 => '{{ nextcloud_domain }}'"
     state: present
@@ -114,7 +140,7 @@
 
 - name: Configure SMTP include
   lineinfile:
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/config/config.php'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
     regexp: "^ *include\\('smtp\\.php'\\);"
     line: "include('smtp.php');"
     state: '{{ "present" if nextcloud_smtp is defined else "absent" }}'
@@ -123,7 +149,7 @@
 - name: Configure SMTP server
   template:
     src: smtp.php.j2
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/config/smtp.php'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/smtp.php'
     owner: www-data
     group: www-data
     mode: '0755'
