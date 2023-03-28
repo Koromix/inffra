@@ -73,7 +73,6 @@
     src: '{{ wekan_root_path }}/{{ wekan_name }}.zip'
     dest: '{{ wekan_root_path }}/{{ wekan_name }}'
     remote_src: yes
-    creates: '{{ wekan_root_path }}/{{ wekan_name }}/bundle'
     owner: wekan
     group: wekan
     mode: 'u=rwX,g=rX,o=rX'

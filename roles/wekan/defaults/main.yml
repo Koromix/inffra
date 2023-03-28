@@ -5,14 +5,14 @@
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTIcdCULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-wekan_url: https://github.com/wekan/wekan/releases/download/v6.74/wekan-6.74-amd64.zip
-wekan_checksum: 'sha256:912c1781bcc186c9bd2a9b06c4e83e9ed632e32b3a993fda9c9171f9b10d28a2'
+wekan_url: https://github.com/wekan/wekan/releases/download/v6.81/wekan-6.81-amd64.zip
+wekan_checksum: 'sha256:369a7ff3d01b004d03692c05cf958dd344857ca9ce60f5bd3536225674b4213e'
 
 wekan_root_path: /opt/wekan
 
