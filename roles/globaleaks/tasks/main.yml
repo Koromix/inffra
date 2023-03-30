@@ -30,6 +30,15 @@
     creates: /usr/bin/globaleaks
   become: yes
 
+- name: Update Globaleaks
+  apt:
+    update_cache: yes
+    pkg:
+      - globaleaks
+    only_upgrade: yes
+    state: latest
+  become: yes
+
 - name: Create backup directories
   file:
     path: '{{ item.path }}'
