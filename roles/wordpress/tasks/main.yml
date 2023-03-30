@@ -26,14 +26,24 @@
 
 - name: Prepare WordPress base directory
   file:
-    path: '{{ item }}'
+    path: '{{ item.path }}'
     state: directory
-    owner: root
-    group: root
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
     mode: '0755'
   loop:
-    - '{{ wordpress_root_path }}'
-    - '{{ wordpress_root_path }}/{{ wordpress_name }}'
+    - path: '{{ wordpress_root_path }}'
+      owner: root
+      group: root
+    - path: '{{ wordpress_root_path }}/{{ wordpress_name }}'
+      owner: root
+      group: root
+    - path: '{{ wordpress_root_path }}/{{ wordpress_name }}/new'
+      owner: root
+      group: root
+    - path: '{{ wordpress_root_path }}/{{ wordpress_name }}/wordpress'
+      owner: www-data
+      group: www-data
   become: yes
 
 - name: Fetch WordPress archive
@@ -43,15 +53,27 @@
     checksum: '{{ wordpress_checksum }}'
   become: yes
 
-- name: Install WordPress
+- name: Extract WordPress archive
   unarchive:
     src: '{{ wordpress_root_path }}/{{ wordpress_name }}.tar.gz'
-    dest: '{{ wordpress_root_path }}/{{ wordpress_name }}'
+    dest: '{{ wordpress_root_path }}/{{ wordpress_name }}/new'
     remote_src: yes
-    creates: '{{ wordpress_root_path }}/{{ wordpress_name }}/wordpress'
     owner: www-data
     group: www-data
     mode: 'u=rwX,g=rX,o=rX'
+    extra_opts:
+      - '--strip-components=1'
+  become: yes
+
+- name: Synchronize WordPress install
+  synchronize:
+    src: '{{ wordpress_root_path }}/{{ wordpress_name }}/new/'
+    dest: '{{ wordpress_root_path }}/{{ wordpress_name }}/wordpress/'
+    delete: yes
+    recursive: yes
+    owner: true
+    group: true
+  delegate_to: '{{ inventory_hostname }}'
   become: yes
 
 - name: Generate random salts
