@@ -54,6 +54,8 @@ Attendez jusqu'à une minute après la configuration pour que les changements so
 
 L'administrateur du réseau ZeroTier concerné doit autoriser la machine au sein de l'interface web, et lui assigner un nom facile à identifier (optionnel mais recommandé).
 
+L'interface d'administration est accessible ici : https://zt.premla.fr/
+
 ![Autoriser la machine](doc/assets/allow.png)
 
 # Environnements (stages)

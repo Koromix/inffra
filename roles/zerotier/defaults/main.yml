@@ -11,20 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+ztncui_url: https://s3-us-west-1.amazonaws.com/key-networks/deb/ztncui/1/x86_64/ztncui_0.8.13_amd64.deb
+ztncui_checksum: 'sha256:d2446a5fe1e21b66648936d0f0a6df4bc9a9177850a25c179c268907beb7be5b'
 
-- import_playbook: config/zerotier.yml
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+ztncui_root_path: /opt/ztncui
+ztncui_http_port: 3000

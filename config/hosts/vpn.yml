@@ -11,20 +11,17 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+nginx_public_addr: '{{ ansible_host }}'
 
-- import_playbook: config/zerotier.yml
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+nginx_domains:
+  - name: 'zt.{{ public_domain }}'
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          limit_req zone=default burst=100 nodelay;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:3000;
+      }
