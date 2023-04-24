@@ -44,6 +44,8 @@ curl -sL 'https://framagit.org/interhop/mla/-/raw/main/tools/rezolved/install.sh
 Ensuite, vous pouvez joindre le réseau de cette manière :
 
 ```sh
+sudo zerotier-cli info # Donne l'ID de la machine client
+
 sudo zerotier-cli join <network ID>
 sudo zerotier-cli set <network ID> allowDNS=1
 ```
