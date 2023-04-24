@@ -18,7 +18,7 @@ ansible_python_interpreter: /usr/bin/python3
 
 ufw_rules:
   - rule: allow
-    to: '{{ ansible_host }}'
+    to: '{{ ansible_host if restrict_ssh_access else "any" }}'
     port: 22
     proto: tcp
   - rule: allow
