@@ -37,8 +37,10 @@ Vagrant.configure('2') do |config|
 
     config.vm.define 'pri_tools' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'wekan.intra.mla.local'
+        m.vm.hostname = 'tools.intra.mla.local'
         m.vm.network 'private_network', ip: pri_tools_ip
+
+        m.hostmanager.aliases = ['vault.intra.mla.local', 'wekan.intra.mla.local']
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'mla_pri_tools'
