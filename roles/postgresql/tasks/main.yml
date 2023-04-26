@@ -22,6 +22,31 @@
     state: latest
   become: yes
 
+- name: Configure PostgreSQL listen addresses
+  lineinfile:
+    dest: /etc/postgresql/13/main/postgresql.conf
+    regexp: '^listen_addresses'
+    line: "listen_addresses = '127.0.0.1, 172.17.0.1'"
+    state: present
+  become: yes
+
+- name: Allow connection from Docker containers
+  lineinfile:
+    dest: /etc/postgresql/13/main/pg_hba.conf
+    regexp: '192.168.0.0'
+    line: 'host    all             all             192.168.0.0/16          md5'
+    state: present
+  become: yes
+
+- name: Make sure PostgreSQL starts after Docker
+  lineinfile:
+    dest: /lib/systemd/system/postgresql.service
+    line: 'After=docker.service'
+    insertafter: '^Description'
+    firstmatch: yes
+    state: present
+  become: yes
+
 - name: Start PostgreSQL service
   service:
     name: postgresql
