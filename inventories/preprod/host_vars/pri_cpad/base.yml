@@ -11,22 +11,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+ansible_host: 172.30.56.132
+ansible_port: 22
+ansible_user: debian
+ansible_python_interpreter: /usr/bin/python3
 
-- import_playbook: config/zerotier.yml
-- import_playbook: config/cryptpad.yml
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/vaultwarden.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+ufw_rules:
+  - rule: allow
+    to: '{{ ansible_host if restrict_ssh_access else "any" }}'
+    port: 22
+    proto: tcp
+  - rule: allow
+    port: 80
+    proto: tcp
+  - rule: allow
+    port: 443
+    proto: tcp
+  - rule: allow
+    port: 9993
+    proto: udp
+
+dns_addr: '{{ ansible_host }}'

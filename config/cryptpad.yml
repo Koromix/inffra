@@ -11,22 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
+- name: Private Cryptpad
+  hosts: pri_cpad
   roles:
-    - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
-
-- import_playbook: config/zerotier.yml
-- import_playbook: config/cryptpad.yml
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/vaultwarden.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+    - role: ../roles/cryptpad
+      vars:
+        cpad_name: team
+        cpad_main_domain: 'cpad.{{ private_domain }}'
+        cpad_safe_domain: 'cpadsb.{{ private_domain }}'
+        cpad_admin_mail: 'admin@premla.fr'
+  tags: [specific]
