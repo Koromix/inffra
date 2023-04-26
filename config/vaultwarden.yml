@@ -32,6 +32,7 @@
     - role: ../roles/vaultwarden
       vars:
         vaultwarden_name: team
+        vaultwarden_domain: 'vault.{{ private_domain }}'
         vaultwarden_admin_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           34313862343961343764383166623332666230326633313730376538623631323739306433343161

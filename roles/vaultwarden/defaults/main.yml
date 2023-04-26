@@ -18,6 +18,7 @@ vaultwarden_root_path: /opt/vaultwarden
 vaultwarden_port: 8285
 
 # vaultwarden_name:
+# vaultwarden_domain:
 # vaultwarden_database:
 # vaultwarden_admin_token:
 
