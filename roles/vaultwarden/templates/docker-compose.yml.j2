@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  vaultwarden:
+    container_name: 'vaultwarden.{{ vaultwarden_name }}'
+    image: 'vaultwarden/server:latest'
+
+    env_file: ENV
+
+    ports:
+      - '{{ vaultwarden_port }}:80'
+
+    volumes:
+      - './{{ vaultwarden_root_path }}/{{ vaultwarden_name }}/data:/data'
