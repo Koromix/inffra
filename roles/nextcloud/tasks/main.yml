@@ -97,7 +97,8 @@
   shell:
     cmd: |
       /usr/bin/php8.2 occ maintenance:install \
-        --database "{{ nextcloud_database.provider }}" --database-name "{{ nextcloud_database.name }}" \
+        --database "{{ nextcloud_database.provider }}" --database-host "{{ nextcloud_database.host }}" \
+        --database-name "{{ nextcloud_database.name }}" \
         --database-user "{{ nextcloud_database.user }}" --database-pass "{{ nextcloud_database.password }}" \
         --admin-user "{{ nextcloud_default_user }}" --admin-pass "{{ nextcloud_default_password }}"
       rm -f config/CAN_INSTALL
