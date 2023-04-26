@@ -1,0 +1,133 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Configure Cryptpad user
+  user:
+    name: cpad
+    state: present
+  become: yes
+
+- name: Configure Node repository key
+  apt_key:
+    url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+    id: '68576280'
+    state: present
+  become: yes
+
+- name: Configure Node 16.x repository
+  apt_repository:
+    repo: 'deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main'
+    state: present
+  become: yes
+
+- name: Install packages
+  apt:
+    update_cache: yes
+    pkg:
+      - nodejs
+      - git
+    state: latest
+  become: yes
+
+- name: Prepare Cryptpad base directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - '{{ cpad_root_path }}'
+    - '{{ cpad_root_path }}/{{ cpad_name }}'
+    - '{{ cpad_root_path }}/{{ cpad_name }}/app'
+  become: yes
+
+- name: Prepare Cryptpad data directory
+  file:
+    path: '{{ cpad_root_path }}/{{ cpad_name }}/data'
+    state: directory
+    owner: cpad
+    group: cpad
+    mode: '0700'
+  become: yes
+
+- name: Fetch Cryptpad repository
+  git:
+    repo: '{{ cpad_repo }}'
+    version: '{{ cpad_commit }}'
+    dest: '{{ cpad_root_path }}/{{ cpad_name }}/app'
+    force: yes
+  become: yes
+
+- name: Run NPM install
+  command:
+    cmd: 'npm install --no-audit'
+    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
+  register: npm_install
+  changed_when: '"up to date" not in npm_install.stdout'
+  become: yes
+
+- name: Install bower with NPM
+  command:
+    cmd: 'npm install -g --no-audit bower'
+    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Run bower install
+  command:
+    cmd: 'bower install --allow-root'
+    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
+  register: bower_install
+  changed_when: '"bower" not in npm_install.stdout'
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Configure Cryptpad
+  template:
+    src: config.js.j2
+    dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/config/config.js'
+    owner: cpad
+    group: cpad
+    mode: '0700'
+  become: yes
+
+- name: Build static pages
+  command:
+    cmd: 'npm run build'
+    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Install Cryptpad service file
+  template:
+    src: cryptpad@.service.j2
+    dest: '/etc/systemd/system/cryptpad@.service'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart Cryptpad services
+  service:
+    name: 'cryptpad@{{ cpad_name }}'
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes

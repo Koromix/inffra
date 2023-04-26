@@ -1,0 +1,16 @@
+[Unit]
+Description = Cryptpad %i
+After = network.target
+
+[Service]
+User = cpad
+Group = cpad
+WorkingDirectory = {{ cpad_root_path }}/%i/app
+ExecStart = /usr/bin/node {{ cpad_root_path }}/%i/app/server.js
+Restart = on-failure
+
+Environment = PWD={{ cpad_root_path }}/%i/app
+LimitNOFILE = 1000000
+
+[Install]
+WantedBy = multi-user.target

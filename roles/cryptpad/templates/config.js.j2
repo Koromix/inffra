@@ -1,0 +1,38 @@
+module.exports = {
+    httpUnsafeOrigin: 'https://{{ cpad_main_domain }}',
+    httpSafeOrigin: 'https://{{ cpad_safe_domain }}',
+
+    adminEmail: '{{ cpad_admin_mail }}',
+
+    // httpAddress: '::',
+    // httpPort: 3000,
+    // httpSafePort: 3001,
+    // maxWorkers: 4,
+
+    adminKeys: [
+
+    ],
+
+    // inactiveTime: 90, // days
+    // archiveRetentionTime: 15,
+    // accountRetentionTime: 365,
+    // disableIntegratedEviction: true,
+    // maxUploadSize: 20 * 1024 * 1024,
+    // premiumUploadSize: 100 * 1024 * 1024,
+
+    filePath: '{{ cpad_root_path }}/{{ cpad_name }}/data/store/',
+    archivePath: '{{ cpad_root_path }}/{{ cpad_name }}/data/archive',
+    pinPath: '{{ cpad_root_path }}/{{ cpad_name }}/data/pins',
+    taskPath: '{{ cpad_root_path }}/{{ cpad_name }}/data/tasks',
+    blockPath: '{{ cpad_root_path }}/{{ cpad_name }}/data/block',
+    blobPath: '{{ cpad_root_path }}/{{ cpad_name }}/data/blob',
+    blobStagingPath: '{{ cpad_root_path }}/{{ cpad_name }}/data/blobstage',
+    decreePath: '{{ cpad_root_path }}/{{ cpad_name }}/data/decrees',
+    logPath: '{{ cpad_root_path }}/{{ cpad_name }}/data/logs',
+
+    logToStdout: false,
+    logLevel: 'info',
+    logFeedback: false,
+    verbose: false,
+    installMethod: 'unspecified'
+};
