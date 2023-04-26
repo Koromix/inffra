@@ -17,6 +17,8 @@
     pkg:
       - ufw
       - lego
+      - docker-compose
+      - docker.io
     state: latest
   become: yes
 
@@ -101,6 +103,12 @@
       policy: allow
   become: yes
 
+- name: Allow connections from Docker containers to host
+  ufw:
+    interface_in: docker0
+    policy: allow
+  become: yes
+
 - name: Enable ufw
   ufw:
     state: enabled
@@ -117,6 +125,15 @@
     name: kernel.yama.ptrace_scope
     value: '3'
     sysctl_set: yes
+  become: yes
+
+- name: Restrict default Docker address pool
+  template:
+    src: docker_daemon.json.j2
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '0600'
   become: yes
 
 - name: Set up weekly upgrade and reboot (Debian)
