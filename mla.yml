@@ -26,5 +26,6 @@
 - import_playbook: config/zerotier.yml
 - import_playbook: config/globaleaks.yml
 - import_playbook: config/nextcloud.yml
+- import_playbook: config/vaultwarden.yml
 - import_playbook: config/wekan.yml
 - import_playbook: config/wordpress.yml
