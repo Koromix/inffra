@@ -49,7 +49,6 @@
   loop:
     - '{{ wekan_root_path }}'
     - '{{ wekan_root_path }}/{{ wekan_name }}'
-    - '{{ wekan_root_path }}/{{ wekan_name }}/data'
   become: yes
 
 - name: Prepare Wekan data directory
