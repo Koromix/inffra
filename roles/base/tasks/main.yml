@@ -134,6 +134,15 @@
     owner: root
     group: root
     mode: '0600'
+  register: docker_pool
+  become: yes
+
+- name: Restart Docker service
+  service:
+    name: docker
+    state: restarted
+    enabled: yes
+  when: 'docker_pool.changed'
   become: yes
 
 - name: Set up weekly upgrade and reboot (Debian)
