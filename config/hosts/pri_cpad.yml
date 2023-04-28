@@ -78,7 +78,7 @@ nginx_domains:
       add_header Cross-Origin-Embedder-Policy require-corp;
 
       # Insert the path to your CryptPad repository root here
-      root {{ cpad_root_path }}/{ cpad_name }}/app;
+      root /opt/cryptpad/team/app;
       index index.html;
       error_page 404 /customize.dist/404.html;
 
@@ -198,7 +198,7 @@ nginx_domains:
       add_header Cross-Origin-Embedder-Policy require-corp;
 
       # Insert the path to your CryptPad repository root here
-      root {{ cpad_root_path }}/{ cpad_name }}/app;
+      root /opt/cryptpad/team/app;
       index index.html;
       error_page 404 /customize.dist/404.html;
 
