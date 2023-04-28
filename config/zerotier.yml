@@ -15,4 +15,4 @@
   hosts: vpn
   roles:
     - role: ../roles/zerotier
-  tags: [specific]
+  tags: [zerotier]

@@ -15,4 +15,4 @@
   hosts: pub_leaks
   roles:
     - role: ../roles/globaleaks
-  tags: [specific]
+  tags: [globaleaks]

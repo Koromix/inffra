@@ -20,4 +20,4 @@
         cpad_main_domain: 'cpad.{{ private_domain }}'
         cpad_safe_domain: 'cpadsb.{{ private_domain }}'
         cpad_admin_mail: 'admin@premla.fr'
-  tags: [specific]
+  tags: [cryptpad]
