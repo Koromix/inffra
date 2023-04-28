@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-sudo apt install -y python3-pydbus wget
+sudo apt install -y python3-pydbus
 
 rm -rf /tmp/rezolved
 mkdir /tmp/rezolved
