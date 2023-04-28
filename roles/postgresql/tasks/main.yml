@@ -33,8 +33,8 @@
 - name: Allow connection from Docker containers
   lineinfile:
     dest: /etc/postgresql/13/main/pg_hba.conf
-    regexp: '192.168.0.0'
-    line: 'host    all             all             192.168.0.0/16          md5'
+    regexp: '172.17.0.0'
+    line: 'host    all             all             172.17.0.0/16           md5'
     state: present
   become: yes
 
