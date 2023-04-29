@@ -1,10 +1,12 @@
 #!/bin/sh
-{% for domain in lego_domains %}
+{% for domain in dns_domains %}
 
-{% if domain.environment is defined %}
-{% for key, value in domain.environment.items() %}
+{% if domain.lego is defined %}
+{% if lego_settings[domain.lego].environment is defined %}
+{% for key, value in lego_settings[domain.lego].environment.items() %}
 {{ key }}="{{ value }}" \
 {% endfor %}
 {% endif %}
-/usr/bin/lego -a {{ domain.command }} renew
+/usr/bin/lego -a {{ lego_settings[domain.lego].command }} {{ domain.name }} renew
+{% endif %}
 {% endfor %}

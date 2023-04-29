@@ -29,11 +29,12 @@
 
 - name: Obtain new LEGO certificates
   shell:
-    cmd: '/usr/bin/lego -a {{ item.command }} run'
+    cmd: '/usr/bin/lego -a {{ lego_settings[item.lego].command }} {{ item.name }} run'
     chdir: '{{ lego_root_path }}'
-    creates: '{{ lego_root_path }}/.lego/certificates/{{ item.domain }}.crt'
+    creates: '{{ lego_root_path }}/.lego/certificates/{{ item.name }}.crt'
   environment: '{{ item.environment | default({}) }}'
-  loop: '{{ lego_domains }}'
+  loop: '{{ dns_domains }}'
+  when: 'item.lego is defined'
   become: yes
 
 - name: Install scheduled LEGO systemd units
