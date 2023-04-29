@@ -23,10 +23,10 @@
       when: 'prometheus_exporters is defined or grafana_url is defined'
   tags: [global]
 
-- import_playbook: config/zerotier.yml
-- import_playbook: config/cryptpad.yml
-- import_playbook: config/globaleaks.yml
-- import_playbook: config/nextcloud.yml
-- import_playbook: config/vaultwarden.yml
-- import_playbook: config/wekan.yml
-- import_playbook: config/wordpress.yml
+- import_playbook: config/services/zerotier.yml
+- import_playbook: config/services/cryptpad.yml
+- import_playbook: config/services/globaleaks.yml
+- import_playbook: config/services/nextcloud.yml
+- import_playbook: config/services/vaultwarden.yml
+- import_playbook: config/services/wekan.yml
+- import_playbook: config/services/wordpress.yml

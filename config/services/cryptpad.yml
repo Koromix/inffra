@@ -11,8 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Public Globaleaks
-  hosts: pub_leaks
+- name: Private Cryptpad
+  hosts: pri_cpad
   roles:
-    - role: ../roles/globaleaks
-  tags: [globaleaks]
+    - role: ../../roles/cryptpad
+      vars:
+        cpad_name: team
+        cpad_main_domain: 'cpad.{{ private_domain }}'
+        cpad_safe_domain: 'cpadsb.{{ private_domain }}'
+        cpad_admin_mail: 'admin@premla.fr'
+  tags: [cryptpad]

@@ -14,7 +14,7 @@
 - name: Private Nextcloud
   hosts: pri_cloud
   roles:
-    - role: ../roles/mariadb
+    - role: ../../roles/mariadb
       vars:
         mariadb_databases:
           - database: nc_team
@@ -26,7 +26,7 @@
               63343633383139626230636236303262663961643534643836616164663835653730633264643166
               3631316362373430640a376536636566373932393631373135623062353934383261393732333266
               37653937356362373266633562386134393935353762386237363233386262363065
-    - role: ../roles/nextcloud
+    - role: ../../roles/nextcloud
       vars:
         nextcloud_name: team
         nextcloud_domain: 'cloud.{{ private_domain }}'

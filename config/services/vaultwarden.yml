@@ -14,7 +14,7 @@
 - name: Private Vaultwarden
   hosts: pri_tools
   roles:
-    - role: ../roles/postgresql
+    - role: ../../roles/postgresql
       vars:
         postgresql_databases:
           - database: vw_team
@@ -29,7 +29,7 @@
               61383362626439396439353036656666633061383539613431653763373239336663653263636133
               32656633363863326330646534373332353064613261643933393030353066373835343131663331
               62643034633666636635
-    - role: ../roles/vaultwarden
+    - role: ../../roles/vaultwarden
       vars:
         vaultwarden_name: team
         vaultwarden_domain: 'vault.{{ private_domain }}'

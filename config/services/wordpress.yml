@@ -14,7 +14,7 @@
 - name: Public WordPress
   hosts: pub_web
   roles:
-    - role: ../roles/mariadb
+    - role: ../../roles/mariadb
       vars:
         mariadb_databases:
           - database: wp_mlalerte
@@ -27,7 +27,7 @@
               3130643463636636620a613363356363393163313236666335616330393935613764643734363266
               66353838653033306130623663613237353336333166393437363265613336376263623336316164
               6565313134646565343539376134623963393662366532363234
-    - role: ../roles/wordpress
+    - role: ../../roles/wordpress
       vars:
         wordpress_name: mlalerte
         wordpress_database:
