@@ -16,7 +16,7 @@ dns_domains:
     lego: gandi
 
 nginx_domains:
-  - name: '{{ prometheus_public_addr }}'
+  - name: '{{ ansible_host }}'
     config: |
       ssl_client_certificate /opt/nginx/ssl/internal/ca.crt;
       ssl_verify_client on;
