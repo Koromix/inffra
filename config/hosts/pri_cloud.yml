@@ -132,3 +132,8 @@ nginx_domains:
       location / {
           try_files $uri $uri/ /index.php$request_uri;
       }
+
+prometheus_exporters:
+  - node_exporter
+  - nginx_exporter
+  - systemd_exporter

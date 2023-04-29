@@ -49,3 +49,8 @@ nginx_domains:
 
           proxy_pass http://127.0.0.1:9200;
       }
+
+prometheus_exporters:
+  - node_exporter
+  - nginx_exporter
+  - systemd_exporter
