@@ -17,8 +17,6 @@ dns_domains:
   - name: 'cpadsb.{{ private_domain }}'
     lego: gandi
 
-nginx_public_addr: '{{ ansible_host }}'
-
 nginx_domains:
   - name: '{{ prometheus_public_addr }}'
     config: |
@@ -29,7 +27,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.pri_tower.nginx_public_addr }};
+          allow {{ hostvars.pri_tower.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
