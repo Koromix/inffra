@@ -161,11 +161,3 @@
 - name: Setup LEGO for Let's Encrypt certificates
   import_tasks: lego.yml
   when: 'not force_self_ssl and dns_domains is defined'
-
-# - name: Delete default debian user
-#   user:
-#     name: debian
-#     state: absent
-#     remove: yes
-#     force: yes
-#   become: yes
