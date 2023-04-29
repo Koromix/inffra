@@ -34,4 +34,3 @@ ufw_rules:
     port: 53
 
 dns_server: yes
-dns_addr: '{{ ansible_host }}'

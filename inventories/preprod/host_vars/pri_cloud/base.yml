@@ -30,5 +30,3 @@ ufw_rules:
   - rule: allow
     port: 9993
     proto: udp
-
-dns_addr: '{{ ansible_host }}'
