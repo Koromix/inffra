@@ -40,10 +40,9 @@
 
 - name: Make sure PostgreSQL starts after Docker
   lineinfile:
-    dest: /lib/systemd/system/postgresql.service
+    dest: /lib/systemd/system/postgresql@.service
     line: 'After=docker.service'
-    insertafter: '^Description'
-    firstmatch: yes
+    insertafter: '^After'
     state: present
   become: yes
 

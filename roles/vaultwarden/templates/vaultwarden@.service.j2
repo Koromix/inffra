@@ -2,6 +2,7 @@
 Description = Vaultwarden service %i
 Requires = docker.service
 After = docker.service
+After = postgresql.service
 
 [Service]
 Type = oneshot
