@@ -32,7 +32,7 @@
     cmd: '/usr/bin/lego -a {{ lego_settings[item.lego].command }} {{ item.name }} run'
     chdir: '{{ lego_root_path }}'
     creates: '{{ lego_root_path }}/.lego/certificates/{{ item.name }}.crt'
-  environment: '{{ item.environment | default({}) }}'
+  environment: '{{ lego_settings[item.lego].environment | default({}) }}'
   loop: '{{ dns_domains }}'
   when: 'item.lego is defined'
   become: yes
