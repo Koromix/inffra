@@ -13,7 +13,7 @@
 
 rclone_directories:
   - src: /opt
-    dest: mla/preprod/pri_tower/opt
+    dest: mla/prod/pri_tower/opt
 
 rclone_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256
