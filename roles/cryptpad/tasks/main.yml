@@ -84,6 +84,47 @@
   when: 'not ansible_check_mode'
   become: yes
 
+- name: Generate random salt
+  block:
+  - name: Generate random salt 1/4
+    stat:
+      path: '{{ cpad_root_path }}/{{ cpad_name }}/salt'
+    register: salt1
+    become: yes
+  - name: Generate random salt 2/4
+    copy:
+      dest: '{{ cpad_root_path }}/{{ cpad_name }}/salt'
+      owner: root
+      group: root
+      mode: '0644'
+      content: '{{ lookup("community.general.random_string", length=64, special=False) }}'
+    when: 'not salt1.stat.exists'
+    become: yes
+  - name: Generate random salt 3/4
+    slurp:
+      src: '{{ cpad_root_path }}/{{ cpad_name }}/salt'
+    register: salt2
+    become: yes
+  - name: Generate random salt 4/4
+    set_fact:
+      cpad_salt: '{{ salt2.content | b64decode }}'
+
+- name: Configure Cryptpad
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: cpad
+    group: cpad
+    mode: '{{ item.mode }}'
+  loop:
+    - src: config.js.j2
+      dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/config/config.js'
+      mode: '0600'
+    - src: application_config.js.j2
+      dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/customize/application_config.js'
+      mode: '0644'
+  become: yes
+
 - name: Run bower install
   command:
     cmd: 'bower install --allow-root'
@@ -91,15 +132,6 @@
   register: bower_install
   changed_when: '"bower" not in npm_install.stdout'
   when: 'not ansible_check_mode'
-  become: yes
-
-- name: Configure Cryptpad
-  template:
-    src: config.js.j2
-    dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/config/config.js'
-    owner: cpad
-    group: cpad
-    mode: '0700'
   become: yes
 
 - name: Build static pages

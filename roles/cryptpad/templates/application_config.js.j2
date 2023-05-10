@@ -1,0 +1,6 @@
+define(['/common/application_config_internal.js'], function (AppConfig) {
+    AppConfig.loginSalt = '{{ cpad_salt }}';
+    AppConfig.minimumPasswordLength = 8;
+
+    return AppConfig;
+});
