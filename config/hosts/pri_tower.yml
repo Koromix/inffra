@@ -14,6 +14,8 @@
 dns_domains:
   - name: 'monitor.{{ private_domain }}'
     lego: gandi
+  - name: 'ns.{{ public_domain }}'
+  - name: 'ns.{{ private_domain }}'
 
 nginx_domains:
   - name: '{{ ansible_host }}'
