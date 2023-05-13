@@ -156,7 +156,8 @@
   become: yes
 
 - name: Configure DNS system
-  import_tasks: dnsmasq.yml
+  import_tasks: coredns.yml
+  when: 'dns_server'
 
 - name: Setup LEGO for Let's Encrypt certificates
   import_tasks: lego.yml

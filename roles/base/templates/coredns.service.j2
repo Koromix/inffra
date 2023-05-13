@@ -1,0 +1,15 @@
+[Unit]
+Description = CoreDNS server
+After = network.target
+
+[Service]
+User = coredns
+Group = coredns
+WorkingDirectory = {{ coredns_root_path }}
+ExecStart = {{ coredns_root_path }}/coredns -conf {{ coredns_root_path }}/coredns.conf
+Restart = on-failure
+
+AmbientCapabilities = CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy = multi-user.target

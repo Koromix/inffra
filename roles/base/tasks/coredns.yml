@@ -1,0 +1,78 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Configure CoreDNS user
+  user:
+    name: coredns
+    state: present
+  become: yes
+
+- name: Create CoreDNS root directory
+  file:
+    path: '{{ coredns_root_path }}'
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Download CoreDNS archive
+  get_url:
+    url: '{{ coredns_url }}'
+    dest: '{{ coredns_root_path }}/coredns.tar.gz'
+    checksum: '{{ coredns_checksum }}'
+  become: yes
+
+- name: Extract CoreDNS archive
+  unarchive:
+    src: '{{ coredns_root_path }}/coredns.tar.gz'
+    dest: '{{ coredns_root_path }}/'
+    remote_src: yes
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Configure DNS server
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - src: coredns.conf.j2
+      dest: '{{ coredns_root_path }}/coredns.conf'
+    - src: coredns.hosts.j2
+      dest: '{{ coredns_root_path }}/coredns.hosts'
+  become: yes
+
+- name: Update systemd service file
+  template:
+    src: coredns.service.j2
+    dest: '/etc/systemd/system/coredns.service'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart DNS server
+  service:
+    name: coredns
+    state: restarted
+  when: 'dns_server and not ansible_check_mode'
+  become: yes
