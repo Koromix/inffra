@@ -33,6 +33,7 @@ ufw_rules:
 # ovh_ipv6_gateway:
 
 dns_server: no
+# dns_listen:
 
 lego_root_path: /opt/lego
 lego_domains: []

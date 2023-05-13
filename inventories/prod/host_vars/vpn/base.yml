@@ -34,3 +34,4 @@ ufw_rules:
     proto: udp
 
 dns_server: yes
+dns_listen: '{{ ansible_host }}'
