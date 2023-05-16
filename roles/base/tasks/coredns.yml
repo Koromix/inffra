@@ -51,8 +51,8 @@
   loop:
     - src: coredns.conf.j2
       dest: '{{ coredns_root_path }}/coredns.conf'
-    - src: coredns.hosts.j2
-      dest: '{{ coredns_root_path }}/coredns.hosts'
+    - src: domains.zone.j2
+      dest: '{{ coredns_root_path }}/domains.zone'
   become: yes
 
 - name: Update systemd service file

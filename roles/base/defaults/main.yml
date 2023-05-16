@@ -37,6 +37,7 @@ coredns_url: https://github.com/coredns/coredns/releases/download/v1.10.1/coredn
 coredns_checksum: 'sha256:98cb60e3358439bbb3e3f7be916fe10c51b1ed94758f53aeb2b4c06156612ff6'
 
 dns_server: no
+# dns_authorities:
 
 lego_root_path: /opt/lego
 lego_domains: []

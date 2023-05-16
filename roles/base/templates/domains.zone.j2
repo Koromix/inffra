@@ -1,0 +1,13 @@
+{% for auth in dns_authorities %}
+@ 1800 IN SOA {{ auth.name }}. {{ auth.mail | replace('@', '.') }}. ( {{ lookup('pipe', 'date +%s') }} 7200 3600 1209600 3600 )
+{% for host, vars in hostvars.items() %}
+{% if vars.dns_domains is defined %}
+{% for domain in vars.dns_domains %}
+{% if domain.name.endswith('.' + auth.name) %}
+{{ domain.name }}. 1800 IN A {{ vars.ansible_host }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+{% endfor %}
