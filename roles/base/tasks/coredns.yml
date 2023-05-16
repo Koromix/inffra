@@ -74,5 +74,6 @@
   service:
     name: coredns
     state: restarted
-  when: 'dns_server and not ansible_check_mode'
+    enabled: yes
+  when: 'not ansible_check_mode'
   become: yes
