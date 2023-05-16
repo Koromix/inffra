@@ -13,9 +13,9 @@
 
 dns_domains:
   - name: 'cpad.{{ private_domain }}'
-    lego: gandi
+    ssl_agnos_account: main
   - name: 'cpadsb.{{ private_domain }}'
-    lego: gandi
+    ssl_agnos_account: main
 
 nginx_domains:
   - name: '{{ ansible_host }}'
@@ -39,8 +39,8 @@ nginx_domains:
       {% endfor %}
 
   - name: 'cpad.{{ private_domain }}'
-    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/cpad.{{ private_domain }}.crt'
-    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/cpad.{{ private_domain }}.key'
+    ssl_file_crt: '/opt/certificates/cpad.{{ private_domain }}.crt'
+    ssl_file_key: '/opt/certificates/cpad.{{ private_domain }}.key'
     config: |
       set $main_domain "cpad.{{ private_domain }}";
       set $sandbox_domain "cpadsb.{{ private_domain }}";
@@ -161,8 +161,8 @@ nginx_domains:
       try_files /customize/www/$uri /customize/www/$uri/index.html /www/$uri /www/$uri/index.html /customize/$uri;
 
   - name: 'cpadsb.{{ private_domain }}'
-    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/cpadsb.{{ private_domain }}.crt'
-    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/cpadsb.{{ private_domain }}.key'
+    ssl_file_crt: '/opt/certificates/cpadsb.{{ private_domain }}.crt'
+    ssl_file_key: '/opt/certificates/cpadsb.{{ private_domain }}.key'
     config: |
       set $main_domain "cpad.{{ private_domain }}";
       set $sandbox_domain "cpadsb.{{ private_domain }}";

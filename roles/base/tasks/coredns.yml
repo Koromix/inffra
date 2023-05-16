@@ -21,6 +21,8 @@
   file:
     path: '{{ coredns_root_path }}'
     state: directory
+    owner: root
+    group: root
     mode: '0755'
   become: yes
 
@@ -41,7 +43,7 @@
     mode: '0755'
   become: yes
 
-- name: Configure DNS server
+- name: Configure CoreDNS server
   template:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
@@ -55,13 +57,19 @@
       dest: '{{ coredns_root_path }}/domains.zone'
   become: yes
 
-- name: Update systemd service file
+- name: Update CoreDNS systemd service file
   template:
     src: coredns.service.j2
-    dest: '/etc/systemd/system/coredns.service'
+    dest: /etc/systemd/system/coredns.service
     owner: root
     group: root
     mode: '0644'
+
+- name: Create CoreDNS root directory
+  file:
+    path: '{{ coredns_root_path }}'
+    state: directory
+    mode: '0755'
   become: yes
 
 - name: Reload systemd units

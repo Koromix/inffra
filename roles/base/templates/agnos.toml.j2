@@ -1,0 +1,20 @@
+dns_listen_adr = "127.0.0.1:1053"
+
+{% for account, mail in dns_le_accounts.items() %}
+[[accounts]]
+email = "{{ mail }}"
+private_key_path = "accounts/{{ account }}.key"
+{% for host, vars in hostvars.items() %}
+{% if vars.dns_domains is defined %}
+{% for domain in vars.dns_domains %}
+{% if domain.ssl_agnos_account is defined and domain.ssl_agnos_account == account %}
+
+[[accounts.certificates]]
+domains = ["{{ domain.name }}"]
+fullchain_output_file = "certificates/{{ domain.name }}.crt"
+key_output_file = "certificates/{{ domain.name }}.key"
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}

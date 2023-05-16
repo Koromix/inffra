@@ -1,3 +1,11 @@
 . {
+    view agnos {
+        expr type() in ['TXT']
+    }
+
+    forward . 127.0.0.1:1053
+}
+
+. {
     file {{ coredns_root_path }}/domains.zone
 }

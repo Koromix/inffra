@@ -13,7 +13,7 @@
 
 dns_domains:
   - name: 'cloud.{{ private_domain }}'
-    lego: gandi
+    ssl_agnos_account: main
 
 nginx_domains:
   - name: '{{ ansible_host }}'
@@ -37,8 +37,8 @@ nginx_domains:
       {% endfor %}
 
   - name: 'cloud.{{ private_domain }}'
-    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/cloud.{{ private_domain }}.crt'
-    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/cloud.{{ private_domain }}.key'
+    ssl_file_crt: '/opt/certificates/cloud.{{ private_domain }}.crt'
+    ssl_file_key: '/opt/certificates/cloud.{{ private_domain }}.key'
     config: |
       root /opt/nextcloud/team/live;
 

@@ -16,9 +16,10 @@
     update_cache: yes
     pkg:
       - ufw
-      - lego
       - docker-compose
       - docker.io
+      - rsync
+      - acl
     state: latest
   become: yes
 
@@ -155,10 +156,65 @@
     job: '/usr/bin/apt update -y && /usr/bin/apt upgrade -y && /usr/sbin/shutdown -r now'
   become: yes
 
-- name: Configure DNS system
+- name: Configure CoreDNS server
   import_tasks: coredns.yml
   when: 'dns_server'
 
-- name: Setup LEGO for Let's Encrypt certificates
-  import_tasks: lego.yml
-  when: 'not force_self_ssl and dns_domains is defined'
+- name: Configure Agnos for DNS-01 challenges
+  import_tasks: agnos.yml
+  when: 'dns_server'
+
+- name: Create destination folder for certificates
+  file:
+    path: '/opt/certificates'
+    state: directory
+    owner: root
+    group: www-data
+    mode: '0750'
+  become: yes
+
+- name: Create temporary folder for Agnos certificates
+  file:
+    path: tmp/agnos
+    state: directory
+  delegate_to: localhost
+  run_once: yes
+  become: no
+
+- name: Fetch Agnos certificates
+  synchronize:
+    src: '{{ agnos_root_path }}/certificates/'
+    dest: 'tmp/agnos/'
+    mode: pull
+    archive: no
+    recursive: yes
+    rsync_opts: '--mkpath'
+  when: 'dns_server and not ansible_check_mode'
+  become: yes
+
+- name: Distribute Agnos certificates
+  synchronize:
+    src: 'tmp/agnos/'
+    dest: '/opt/certificates/'
+    archive: no
+    recursive: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Adjust certificate permissions
+  file:
+    path: '/opt/certificates/'
+    state: directory
+    owner: root
+    group: www-data
+    mode: 'u=rwX,g=rX,o='
+    recurse: yes
+  become: yes
+
+- name: Delete local certificates
+  file:
+    path: tmp/agnos
+    state: absent
+  delegate_to: localhost
+  run_once: yes
+  become: no

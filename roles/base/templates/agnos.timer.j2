@@ -1,0 +1,10 @@
+[Unit]
+Description = Renew Let's Encrypt DNS-01 certificates
+
+[Timer]
+OnCalendar = *-*-* 1:54
+Persistent = true
+RandomizedDelaySec = 1h
+
+[Install]
+WantedBy = timers.target

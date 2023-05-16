@@ -13,9 +13,9 @@
 
 dns_domains:
   - name: 'wekan.{{ private_domain }}'
-    lego: gandi
+    ssl_agnos_account: main
   - name: 'vault.{{ private_domain }}'
-    lego: gandi
+    ssl_agnos_account: main
 
 nginx_domains:
   - name: '{{ ansible_host }}'
@@ -39,8 +39,8 @@ nginx_domains:
       {% endfor %}
 
   - name: 'wekan.{{ private_domain }}'
-    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/wekan.{{ private_domain }}.crt'
-    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/wekan.{{ private_domain }}.key'
+    ssl_file_crt: '/opt/certificates/wekan.{{ private_domain }}.crt'
+    ssl_file_key: '/opt/certificates/wekan.{{ private_domain }}.key'
     config: |
       location / {
           limit_req zone=default burst=100 nodelay;
@@ -53,8 +53,8 @@ nginx_domains:
       }
 
   - name: 'vault.{{ private_domain }}'
-    ssl_file_crt: '{{ lego_root_path }}/.lego/certificates/vault.{{ private_domain }}.crt'
-    ssl_file_key: '{{ lego_root_path }}/.lego/certificates/vault.{{ private_domain }}.key'
+    ssl_file_crt: '/opt/certificates/vault.{{ private_domain }}.crt'
+    ssl_file_key: '/opt/certificates/vault.{{ private_domain }}.key'
     config: |
       location / {
           limit_req zone=default burst=100 nodelay;
