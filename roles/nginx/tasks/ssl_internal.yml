@@ -11,9 +11,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Create local SSL folder for HDS certificate chain
+- name: Create local folder for internal CA chain
   file:
-    path: tmp_interhop_ssl
+    path: tmp/ssl
     state: directory
   delegate_to: localhost
   run_once: yes
@@ -22,7 +22,7 @@
 - name : Create root CA configuration file for root CA
   template:
     src: ssl_ca.conf.j2
-    dest: tmp_interhop_ssl/ca.conf
+    dest: tmp/ssl/ca.conf
   delegate_to: localhost
   run_once: yes
   become: no
@@ -30,29 +30,29 @@
 - name : Create root CA configuration files for hosts
   template:
     src: ssl_host.conf.j2
-    dest: 'tmp_interhop_ssl/{{ inventory_hostname }}.conf'
+    dest: 'tmp/ssl/{{ inventory_hostname }}.conf'
   delegate_to: localhost
   become: no
 
 - name: Generate root CA certificate
   shell: |
-    openssl genrsa -out tmp_interhop_ssl/ca.key 4096
-    openssl req -x509 -new -key tmp_interhop_ssl/ca.key -config tmp_interhop_ssl/ca.conf -days 372 -out tmp_interhop_ssl/ca.crt
+    openssl genrsa -out tmp/ssl/ca.key 4096
+    openssl req -x509 -new -key tmp/ssl/ca.key -config tmp/ssl/ca.conf -days 372 -out tmp/ssl/ca.crt
   delegate_to: localhost
   run_once: yes
   become: no
 
 - name: Generate host certificates
   shell: |
-    openssl genrsa -out tmp_interhop_ssl/{{ inventory_hostname }}.key 2048
-    openssl req -new -key tmp_interhop_ssl/{{ inventory_hostname }}.key -out tmp_interhop_ssl/{{ inventory_hostname }}.csr -config tmp_interhop_ssl/{{ inventory_hostname }}.conf
-    openssl x509 -req -in tmp_interhop_ssl/{{ inventory_hostname }}.csr -CA tmp_interhop_ssl/ca.crt -CAkey tmp_interhop_ssl/ca.key -CAcreateserial -out tmp_interhop_ssl/{{ inventory_hostname }}.crt -days 372 -sha256 -extfile tmp_interhop_ssl/{{ inventory_hostname }}.conf -extensions req_ext
+    openssl genrsa -out tmp/ssl/{{ inventory_hostname }}.key 2048
+    openssl req -new -key tmp/ssl/{{ inventory_hostname }}.key -out tmp/ssl/{{ inventory_hostname }}.csr -config tmp/ssl/{{ inventory_hostname }}.conf
+    openssl x509 -req -in tmp/ssl/{{ inventory_hostname }}.csr -CA tmp/ssl/ca.crt -CAkey tmp/ssl/ca.key -CAcreateserial -out tmp/ssl/{{ inventory_hostname }}.crt -days 372 -sha256 -extfile tmp/ssl/{{ inventory_hostname }}.conf -extensions req_ext
   delegate_to: localhost
   become: no
 
 - name: Push internal root certificate
   copy:
-    src: tmp_interhop_ssl/ca.crt
+    src: tmp/ssl/ca.crt
     dest: /opt/nginx/ssl/internal/ca.crt
     owner: root
     group: root
@@ -62,7 +62,7 @@
 
 - name: Push internal host keys and certificates
   copy:
-    src: 'tmp_interhop_ssl/{{ item }}'
+    src: 'tmp/ssl/{{ item }}'
     dest: '/opt/nginx/ssl/internal/{{ item }}'
     owner: root
     group: root
@@ -74,7 +74,7 @@
 
 - name: Delete local SSL files
   file:
-    path: tmp_interhop_ssl
+    path: tmp/ssl
     state: absent
   delegate_to: localhost
   run_once: yes

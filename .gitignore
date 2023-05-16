@@ -1,4 +1,5 @@
 vagrant/*.log
 .vagrant
 *.vault
-/tmp_interhop_ssl/
+/tmp/*
+!.gitkeep
