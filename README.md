@@ -28,7 +28,7 @@ Pensez bien à activer l'onglet "Network DNS" comme illustré dans la capture ! 
 
 ## Linux
 
-Commencez par installer le service ZeroTier One, ainsi que le petit outil `rezolved` qui est nécessaire sur Linux pour l'application des réglages DNS paramétrés dans ZeroTier :
+Commencez par installer le service ZeroTier One :
 
 ```sh
 sudo apt update
@@ -37,8 +37,6 @@ sudo apt install gpg
 sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
     if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
 sudo apt install zerotier-one
-
-curl -sL 'https://framagit.org/interhop/mla/-/raw/main/tools/rezolved/install.sh' | bash
 ```
 
 Ensuite, vous pouvez joindre le réseau de cette manière :
@@ -46,8 +44,8 @@ Ensuite, vous pouvez joindre le réseau de cette manière :
 ```sh
 sudo zerotier-cli info # Donne l'ID de la machine client
 
-sudo zerotier-cli join <network ID>
-sudo zerotier-cli set <network ID> allowDNS=1
+sudo zerotier-cli join <safe ID> # Replace <safe ID> values with info from private document
+sudo zerotier-cli orbit <relay ID> <relay ID> # Replace <relay ID> values with info from private document
 ```
 
 Attendez jusqu'à une minute après la configuration pour que les changements soient effectifs.
@@ -182,5 +180,6 @@ sudo apt install gpg
 sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
     if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
 
-sudo zerotier-cli join <network ID>
+sudo zerotier-cli join <safe ID> # Replace <safe ID> values with info from private document
+sudo zerotier-cli orbit <relay ID> <relay ID> # Replace <relay ID> values with info from private document
 ```
