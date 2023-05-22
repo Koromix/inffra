@@ -109,3 +109,20 @@
     group: root
     mode: '0644'
   become: yes
+
+- name: Configure PHP-FPM pool
+  template:
+    src: fpm.conf.j2
+    dest: /etc/php/7.4/fpm/pool.d/wordpress.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Restart PHP-FPM service
+  service:
+    name: php7.4-fpm
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes
