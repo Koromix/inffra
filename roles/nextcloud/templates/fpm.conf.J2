@@ -1,0 +1,13 @@
+[nextcloud]
+user = www-data
+group = www-data
+
+listen = /run/php/nextcloud-fpm.sock
+
+listen.owner = www-data
+listen.group = www-data
+
+pm = static
+pm.max_children = 64
+
+php_admin_value[memory_limit] = 512M
