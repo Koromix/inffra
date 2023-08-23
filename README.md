@@ -28,6 +28,16 @@ Pensez bien à activer l'onglet "Network DNS" comme illustré dans la capture ! 
 
 ## Linux
 
+### Automatisé
+
+Récupérez les identifiants du réseau sécurisé (NETWORK) et du serveur de relais (MOON), puis exécutez cette commande :
+
+```sh
+curl -sSL https://framagit.org/interhop/mla/-/raw/main/tools/install_zt.sh | /bin/bash -es <NETWORK> <MOON>
+```
+
+### Manuel
+
 Commencez par installer le service ZeroTier One :
 
 ```sh
