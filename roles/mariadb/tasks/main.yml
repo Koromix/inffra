@@ -55,6 +55,16 @@
   loop: '{{ mariadb_databases }}'
   become: yes
 
+- name: Execute database-specific SQL
+  community.mysql.mysql_query:
+    login_unix_socket: /run/mysqld/mysqld.sock
+    login_user: root
+    login_db: '{{ item.database }}'
+    query: '{{ item.sql }}'
+  loop: '{{ mariadb_databases }}'
+  when: 'item.sql is defined'
+  become: yes
+
 - name: Create backup directories
   file:
     path: '{{ item.path }}'

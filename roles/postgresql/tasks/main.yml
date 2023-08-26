@@ -71,6 +71,15 @@
   become: yes
   become_user: postgres
 
+- name: Execute database-specific SQL
+  community.postgresql.postgresql_query:
+    db: '{{ item.database }}'
+    query: '{{ item.sql }}'
+  loop: '{{ postgresql_databases }}'
+  when: 'item.sql is defined'
+  become: yes
+  become_user: postgres
+
 - name: Grant database access to specific users
   community.postgresql.postgresql_privs:
     type: database
