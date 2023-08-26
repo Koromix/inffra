@@ -11,20 +11,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    pri_cloud:
-    pri_cpad:
-    pri_forum:
-    pri_tools:
-    pub_leaks:
-    pub_web:
-    vpn_control:
+discourse_repo: https://github.com/discourse/discourse_docker
+discourse_commit: main
 
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+discourse_root_path: /opt/discourse
 
-    public_domain: mla.local
-    private_domain: intra.mla.local
-    restrict_ssh_access: no
-    force_self_ssl: yes
+discourse_locale: en_US.UTF-8
+
+# discourse_name:
+# discourse_domain:
+# discourse_admin:
+# discourse_database:
+
+# discourse_smtp:

@@ -24,6 +24,7 @@
   tags: [global]
 
 - import_playbook: config/services/zerotier.yml
+- import_playbook: config/services/discourse.yml
 - import_playbook: config/services/cryptpad.yml
 - import_playbook: config/services/globaleaks.yml
 - import_playbook: config/services/nextcloud.yml

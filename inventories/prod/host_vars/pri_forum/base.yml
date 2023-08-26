@@ -11,20 +11,22 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    pri_cloud:
-    pri_cpad:
-    pri_forum:
-    pri_tools:
-    pub_leaks:
-    pub_web:
-    vpn_control:
+ansible_host: 172.30.90.13
+ansible_port: 22
+ansible_user: debian
+ansible_python_interpreter: /usr/bin/python3
 
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-    public_domain: mla.local
-    private_domain: intra.mla.local
-    restrict_ssh_access: no
-    force_self_ssl: yes
+ufw_rules:
+  - rule: allow
+    to: '{{ ansible_host if restrict_ssh_access else "any" }}'
+    port: 22
+    proto: tcp
+  - rule: allow
+    port: 80
+    proto: tcp
+  - rule: allow
+    port: 443
+    proto: tcp
+  - rule: allow
+    port: 9993
+    proto: udp
