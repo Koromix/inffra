@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: ZeroTier network controller
-  hosts: vpn
+  hosts: vpn_control
   roles:
     - role: ../../roles/zerotier
   tags: [zerotier]
