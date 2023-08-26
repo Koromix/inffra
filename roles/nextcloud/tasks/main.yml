@@ -121,6 +121,7 @@
     rsync_opts:
       - "--exclude=config"
       - "--exclude=data"
+      - "--exclude=custom_apps"
   delegate_to: '{{ inventory_hostname }}'
   when: 'install_check.stat.exists'
   become: yes
