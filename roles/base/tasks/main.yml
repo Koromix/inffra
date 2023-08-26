@@ -163,11 +163,11 @@
   become: yes
 
 - name: Configure CoreDNS server
-  import_tasks: coredns.yml
+  include_tasks: coredns.yml
   when: 'dns_server'
 
 - name: Configure Agnos for DNS-01 challenges
-  import_tasks: agnos.yml
+  include_tasks: agnos.yml
   when: 'dns_server'
 
 - name: Create destination folder for certificates

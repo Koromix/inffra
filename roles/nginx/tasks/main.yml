@@ -50,7 +50,7 @@
   become: yes
 
 - name: Generate private CA and certificates
-  import_tasks: ssl_internal.yml
+  include_tasks: ssl_internal.yml
   when: 'not ansible_check_mode'
 
 - name: Configure NGINX
@@ -70,7 +70,7 @@
   become: yes
 
 - name: Configure certbot
-  import_tasks: ssl_certbot.yml
+  include_tasks: ssl_certbot.yml
 
 - name: Reload NGINX
   service:

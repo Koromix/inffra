@@ -12,8 +12,8 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Install Prometheus
-  import_tasks: prometheus.yml
+  include_tasks: prometheus.yml
 
 - name: Install Grafana
-  import_tasks: grafana.yml
+  include_tasks: grafana.yml
   when: 'grafana_url is defined'
