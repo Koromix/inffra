@@ -1,0 +1,139 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Configure Node repository key
+  apt_key:
+    url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+    id: '68576280'
+    state: present
+  become: yes
+
+- name: Configure Node 16.x repository
+  apt_repository:
+    repo: 'deb https://deb.nodesource.com/node_16.x {{ ansible_distribution_release }} main'
+    state: present
+  become: yes
+
+- name: Install packages
+  apt:
+    update_cache: yes
+    pkg:
+      - xz-utils
+      - rsync
+      - nodejs
+      - build-essential
+      - acl
+    state: latest
+  become: yes
+
+- name: Configure ztncui user
+  user:
+    name: ztncui
+    state: present
+  become: yes
+
+- name: Prepare ztncui base directories
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+    mode: '{{ item.mode }}'
+  loop:
+    - path: '{{ ztncui_root_path }}/'
+      mode: '0755'
+    - path: '{{ ztncui_root_path }}/repo'
+      mode: '0755'
+    - path: '{{ ztncui_root_path }}/app'
+      owner: ztncui
+      group: ztncui
+      mode: '0755'
+    - path: '{{ ztncui_root_path }}/backups'
+      mode: '0700'
+  become: yes
+
+- name: Fetch ztncui repository
+  git:
+    repo: '{{ ztncui_repo }}'
+    version: '{{ ztncui_commit }}'
+    dest: '{{ ztncui_root_path }}/repo'
+    force: yes
+  become: yes
+
+- name: Install ztncui application
+  synchronize:
+    src: '{{ ztncui_root_path }}/repo/src/'
+    dest: '{{ ztncui_root_path }}/app/'
+    delete: yes
+    recursive: yes
+    owner: no
+    group: no
+    rsync_opts: 
+      - '--exclude node_modules'
+      - '--exclude etc/storage'
+  delegate_to: '{{ inventory_hostname }}'
+  become: yes
+  become_user: ztncui
+
+- name: Install ztncui dependencies
+  command:
+    cmd: 'npm install'
+    chdir: '{{ ztncui_root_path }}/app'
+  become: yes
+
+- name: Read ZeroTier secret token
+  slurp:
+    src: /var/lib/zerotier-one/authtoken.secret
+  register: authtoken
+  become: yes
+
+- name: Configure ztncui
+  template:
+    src: ztncui.env.j2
+    dest: '{{ ztncui_root_path }}/app/.env'
+    owner: ztncui
+    group: ztncui
+    mode: '0600'
+  become: yes
+
+- name: Configure secure ztncui password
+  template:
+    src: passwd
+    dest: '{{ ztncui_root_path }}/app/etc/passwd'
+    owner: ztncui
+    group: ztncui
+    mode: '0600'
+  become: yes
+
+- name: Install ztncui service file
+  template:
+    src: ztncui.service.j2
+    dest: '/etc/systemd/system/ztncui.service'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart ztncui services
+  service:
+    name: ztncui
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes

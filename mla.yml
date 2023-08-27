@@ -23,7 +23,7 @@
       when: 'prometheus_exporters is defined or grafana_url is defined'
   tags: [global]
 
-- import_playbook: config/services/zerotier.yml
+- import_playbook: config/services/ztncui.yml
 - import_playbook: config/services/discourse.yml
 - import_playbook: config/services/cryptpad.yml
 - import_playbook: config/services/globaleaks.yml

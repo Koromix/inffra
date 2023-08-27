@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ztncui_url: https://s3-us-west-1.amazonaws.com/key-networks/deb/ztncui/1/x86_64/ztncui_0.8.13_amd64.deb
-ztncui_checksum: 'sha256:d2446a5fe1e21b66648936d0f0a6df4bc9a9177850a25c179c268907beb7be5b'
+ztncui_repo: https://github.com/Koromix/ztncui
+ztncui_commit: master
 
 ztncui_root_path: /opt/ztncui
 ztncui_http_port: 3000

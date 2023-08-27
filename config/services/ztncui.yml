@@ -14,5 +14,5 @@
 - name: ZeroTier network controller
   hosts: vpn_control
   roles:
-    - role: ../../roles/zerotier
-  tags: [zerotier]
+    - role: ../../roles/ztncui
+  tags: [ztncui]
