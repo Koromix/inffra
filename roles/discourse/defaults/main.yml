@@ -17,6 +17,7 @@ discourse_commit: main
 discourse_root_path: /opt/discourse
 
 discourse_locale: en_US.UTF-8
+discourse_plugins: []
 
 # discourse_name:
 # discourse_domain:

@@ -62,4 +62,10 @@
             3461646632313637316564303961323232663038386262303763
           from: admin@premla.fr
           mode: starttls
+        discourse_plugins:
+          - https://github.com/discourse/discourse-chat-integration
+          - https://github.com/discourse/discourse-solved
+          - https://github.com/angusmcleod/discourse-events
+          - https://github.com/angusmcleod/discourse-locations
+
   tags: [discourse]
