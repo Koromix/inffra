@@ -27,3 +27,19 @@ nginx_domains:
           fastcgi_param SCRIPT_FILENAME $request_filename;
           fastcgi_pass unix:/run/php/wordpress-fpm.sock;
       }
+
+  - name: 'prix.{{ public_domain }}'
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      root /opt/wordpress/prix/wordpress;
+
+      location / {
+          index index.php index.html index.htm;
+          try_files $uri $uri/ /index.php?$args;
+      }
+
+      location ~ \.php$ {
+          include fastcgi_params;
+          fastcgi_param SCRIPT_FILENAME $request_filename;
+          fastcgi_pass unix:/run/php/wordpress-fpm.sock;
+      }
