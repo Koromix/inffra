@@ -110,7 +110,7 @@ La machine utilisée pour le déploiement Ansible doit être connectée aux deux
 
 # Déploiement Ansible
 
-## Environnement de préproduction (PreMLA)
+## Environnement de production (MLA)
 
 La machine utilisée pour le déploiement doit être connectée aux deux réseaux VPN décrits ci-dessous. Idéalement, l'accès de cette machine aux deux réseaux n'est activé que temporairement lors des déploiements, en passant par l'interface d'administration ZeroTier.
 
