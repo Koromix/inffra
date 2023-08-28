@@ -31,6 +31,7 @@ nginx_domains:
           deny all;
 
           proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
           proxy_set_header X-Real-IP $remote_addr;
 
@@ -97,6 +98,7 @@ nginx_domains:
           proxy_pass http://localhost:3000;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
           # WebSocket support (nginx 1.4)
@@ -117,6 +119,7 @@ nginx_domains:
           proxy_pass http://localhost:3000;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
           # These settings prevent both NGINX and the API server
@@ -219,6 +222,7 @@ nginx_domains:
           proxy_pass http://localhost:3000;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
           # WebSocket support (nginx 1.4)
@@ -239,6 +243,7 @@ nginx_domains:
           proxy_pass http://localhost:3000;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
           # These settings prevent both NGINX and the API server
