@@ -73,6 +73,8 @@
     recursive: yes
     owner: true
     group: true
+    rsync_opts:
+      - "--exclude=wp-content"
   delegate_to: '{{ inventory_hostname }}'
   become: yes
 
