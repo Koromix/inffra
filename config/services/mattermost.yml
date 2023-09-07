@@ -48,7 +48,7 @@
             34356262373463616665333661376334356662656636643861353837623062646538356666663430
             35386536316663386439
         mattermost_smtp:
-          host: mail.gandi.net:465
+          host: mail.gandi.net:587
           username: admin@premla.fr
           password: !vault |
             $ANSIBLE_VAULT;1.1;AES256
