@@ -176,3 +176,7 @@
     enabled: yes
   when: 'not ansible_check_mode'
   become: yes
+
+- name: Configure OnlyOffice
+  include_tasks: onlyoffice.yml
+  when: 'onlyoffice_port is defined'

@@ -24,3 +24,6 @@ nextcloud_default_password: admin
 # nextcloud_database:
 
 # nextcloud_smtp:
+
+# onlyoffice_port:
+# onlyoffice_jwt_secret:

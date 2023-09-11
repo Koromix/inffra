@@ -1,0 +1,64 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Prepare OnlyOffice base directories
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '{{ item.mode }}'
+  loop:
+    - path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office'
+      mode: '0755'
+    - path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/logs'
+      mode: '0700'
+    - path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/data'
+      mode: '0700'
+    - path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/lib'
+      mode: '0755'
+    - path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/db'
+      mode: '0700'
+  become: yes
+
+- name: Configure docker compose for OnlyOffice
+  template:
+    src: onlyoffice-compose.yml.j2
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/docker-compose.yml'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Install OnlyOffice service file
+  template:
+    src: onlyoffice@.service.j2
+    dest: '/etc/systemd/system/onlyoffice@.service'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart OnlyOffice services
+  service:
+    name: 'onlyoffice@{{ nextcloud_name }}'
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes
