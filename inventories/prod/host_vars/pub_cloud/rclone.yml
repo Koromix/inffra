@@ -1,0 +1,27 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+rclone_directories:
+  - src: /opt
+    dest: mla/prod/pub_cloud/opt
+
+rclone_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  32386163643061653731396238353264326234343032643133656438343835643537323063646231
+  3037346636646434356465373861353264646462326637620a383736373034363265653335653966
+  37363236376137656666623734666566656437333463356664653031316439386237396530663834
+  6332663037623530620a393734346433353634633437386339356532353235333230333737313135
+  37666461663136613461373035653533656133373332653737363438383134313162636265666363
+  30343534646266626132376165323361336638396564386532323634393165326334356663653166
+  32356239313861393733353065333662333861633666333662653134383230396634636265356664
+  31646534313234636363
