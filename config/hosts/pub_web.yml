@@ -63,5 +63,5 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-        return 301 https://$host$request_uri;
+        return 301 https://loi.{{ public_domain }}$request_uri;
       }
