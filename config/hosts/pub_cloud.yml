@@ -107,6 +107,12 @@ nginx_domains:
       location / {
           try_files $uri $uri/ /index.php$request_uri;
       }
+  - name: partage.mlalerte.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+        return 301 https://partage.{{ public_domain }}$request_uri;
+      }
 
   - name: 'office.{{ public_domain }}'
     ssl_certbot_email: niels.martignene@protonmail.com
