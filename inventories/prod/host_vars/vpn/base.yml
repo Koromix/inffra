@@ -29,3 +29,10 @@ ufw_rules:
   - rule: allow
     port: 51820
     proto: udp
+
+dns_server: yes
+dns_authorities:
+  - name: '{{ private_domain }}'
+    mail: 'admin@{{ private_domain }}'
+dns_le_accounts:
+  main: niels.martignene@protonmail.com
