@@ -1,0 +1,27 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+rclone_directories:
+  - src: /opt
+    dest: mla/prod/vpn/opt
+
+rclone_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  62383265373964326139336133633231313032353663306363656261633231636130646563353736
+  3863646437333133653937623262636136323333333130370a633062323163336563383564663766
+  37633038663162396131313431313337356164313239613361393239373262346563636232336238
+  6365653062313136660a383863353933326465386630643566663935643439323266396635316561
+  34333739653137653431623036373139343464333865393662616565353532663538313063646164
+  35346262333265306262323032653934316439363733326562303337313931316665646136613765
+  37616562376363646138326164623535643233376364346138653662653931633539623336656538
+  62653066646561613261

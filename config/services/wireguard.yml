@@ -1,0 +1,33 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Wireguard Easy VPN
+  hosts: vpn
+  roles:
+    - role: ../../roles/wireguard
+      vars:
+        wg_name: safe
+        wg_device: ens3
+        wg_port: 51820
+        wg_address: '{{ ansible_host }}'
+        wg_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          30306137386362333263346532363336643762653838373363633836303066393336623865643961
+          3434653336366635343033343639353338363765633331350a396236336464363864313934376438
+          38333564386261323639386438643366313166623762623764333435646239633532383633633661
+          3363303333653631380a663962643537353062373463306133643331313336633634343630303664
+          32396163323130613632333632643034396464363866316230313032636133316537626230383736
+          33396363613566373163306264623738353162643138383532646239303635376230346566633361
+          61653564343439656635653136386438633931663033383032623839666538643737303861643630
+          62343934373434633362
+  tags: [wireguard]

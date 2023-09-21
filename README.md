@@ -181,15 +181,14 @@ Ces tests sont effectuées sur une machine hôte locale dédiée à cet usage, e
 
 # Commandes utiles
 
-## Connexion ZeroTier d'un nouveau serveur
+## Connexion WireGuard d'un nouveau serveur
 
 ```sh
-sudo apt update
-sudo apt install gpg
+sudo apt install wireguard
 
-sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
-    if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
+sudo vim /etc/wireguard/mla.conf
+# Paste config you got from vpn.mlalerte.org
 
-sudo zerotier-cli join <safe ID> # Replace <safe ID> values with info from private document
-sudo zerotier-cli orbit <relay ID> <relay ID> # Replace <relay ID> values with info from private document
+sudo systemctl enable wg-quick@mla
+sudo systemctl start wg-quick@mla
 ```

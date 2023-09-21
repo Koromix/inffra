@@ -11,22 +11,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    pri_cloud:
-    pri_cpad:
-    pri_forum:
-    pri_tools:
-    pub_cloud:
-    pub_leaks:
-    pub_web:
-    vpn:
-    vpn_control:
-
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-    public_domain: mla.local
-    private_domain: intra.mla.local
-    restrict_ssh_access: no
-    force_self_ssl: yes
+nginx_domains:
+  - name: 'vpn.{{ public_domain }}'
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_pass http://127.0.0.1:51821/;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "Upgrade";
+          proxy_set_header Host $host;
+      }
