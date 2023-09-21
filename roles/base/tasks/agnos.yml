@@ -17,16 +17,6 @@
     state: present
   become: yes
 
-- name: Download Agnos binary
-  get_url:
-    url: '{{ agnos_url }}'
-    dest: '{{ agnos_root_path }}/agnos'
-    checksum: '{{ agnos_checksum }}'
-    owner: root
-    group: root
-    mode: '0755'
-  become: yes
-
 - name: Create Agnos root directory
   file:
     path: '{{ agnos_root_path }}'
@@ -46,6 +36,16 @@
   loop:
     - '{{ agnos_root_path }}/accounts'
     - '{{ agnos_root_path }}/certificates'
+  become: yes
+
+- name: Download Agnos binary
+  get_url:
+    url: '{{ agnos_url }}'
+    dest: '{{ agnos_root_path }}/agnos'
+    checksum: '{{ agnos_checksum }}'
+    owner: root
+    group: root
+    mode: '0755'
   become: yes
 
 - name: Create Agnos account keys

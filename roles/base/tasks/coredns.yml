@@ -64,6 +64,7 @@
     owner: root
     group: root
     mode: '0644'
+  become: yes
 
 - name: Create CoreDNS root directory
   file:
