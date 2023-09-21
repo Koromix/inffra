@@ -2,89 +2,50 @@
 
 ## Configuration du client
 
-## Windows et macOS
-
-Commencez par [installer le client ZeroTier One](https://www.zerotier.com/download/).
-
-Une fois cela fait, joignez le réseau à l'aide de son identifiant alphanumérique (16 caractères) :
-
-![Rejoindre un réseau ZeroTier](doc/assets/join_desktop.png)
-
-Ensuite, vous devez activer l'option `Allow DNS configuration` (non active par défaut) dans l'interface graphique.
-
-![Autoriser la gestion DNS dans ZeroTier](doc/assets/dns.png)
-
-Enfin, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
-
-## Android
-
-Commencez par [installer le client ZeroTier One](https://www.zerotier.com/download/).
-
-Une fois cela fait, joignez le réseau à l'aide de son identifiant alphanumérique (16 caractères) :
-
-![Rejoindre un réseau ZeroTier](doc/assets/join_mobile.png)
-
-Pensez bien à activer l'onglet "Network DNS" comme illustré dans la capture ! Pour finir, l'administrateur du réseau ZeroTier doit autoriser la machine dans son interface d'administration.
+Il faut d'abord configurer l'accès sur https://vpn.mlalerte.org/, et télécharger le fichier de configuration produit. Une fois ce fichier récupéré, suivez les instructions correspondant à votre système d'exploitation.
 
 ## Linux
 
-### Automatisé
-
-Récupérez les identifiants du réseau sécurisé (NETWORK) et du serveur de relais (MOON), puis exécutez cette commande :
+Exécutez les commandes suivantes dans un terminal sur la machine client :
 
 ```sh
-curl -sSL https://framagit.org/interhop/mla/-/raw/main/tools/install_zt.sh | /bin/bash -es <NETWORK> <MOON>
+sudo apt install wireguard
+
+sudo vim /etc/wireguard/mla.conf
+# Paste config you got from vpn.mlalerte.org
+
+sudo systemctl enable wg-quick@mla
+sudo systemctl start wg-quick@mla
 ```
 
-### Manuel
+## Windows et macOS
 
-Commencez par installer le service ZeroTier One :
+**TODO**
 
-```sh
-sudo apt update
-sudo apt install gpg
+## Android
 
-sudo curl -s 'https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg' | gpg --import && \
-    if z=$(curl -s 'https://install.zerotier.com/' | gpg); then echo "$z" | sudo bash; fi
-sudo apt install zerotier-one
-```
-
-Ensuite, vous pouvez joindre le réseau de cette manière :
-
-```sh
-sudo zerotier-cli info # Donne l'ID de la machine client
-
-sudo zerotier-cli join <safe ID> # Replace <safe ID> values with info from private document
-sudo zerotier-cli orbit <relay ID> <relay ID> # Replace <relay ID> values with info from private document
-```
-
-Attendez jusqu'à une minute après la configuration pour que les changements soient effectifs.
-
-## Autorisation de la machine sur ZeroTier Central
-
-L'administrateur du réseau ZeroTier concerné doit autoriser la machine au sein de l'interface web, et lui assigner un nom facile à identifier (optionnel mais recommandé).
-
-L'interface d'administration est accessible ici : https://zt.mlalerte.org/
-
-![Autoriser la machine](doc/assets/allow.png)
+**TODO**
 
 # Environnements (stages)
 
-## Préproduction
+## Production
 
-Cet environnement est déployé sur une instance OVHcloud comprenant 4 instances, et un nom de domaine `premla.fr` enregistré via Gandi.
+Cet environnement est déployé sur une instance OVHcloud comprenant plusieurs instances, et un nom de domaine `mlalerte.org` (et `mlalerte.fr`) enregistré via Gandi.
 
 Les domaines suivants sont accessibles publiquement :
 
-- https://premla.fr/ (WordPress)
-- https://leaks.premla.fr/ (Globaleaks)
+- https://mlalerte.org/ (WordPress)
+- https://partage.mlalerte.org/ (Nextcloud)
+- https://signalement.mlalerte.org/ (Globaleaks)
+- https://vpn.mlalerte.org/ (Contrôle du VPN)
 
 Les domaines suivants sont accessibles via le VPN :
 
-- https://cloud.intra.premla.fr/ (Nextcloud)
-- https://monitor.intra.premla.fr/ (Grafana)
-- https://vault.intra.premla.fr/ (Vaultwarden)
-- https://wekan.intra.premla.fr/ (Wekan)
+- https://chat.intra.mlalerte.org/ (Mattermost)
+- https://cloud.intra.mlalerte.org/ (Nextcloud)
+- https://forum.intra.mlalerte.org/ (Discourse)
+- https://vault.intra.mlalerte.org/ (Vaultwarden)
+- https://wekan.intra.mlalerte.org/ (Wekan)
 
 ## Vagrant
 
@@ -93,22 +54,20 @@ Il s'agit d'un environnement de test, entièrement local (machines virtuelles va
 Les domaines comprennent :
 
 - https://mla.local/ (WordPress)
-- https://leaks.mla.local/ (Globaleaks)
+- https://partage.mla.local/ (Nextcloud)
+- https://signalement.mla.local/ (Globaleaks)
+
+Ainsi que ceux-ci, protyégés par VPN dans le déploiement en production :
+
+- https://chat.intra.mla.local/ (Mattermost)
 - https://cloud.intra.mla.local/ (Nextcloud)
-- https://monitor.intra.mla.local/ (Grafana)
+- https://forum.intra.mla.local/ (Discourse)
 - https://vault.intra.mla.local/ (Vaultwarden)
 - https://wekan.intra.mla.local/ (Wekan)
 
-# Architecture globale
-
-L'environnement de production et celui de préproduction utilisent chacun deux réseaux VPN basés sur ZeroTier :
-
-- Les machines vulnérables (accès publique) sont sur le réseau `public` (ou `public`). L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines ont un nom commençant par `pub_`.
-- Les machines sécurisées (accès privé) sont sur le réseau `safe` (ou `safe`). L'accès SSH à ces machines nécessite de passer par ce réseau. Ces machines n'ont pas d'IP publique et sont donc totalement inaccessibles en dehors du VPN. Ces machines ont un nom commençant par `pri_`.
-
-La machine utilisée pour le déploiement Ansible doit être connectée aux deux réseaux privés au moment du déploiement !
-
 # Déploiement Ansible
+
+Vous devez être connecté au VPN de la MLA pour pouvoir effectuer un déploiement Ansible !
 
 ## Environnement de production (MLA)
 
@@ -164,7 +123,7 @@ Des snapshots du disque rsync.net sont réalisés de manière automatique et quo
 
 - Les 7 derniers snapshots quotidiens
 - Les 2 derniers snapshots hebdomadaires (remontant donc à 3 semaines)
-- Les 2 derniers snapshots mensuels (remontant donc à 2 mois et 3 semaines)
+- Le 1 dernier snapshot mensuels (remontant donc à 1 mois et 3 semaines)
 
 ### Système d'alerte
 
