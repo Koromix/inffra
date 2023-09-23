@@ -78,3 +78,24 @@ nginx_domains:
       location / {
         return 301 https://partage.{{ public_domain }}$request_uri;
       }
+
+  # Redirect old VPN services
+
+  - name: chat.mlalerte.ovh
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+        return 301 https://chat.intra.mlalerte.org$request_uri;
+      }
+  - name: forum.mlalerte.ovh
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+        return 301 https://forum.intra.mlalerte.org$request_uri;
+      }
+  - name: wekan.mlalerte.ovh
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+        return 301 https://wekan.intra.mlalerte.org$request_uri;
+      }
