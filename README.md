@@ -20,7 +20,23 @@ sudo systemctl start wg-quick@mla
 
 ## Windows et macOS
 
-**TODO**
+Commencez par installer WireGuard [depuis la page de téléchargement](https://www.wireguard.com/install/) du site officiel.
+
+Une fois WireGuard installé et mis en route, vous devriez avoir une fenêtre comme celle-ci :
+
+![Base Wireguard Windows](doc/assets/windows_wireguard.png)
+
+Utilisez le bouton central pour ajouter un tunnel VPN, et sélectionnez le fichier de configuration *MLA.conf* qui vous a été envoyé par mail.
+
+![Import config file](doc/assets/windows_config.png)
+
+Vous pouvez ensuite activer le VPN à l'aide du bouton *Activer* qui s'affiche, comme illustré ci-dessous :
+
+![Enable VPN in WireGuard](doc/assets/windows_enable.png)
+
+Le système d'exploitation affichera une notification en cas de connexion réussie.
+
+![Success WireGuard notification](doc/assets/windows_success.png)
 
 ## Android
 
