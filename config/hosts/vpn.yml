@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 dns_domains:
-  - name: 'ns.{{ public_domain }}'
+  - name: 'ns1.{{ public_domain }}'
 
 nginx_domains:
   - name: 'vpn.{{ public_domain }}'
