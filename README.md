@@ -24,23 +24,23 @@ sudo systemctl start wg-quick@mla
 
 ## Android
 
-First, you must install [WireGuard from the Play Store](https://play.google.com/store/apps/details?id=com.wireguard.android).
+Commencez par installer [WireGuard depuis le Play Store](https://play.google.com/store/apps/details?id=com.wireguard.android).
 
 ![Install WireGuard through the Play Store](doc/assets/android_install.png)
 
-Once you start it, you must click on the **+** button to import a new VPN. Use the QR Code option to scan the QR code we sent you by mail.
+Une fois WireGuard installé et visible à l'écran, cliquez sur le bouton **+** pour importer un nouveau VPN. Utilisez l'option QR Code, et scanner le QR Code disponible dans le mail qui vous a été envoyé.
 
 ![Base Wireguard Screen](doc/assets/android_wireguard.png)
 
 ![Import QR code config](doc/assets/android_import.png)
 
-After this, you can name the VPN connexion, we suggest *MLA* but you can name it as you want.
+Ensuite, vous pouvez nommer la connexion VPN, nous suggérons *MLA* mais c'est un choix libre.
 
-![Import QR code config](doc/assets/android_name.png)
+![Name VPN configuration](doc/assets/android_name.png)
 
-By default the VPN is not enabled, open the app and enable the VPN when you need to access protected resources.
+Par défaut ce VPN n'est pas activé, ouvrez l'application WireGuard et activez le VPN quand vous en avez besoin.
 
-![Import QR code config](doc/assets/android_enable.png)
+![Enable VPN in WireGuard](doc/assets/android_enable.png)
 
 # Environnements (stages)
 
