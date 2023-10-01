@@ -60,7 +60,19 @@ nginx_domains:
           fastcgi_pass unix:/run/php/wordpress-fpm.sock;
       }
 
+  - name: 'www.{{ public_domain }}'
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+        return 301 https://{{ public_domain }}$request_uri;
+      }
   - name: mlalerte.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+        return 301 https://{{ public_domain }}$request_uri;
+      }
+  - name: www.mlalerte.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
