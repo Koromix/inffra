@@ -14,7 +14,7 @@
 - name: Public WordPress
   hosts: pub_web
   roles:
-    - role: ../../roles/mariadb
+    - role: ../../../../roles/mariadb
       vars:
         mariadb_databases:
           - database: wp_mlalerte
@@ -27,7 +27,7 @@
               3130643463636636620a613363356363393163313236666335616330393935613764643734363266
               66353838653033306130623663613237353336333166393437363265613336376263623336316164
               6565313134646565343539376134623963393662366532363234
-    - role: ../../roles/wordpress
+    - role: ../../../../roles/wordpress
       vars:
         wordpress_name: mlalerte
         wordpress_database:
@@ -48,7 +48,7 @@
 - name: WordPress Prix
   hosts: pub_web
   roles:
-    - role: ../../roles/mariadb
+    - role: ../../../../roles/mariadb
       vars:
         mariadb_databases:
           - database: wp_prix
@@ -63,7 +63,7 @@
               35353061333531613265356337336534316565323530313338653465663466353261323162386535
               31626138376334346533313933653137326336313765383632333338653334366534383231326663
               64636262353733396534
-    - role: ../../roles/wordpress
+    - role: ../../../../roles/wordpress
       vars:
         wordpress_name: prix
         wordpress_database:
@@ -86,7 +86,7 @@
 - name: WordPress Plaidoyer
   hosts: pub_web
   roles:
-    - role: ../../roles/mariadb
+    - role: ../../../../roles/mariadb
       vars:
         mariadb_databases:
           - database: wp_loi
@@ -101,7 +101,7 @@
               65633364663362363232346332373265333138356265313962333630613964616135636366613936
               32663131343761313663633866326535356430373536663234643832656265393662313566313038
               33316235663865363934
-    - role: ../../roles/wordpress
+    - role: ../../../../roles/wordpress
       vars:
         wordpress_name: plaidoyer
         wordpress_database:

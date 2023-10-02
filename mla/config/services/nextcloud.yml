@@ -14,7 +14,7 @@
 - name: Private Nextcloud
   hosts: pri_cloud
   roles:
-    - role: ../../roles/mariadb
+    - role: ../../../../roles/mariadb
       vars:
         mariadb_databases:
           - database: nc_team
@@ -26,7 +26,7 @@
               63343633383139626230636236303262663961643534643836616164663835653730633264643166
               3631316362373430640a376536636566373932393631373135623062353934383261393732333266
               37653937356362373266633562386134393935353762386237363233386262363065
-    - role: ../../roles/nextcloud
+    - role: ../../../../roles/nextcloud
       vars:
         nextcloud_name: team
         nextcloud_domain: 'cloud.{{ private_domain }}'
@@ -68,7 +68,7 @@
 - name: Public Nextcloud
   hosts: pub_cloud
   roles:
-    - role: ../../roles/mariadb
+    - role: ../../../../roles/mariadb
       vars:
         mariadb_databases:
           - database: nc_partage
@@ -83,7 +83,7 @@
               66346363306239303961656466326530643064666332616231613634326535653564636163613764
               37313762386630643961626162313732383339373833323638313061633938653830343136303438
               39646664306139353837
-    - role: ../../roles/nextcloud
+    - role: ../../../../roles/nextcloud
       vars:
         nextcloud_name: partage
         nextcloud_domain: 'partage.{{ public_domain }}'

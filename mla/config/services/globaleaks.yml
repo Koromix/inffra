@@ -14,5 +14,5 @@
 - name: Public Globaleaks
   hosts: pub_leaks
   roles:
-    - role: ../../roles/globaleaks
+    - role: ../../../../roles/globaleaks
   tags: [globaleaks]

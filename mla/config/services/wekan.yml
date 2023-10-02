@@ -14,8 +14,8 @@
 - name: Private Wekan
   hosts: pri_tools
   roles:
-    - role: ../../roles/mongodb
-    - role: ../../roles/wekan
+    - role: ../../../../roles/mongodb
+    - role: ../../../../roles/wekan
       vars:
         wekan_name: team
         wekan_root: 'https://wekan.{{ private_domain }}'

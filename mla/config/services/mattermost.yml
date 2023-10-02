@@ -14,7 +14,7 @@
 - name: Private Mattermost
   hosts: pri_chat
   roles:
-    - role: ../../roles/postgresql
+    - role: ../../../../roles/postgresql
       vars:
         postgresql_databases:
           - database: mm_team
@@ -29,7 +29,7 @@
               35343033633363663336346538613530326631306662313265373631303364356264626438396330
               34356262373463616665333661376334356662656636643861353837623062646538356666663430
               35386536316663386439
-    - role: ../../roles/mattermost
+    - role: ../../../../roles/mattermost
       vars:
         mattermost_name: team
         mattermost_root: 'https://chat.{{ private_domain }}'

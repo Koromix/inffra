@@ -14,7 +14,7 @@
 - name: Wireguard Easy VPN
   hosts: vpn
   roles:
-    - role: ../../roles/wireguard
+    - role: ../../../../roles/wireguard
       vars:
         wg_name: safe
         wg_device: ens3

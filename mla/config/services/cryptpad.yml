@@ -14,7 +14,7 @@
 - name: Private Cryptpad
   hosts: pri_cpad
   roles:
-    - role: ../../roles/cryptpad
+    - role: ../../../../roles/cryptpad
       vars:
         cpad_name: team
         cpad_main_domain: 'cpad.{{ private_domain }}'

@@ -2,4 +2,5 @@ vagrant/*.log
 .vagrant
 *.vault
 /tmp/*
+/keys/*
 !.gitkeep
