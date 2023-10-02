@@ -20,6 +20,7 @@
       - docker.io
       - rsync
       - acl
+      - gpg
     state: latest
   become: yes
 
