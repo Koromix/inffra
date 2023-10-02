@@ -1,0 +1,27 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+rclone_directories:
+  - src: /opt
+    dest: mla/prod/pri_watch/opt
+
+rclone_key: !vault |
+  $ANSIBLE_VAULT;1.1;AES256
+  35396337613830643664656136373365366530353862643930666666653836376361653861373833
+  3431616166316333633232353833363461643163633734620a356132396339656364636333313231
+  63363934313635633332373432366338303132663133653231303261613939366665313635626535
+  3532653535343531370a643930653063646664363464383833623538323334356261383332336138
+  62393561343937363732626234366266636436653637646336626232633836613631363962373566
+  65323066363465616538373561326166373764626662366566376630373935306330306137303334
+  34383031373931303266333135643736346465316331643638336132306365383935303834646531
+  64323730653734363534

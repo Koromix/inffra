@@ -11,22 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    pri_cloud:
-    pri_cpad:
-    pri_forum:
-    pri_tools:
-    pri_watch:
-    pub_cloud:
-    pub_leaks:
-    pub_web:
-    vpn:
-
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-    public_domain: mla.local
-    private_domain: intra.mla.local
-    restrict_ssh_access: no
-    force_self_ssl: yes
+ansible_host: 192.168.59.12
+ansible_port: 22
+ansible_user: vagrant
+ansible_ssh_private_key_file: .vagrant/machines/pri_watch/virtualbox/private_key
+ansible_python_interpreter: /usr/bin/python3

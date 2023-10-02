@@ -25,7 +25,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.vpn_control.ansible_host }};
+          allow {{ hostvars.pri_watch.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
