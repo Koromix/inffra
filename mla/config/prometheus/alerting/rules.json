@@ -595,5 +595,10 @@
         }
     ],
 
-    "deleteRules": []
+    "deleteRules": [
+        {
+            "orgID": 1,
+            "uid": "qIgDP4cVz"
+        }
+    ]
 }
