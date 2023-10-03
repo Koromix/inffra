@@ -1,4 +1,4 @@
-# InterSafe
+# Inffra
 
 Service de déploiement d'outils libres et sécurisés, modulables, à destination d'associations.
 
