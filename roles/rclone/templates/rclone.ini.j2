@@ -13,8 +13,8 @@ key_pem = {{ remote.key | replace('\n', '\\n') }}
 [crypt_{{ outer.index }}_{{ loop.index }}]
 type = crypt
 remote = remote_{{ outer.index }}:{{ dir.dest }}
-directory_name_encryption = true
-filename_encryption = standard
+directory_name_encryption = {{ 'true' if rclone_encrypt_paths else 'false' }}
+filename_encryption = {{ 'standard' if rclone_encrypt_paths else 'off' }}
 password = {{ rclone_key }}
 {% endfor %}
 
