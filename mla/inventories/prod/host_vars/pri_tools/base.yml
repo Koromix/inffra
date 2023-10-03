@@ -15,15 +15,3 @@ ansible_host: 10.8.0.5
 ansible_port: 22
 ansible_user: debian
 ansible_python_interpreter: /usr/bin/python3
-
-ufw_rules:
-  - rule: allow
-    to: '{{ ansible_host if restrict_ssh_access else "any" }}'
-    port: 22
-    proto: tcp
-  - rule: allow
-    port: 80
-    proto: tcp
-  - rule: allow
-    port: 443
-    proto: tcp

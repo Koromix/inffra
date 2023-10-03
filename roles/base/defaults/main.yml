@@ -14,9 +14,11 @@
 weekly_upgrade: yes
 
 ssh_port: 22
+restrict_ssh_access: no
 
 ufw_rules:
   - rule: allow
+    to: '{{ ansible_host if restrict_ssh_access else "any" }}'
     port: 22
     proto: tcp
   - rule: allow
