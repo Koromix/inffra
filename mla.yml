@@ -17,6 +17,8 @@
     - name: base
     - name: rclone
       when: 'rclone_directories is defined'
+    - name: rekord
+      when: 'rekord_directories is defined'
     - name: nginx
       when: 'nginx_domains is defined'
     - name: prometheus
