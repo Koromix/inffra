@@ -28,17 +28,17 @@
   apt:
     update_cache: yes
     pkg:
-      - php7.4-cli
-      - php7.4-mysql
-      - php7.4-curl
-      - php7.4-gd
-      - php7.4-intl
-      - php7.4-xml
-      - php7.4-mbstring
-      - php7.4-zip
-      - php7.4-fpm
-      - php7.4-memcache
-      - php7.4-apcu
+      - php8.2-cli
+      - php8.2-mysql
+      - php8.2-curl
+      - php8.2-gd
+      - php8.2-intl
+      - php8.2-xml
+      - php8.2-mbstring
+      - php8.2-zip
+      - php8.2-fpm
+      - php8.2-memcache
+      - php8.2-apcu
       - bzip2
       - acl
     state: latest
@@ -98,7 +98,7 @@
 - name: Configure Nextcloud install
   shell:
     cmd: |
-      /usr/bin/php7.4 occ maintenance:install \
+      /usr/bin/php8.2 occ maintenance:install \
         --database "{{ nextcloud_database.provider }}" --database-host "{{ nextcloud_database.host }}" \
         --database-name "{{ nextcloud_database.name }}" \
         --database-user "{{ nextcloud_database.user }}" --database-pass "{{ nextcloud_database.password }}" \
@@ -128,7 +128,7 @@
 
 - name: Upgrade Nextcloud
   shell:
-    cmd: '/usr/bin/php7.4 --define apc.enable_cli=1 occ upgrade'
+    cmd: '/usr/bin/php8.2 --define apc.enable_cli=1 occ upgrade'
     chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
   when: 'install_check.stat.exists'
   become: yes
@@ -163,7 +163,7 @@
 - name: Configure PHP-FPM pool
   template:
     src: fpm.conf.j2
-    dest: /etc/php/7.4/fpm/pool.d/nextcloud.conf
+    dest: /etc/php/8.2/fpm/pool.d/nextcloud.conf
     owner: root
     group: root
     mode: '0644'
@@ -171,7 +171,7 @@
 
 - name: Restart PHP-FPM service
   service:
-    name: php7.4-fpm
+    name: php8.2-fpm
     state: restarted
     enabled: yes
   when: 'not ansible_check_mode'
