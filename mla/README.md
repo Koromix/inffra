@@ -145,17 +145,17 @@ Toutes les applications sont paramétrées pour stocker leurs données dans `/op
 - Globaleaks (rsync et backup sqlite3)
 - PostgreSQL
 
-### Synchronisation rclone
+### Synchronisation rekord
 
-Chaque serveur de production (et de préproduction) est configuré pour réaliser des backups chiffrés sur rsync.net via rclone (en SFTP). Le chiffrement symétrique repose sur un mot de passe aléatoire de 64 caractères.
+Chaque serveur de production (et de préproduction) est configuré pour réaliser des backups chiffrés sur rsync.net via rekord (en SFTP). Le chiffrement asymétrique repose sur un mot de passe aléatoire de 32 caractères.
 
 Tout le contenu du répertoire `/opt` est compris dans chaque synchronisation.
 
 Des snapshots du disque rsync.net sont réalisés de manière automatique et quotidienne, avec un roulement qui comprend :
 
-- Les 7 derniers snapshots quotidiens
+- Les 3 derniers snapshots quotidiens
 - Les 2 derniers snapshots hebdomadaires (remontant donc à 3 semaines)
-- Le 1 dernier snapshot mensuels (remontant donc à 1 mois et 3 semaines)
+- Les 2 dernier snapshot mensuels (remontant donc à 1 mois et 3 semaines)
 
 ### Système d'alerte
 

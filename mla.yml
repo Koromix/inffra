@@ -15,8 +15,6 @@
   hosts: all
   roles:
     - name: base
-    - name: rclone
-      when: 'rclone_directories is defined'
     - name: rekord
       when: 'rekord_directories is defined'
     - name: nginx
