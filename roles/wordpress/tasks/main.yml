@@ -11,16 +11,29 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
+- name: Configure SURY repository key
+  apt_key:
+    url: 'https://packages.sury.org/php/apt.gpg'
+    id: 95BD4743
+    state: present
+  become: yes
+
+- name: Configure SURY repository
+  apt_repository:
+    repo: 'deb https://packages.sury.org/php/ {{ ansible_distribution_release }} main'
+    state: present
+  become: yes
+
 - name: Install packages
   apt:
     update_cache: yes
     pkg:
-      - php7.4-cli
-      - php7.4-mysql
-      - php7.4-curl
-      - php7.4-gd
-      - php7.4-intl
-      - php7.4-fpm
+      - php8.2-cli
+      - php8.2-mysql
+      - php8.2-curl
+      - php8.2-gd
+      - php8.2-intl
+      - php8.2-fpm
     state: latest
   become: yes
 
@@ -48,7 +61,8 @@
 
 - name: Fetch WordPress archive
   get_url:
-    url: '{{ wordpress_url }}'
+    url: '{{ wordpress_url }
+  }'
     dest: '{{ wordpress_root_path }}/{{ wordpress_name }}.tar.gz'
     checksum: '{{ wordpress_checksum }}'
   become: yes
@@ -115,7 +129,7 @@
 - name: Configure PHP-FPM pool
   template:
     src: fpm.conf.j2
-    dest: /etc/php/7.4/fpm/pool.d/wordpress.conf
+    dest: /etc/php/8.2/fpm/pool.d/wordpress.conf
     owner: root
     group: root
     mode: '0644'
@@ -123,7 +137,7 @@
 
 - name: Restart PHP-FPM service
   service:
-    name: php7.4-fpm
+    name: php8.2-fpm
     state: restarted
     enabled: yes
   when: 'not ansible_check_mode'
