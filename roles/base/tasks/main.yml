@@ -21,6 +21,7 @@
       - rsync
       - acl
       - gpg
+      - cron
     state: latest
   become: yes
 
