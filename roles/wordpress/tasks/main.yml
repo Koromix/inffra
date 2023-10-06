@@ -61,8 +61,7 @@
 
 - name: Fetch WordPress archive
   get_url:
-    url: '{{ wordpress_url }
-  }'
+    url: '{{ wordpress_url }}'
     dest: '{{ wordpress_root_path }}/{{ wordpress_name }}.tar.gz'
     checksum: '{{ wordpress_checksum }}'
   become: yes
