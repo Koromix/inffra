@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-cpad_repo: https://github.com/xwiki-labs/cryptpad
-cpad_commit: 5.2.1
+cpad_repo: https://github.com/cryptpad/cryptpad
+cpad_commit: 5.4.1
 
 cpad_root_path: /opt/cryptpad
 

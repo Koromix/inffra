@@ -125,18 +125,9 @@
       mode: '0644'
   become: yes
 
-- name: Run bower install
+- name: Install components
   command:
-    cmd: 'bower install --allow-root'
-    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
-  register: bower_install
-  changed_when: '"bower" not in npm_install.stdout'
-  when: 'not ansible_check_mode'
-  become: yes
-
-- name: Build static pages
-  command:
-    cmd: 'npm run build'
+    cmd: 'npm run install:components'
     chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
   when: 'not ansible_check_mode'
   become: yes
