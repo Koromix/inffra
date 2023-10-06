@@ -84,14 +84,9 @@
   become: yes
 
 - name: Copy Nextcloud install
-  synchronize:
-    src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new/'
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/'
-    delete: yes
-    recursive: yes
-    owner: true
-    group: true
-  delegate_to: '{{ inventory_hostname }}'
+  shell:
+    cmd: rsync -av new/ live/
+    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
   when: 'not install_check.stat.exists'
   become: yes
 
@@ -111,18 +106,9 @@
   become_user: www-data
 
 - name: Synchronize new Nextcloud version
-  synchronize:
-    src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new/'
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/'
-    delete: yes
-    recursive: yes
-    owner: true
-    group: true
-    rsync_opts:
-      - "--exclude=config"
-      - "--exclude=data"
-      - "--exclude=custom_apps"
-  delegate_to: '{{ inventory_hostname }}'
+  shell:
+    cmd: rsync -av --delete --exclude=/config --exclude=/data --exclude=/custom_apps new/ live/
+    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
   when: 'install_check.stat.exists'
   become: yes
 
