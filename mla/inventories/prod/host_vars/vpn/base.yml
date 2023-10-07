@@ -21,6 +21,8 @@ ufw_rules:
     port: 22
     proto: tcp
   - rule: allow
+    port: 53
+  - rule: allow
     port: 80
     proto: tcp
   - rule: allow
