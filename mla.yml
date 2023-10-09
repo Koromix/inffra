@@ -21,7 +21,7 @@
       when: 'nginx_domains is defined'
     - name: prometheus
       when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [global]
+  tags: [system]
 
 - import_playbook: 'mla/config/services/wireguard.yml'
 - import_playbook: 'mla/config/services/discourse.yml'
