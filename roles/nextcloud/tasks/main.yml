@@ -39,6 +39,9 @@
       - php8.2-fpm
       - php8.2-memcache
       - php8.2-apcu
+      - php8.2-gmp
+      - php8.2-bcmath
+      - php8.2-imagick
       - bzip2
       - acl
     state: latest
