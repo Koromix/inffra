@@ -163,6 +163,31 @@
   when: 'not ansible_check_mode'
   become: yes
 
+- name: Install periodic task systemd units
+  template:
+    src: '{{ item }}.j2'
+    dest: '/etc/systemd/system/{{ item }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - nextcloud_cron@.service
+    - nextcloud_cron@.timer
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Enabled periodic task units
+  service:
+    name: 'nextcloud_cron@{{ nextcloud_name }}.timer'
+    state: started
+    enabled: yes
+  become: yes
+
 - name: Configure OnlyOffice
   include_tasks: onlyoffice.yml
   when: 'onlyoffice_port is defined'
