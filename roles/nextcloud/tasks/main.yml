@@ -44,7 +44,7 @@
     state: latest
   become: yes
 
-- name: Prepare Nextcloud base directory
+- name: Prepare Nextcloud base directories
   file:
     path: '{{ item }}'
     state: directory
@@ -54,6 +54,37 @@
   loop:
     - '{{ nextcloud_root_path }}'
     - '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
+  become: yes
+
+- name: Read installed Nextcloud checksum
+  block:
+    - name: Read installed Nextcloud checksum 1/2
+      stat:
+        path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/checksum'
+      register: checksum1
+      become: yes
+    - name: Read installed Nextcloud checksum 2/2
+      slurp:
+        src: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/checksum'
+      register: checksum2
+      when: 'checksum1.stat.exists'
+      become: yes
+
+- name: Clear out old Nextcloud files
+  file:
+    path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new'
+    state: absent
+  when: 'not checksum1.stat.exists or (checksum2.content | b64decode) != nextcloud_checksum'
+  become: yes
+
+- name: Create Nextcloud directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+  loop:
     - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new'
     - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
   become: yes
@@ -75,6 +106,16 @@
     mode: 'u=rwX,g=rX,o=rX'
     extra_opts:
       - '--strip-components=1'
+  when: 'not checksum1.stat.exists or (checksum2.content | b64decode) != nextcloud_checksum'
+  become: yes
+
+- name: Write Nextcloud checksum
+  copy:
+    content: '{{ nextcloud_checksum }}'
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/checksum'
+    owner: root
+    group: root
+    mode: '0644'
   become: yes
 
 - name: Check for existing Nextcloud install
