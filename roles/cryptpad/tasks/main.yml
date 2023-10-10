@@ -77,13 +77,6 @@
   changed_when: '"up to date" not in npm_install.stdout'
   become: yes
 
-- name: Install bower with NPM
-  command:
-    cmd: 'npm install -g --no-audit bower'
-    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
-  when: 'not ansible_check_mode'
-  become: yes
-
 - name: Generate random salt
   block:
   - name: Generate random salt 1/4
