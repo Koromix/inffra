@@ -52,7 +52,12 @@ nginx_domains:
       add_header X-XSS-Protection "1; mode=block";
       add_header X-Content-Type-Options nosniff;
       add_header Access-Control-Allow-Origin "${allowed_origins}";
+      add_header Access-Control-Allow-Credentials true;
+      # add_header X-Frame-Options "SAMEORIGIN";
+
       add_header Permissions-Policy interest-cohort=();
+
+      # Enable SharedArrayBuffer in Firefox (for .xlsx export)
       add_header Cross-Origin-Resource-Policy cross-origin;
       add_header Cross-Origin-Embedder-Policy require-corp;
 
@@ -88,6 +93,10 @@ nginx_domains:
       if ($host != $sandbox_domain) { set $unsafe 0; }
       if ($uri ~ ^\/unsafeiframe\/inner\.html.*$) { set $unsafe 1; }
 
+      if ($uri ~ ^\/components\/drawio\/src\/main\/webapp\/index.html.*$) {
+        set $scriptSrc "'self' 'sha256-6zAB96lsBZREqf0sT44BhH1T69sm7HrN34rpMOcWbNo=' 'sha256-6g514VrT/cZFZltSaKxIVNFF46+MFaTSDTPB8WfYK+c=' resource: https://${main_domain}";
+      }
+
       if ($unsafe) {
           set $scriptSrc "'self' 'unsafe-eval' 'unsafe-inline' resource: https://${main_domain}";
       }
@@ -95,7 +104,7 @@ nginx_domains:
       add_header Content-Security-Policy "default-src 'none'; child-src $childSrc; worker-src $workerSrc; media-src $mediaSrc; style-src $styleSrc; script-src $scriptSrc; connect-src $connectSrc; font-src $fontSrc; img-src $imgSrc; frame-src $frameSrc; frame-ancestors $frameAncestors";
 
       location ^~ /cryptpad_websocket {
-          proxy_pass http://localhost:3000;
+          proxy_pass http://localhost:3003;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
@@ -130,35 +139,28 @@ nginx_domains:
           add_header Cross-Origin-Embedder-Policy require-corp;
       }
 
-      location ^~ /blob/ {
-          root /opt/cryptpad/team/data;
-          if ($request_method = 'OPTIONS') {
-              add_header 'Access-Control-Allow-Origin' "${allowed_origins}";
-              add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-              add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
-              add_header 'Access-Control-Max-Age' 1728000;
-              add_header 'Content-Type' 'application/octet-stream; charset=utf-8';
-              add_header 'Content-Length' 0;
-              return 204;
-          }
-          add_header X-Content-Type-Options nosniff;
-          add_header Cache-Control max-age=31536000;
-          add_header 'Access-Control-Allow-Origin' "${allowed_origins}";
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Content-Length';
-          add_header 'Access-Control-Expose-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Content-Length';
-          try_files $uri =404;
+      location ~ ^/(blob|block)/.*$ {
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' "${allowed_origins}";
+            add_header 'Access-Control-Allow-Credentials' true;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'application/octet-stream; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+        # Since we are proxying to the API server these headers can get duplicated
+        # so we hide them
+        proxy_hide_header 'X-Content-Type-Options';
+        proxy_hide_header 'Access-Control-Allow-Origin';
+        proxy_hide_header 'Permissions-Policy';
+        proxy_hide_header 'X-XSS-Protection';
+        proxy_pass http://localhost:3000;
       }
 
-      location ^~ /block/ {
-          root /opt/cryptpad/team/data;
-          add_header X-Content-Type-Options nosniff;
-          add_header Cache-Control max-age=0;
-          try_files $uri =404;
-      }
-
-      location ~ ^/(register|login|settings|user|pad|drive|poll|slide|code|whiteboard|file|media|profile|contacts|todo|filepicker|debug|kanban|sheet|support|admin|notifications|teams|calendar|presentation|doc|form|report|convert|checkup)$ {
-          rewrite ^(.*)$ $1/ redirect;
+      location ~ ^/(register|login|recovery|settings|user|pad|drive|poll|slide|code|whiteboard|file|media|profile|contacts|todo|filepicker|debug|kanban|sheet|support|admin|notifications|teams|calendar|presentation|doc|form|report|convert|checkup|diagram)$ {
+        rewrite ^(.*)$ $1/ redirect;
       }
 
       try_files /customize/www/$uri /customize/www/$uri/index.html /www/$uri /www/$uri/index.html /customize/$uri;
@@ -176,7 +178,12 @@ nginx_domains:
       add_header X-XSS-Protection "1; mode=block";
       add_header X-Content-Type-Options nosniff;
       add_header Access-Control-Allow-Origin "${allowed_origins}";
+      add_header Access-Control-Allow-Credentials true;
+      # add_header X-Frame-Options "SAMEORIGIN";
+
       add_header Permissions-Policy interest-cohort=();
+
+      # Enable SharedArrayBuffer in Firefox (for .xlsx export)
       add_header Cross-Origin-Resource-Policy cross-origin;
       add_header Cross-Origin-Embedder-Policy require-corp;
 
@@ -212,6 +219,10 @@ nginx_domains:
       if ($host != $sandbox_domain) { set $unsafe 0; }
       if ($uri ~ ^\/unsafeiframe\/inner\.html.*$) { set $unsafe 1; }
 
+      if ($uri ~ ^\/components\/drawio\/src\/main\/webapp\/index.html.*$) {
+        set $scriptSrc "'self' 'sha256-6zAB96lsBZREqf0sT44BhH1T69sm7HrN34rpMOcWbNo=' 'sha256-6g514VrT/cZFZltSaKxIVNFF46+MFaTSDTPB8WfYK+c=' resource: https://${main_domain}";
+      }
+
       if ($unsafe) {
           set $scriptSrc "'self' 'unsafe-eval' 'unsafe-inline' resource: https://${main_domain}";
       }
@@ -219,7 +230,7 @@ nginx_domains:
       add_header Content-Security-Policy "default-src 'none'; child-src $childSrc; worker-src $workerSrc; media-src $mediaSrc; style-src $styleSrc; script-src $scriptSrc; connect-src $connectSrc; font-src $fontSrc; img-src $imgSrc; frame-src $frameSrc; frame-ancestors $frameAncestors";
 
       location ^~ /cryptpad_websocket {
-          proxy_pass http://localhost:3000;
+          proxy_pass http://localhost:3003;
           proxy_set_header X-Real-IP $remote_addr;
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
@@ -254,35 +265,28 @@ nginx_domains:
           add_header Cross-Origin-Embedder-Policy require-corp;
       }
 
-      location ^~ /blob/ {
-          root /opt/cryptpad/team/data;
-          if ($request_method = 'OPTIONS') {
-              add_header 'Access-Control-Allow-Origin' "${allowed_origins}";
-              add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-              add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
-              add_header 'Access-Control-Max-Age' 1728000;
-              add_header 'Content-Type' 'application/octet-stream; charset=utf-8';
-              add_header 'Content-Length' 0;
-              return 204;
-          }
-          add_header X-Content-Type-Options nosniff;
-          add_header Cache-Control max-age=31536000;
-          add_header 'Access-Control-Allow-Origin' "${allowed_origins}";
-          add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-          add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Content-Length';
-          add_header 'Access-Control-Expose-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range,Content-Length';
-          try_files $uri =404;
+      location ~ ^/(blob|block)/.*$ {
+        if ($request_method = 'OPTIONS') {
+            add_header 'Access-Control-Allow-Origin' "${allowed_origins}";
+            add_header 'Access-Control-Allow-Credentials' true;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Content-Range,Range';
+            add_header 'Access-Control-Max-Age' 1728000;
+            add_header 'Content-Type' 'application/octet-stream; charset=utf-8';
+            add_header 'Content-Length' 0;
+            return 204;
+        }
+        # Since we are proxying to the API server these headers can get duplicated
+        # so we hide them
+        proxy_hide_header 'X-Content-Type-Options';
+        proxy_hide_header 'Access-Control-Allow-Origin';
+        proxy_hide_header 'Permissions-Policy';
+        proxy_hide_header 'X-XSS-Protection';
+        proxy_pass http://localhost:3000;
       }
 
-      location ^~ /block/ {
-          root /opt/cryptpad/team/data;
-          add_header X-Content-Type-Options nosniff;
-          add_header Cache-Control max-age=0;
-          try_files $uri =404;
-      }
-
-      location ~ ^/(register|login|settings|user|pad|drive|poll|slide|code|whiteboard|file|media|profile|contacts|todo|filepicker|debug|kanban|sheet|support|admin|notifications|teams|calendar|presentation|doc|form|report|convert|checkup)$ {
-          rewrite ^(.*)$ $1/ redirect;
+      location ~ ^/(register|login|recovery|settings|user|pad|drive|poll|slide|code|whiteboard|file|media|profile|contacts|todo|filepicker|debug|kanban|sheet|support|admin|notifications|teams|calendar|presentation|doc|form|report|convert|checkup|diagram)$ {
+        rewrite ^(.*)$ $1/ redirect;
       }
 
       try_files /customize/www/$uri /customize/www/$uri/index.html /www/$uri /www/$uri/index.html /customize/$uri;
