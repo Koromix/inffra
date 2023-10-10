@@ -42,6 +42,8 @@
       - php8.2-gmp
       - php8.2-bcmath
       - php8.2-imagick
+      - php8.2-redis
+      - redis-server
       - bzip2
       - acl
     state: latest
@@ -170,6 +172,25 @@
     regexp: "^ *0 => "
     line: "    0 => '{{ nextcloud_domain }}'"
     state: present
+  become: yes
+
+- name: Adjust Nextcloud settings
+  lineinfile:
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
+    regexp: "'{{ item.key }}'"
+    line: "  '{{ item.key }}' => {{ item.value }},"
+    insertbefore: '^\);'
+  loop:
+    - key: memcache.local
+      value: "'\\OC\\Memcache\\APCu'"
+    - key: memcache.distributed
+      value: "'\\OC\\Memcache\\Redis'"
+    - key: memcache.locking
+      value: "'\\OC\\Memcache\\Redis'"
+    - key: redis
+      value: "['host' => 'localhost', 'port' => 6379]"
+    - key: overwrite.cli.url
+      value: "'https://{{ nextcloud_domain }}'"
   become: yes
 
 - name: Configure SMTP include
