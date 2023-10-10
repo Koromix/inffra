@@ -12,12 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform PostgreSQL backups
+Description=Perform PostgreSQL backups
 
 [Timer]
-OnCalendar = {{ postgresql_backup_schedule }}
-Persistent = true
-RandomizedDelaySec = {{ postgresql_backup_randomize }}
+OnCalendar={{ postgresql_backup_schedule }}
+Persistent=true
+RandomizedDelaySec={{ postgresql_backup_randomize }}
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

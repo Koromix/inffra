@@ -17,6 +17,7 @@ Description=Perform Nextcloud periodic tasks
 [Service]
 Type=oneshot
 User=www-data
+Group=www-data
 WorkingDirectory={{ nextcloud_root_path }}/%i/live
 ExecCondition=/usr/bin/php8.2 --define apc.enable_cli=1 occ status -e
 ExecStart=/usr/bin/php8.2 --define apc.enable_cli=1 cron.php

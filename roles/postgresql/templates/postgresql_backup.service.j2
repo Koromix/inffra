@@ -12,11 +12,9 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform PostgreSQL backups
-Wants = network-online.target
-After = network-online.target
+Description=Perform PostgreSQL backups
 
 [Service]
-Type = oneshot
-WorkingDirectory = {{ postgresql_backup_path }}
-ExecStart = {{ postgresql_backup_path }}/backup.sh
+Type=oneshot
+WorkingDirectory={{ postgresql_backup_path }}
+ExecStart={{ postgresql_backup_path }}/backup.sh

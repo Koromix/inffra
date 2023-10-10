@@ -1,14 +1,14 @@
 [Unit]
-Description = WireGuard Easy service %i
-Requires = docker.service
-After = docker.service
+Description=WireGuard Easy service %i
+Requires=docker.service
+After=docker.service
 
 [Service]
-Type = oneshot
-RemainAfterExit = true
-WorkingDirectory = {{ wg_root_path }}/%i
-ExecStart = /usr/bin/docker-compose up -d --remove-orphans
-ExecStop = /usr/bin/docker-compose down
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory={{ wg_root_path }}/%i
+ExecStart=/usr/bin/docker-compose up -d --remove-orphans
+ExecStop=/usr/bin/docker-compose down
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target

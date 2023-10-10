@@ -12,12 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform rekord backups
+Description=Perform rekord backups
 
 [Timer]
-OnCalendar = {{ rekord_schedule }}
-Persistent = true
-RandomizedDelaySec = {{ rekord_randomize }}
+OnCalendar={{ rekord_schedule }}
+Persistent=true
+RandomizedDelaySec={{ rekord_randomize }}
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

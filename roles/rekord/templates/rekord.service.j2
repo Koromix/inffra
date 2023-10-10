@@ -12,11 +12,11 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform rekord backups
-Wants = network-online.target
-After = network-online.target
+Description=Perform rekord backups
+Wants=network-online.target
+After=network-online.target
 
 [Service]
-Type = oneshot
-EnvironmentFile = {{ rekord_root_path }}/ENV
-ExecStart = {{ rekord_root_path }}/rekord.sh
+Type=oneshot
+EnvironmentFile={{ rekord_root_path }}/ENV
+ExecStart={{ rekord_root_path }}/rekord.sh

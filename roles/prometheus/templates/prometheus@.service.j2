@@ -12,20 +12,20 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Prometheus %i
-Documentation = https://prometheus.io/
-Wants = network-online.target
-After = network-online.target
+Description=Prometheus %i
+Documentation=https://prometheus.io/
+Wants=network-online.target
+After=network-online.target
 
 [Service]
-Type = simple
-User = prometheus
-Group = prometheus
-ExecStart = {{ prometheus_root_path }}/%i
-WorkingDirectory = {{ prometheus_root_path }}
-Restart = on-failure
-RestartSec = 20
-TimeoutStopSec = 30
+Type=simple
+User=prometheus
+Group=prometheus
+ExecStart={{ prometheus_root_path }}/%i
+WorkingDirectory={{ prometheus_root_path }}
+Restart=on-failure
+RestartSec=20
+TimeoutStopSec=30
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target

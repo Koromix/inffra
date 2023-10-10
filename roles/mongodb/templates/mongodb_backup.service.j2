@@ -12,11 +12,9 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform MongoDB backups
-Wants = network-online.target
-After = network-online.target
+Description=Perform MongoDB backups
 
 [Service]
-Type = oneshot
-WorkingDirectory = {{ mongodb_backup_path }}
-ExecStart = {{ mongodb_backup_path }}/backup.sh
+Type=oneshot
+WorkingDirectory={{ mongodb_backup_path }}
+ExecStart={{ mongodb_backup_path }}/backup.sh

@@ -1,15 +1,15 @@
 [Unit]
-Description = Wekan Service %i
-After = syslog.target network.target
+Description=Wekan Service %i
+After=syslog.target network.target
 
 [Service]
-User = wekan
-Group = wekan
-EnvironmentFile = {{ wekan_root_path }}/%i/ENV
-WorkingDirectory = {{ wekan_root_path }}/%i
-ExecStart = /usr/bin/node {{ wekan_root_path }}/%i/bundle/main.js
-Restart = on-failure
-SuccessExitStatus = 143
+User=wekan
+Group=wekan
+EnvironmentFile={{ wekan_root_path }}/%i/ENV
+WorkingDirectory={{ wekan_root_path }}/%i
+ExecStart=/usr/bin/node {{ wekan_root_path }}/%i/bundle/main.js
+Restart=on-failure
+SuccessExitStatus=143
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target

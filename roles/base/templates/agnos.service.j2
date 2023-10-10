@@ -1,12 +1,12 @@
 [Unit]
-Description = Agnos DNS-01 utility
-After = network.target
+Description=Agnos DNS-01 utility
+After=network.target
 
 [Service]
-Type = oneshot
-User = agnos
-Group = agnos
-WorkingDirectory = {{ agnos_root_path }}
-ExecStart = {{ agnos_root_path }}/agnos --no-staging {{ agnos_root_path }}/agnos.toml
+Type=oneshot
+User=agnos
+Group=agnos
+WorkingDirectory={{ agnos_root_path }}
+ExecStart={{ agnos_root_path }}/agnos --no-staging {{ agnos_root_path }}/agnos.toml
 
-AmbientCapabilities = CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
