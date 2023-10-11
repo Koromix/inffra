@@ -1,3 +1,5 @@
+#!/bin/sh -e
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -11,20 +13,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-nginx_default_server: yes
+cd "{{ napka_root_path }}/databases"
 
-nginx_http_port: 80
-nginx_https_port: 443
+TIME=$(date +%Y%m%d_%H%M%S)
+mkdir "$TIME"
 
-# List of domains to serve
-# nginx_domains:
+find . -maxdepth 1 -name "*.db" -exec sqlite3 "{}" ".backup '$TIME/{}'" \;
 
-goaccess: no
+tar cf "../backups/$TIME.tar" "$TIME"
+ls -1 ../backups/* | sort -r | tail -n +6 | xargs rm -f
 
-goaccess_url: https://tar.goaccess.io/goaccess-1.7.2.tar.gz
-goaccess_checksum: 'sha256:0e9aaba29c021d1c6a187130a91404730183ee8ab81cd31381854b47149d126b'
-
-goaccess_root_path: /opt/goaccess
-
-goaccess_schedule: '*-*-* 01:00'
-goaccess_randomize: 20m
+rm -rf "$TIME"

@@ -11,20 +11,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-nginx_default_server: yes
+[Unit]
+Description = Gitea (Git with a cup of tea)
+After = syslog.target
+After = network.target
 
-nginx_http_port: 80
-nginx_https_port: 443
+[Service]
+Type = simple
+User = gitea
+Group = gitea
+WorkingDirectory = {{ gitea_root_path }}
+ExecStart = {{ gitea_root_path }}/gitea web --config {{ gitea_root_path }}/etc/app.ini
+Environment = USER=gitea HOME=/home/gitea GITEA_WORK_DIR={{ gitea_root_path }}
+Restart = always
+RestartSec = 2s
 
-# List of domains to serve
-# nginx_domains:
-
-goaccess: no
-
-goaccess_url: https://tar.goaccess.io/goaccess-1.7.2.tar.gz
-goaccess_checksum: 'sha256:0e9aaba29c021d1c6a187130a91404730183ee8ab81cd31381854b47149d126b'
-
-goaccess_root_path: /opt/goaccess
-
-goaccess_schedule: '*-*-* 01:00'
-goaccess_randomize: 20m
+[Install]
+WantedBy = multi-user.target

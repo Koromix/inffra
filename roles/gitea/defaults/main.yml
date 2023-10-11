@@ -11,20 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-nginx_default_server: yes
+gitea_url: https://dl.gitea.com/gitea/1.20.5/gitea-1.20.5-linux-amd64
+gitea_checksum: 'sha256:ae8d21f36098a62272fcfa67ecbb567d0ba6cf5aecaaab29a6b98a407d435bdf'
 
-nginx_http_port: 80
-nginx_https_port: 443
+gitea_root_path: /opt/gitea
 
-# List of domains to serve
-# nginx_domains:
+gitea_port: 3000
+gitea_config:
 
-goaccess: no
-
-goaccess_url: https://tar.goaccess.io/goaccess-1.7.2.tar.gz
-goaccess_checksum: 'sha256:0e9aaba29c021d1c6a187130a91404730183ee8ab81cd31381854b47149d126b'
-
-goaccess_root_path: /opt/goaccess
-
-goaccess_schedule: '*-*-* 01:00'
-goaccess_randomize: 20m
+# gitea_domain:
+# gitea_smtp:

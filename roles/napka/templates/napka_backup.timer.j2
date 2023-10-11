@@ -11,20 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-nginx_default_server: yes
+[Unit]
+Description = Perform Napka backups
 
-nginx_http_port: 80
-nginx_https_port: 443
+[Timer]
+OnCalendar = {{ napka_backup_schedule }}
+Persistent = true
+RandomizedDelaySec = {{ napka_backup_randomize }}
 
-# List of domains to serve
-# nginx_domains:
-
-goaccess: no
-
-goaccess_url: https://tar.goaccess.io/goaccess-1.7.2.tar.gz
-goaccess_checksum: 'sha256:0e9aaba29c021d1c6a187130a91404730183ee8ab81cd31381854b47149d126b'
-
-goaccess_root_path: /opt/goaccess
-
-goaccess_schedule: '*-*-* 01:00'
-goaccess_randomize: 20m
+[Install]
+WantedBy = timers.target

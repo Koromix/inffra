@@ -78,3 +78,7 @@
     state: reloaded
   when: 'not ansible_check_mode'
   become: yes
+
+- name: Configure GoAccess stats
+  include_tasks: goaccess.yml
+  when: 'goaccess'

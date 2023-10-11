@@ -1,0 +1,115 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: goupile.org
+  hosts: monitor
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: goupile.org/www
+        static_repo: https://github.com/Koromix/rygel.git
+        static_version: goupile2
+        static_path: web/goupile.org
+    - role: ../../../../roles/static
+      vars:
+        static_name: goupile.org/files
+    - role: ../../../../roles/static
+      vars:
+        static_name: goupile.org/doc
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/goupile.org/fr/dist/html
+        static_build:
+          - cmd: '{{ static_root_path }}/poetry/bin/poetry install'
+            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
+          - cmd: '{{ static_root_path }}/poetry/bin/poetry run make clean'
+            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
+          - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
+            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
+  tags: [static]
+
+- name: koromix.dev
+  hosts: monitor
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: koromix.dev/www
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/koromix.dev/dist
+        static_build:
+          - cmd: '{{ static_root_path }}/repo/koromix.dev/www/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/www'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev/dist'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/www'
+          - cmd: '{{ static_root_path }}/repo/koromix.dev/www/felix -pFast --run_here hodler . -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev'
+    - role: ../../../../roles/static 
+      vars:
+        static_name: koromix.dev/files
+    - role: ../../../../roles/static 
+      vars:
+        static_name: koromix.dev/test
+  tags: [static]
+
+- name: koffi.dev
+  hosts: monitor
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: koffi.dev/www
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/koffi.dev/dist/html
+        static_build:
+          - cmd: '{{ static_root_path }}/poetry/bin/poetry install'
+            chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
+          - cmd: '{{ static_root_path }}/poetry/bin/poetry run make clean'
+            chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
+          - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
+            chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
+
+- name: demheter.fr
+  hosts: monitor
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: demheter.fr/www
+        static_repo: https://github.com/Koromix/rygel.git
+        static_version: demheter
+        static_path: web/demheter.fr/dist
+        static_build:
+          - cmd: '{{ static_root_path }}/repo/demheter.fr/www/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/www'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr/dist'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/www'
+          - cmd: '{{ static_root_path }}/repo/demheter.fr/www/felix -pFast --run_here hodler . -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr'
+    - role: ../../../../roles/static
+      vars:
+        static_name: demheter.fr/beta
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/demheter.fr/dist
+        static_build:
+          - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr/dist'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
+          - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr'
+  tags: [static]
+
+- name: cn2r.fr test area
+  hosts: monitor
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: cn2r.fr/test
+  tags: [static]

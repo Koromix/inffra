@@ -11,14 +11,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ssh_port: 22
-restrict_ssh_access: no
-
-force_self_ssl: no
+ansible_host: 192.168.192.157
+ansible_port: 22
+ansible_user: debian
+ansible_python_interpreter: /usr/bin/python3
 
 ufw_rules:
   - rule: allow
-    to: '{{ ansible_host if restrict_ssh_access else "any" }}'
+    to: '{{ ansible_host }}'
     port: 22
     proto: tcp
   - rule: allow
@@ -27,19 +27,6 @@ ufw_rules:
   - rule: allow
     port: 443
     proto: tcp
-
-# Use these variables to set up IPv6 on OVH VPS
-# Documentation here: https://docs.ovh.com/fr/vps/configurer-ipv6/
-# ovh_ipv6_addr:
-# ovh_ipv6_netmask:
-# ovh_ipv6_gateway:
-
-coredns_root_path: /opt/coredns
-coredns_url: https://github.com/coredns/coredns/releases/download/v1.10.1/coredns_1.10.1_linux_amd64.tgz
-coredns_checksum: 'sha256:98cb60e3358439bbb3e3f7be916fe10c51b1ed94758f53aeb2b4c06156612ff6'
-agnos_root_path: /opt/agnos
-agnos_url: https://github.com/krtab/agnos/releases/download/v0.1.0-beta.3/agnos_amd64-static
-agnos_checksum: 'sha256:f28572e58311eaf2cd01b8f1bbc75b78bb0c31053d85ec3c2d4f750d08698c68'
-
-dns_server: no
-# dns_authorities:
+  - rule: allow
+    port: 9993
+    proto: udp
