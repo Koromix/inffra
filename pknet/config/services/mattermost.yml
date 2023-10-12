@@ -1,0 +1,58 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Mattermost for F2RSMpsy
+  hosts: tools1
+  roles:
+    - role: ../../../../roles/postgresql
+      vars:
+        postgresql_databases:
+          - database: mm_f2rsmpsy
+            user: mm_f2rsmpsy
+            password: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              65663234313536353834653732356132376464393839653534363765333733666333663363386463
+              3438383739396335663863626237356335633065346566320a343836663866346264633331326636
+              62373834393837643533663634313466623164653830656465333265333463353432313663626136
+              3031356566386164360a363033653139393033303532343436383335366235343165353431356632
+              32306534386330323234633037346565626165333937363761653161303634363537396130393866
+              6531353734333436636365313466356130326461393462353664
+    - role: ../../../../roles/mattermost
+      vars:
+        mattermost_name: f2rsmpsy
+        mattermost_root: 'https://chat.f2rsmpsy.org'
+        mattermost_database:
+          host: 127.0.0.1
+          name: mm_f2rsmpsy
+          user: mm_f2rsmpsy
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            65663234313536353834653732356132376464393839653534363765333733666333663363386463
+            3438383739396335663863626237356335633065346566320a343836663866346264633331326636
+            62373834393837643533663634313466623164653830656465333265333463353432313663626136
+            3031356566386164360a363033653139393033303532343436383335366235343165353431356632
+            32306534386330323234633037346565626165333937363761653161303634363537396130393866
+            6531353734333436636365313466356130326461393462353664
+        mattermost_smtp:
+          host: mail.gandi.net:587
+          username: noreply@goupile.fr
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            31346166613462613537613331623533323331303561386339376238316563636264353235383765
+            3237383439633735646638343361343731313734633137650a666162323732346433636334393437
+            33643038366438373633326564623465306632383435396132303030333962623932643130356564
+            6137366130323864650a396264396433623163333334323130666237633063366364363166393337
+            30323535343731323262326231386237653665663137313963303930336266623039
+          from: noreply@goupile.fr
+          mode: starttls
+  tags: [mattermost]

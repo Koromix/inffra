@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Gitea for F2RSMpsy
-  hosts: monitor
+  hosts: tools1
   roles:
     - role: ../../../../roles/gitea
       vars:

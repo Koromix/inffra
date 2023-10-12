@@ -12,7 +12,5 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 rekord_directories:
-  - name: '{{ inventory_hostname }}{{ mariadb_backup_path }}'
-    src: '{{ mariadb_backup_path }}'
-  - name: '{{ inventory_hostname }}{{ wordpress_root_path }}'
-    src: '{{ wordpress_root_path }}'
+  - name: '{{ inventory_hostname }}/opt'
+    src: /opt

@@ -1,0 +1,68 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Discourse for F2RSMpsy
+  hosts: tools2
+  roles:
+    - role: ../../../../roles/postgresql
+      vars:
+        postgresql_databases:
+          - database: dc_f2rsmpsy
+            user: dc_f2rsmpsy
+            password: !vault |
+              $ANSIBLE_VAULT;1.1;AES256
+              62396231643033363261386230316365656236336462356433313263386339363634356236336264
+              3134343562633638653430323564343039633665363736320a323531333364366563656463393432
+              33653666353539626462316336313166393937333739363462356261366330376161356266666337
+              6635646662373362320a393961376430353366363138393831316435346431666133333132613838
+              63323062323134306564323933303032393638653535663764386438356666616436353963303034
+              6262666130653234313834353364653835313536373562663437
+            sql: |
+              CREATE EXTENSION IF NOT EXISTS hstore;
+              CREATE EXTENSION IF NOT EXISTS pg_trgm;
+    - role: ../../../../roles/discourse
+      vars:
+        discourse_name: f2rsmpsy
+        discourse_domain: 'forum.f2rsmpsy.org'
+        discourse_admin: niels.martignene@protonmail.com
+        discourse_database:
+          host: 172.17.0.1
+          name: dc_f2rsmpsy
+          user: dc_f2rsmpsy
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            62396231643033363261386230316365656236336462356433313263386339363634356236336264
+            3134343562633638653430323564343039633665363736320a323531333364366563656463393432
+            33653666353539626462316336313166393937333739363462356261366330376161356266666337
+            6635646662373362320a393961376430353366363138393831316435346431666133333132613838
+            63323062323134306564323933303032393638653535663764386438356666616436353963303034
+            6262666130653234313834353364653835313536373562663437
+        discourse_smtp:
+          host: mail.gandi.net:587
+          username: noreply@goupile.fr
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            31346166613462613537613331623533323331303561386339376238316563636264353235383765
+            3237383439633735646638343361343731313734633137650a666162323732346433636334393437
+            33643038366438373633326564623465306632383435396132303030333962623932643130356564
+            6137366130323864650a396264396433623163333334323130666237633063366364363166393337
+            30323535343731323262326231386237653665663137313963303930336266623039
+          from: noreply@goupile.fr
+          mode: starttls
+        discourse_plugins:
+          - https://github.com/discourse/discourse-chat-integration
+          - https://github.com/discourse/discourse-solved
+          - https://github.com/angusmcleod/discourse-events
+          - https://github.com/angusmcleod/discourse-locations
+
+  tags: [discourse]

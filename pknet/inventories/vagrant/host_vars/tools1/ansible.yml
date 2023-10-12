@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-rekord_directories:
-  - name: '{{ inventory_hostname }}/opt/nginx'
-    src: /opt/nginx
-  - name: '{{ inventory_hostname }}{{ gitea_root_path }}'
-    src: '{{ gitea_root_path }}'
+ansible_host: 192.168.58.5
+ansible_port: 22
+ansible_user: vagrant
+ansible_ssh_private_key_file: pknet/vagrant/.vagrant/machines/tools1/virtualbox/private_key
+ansible_python_interpreter: /usr/bin/python3

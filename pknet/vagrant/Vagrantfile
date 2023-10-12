@@ -12,7 +12,8 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 monitor_ip = '192.168.58.4'
-tools_ip = '192.168.58.5'
+tools1_ip = '192.168.58.5'
+tools2_ip = '192.168.58.7'
 wordpress_ip = '192.168.58.6'
 
 Vagrant.configure('2') do |config|
@@ -33,18 +34,35 @@ Vagrant.configure('2') do |config|
         end
     end
 
-    config.vm.define 'tools' do |m|
+    config.vm.define 'tools1' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'pknet-tools.local'
-        m.vm.network 'private_network', ip: tools_ip
+        m.vm.hostname = 'pknet-tools1.local'
+        m.vm.network 'private_network', ip: tools1_ip
 
         # It's kind of ugly to hardcode this but.. meh. Keep it simple
-        m.hostmanager.aliases = ['git.pknet.local', 'thop.pknet.local']
+        m.hostmanager.aliases = ['git.pknet.local', 'thop.pknet.local', 'chat.pknet.local']
 
         m.vm.provider 'virtualbox' do |v|
             v.name = 'pknet_tools'
             v.memory = 4096
             v.cpus = 2
+            v.linked_clone = true
+            v.gui = false
+        end
+    end
+
+    config.vm.define 'tools2' do |m|
+        m.vm.box = 'generic/debian11'
+        m.vm.hostname = 'pknet-tools2.local'
+        m.vm.network 'private_network', ip: tools2_ip
+
+        # It's kind of ugly to hardcode this but.. meh. Keep it simple
+        m.hostmanager.aliases = ['forum.pknet.local']
+
+        m.vm.provider 'virtualbox' do |v|
+            v.name = 'pknet_tools2'
+            v.memory = 2048
+            v.cpus = 1
             v.linked_clone = true
             v.gui = false
         end

@@ -11,15 +11,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    monitor:
-    tools1:
-    tools2:
-    wordpress:
+ansible_host: 192.168.192.89
+ansible_port: 22
+ansible_user: debian
+ansible_python_interpreter: /usr/bin/python3
 
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+# Keep SSH public for gitea
 
-    restrict_ssh_access: no
-    force_self_ssl: yes
+ufw_rules:
+  - rule: allow
+    port: 22
+    proto: tcp
+  - rule: allow
+    port: 80
+    proto: tcp
+  - rule: allow
+    port: 443
+    proto: tcp
+  - rule: allow
+    port: 9993
+    proto: udp
