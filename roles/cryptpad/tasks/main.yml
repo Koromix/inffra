@@ -50,15 +50,19 @@
     - '{{ cpad_root_path }}'
     - '{{ cpad_root_path }}/{{ cpad_name }}'
     - '{{ cpad_root_path }}/{{ cpad_name }}/app'
+    - '{{ cpad_root_path }}/{{ cpad_name }}/app/customize'
   become: yes
 
-- name: Prepare Cryptpad data directory
+- name: Prepare Cryptpad data directories
   file:
-    path: '{{ cpad_root_path }}/{{ cpad_name }}/data'
+    path: '{{ item }}'
     state: directory
     owner: cpad
     group: cpad
     mode: '0755'
+  loop:
+    - '{{ cpad_root_path }}/{{ cpad_name }}/data'
+    - '{{ cpad_root_path }}/{{ cpad_name }}/data/block'
   become: yes
 
 - name: Fetch Cryptpad repository
@@ -71,7 +75,7 @@
 
 - name: Run NPM install
   command:
-    cmd: 'npm install --no-audit'
+    cmd: 'npm ci --no-audit'
     chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
   register: npm_install
   changed_when: '"up to date" not in npm_install.stdout'
