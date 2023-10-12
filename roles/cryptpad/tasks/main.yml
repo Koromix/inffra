@@ -63,6 +63,7 @@
   loop:
     - '{{ cpad_root_path }}/{{ cpad_name }}/data'
     - '{{ cpad_root_path }}/{{ cpad_name }}/data/block'
+    - '{{ cpad_root_path }}/{{ cpad_name }}/app/data'
   become: yes
 
 - name: Fetch Cryptpad repository
