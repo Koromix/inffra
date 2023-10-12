@@ -30,3 +30,4 @@
 - import_playbook: 'pknet/config/services/wordpress.yml'
 - import_playbook: 'pknet/config/services/discourse.yml'
 - import_playbook: 'pknet/config/services/mattermost.yml'
+- import_playbook: 'pknet/config/services/cryptpad.yml'
