@@ -11,16 +11,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-all:
-  hosts:
-    goupile1:
-    monitor:
-    tools1:
-    tools2:
-    wordpress:
+- name: Update and install Goupile
+  command: '{{ goupile_root_path }}/sync/update.sh'
+  register: build
+  changed_when: 'build.stderr_lines[-1] != "Nothing to do!" and build.stderr_lines[-2] != "Nothing to do!"'
+  listen: 'Sync Goupile'
+  become: yes
 
-  vars:
-    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
-
-    restrict_ssh_access: no
-    force_self_ssl: yes
+- name: Sync Goupile services
+  command: '{{ goupile_root_path }}/sync/sync.py'
+  register: sync
+  changed_when: 'sync.stderr_lines[-1] != ">>> Nothing has changed" and sync.stderr_lines[-2] != ">>> Nothing has changed"'
+  listen: 'Sync Goupile'
+  become: yes

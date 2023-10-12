@@ -23,6 +23,7 @@
       when: 'prometheus_exporters is defined or grafana_url is defined'
   tags: [system]
 
+- import_playbook: 'pknet/config/services/goupile.yml'
 - import_playbook: 'pknet/config/services/static.yml'
 - import_playbook: 'pknet/config/services/napka.yml'
 - import_playbook: 'pknet/config/services/thop.yml'
