@@ -79,15 +79,6 @@ nginx_domains:
               autoindex_exact_size off;
           }
       }
-
-      location /pknet {
-          limit_req zone=default burst=100 nodelay;
-
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://127.0.0.1:9200;
-      }
   - name: doc.goupile.org
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
@@ -181,6 +172,18 @@ nginx_domains:
 
           auth_basic "stat.koromix.dev";
           auth_basic_user_file /opt/goaccess/html/koromix.dev.htpasswd;
+      }
+
+  - name: watch.koromix.dev
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          limit_req zone=default burst=100 nodelay;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:9200;
       }
 
   - name: koffi.dev
@@ -356,7 +359,7 @@ prometheus_exporters:
   - nginx_exporter
   - systemd_exporter
 
-grafana_url: 'https://goupile.fr/pknet'
+grafana_url: 'https://watch.koromix.dev/'
 grafana_default_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   65313239613434353966633035323164313730333435396336393064383730333935636133613534
