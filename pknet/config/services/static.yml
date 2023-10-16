@@ -75,6 +75,7 @@
             chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
           - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
             chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
+  tags: [static]
 
 - name: demheter.fr
   hosts: monitor
