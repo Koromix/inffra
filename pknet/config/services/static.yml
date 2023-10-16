@@ -54,9 +54,6 @@
             chdir: '{{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev'
     - role: ../../../../roles/static 
       vars:
-        static_name: koromix.dev/files
-    - role: ../../../../roles/static 
-      vars:
         static_name: koromix.dev/test
   tags: [static]
 
