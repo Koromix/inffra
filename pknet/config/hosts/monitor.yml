@@ -255,7 +255,7 @@ nginx_domains:
           location ~ \.php$ {
               include fastcgi_params;
               fastcgi_param SCRIPT_FILENAME $request_filename;
-              fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+              fastcgi_pass unix:/run/php/php8.2-fpm.sock;
           }
       }
   - name: beta.demheter.fr
@@ -269,7 +269,7 @@ nginx_domains:
           location ~ \.php$ {
               include fastcgi_params;
               fastcgi_param SCRIPT_FILENAME $request_filename;
-              fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+              fastcgi_pass unix:/run/php/php8.2-fpm.sock;
           }
       }
       location = /admin {
@@ -303,7 +303,7 @@ nginx_domains:
           location ~ \.php$ {
               include fastcgi_params;
               fastcgi_param SCRIPT_FILENAME $request_filename;
-              fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+              fastcgi_pass unix:/run/php/php8.2-fpm.sock;
           }
       }
   - name: stat.demheter.fr
