@@ -13,8 +13,8 @@
 
 rekord_root_path: /opt/rekord
 
-rekord_url: 'https://github.com/Koromix/rekord/releases/download/rekord%2F0.1/rekord_0.1_amd64.deb'
-rekord_checksum: 'sha256:d06d66152d2f9c8b7e554b2b319e3277e5422712cdc8e4ec2272f9b9973953ea'
+rekord_url: 'https://github.com/Koromix/rekord/releases/download/rekord%2F0.2/rekord_0.2_amd64.deb'
+rekord_checksum: 'sha256:02bf7a59f2d54103cfad9792c21acab4b0ce83ccf92fd681660c0943d88e7a1e'
 
 rekord_schedule: '*-*-* 5:00'
 rekord_randomize: 20m
