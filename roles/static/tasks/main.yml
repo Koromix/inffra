@@ -42,6 +42,8 @@
       - make
       - curl
       - acl
+      - gcc
+      - g++
     state: latest
   become: yes
 
