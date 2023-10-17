@@ -138,7 +138,7 @@
                             "datasourceUid": "PBFA97CFB590B2093",
                             "model": {
                                 "editorMode": "code",
-                                "expr": "node_filesystem_avail_bytes{mountpoint=\"/\"} / node_filesystem_size_bytes{mountpoint=\"/\"}",
+                                "expr": "node_filesystem_avail_bytes { fstype != 'ramfs' } / node_filesystem_size_bytes { fstype != 'ramfs' }",
                                 "hide": false,
                                 "intervalMs": 1000,
                                 "legendFormat": "__auto",
@@ -203,7 +203,7 @@
                                     {
                                         "evaluator": {
                                             "params": [
-                                                0.1
+                                                0.05
                                             ],
                                             "type": "lt"
                                         },
