@@ -377,5 +377,5 @@ grafana_smtp:
   from: admin@goupile.fr
   start_tls: MandatoryStartTLS
 
-grafana_dashboards: '{{ inventory_dir }}/../common/prometheus/dashboards'
-grafana_alerts: '{{ inventory_dir }}/../common/prometheus/alerting'
+grafana_dashboards: '{{ inventory_dir }}/../../config/prometheus/dashboards'
+grafana_alerts: '{{ inventory_dir }}/../../config/prometheus/alerting'
