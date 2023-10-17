@@ -143,15 +143,25 @@ nginx_domains:
       }
 
       # Some stuff lives at home
+
       location /files/ {
-          proxy_pass http://192.168.192.250;
+          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
+          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
+          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
+          proxy_pass https://192.168.192.250;
       }
       location /R/ {
-          proxy_pass http://192.168.192.250;
+          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
+          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
+          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
+          proxy_pass https://192.168.192.250;
       }
       location /procemot/ {
           client_max_body_size 256M;
-          proxy_pass http://192.168.192.250;
+          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
+          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
+          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
+          proxy_pass https://192.168.192.250;
       }
   - name: www.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
