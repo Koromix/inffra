@@ -35,7 +35,7 @@
             chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
           - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
             chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
-  tags: [static]
+  tags: [goupile.org, static]
 
 - name: koromix.dev
   hosts: monitor
@@ -55,7 +55,7 @@
     - role: ../../../../roles/static 
       vars:
         static_name: koromix.dev/test
-  tags: [static]
+  tags: [koromix.dev, static]
 
 - name: koffi.dev
   hosts: monitor
@@ -72,7 +72,7 @@
             chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
           - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
             chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
-  tags: [static]
+  tags: [koffi.dev, static]
 
 - name: demheter.fr
   hosts: monitor
@@ -102,7 +102,7 @@
             chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
           - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
             chdir: '{{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr'
-  tags: [static]
+  tags: [demheter.fr, static]
 
 - name: cn2r.fr test area
   hosts: monitor
@@ -110,4 +110,4 @@
     - role: ../../../../roles/static
       vars:
         static_name: cn2r.fr/test
-  tags: [static]
+  tags: [cn2r.fr, static]
