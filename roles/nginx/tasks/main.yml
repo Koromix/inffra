@@ -81,4 +81,4 @@
 
 - name: Configure GoAccess stats
   include_tasks: goaccess.yml
-  when: 'goaccess'
+  when: 'goaccess_domains is defined'
