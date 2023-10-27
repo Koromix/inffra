@@ -55,7 +55,6 @@
     path: '{{ thop_root_path }}/repo'
     state: directory
     owner: '{{ ansible_user | default(lookup("env", "USER"), True) }}'
-    recurse: yes
   become: yes
 
 - name: Fetch THOP repository
@@ -114,7 +113,7 @@
     mode: '0755'
   become: yes
 
-- name: Install THOP tables
+- name: Fetch THOP tables
   get_url:
     url: '{{ thop_tables }}'
     dest: '{{ thop_root_path }}/{{ thop_name }}/tables/tables.zip'

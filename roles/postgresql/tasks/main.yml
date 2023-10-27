@@ -76,7 +76,7 @@
     db: '{{ item.database }}'
     query: '{{ item.sql }}'
   loop: '{{ postgresql_databases }}'
-  when: 'item.sql is defined'
+  when: 'item.sql is defined and not ansible_check_mode'
   become: yes
   become_user: postgres
 

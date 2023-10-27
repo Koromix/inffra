@@ -17,26 +17,26 @@
     state: present
   become: yes
 
-- name: Prepare Mattermost base directory
+- name: Prepare Mattermost directories
   file:
-    path: '{{ item }}'
+    path: '{{ item.path }}'
     state: directory
-    owner: root
-    group: root
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
     mode: '0755'
   loop:
-    - '{{ mattermost_root_path }}'
-    - '{{ mattermost_root_path }}/{{ mattermost_name }}'
-    - '{{ mattermost_root_path }}/{{ mattermost_name }}/app'
-  become: yes
-
-- name: Prepare Mattermost data directory
-  file:
-    path: '{{ mattermost_root_path }}/{{ mattermost_name }}/data'
-    state: directory
-    owner: mattermost
-    group: mattermost
-    mode: '0755'
+    - path: '{{ mattermost_root_path }}'
+      owner: root
+      group: root
+    - path: '{{ mattermost_root_path }}/{{ mattermost_name }}'
+      owner: root
+      group: root
+    - path: '{{ mattermost_root_path }}/{{ mattermost_name }}/app'
+      owner: mattermost
+      group: mattermost
+    - path: '{{ mattermost_root_path }}/{{ mattermost_name }}/data'
+      owner: mattermost
+      group: mattermost
   become: yes
 
 - name: Fetch Mattermost archive
@@ -55,7 +55,7 @@
     group: mattermost
     mode: 'u=rwX,g=rX,o=rX'
     extra_opts:
-      - '--strip-components=1'
+      - '--strip-components=1 --exclude=config.json'
   become: yes
 
 - name: Install Mattermost service file

@@ -76,6 +76,7 @@
   environment:
     POETRY_HOME: '{{ static_root_path }}/poetry'
     POETRY_CACHE_DIR: '{{ static_root_path }}/poetry/cache'
+  when: 'static_build is defined'
   become: yes
   become_user: www-data
 
@@ -85,7 +86,6 @@
     state: directory
     owner: www-data
     group: www-data
-    recurse: yes
   become: yes
 
 - name: Clone repository
