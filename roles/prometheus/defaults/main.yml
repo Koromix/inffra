@@ -53,9 +53,22 @@ prometheus_packages:
     port: 9558
     args: |
       --web.listen-address 127.0.0.1:9558
+  blackbox_exporter:
+    url: 'https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz'
+    checksum: 'sha256:81b36cece040491ac0d9995db2a0964c40e24838a03a151c3333a7dc3eef94ff'
+    binary: blackbox_exporter-0.24.0.linux-amd64/blackbox_exporter
+    port: 9115
+    args: |
+      --web.listen-address=127.0.0.1:9115 --config.file="{{ prometheus_root_path }}/blackbox.yml"
+
+blackbox_scrape_interval: 2m
+blackbox_scrape_timeout: 10s
 
 # Define these to export Prometheus
 # prometheus_exporters:
+
+# Define these for blackbox probes
+# blackbox_sites:
 
 # ------------------------------------------------------------------------
 # Grafana

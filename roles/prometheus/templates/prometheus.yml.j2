@@ -36,3 +36,28 @@ scrape_configs:
 {% endif %}
 {% endfor %}
 {% endfor %}
+
+{% for host, vars in hostvars.items() %}
+{% if vars.blackbox_sites is defined %}
+  - job_name: 'blackbox{{ loop.index0 }}'
+    scheme: https
+    metrics_path: metrics/probe
+    tls_config:
+      ca_file: /opt/nginx/ssl/internal/ca.crt
+      cert_file: /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt
+      key_file: /opt/nginx/ssl/internal/{{ inventory_hostname }}.key
+    scrape_interval: {{ blackbox_scrape_interval | default('') }}
+    scrape_timeout: {{ blackbox_scrape_timeout | default('') }}
+    params:
+      module: [http_2xx]
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: '{{ vars.ansible_host }}:443'
+    static_configs:
+      - targets: {{ vars.blackbox_sites }}
+{% endif %}
+{% endfor %}

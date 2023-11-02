@@ -80,6 +80,8 @@
   copy:
     src: '{{ prometheus_packages[item].src }}'
     dest: '{{ prometheus_root_path }}/packages/{{ item }}/{{ prometheus_packages[item].binary }}'
+    owner: root
+    group: root
     mode: '0755'
   loop: '{{ prometheus_services }}'
   when: 'prometheus_packages[item].src is defined'
@@ -91,6 +93,8 @@
       #!/bin/sh -e
       {{ prometheus_root_path }}/packages/{{ item }}/{{ prometheus_packages[item].binary }} {{ prometheus_packages[item].args | trim }} "$@"
     dest: '{{ prometheus_root_path }}/{{ item }}'
+    owner: root
+    group: root
     mode: '0755'
   loop: '{{ prometheus_services }}'
   become: yes
@@ -99,8 +103,20 @@
   template:
     src: prometheus.yml.j2
     dest: '{{ prometheus_root_path }}/prometheus.yml'
+    owner: root
+    group: root
     mode: '0644'
   when: 'grafana_url is defined'
+  become: yes
+
+- name: Update Blackbox configuration file
+  template:
+    src: blackbox.yml.j2
+    dest: '{{ prometheus_root_path }}/blackbox.yml'
+    owner: root
+    group: root
+    mode: '0644'
+  when: 'blackbox_sites is defined'
   become: yes
 
 - name: Update systemd service file
