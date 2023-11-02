@@ -27,7 +27,7 @@ Vagrant.configure('2') do |config|
     config.hostmanager.manage_host = true
 
     config.vm.define 'pri_chat' do |m|
-        m.vm.box = 'generic/debian11'
+        m.vm.box = 'generic/debian12'
         m.vm.hostname = 'chat.intra.mla.local'
         m.vm.network 'private_network', ip: pri_chat_ip
 
