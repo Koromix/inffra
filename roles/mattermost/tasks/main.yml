@@ -55,7 +55,8 @@
     group: mattermost
     mode: 'u=rwX,g=rX,o=rX'
     extra_opts:
-      - '--strip-components=1 --exclude=config.json'
+      - '--strip-components=1'
+      - '--exclude=mattermost/config/config.json'
   become: yes
 
 - name: Install Mattermost service file
