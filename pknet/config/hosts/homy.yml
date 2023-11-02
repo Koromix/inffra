@@ -31,6 +31,21 @@ nginx_domains:
       }
       {% endfor %}
 
+      {% if blackbox_sites is defined %}
+
+      location /metrics/probe {
+          allow {{ hostvars.monitor.ansible_host }};
+          deny all;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Real-IP $remote_addr;
+
+          proxy_pass http://127.0.0.1:{{ prometheus_packages.blackbox_exporter.port }}/probe$is_args$args;
+      }
+      {% endif %}
+
       location /R/ {
           proxy_pass http://127.0.0.1:3838/;
       }
@@ -53,3 +68,28 @@ prometheus_exporters:
   - node_exporter
   - nginx_exporter
   - systemd_exporter
+  - blackbox_exporter
+
+blackbox_sites:
+  - https://koromix.dev/
+  - https://goupile.org/
+  - https://koffi.dev/
+
+  - https://cn2r.fr/
+  - https://carto.cn2r.fr/
+
+  - https://mlalerte.org/
+  - https://loi.mlalerte.org/
+  - https://prix.mlalerte.org/
+
+  - https://cn2r.goupile.fr/
+  - https://f2rsm.goupile.org/
+  - https://psy-lille.goupile.fr/
+
+  - https://demheter.fr
+  - https://beta.demheter.fr
+  - https://carto.demheter.fr/
+
+  - https://f2rsm.goupile.org/annuaire/
+  - https://koromix.dev/procemot/
+  - https://koromix.dev/R/
