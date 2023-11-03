@@ -27,12 +27,42 @@
                     "disableResolveMessage": false
                 }
             ]
+        },
+        {
+            "orgId": 1,
+            "name": "healthchecks.io",
+            "receivers": [
+                {
+                    "uid": "ddc64771-b8ff-4459-8409-61bf5eb661af",
+                    "name": "healthchecks.io",
+                    "type": "webhook",
+                    "settings": {
+                        "url": "https://hc-ping.com/b1779f42-4e0d-4ceb-a418-2f9e1e7f5312"
+                    },
+                    "disableResolveMessage": false
+                }
+            ]
         }
     ],
     "policies": [
         {
             "orgId": 1,
-            "receiver": "Koromix"
+            "receiver": "Koromix",
+            "routes": [
+                {
+                  "receiver": "healthchecks.io",
+                  "object_matchers": [
+                    [
+                      "alertname",
+                      "=",
+                      "healthchecks.io"
+                    ]
+                  ],
+                  "group_wait": "30s",
+                  "group_interval": "30s",
+                  "repeat_interval": "5m"
+                }
+            ]
         }
     ]
 }
