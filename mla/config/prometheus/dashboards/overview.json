@@ -63,6 +63,9 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [
             {
               "options": {
@@ -91,9 +94,6 @@
               }
             ]
           },
-          "color": {
-            "mode": "thresholds"
-          },
           "unit": "s"
         },
         "overrides": []
@@ -106,51 +106,51 @@
       },
       "id": 76,
       "options": {
-        "reduceOptions": {
-          "values": true,
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": ""
-        },
-        "orientation": "auto",
-        "textMode": "value_and_name",
         "colorMode": "background",
         "graphMode": "none",
         "justifyMode": "center",
-        "text": {}
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "text": {},
+        "textMode": "value_and_name"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "exemplar": false,
           "expr": "(up { job = \"node_exporter\" }) * 10000000000",
+          "format": "table",
+          "instant": true,
           "interval": "",
           "legendFormat": "__auto",
-          "refId": "Failure",
-          "editorMode": "code",
           "range": false,
-          "format": "table",
-          "instant": true
+          "refId": "Failure"
         },
         {
           "datasource": {
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "refId": "Time",
-          "expr": "time() - node_boot_time_seconds { job = \"node_exporter\" }",
-          "range": false,
-          "instant": true,
-          "hide": false,
           "editorMode": "code",
-          "legendFormat": "__auto",
+          "exemplar": false,
+          "expr": "time() - node_boot_time_seconds { job = \"node_exporter\" }",
           "format": "table",
-          "exemplar": false
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "Time"
         }
       ],
       "title": "Uptime",
@@ -165,15 +165,15 @@
         {
           "id": "calculateField",
           "options": {
+            "alias": "Value",
             "mode": "reduceRow",
             "reduce": {
-              "reducer": "min",
               "include": [
                 "Value #Time",
                 "Value #Failure"
-              ]
+              ],
+              "reducer": "min"
             },
-            "alias": "Value",
             "replaceFields": false
           }
         },
@@ -182,16 +182,16 @@
           "options": {
             "excludeByName": {
               "Time 1": true,
-              "__name__ 1": true,
-              "job 1": true,
-              "Value #Failure": true,
               "Time 2": true,
-              "__name__ 2": true,
-              "job 2": true,
-              "Value #Time": true,
               "Value": false,
+              "Value #Failure": true,
+              "Value #Time": true,
               "__name__": true,
-              "job": true
+              "__name__ 1": true,
+              "__name__ 2": true,
+              "job": true,
+              "job 1": true,
+              "job 2": true
             },
             "indexByName": {},
             "renameByName": {
@@ -267,7 +267,7 @@
           }
         ]
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -398,7 +398,7 @@
         },
         "textMode": "value_and_name"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -462,19 +462,116 @@
               "Value #A": true,
               "Value #Failure": true,
               "Value #Time": true,
+              "job": true,
               "job 1": true,
               "job 2": true,
               "name 1": true,
               "name 2": true,
               "state": true,
-              "type": true,
-              "job": true
+              "type": true
             },
             "indexByName": {},
             "renameByName": {}
           }
         }
       ],
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 131,
+      "panels": [],
+      "title": "Blackbox",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "Up"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 172,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "probe_success",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "{{ instance }}",
+          "range": false,
+          "refId": "A"
+        }
+      ],
+      "title": "HTTPS probes",
       "type": "stat"
     },
     {
@@ -487,7 +584,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 16
       },
       "id": 14,
       "panels": [],
@@ -516,6 +613,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -856,7 +954,7 @@
         "h": 7,
         "w": 6,
         "x": 0,
-        "y": 10
+        "y": 17
       },
       "id": 18,
       "links": [],
@@ -1019,7 +1117,7 @@
         "h": 7,
         "w": 6,
         "x": 6,
-        "y": 10
+        "y": 17
       },
       "hiddenSeries": false,
       "id": 20,
@@ -1044,7 +1142,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1225,7 +1323,7 @@
         "h": 7,
         "w": 6,
         "x": 12,
-        "y": 10
+        "y": 17
       },
       "hiddenSeries": false,
       "id": 22,
@@ -1252,7 +1350,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1349,7 +1447,7 @@
         "h": 7,
         "w": 6,
         "x": 18,
-        "y": 10
+        "y": 17
       },
       "height": "",
       "hiddenSeries": false,
@@ -1376,7 +1474,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1436,7 +1534,6 @@
   "refresh": "1m",
   "revision": 1,
   "schemaVersion": 38,
-  "style": "dark",
   "tags": [],
   "templating": {
     "list": [
