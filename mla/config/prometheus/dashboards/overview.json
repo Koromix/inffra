@@ -190,7 +190,8 @@
               "job 2": true,
               "Value #Time": true,
               "Value": false,
-              "__name__": true
+              "__name__": true,
+              "job": true
             },
             "indexByName": {},
             "renameByName": {
@@ -466,7 +467,8 @@
               "name 1": true,
               "name 2": true,
               "state": true,
-              "type": true
+              "type": true,
+              "job": true
             },
             "indexByName": {},
             "renameByName": {}

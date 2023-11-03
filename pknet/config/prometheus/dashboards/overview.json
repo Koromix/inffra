@@ -177,7 +177,8 @@
               "__name__ 1": true,
               "__name__ 2": true,
               "job 1": true,
-              "job 2": true
+              "job 2": true,
+              "job": true
             },
             "indexByName": {},
             "renameByName": {
@@ -453,7 +454,8 @@
               "name 1": true,
               "name 2": true,
               "state": true,
-              "type": true
+              "type": true,
+              "job": true
             },
             "indexByName": {},
             "renameByName": {}
