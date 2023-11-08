@@ -40,6 +40,11 @@ http {
     limit_req_status 429;
     limit_req zone=default burst=100 nodelay;
 
+    map $http_upgrade $connection_upgrade {  
+        default upgrade;
+        ''      close;
+    }
+
 {% if nginx_default_server %}
 
     server {
