@@ -23,13 +23,18 @@
   become: yes
 
 - name: Determine PostgreSQL major version
-  shell: 'ls /usr/lib/postgresql | sort -n | tail -1'
-  register: postgres_version
-  become: no
+  block:
+    - name: Determine PostgreSQL major version 1/2
+      shell: 'ls /usr/lib/postgresql | sort -n | tail -1'
+      register: postgres_tmp
+      become: no
+    - name: Determine PostgreSQL major version 2/2
+      set_fact:
+        postgres_major: '{{ postgres_tmp.stdout | trim }}'
 
 - name: Configure PostgreSQL listen addresses
   lineinfile:
-    dest: '/etc/postgresql/{{ postgres_version.stdout | trim }}/main/postgresql.conf'
+    dest: '/etc/postgresql/{{ postgres_major }}/main/postgresql.conf'
     regexp: '^listen_addresses'
     line: "listen_addresses = '127.0.0.1, 172.17.0.1'"
     state: present
@@ -37,7 +42,7 @@
 
 - name: Allow connection from Docker containers
   lineinfile:
-    dest: '/etc/postgresql/{{ postgres_version.stdout | trim }}/main/pg_hba.conf'
+    dest: '/etc/postgresql/{{ postgres_major }}/main/pg_hba.conf'
     regexp: '172.17.0.0'
     line: 'host    all             all             172.17.0.0/16           md5'
     state: present
@@ -91,8 +96,20 @@
     database: '{{ item.database }}'
     roles: '{{ item.user }}'
     grant_option: no
-    privs: all
+    privs: ALL
   loop: '{{ postgresql_databases }}'
+  become: yes
+  become_user: postgres
+
+- name: Grant 15+ privileges to specific users
+  community.postgresql.postgresql_privs:
+    type: schema
+    objs: public
+    database: '{{ item.database }}'
+    roles: '{{ item.user }}'
+    privs: 'USAGE,CREATE'
+  loop: '{{ postgresql_databases }}'
+  when: '(postgres_major | int) >= 15'
   become: yes
   become_user: postgres
 
