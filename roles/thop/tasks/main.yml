@@ -20,8 +20,6 @@
       - lld
       - gcc
       - g++
-      - nodejs
-      - npm
       - unzip
     state: latest
   become: yes
