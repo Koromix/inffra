@@ -25,6 +25,7 @@
 
 - import_playbook: 'pknet/config/services/goupile.yml'
 - import_playbook: 'pknet/config/services/static.yml'
+- import_playbook: 'pknet/config/services/lufi.yml'
 - import_playbook: 'pknet/config/services/napka.yml'
 - import_playbook: 'pknet/config/services/thop.yml'
 - import_playbook: 'pknet/config/services/gitea.yml'
