@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 goupile1_ip = '192.168.58.3'
-monitor_ip = '192.168.58.4'
+aeryn_ip = '192.168.58.4'
 tools1_ip = '192.168.58.5'
 tools2_ip = '192.168.58.7'
 wordpress_ip = '192.168.58.6'
@@ -38,13 +38,13 @@ Vagrant.configure('2') do |config|
         end
     end
 
-    config.vm.define 'monitor' do |m|
+    config.vm.define 'aeryn' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'pknet-monitor.local'
-        m.vm.network 'private_network', ip: monitor_ip
+        m.vm.hostname = 'pknet-aeryn.local'
+        m.vm.network 'private_network', ip: aeryn_ip
 
         m.vm.provider 'virtualbox' do |v|
-            v.name = 'pknet_monitor'
+            v.name = 'pknet_aeryn'
             v.memory = 2048
             v.cpus = 1
             v.linked_clone = true

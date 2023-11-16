@@ -21,7 +21,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.monitor.ansible_host }};
+          allow {{ hostvars.aeryn.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
@@ -34,7 +34,7 @@ nginx_domains:
       {% if blackbox_sites is defined %}
 
       location /metrics/probe {
-          allow {{ hostvars.monitor.ansible_host }};
+          allow {{ hostvars.aeryn.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;

@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: goupile.org
-  hosts: monitor
+  hosts: aeryn
   roles:
     - role: ../../../../roles/static
       vars:
@@ -38,7 +38,7 @@
   tags: [goupile.org, static]
 
 - name: koromix.dev
-  hosts: monitor
+  hosts: aeryn
   roles:
     - role: ../../../../roles/static
       vars:
@@ -58,7 +58,7 @@
   tags: [koromix.dev, static]
 
 - name: koffi.dev
-  hosts: monitor
+  hosts: aeryn
   roles:
     - role: ../../../../roles/static
       vars:
@@ -75,7 +75,7 @@
   tags: [koffi.dev, static]
 
 - name: demheter.fr
-  hosts: monitor
+  hosts: aeryn
   roles:
     - role: ../../../../roles/static
       vars:
@@ -105,7 +105,7 @@
   tags: [demheter.fr, static]
 
 - name: cn2r.fr test area
-  hosts: monitor
+  hosts: aeryn
   roles:
     - role: ../../../../roles/static
       vars:
