@@ -3,7 +3,7 @@ version: '3'
 services:
   vaultwarden:
     container_name: 'vaultwarden.{{ vaultwarden_name }}'
-    image: 'vaultwarden/server:latest'
+    image: '{{ vaultwarden_image }}'
 
     env_file: ENV
 
