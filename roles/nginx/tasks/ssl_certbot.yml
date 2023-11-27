@@ -11,45 +11,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Bootstrap Let's Encrypt configuration directories
-  file:
-    path: '{{ item }}'
-    state: directory
-    owner: root
-    group: root
-    mode: '0755'
-  loop:
-    - '/etc/letsencrypt'
-    - '/etc/letsencrypt/live'
-  become: yes
-
-- name: Bootstrap missing Let's Encrypt domain directories
-  file:
-    path: '/etc/letsencrypt/live/{{ item.name }}'
-    state: directory
-    owner: root
-    group: root
-    mode: '0700'
-  loop: '{{ nginx_domains }}'
-  become: yes
-
-- name: Bootstrap missing Let's Encrypt private keys
-  copy:
-    src: '/opt/nginx/ssl/internal/{{ inventory_hostname }}.key'
-    remote_src: yes
-    dest: '/etc/letsencrypt/live/{{ item.name }}/privkey.pem'
-    mode: '0600'
-    force: no
-  loop: '{{ nginx_domains }}'
-  become: yes
-
 - name: Bootstrap missing Let's Encrypt certificates
-  copy:
-    src: '/opt/nginx/ssl/internal/{{ inventory_hostname }}.crt'
-    remote_src: yes
-    dest: '/etc/letsencrypt/live/{{ item.name }}/fullchain.pem'
-    mode: '0600'
-    force: no
+  shell:
+    cmd: |
+      ln -sf "/opt/nginx/ssl/internal/{{ inventory_hostname }}.key" "/opt/nginx/ssl/letsencrypt/{{ item.name }}.key"
+      ln -sf "/opt/nginx/ssl/internal/{{ inventory_hostname }}.crt" "/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt"
+    creates: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
   loop: '{{ nginx_domains }}'
   become: yes
 
@@ -81,6 +48,24 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
+- name: Creates Let's Encrypt key symbolic links
+  file:
+    state: 'link'
+    path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
+    src: '/etc/letsencrypt/live/{{ item.name }}/privkey.pem'
+  loop: '{{ nginx_domains }}'
+  when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  become: yes
+
+- name: Creates Let's Encrypt certificate symbolic links
+  file:
+    state: 'link'
+    path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt'
+    src: '/etc/letsencrypt/live/{{ item.name }}/fullchain.pem'
+  loop: '{{ nginx_domains }}'
+  when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  become: yes
+
 - name: Enable certbot renewal unit
   service:
     name: certbot.timer
@@ -94,6 +79,7 @@
       - /etc/letsencrypt/renewal
       - /etc/letsencrypt/archive
       - /etc/letsencrypt/live
+      - /opt/nginx/ssl/letsencrypt
     file_type: any
     recurse: no
     exclude: |
@@ -109,12 +95,5 @@
     path: '{{ item.path }}'
     state: absent
   loop: '{{ certbot_old.files }}'
-  when: 'not force_self_ssl'
-  become: yes
-
-- name: Clean up outdated certificate renewal crontab entry
-  cron:
-    name: letsencrypt_renewal
-    state: absent
   when: 'not force_self_ssl'
   become: yes

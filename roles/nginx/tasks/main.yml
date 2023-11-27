@@ -41,6 +41,7 @@
     - /opt/nginx
     - /opt/nginx/ssl
     - /opt/nginx/ssl/internal
+    - /opt/nginx/ssl/letsencrypt
   become: yes
 
 - name: Generate Diffie-Helman parameters
