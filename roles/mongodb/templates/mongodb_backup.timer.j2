@@ -12,12 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform MongoDB backups
+Description=Perform MongoDB backups
 
 [Timer]
-OnCalendar = {{ mongodb_backup_schedule }}
-Persistent = true
-RandomizedDelaySec = {{ mongodb_backup_randomize }}
+OnCalendar={{ mongodb_backup_schedule }}
+Persistent=true
+RandomizedDelaySec={{ mongodb_backup_randomize }}
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

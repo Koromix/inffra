@@ -12,12 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform Globaleaks backups
+Description=Perform Globaleaks backups
 
 [Timer]
-OnCalendar = {{ globaleaks_backup_schedule }}
-Persistent = true
-RandomizedDelaySec = {{ globaleaks_backup_randomize }}
+OnCalendar={{ globaleaks_backup_schedule }}
+Persistent=true
+RandomizedDelaySec={{ globaleaks_backup_randomize }}
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

@@ -12,12 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform Napka imports
+Description=Perform Napka imports
 
 [Timer]
-OnCalendar = {{ napka_import_schedule }}
-Persistent = true
-RandomizedDelaySec = {{ napka_import_randomize }}
+OnCalendar={{ napka_import_schedule }}
+Persistent=true
+RandomizedDelaySec={{ napka_import_randomize }}
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target

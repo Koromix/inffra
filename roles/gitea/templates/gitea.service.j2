@@ -12,19 +12,19 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Gitea (Git with a cup of tea)
-After = syslog.target
-After = network.target
+Description=Gitea (Git with a cup of tea)
+After=syslog.target
+After=network.target
 
 [Service]
-Type = simple
-User = gitea
-Group = gitea
-WorkingDirectory = {{ gitea_root_path }}
-ExecStart = {{ gitea_root_path }}/gitea web --config {{ gitea_root_path }}/etc/app.ini
-Environment = USER=gitea HOME=/home/gitea GITEA_WORK_DIR={{ gitea_root_path }}
-Restart = always
-RestartSec = 2s
+Type=simple
+User=gitea
+Group=gitea
+WorkingDirectory={{ gitea_root_path }}
+ExecStart={{ gitea_root_path }}/gitea web --config {{ gitea_root_path }}/etc/app.ini
+Environment=USER=gitea HOME=/home/gitea GITEA_WORK_DIR={{ gitea_root_path }}
+Restart=always
+RestartSec=2s
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target

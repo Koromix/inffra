@@ -12,11 +12,11 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Update GoAccess stats
-Wants = network-online.target
-After = network-online.target
+Description=Update GoAccess stats
+Wants=network-online.target
+After=network-online.target
 
 [Service]
-Type = oneshot
-WorkingDirectory = {{ goaccess_root_path }}
-ExecStart = {{ goaccess_root_path }}/update.sh
+Type=oneshot
+WorkingDirectory={{ goaccess_root_path }}
+ExecStart={{ goaccess_root_path }}/update.sh

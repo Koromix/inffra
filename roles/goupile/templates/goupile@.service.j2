@@ -12,31 +12,31 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Goupile eCRF (%i)
-Documentation = https://goupile.fr/
-Wants = network-online.target
-After = network-online.target
+Description=Goupile eCRF (%i)
+Documentation=https://goupile.fr/
+Wants=network-online.target
+After=network-online.target
 
 [Service]
-Type = notify
-User = {{ goupile_run_user }}
-Group = {{ goupile_run_group }}
-RuntimeDirectory = goupile
-RuntimeDirectoryPreserve = yes
-ExecStart = {{ goupile_root_path }}/domains/%i/goupile {{ '--sandbox' if goupile_sandbox else '' }}
-WorkingDirectory = {{ goupile_root_path }}/domains/%i
-Restart = on-failure
-RestartSec = 20
-TimeoutStopSec = 30
-LimitNOFILE = 4096
+Type=notify
+User={{ goupile_run_user }}
+Group={{ goupile_run_group }}
+RuntimeDirectory=goupile
+RuntimeDirectoryPreserve=yes
+ExecStart={{ goupile_root_path }}/domains/%i/goupile {{ '--sandbox' if goupile_sandbox else '' }}
+WorkingDirectory={{ goupile_root_path }}/domains/%i
+Restart=on-failure
+RestartSec=20
+TimeoutStopSec=30
+LimitNOFILE=4096
 
 {% if goupile_sandbox %}
 # Allow Goupile to manipulate namespaces despite
 # kernel.unprivileged_userns_clone=0.
-SecureBits = keep-caps
-CapabilityBoundingSet = CAP_SYS_ADMIN
-AmbientCapabilities = CAP_SYS_ADMIN
+SecureBits=keep-caps
+CapabilityBoundingSet=CAP_SYS_ADMIN
+AmbientCapabilities=CAP_SYS_ADMIN
 {% endif %}
 
 [Install]
-WantedBy = multi-user.target
+WantedBy=multi-user.target

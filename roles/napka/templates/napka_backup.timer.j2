@@ -12,12 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description = Perform Napka backups
+Description=Perform Napka backups
 
 [Timer]
-OnCalendar = {{ napka_backup_schedule }}
-Persistent = true
-RandomizedDelaySec = {{ napka_backup_randomize }}
+OnCalendar={{ napka_backup_schedule }}
+Persistent=true
+RandomizedDelaySec={{ napka_backup_randomize }}
 
 [Install]
-WantedBy = timers.target
+WantedBy=timers.target
