@@ -55,7 +55,6 @@
   loop:
     - '{{ lufi_root_path }}/{{ lufi_name }}/app'
     - '{{ lufi_root_path }}/{{ lufi_name }}/files'
-    - /run/lufi
   become: yes
 
 - name: Fetch Lufi repository
