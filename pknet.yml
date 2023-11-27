@@ -15,12 +15,12 @@
   hosts: all
   roles:
     - name: base
-    - name: rekord
-      when: 'rekord_directories is defined'
     - name: nginx
       when: 'nginx_domains is defined'
     - name: prometheus
       when: 'prometheus_exporters is defined or grafana_url is defined'
+    - name: rekord
+      when: 'rekord_directories is defined'
   tags: [system]
 
 - import_playbook: 'pknet/config/services/goupile.yml'

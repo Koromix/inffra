@@ -85,6 +85,8 @@
     exclude: |
       {{ nginx_domains | map(attribute = "name") | list |
          union(nginx_domains | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.conf") | list) |
+         union(nginx_domains | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.key") | list) |
+         union(nginx_domains | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.crt") | list) |
          union(["README"]) }}
   register: certbot_old
   when: 'not force_self_ssl'
