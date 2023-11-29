@@ -29,6 +29,9 @@
               6565313134646565343539376134623963393662366532363234
     - role: ../../../../roles/wordpress
       vars:
+        wordpress_url: https://wordpress.org/wordpress-6.3.2.tar.gz
+        wordpress_checksum: 'sha256:268dbf5659b8325db8b9c3c8e991ecda691ba58dab641d5da1f9865cd3f0780f'
+
         wordpress_name: mlalerte
         wordpress_database:
           host: localhost
