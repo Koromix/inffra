@@ -23,6 +23,10 @@
       - gpg
       - cron
       - unattended-upgrades
+      - htop
+      - dfc
+      - atool
+      - ripgrep
     state: latest
   become: yes
 
