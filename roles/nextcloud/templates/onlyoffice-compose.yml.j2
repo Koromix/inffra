@@ -5,6 +5,9 @@ services:
     container_name: 'onlyoffice_{{ nextcloud_name }}'
     image: 'onlyoffice/documentserver:latest'
 
+    networks:
+      - {{ nextcloud_name }}
+
     environment:
       - JWT_ENABLED=true
       - JWT_SECRET={{ onlyoffice_jwt_secret }} 
@@ -17,3 +20,6 @@ services:
       - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/data:/var/www/onlyoffice/Data'
       - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/lib:/var/lib/onlyoffice'
       - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office/db:/var/lib/postgresql'
+
+networks:
+  {{ nextcloud_name }}:
