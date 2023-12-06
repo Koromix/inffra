@@ -283,8 +283,14 @@ nginx_domains:
               gzip_static on;
           }
 
-          location /courier {
-            return 301 https://demheter.fr/courrier;
+          location = /courier {
+            return 301 https://$host/courrier;
+          }
+          location = /usagers {
+            return 301 https://$host/apprendre;
+          }
+          location = /professionnels {
+            return 301 https://$host/ressources;
           }
 
           location ~ \.php$ {
