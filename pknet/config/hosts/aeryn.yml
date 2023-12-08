@@ -292,6 +292,9 @@ nginx_domains:
           location = /professionnels {
             return 301 https://$host/ressources;
           }
+          location = /apprendre {
+            return 301 https://$host/comprendre;
+          }
 
           location ~ \.php$ {
               include fastcgi_params;
