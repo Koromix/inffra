@@ -129,7 +129,7 @@
     owner: yes
     rsync_opts:
       - '--exclude=".*"'
-      - '--filter="P *.db*"'
+      - '--filter="P data/**"'
   delegate_to: '{{ inventory_hostname }}'
   when: 'static_repo is defined'
   become: yes
