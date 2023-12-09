@@ -79,6 +79,18 @@
   roles:
     - role: ../../../../roles/static
       vars:
+        static_name: demheter.fr/beta
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/demheter.fr/dist
+        static_build:
+          - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr/dist'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
+          - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr'
+    - role: ../../../../roles/static
+      vars:
         static_name: demheter.fr/www
         static_repo: https://github.com/Koromix/rygel.git
         static_version: demheter
@@ -90,18 +102,6 @@
             chdir: '{{ static_root_path }}/repo/demheter.fr/www'
           - cmd: '{{ static_root_path }}/repo/demheter.fr/www/felix -pFast --run_here hodler . -O dist --gzip'
             chdir: '{{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr'
-    - role: ../../../../roles/static
-      vars:
-        static_name: demheter.fr/beta
-        static_repo: https://github.com/Koromix/rygel.git
-        static_path: web/demheter.fr/dist
-        static_build:
-          - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr/dist'
-            chdir: '{{ static_root_path }}/repo/demheter.fr/beta'
-          - cmd: '{{ static_root_path }}/repo/demheter.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr'
   tags: [demheter.fr, static]
 
 - name: cn2r.fr test area
