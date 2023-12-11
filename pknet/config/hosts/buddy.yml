@@ -64,6 +64,13 @@ nginx_domains:
           }
       }
 
+      location /download/ {
+          alias /opt/download/;
+
+          autoindex on;
+          autoindex_exact_size on;
+      }
+
 prometheus_exporters:
   - node_exporter
   - nginx_exporter
