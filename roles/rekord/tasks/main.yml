@@ -11,11 +11,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
+- name: Fetch koromix.dev repository key
+  get_url:
+    url: https://download.koromix.dev/debian/koromix-archive-keyring.gpg
+    dest: /usr/share/keyrings/koromix-archive-keyring.gpg
+  become: yes
+
+- name: Configure koromix.dev repository
+  apt_repository:
+    repo: 'deb [signed-by=/usr/share/keyrings/koromix-archive-keyring.gpg] https://download.koromix.dev/debian stable main'
+    state: present
+  become: yes
+
 - name: Install packages
   apt:
     update_cache: yes
     pkg:
       - xz-utils
+      - rekord
     state: latest
   become: yes
 
@@ -26,19 +39,6 @@
     owner: root
     group: root
     mode: '0755'
-  become: yes
-
-- name: Fetch rekord package
-  get_url:
-    url: '{{ rekord_url }}'
-    dest: '{{ rekord_root_path }}/rekord.deb'
-    checksum: '{{ rekord_checksum }}'
-  become: yes
-
-- name: Install rekord
-  apt:
-    deb: '{{ rekord_root_path }}/rekord.deb'
-    state: present
   become: yes
 
 - name: Create rekord environment file
