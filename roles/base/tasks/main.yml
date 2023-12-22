@@ -163,6 +163,33 @@
   cron:
     name: weekly_upgrade
     state: absent
+  become: yes
+
+- name: Detect unattended origin mode
+  ansible.builtin.lineinfile:
+    path: /etc/apt/apt.conf.d/50unattended-upgrades
+    regexp: '^Unattended-Upgrade::Origins-Pattern {'
+    state: absent
+  check_mode: yes
+  changed_when: no
+  register: unattended_pattern
+  become: no
+
+- name: Configure unattended-upgrades for all packages
+  lineinfile:
+    dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    line: '{{ item.line }}'
+    insertafter: '{{ item.after }}'
+    state: present
+  loop:
+    - after: '^Unattended-Upgrade::Origins-Pattern {'
+      line: '        "o=*";'
+      when: yes
+    - after: 'Unattended-Upgrade::Allowed-Origins {'
+      line: '        "*:*";'
+      when: no
+  when: 'unattended_pattern.found == item.when'
+  become: yes
 
 - name: Enable and configure auto-reboot after upgrades
   lineinfile:
