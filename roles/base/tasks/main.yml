@@ -201,7 +201,7 @@
     - regexp: 'Unattended-Upgrade::Automatic-Reboot '
       line: 'Unattended-Upgrade::Automatic-Reboot "true";'
     - regexp: 'Unattended-Upgrade::Automatic-Reboot-Time '
-      line: 'Unattended-Upgrade::Automatic-Reboot-Time "02:00";'
+      line: 'Unattended-Upgrade::Automatic-Reboot-Time "03:00";'
   become: yes
 
 - name: Enable unattended upgrades
