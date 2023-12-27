@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 cpad_repo: https://github.com/cryptpad/cryptpad
-cpad_commit: 5.5.0
+cpad_commit: 5.6.0
 
 cpad_root_path: /opt/cryptpad
 
