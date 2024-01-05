@@ -1,0 +1,41 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Goupile on PKnet
+  hosts: buddy
+  roles:
+    - role: ../../../../roles/goupile3
+      vars:
+        goupile_name: eval2.goupile.fr
+        goupile_port: 8889
+        goupile_archive_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          39353161383639373866313236343130346537383665616230313233666439306434336637313631
+          3737393135323531666533316133323463643466623531660a646133653862383034383438303464
+          66373835323535353265656638323534373463303839313930636535346139336134366234343531
+          3037396630623332380a643937366430623639356166316538396634653834373535393161636264
+          63623736373538616365656139656134326164643432373561343538336335326333613938333138
+          3135396134393261333965656430653934653736396262353737
+    - role: ../../../../roles/goupile3
+      vars:
+        goupile_name: eval3.goupile.fr
+        goupile_port: 8890
+        goupile_archive_key: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          38333037333735313535646431636230663166306532613663356266373730316365656134646261
+          6230313737336431306535653361306331363034363834620a666366323566386236373061626161
+          34613634303838666134643563383039643862653333373566643938663663613162383033343765
+          6438306531666635370a383664613433306439316133316439346631376561356364613065353539
+          32343263323566306535396661613761316235393932306466343537373237393732643365643836
+          3963336664623631393461393339343532306361636562323737
+  tags: [goupile3]
