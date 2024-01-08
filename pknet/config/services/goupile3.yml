@@ -17,7 +17,6 @@
     - role: ../../../../roles/goupile3
       vars:
         goupile_name: eval2.goupile.fr
-        goupile_port: 8889
         goupile_archive_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           39353161383639373866313236343130346537383665616230313233666439306434336637313631
@@ -29,7 +28,6 @@
     - role: ../../../../roles/goupile3
       vars:
         goupile_name: eval3.goupile.fr
-        goupile_port: 8890
         goupile_archive_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           38333037333735313535646431636230663166306532613663356266373730316365656134646261
