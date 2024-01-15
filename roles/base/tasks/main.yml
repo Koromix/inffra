@@ -165,6 +165,17 @@
     state: absent
   become: yes
 
+- name: Set APT update/ugprade frequency to "always"
+  copy:
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: 0644
+    content: |
+      APT::Periodic::Update-Package-Lists "always";
+      APT::Periodic::Unattended-Upgrade "always";
+  become: yes
+
 - name: Detect unattended origin mode
   ansible.builtin.lineinfile:
     path: /etc/apt/apt.conf.d/50unattended-upgrades
