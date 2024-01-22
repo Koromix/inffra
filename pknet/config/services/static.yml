@@ -18,8 +18,7 @@
       vars:
         static_name: goupile.org/www
         static_repo: https://github.com/Koromix/rygel.git
-        static_version: goupile2
-        static_path: web/goupile.org
+        static_path: web/goupile.org/www
     - role: ../../../../roles/static
       vars:
         static_name: goupile.org/files
@@ -27,14 +26,14 @@
       vars:
         static_name: goupile.org/doc
         static_repo: https://github.com/Koromix/rygel.git
-        static_path: web/goupile.org/fr/dist/html
+        static_path: web/goupile.org/doc/fr/dist/html
         static_build:
           - cmd: '{{ static_root_path }}/poetry/bin/poetry install'
-            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
+            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/doc/fr'
           - cmd: '{{ static_root_path }}/poetry/bin/poetry run make clean'
-            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
+            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/doc/fr'
           - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
-            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/fr'
+            chdir: '{{ static_root_path }}/repo/goupile.org/doc/web/goupile.org/doc/fr'
   tags: [goupile.org, static]
 
 - name: koromix.dev
