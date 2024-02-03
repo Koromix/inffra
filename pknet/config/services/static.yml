@@ -63,6 +63,7 @@
       vars:
         static_name: koffi.dev/www
         static_repo: https://github.com/Koromix/rygel.git
+        static_version: koffi2
         static_path: web/koffi.dev/dist/html
         static_build:
           - cmd: '{{ static_root_path }}/poetry/bin/poetry install'
