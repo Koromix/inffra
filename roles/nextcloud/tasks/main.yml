@@ -165,50 +165,28 @@
   become: yes
   become_user: www-data
 
-- name: Set Nextcloud trusted domains
+- name: Clean up old SMTP include
   lineinfile:
     dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
-    regexp: "^ *0 => "
-    line: "    0 => '{{ nextcloud_domain }}'"
-    state: present
-  become: yes
-
-- name: Adjust Nextcloud settings
-  lineinfile:
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
-    regexp: "'{{ item.key }}'"
-    line: "  '{{ item.key }}' => {{ item.value }},"
-    insertbefore: '^\);'
-  loop:
-    - key: memcache.local
-      value: "'\\OC\\Memcache\\APCu'"
-    - key: memcache.distributed
-      value: "'\\OC\\Memcache\\Redis'"
-    - key: memcache.locking
-      value: "'\\OC\\Memcache\\Redis'"
-    - key: redis
-      value: "['host' => 'localhost', 'port' => 6379]"
-    - key: overwrite.cli.url
-      value: "'https://{{ nextcloud_domain }}'"
-  become: yes
-
-- name: Configure SMTP include
-  lineinfile:
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.php'
-    regexp: "^ *include\\('smtp\\.php'\\);"
     line: "include('smtp.php');"
-    state: '{{ "present" if nextcloud_smtp is defined else "absent" }}'
+    state: absent
   become: yes
 
-- name: Configure SMTP server
+- name: Write down JSON settings
   template:
-    src: smtp.php.j2
-    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/smtp.php'
+    src: config.json.j2
+    dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.json'
     owner: www-data
     group: www-data
     mode: '0755'
-  when: 'nextcloud_smtp is defined'
   become: yes
+
+- name: Import JSON settings
+  command:
+    cmd: '/usr/bin/php8.2 --define apc.enable_cli=1 occ config:import config/config.json'
+    chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
+  become: yes
+  become_user: www-data
 
 - name: Configure PHP-FPM pool
   template:

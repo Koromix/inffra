@@ -1,0 +1,32 @@
+{
+    "system": {
+        "trusted_domains": ["{{ nextcloud_domain }}"],
+        "overwrite.cli.url": "https://{{ nextcloud_domain }}",
+
+{% if nextcloud_smtp is defined %}
+        "mail_domain": "{{ nextcloud_smtp.from | split('@') | last }}",
+        "mail_from_address": "{{ nextcloud_smtp.from | split('@') | first }}",
+        "mail_smtpmode": "smtp",
+        "mail_smtphost": "{{ nextcloud_smtp.host | split(':') | first }}",
+        "mail_smtpport": {{ nextcloud_smtp.host | split(':') | last }},
+        "mail_smtpsecure": "{{ nextcloud_smtp.mode }}",
+{% if nextcloud_smtp.username is defined %}
+        "mail_smtpauth": true,
+        "mail_smtpauthtype": "LOGIN",
+        "mail_smtpname": "{{ nextcloud_smtp.username }}",
+        "mail_smtppassword": "{{ nextcloud_smtp.password }}",
+{% else %}
+        "mail_smtpauth": false,
+        "mail_smtpauthtype": "PLAIN",
+{% endif %}
+{% endif %}
+
+        "memcache.local": "\\OC\\Memcache\\APCu",
+        "memcache.distributed": "\\OC\\Memcache\\Redis",
+        "memcache.locking": "\\OC\\Memcache\\Redis",
+        "redis": {
+            "host": "localhost",
+            "port": 6379
+        }
+    }
+}
