@@ -11,13 +11,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-[Unit]
-Description=Perform rekord backups
+rekkord_root_path: /opt/rekkord
 
-[Timer]
-OnCalendar={{ rekord_schedule }}
-Persistent=true
-RandomizedDelaySec={{ rekord_randomize }}
+rekkord_schedule: '*-*-* 5:00'
+rekkord_randomize: 20m
 
-[Install]
-WantedBy=timers.target
+# rekkord_environment:
+# rekkord_directories:

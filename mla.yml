@@ -19,8 +19,8 @@
       when: 'nginx_domains is defined'
     - name: prometheus
       when: 'prometheus_exporters is defined or grafana_url is defined'
-    - name: rekord
-      when: 'rekord_directories is defined'
+    - name: rekkord
+      when: 'rekkord_directories is defined'
   tags: [system]
 
 - import_playbook: 'mla/config/services/wireguard.yml'

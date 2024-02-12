@@ -23,37 +23,44 @@
     state: present
   become: yes
 
+- name: Remove old package
+  apt:
+    pkg:
+      - rekord
+    state: absent
+  become: yes
+
 - name: Install packages
   apt:
     update_cache: yes
     pkg:
       - xz-utils
-      - rekord
+      - rekkord
     state: latest
   become: yes
 
-- name: Prepare rekord base directory
+- name: Prepare rekkord base directory
   file:
-    path: '{{ rekord_root_path }}'
+    path: '{{ rekkord_root_path }}'
     state: directory
     owner: root
     group: root
     mode: '0755'
   become: yes
 
-- name: Create rekord environment file
+- name: Create rekkord environment file
   template:
     src: ENV.j2
-    dest: '{{ rekord_root_path }}/ENV'
+    dest: '{{ rekkord_root_path }}/ENV'
     owner: root
     group: root
     mode: '0600'
   become: yes
 
-- name: Create rekord script
+- name: Create rekkord script
   template:
-    src: rekord.sh.j2
-    dest: '{{ rekord_root_path }}/rekord.sh'
+    src: rekkord.sh.j2
+    dest: '{{ rekkord_root_path }}/rekkord.sh'
     owner: root
     group: root
     mode: '0755'
@@ -67,8 +74,8 @@
     group: root
     mode: '0644'
   loop:
-    - rekord.service
-    - rekord.timer
+    - rekkord.service
+    - rekkord.timer
   become: yes
 
 - name: Reload systemd units
@@ -77,9 +84,19 @@
   when: 'not ansible_check_mode'
   become: yes
 
-- name: Enabled scheduled rekord sync
+- name: Disable old units
   service:
-    name: rekord.timer
+    name: '{{ item }}'
+    state: stopped
+    enabled: no
+  loop:
+    - rekord.service
+    - rekord.timer
+  become: yes
+
+- name: Enabled scheduled rekkord sync
+  service:
+    name: rekkord.timer
     state: started
     enabled: yes
   become: yes

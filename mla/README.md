@@ -145,9 +145,9 @@ Toutes les applications sont paramétrées pour stocker leurs données dans `/op
 - Globaleaks (rsync et backup sqlite3)
 - PostgreSQL
 
-### Synchronisation rekord
+### Synchronisation rekkord
 
-Chaque serveur de production (et de préproduction) est configuré pour réaliser des backups chiffrés sur rsync.net via rekord (en SFTP). Le chiffrement asymétrique repose sur un mot de passe aléatoire de 32 caractères.
+Chaque serveur de production (et de préproduction) est configuré pour réaliser des backups chiffrés sur rsync.net via rekkord (en SFTP). Le chiffrement asymétrique repose sur un mot de passe aléatoire de 32 caractères.
 
 Tout le contenu du répertoire `/opt` est compris dans chaque synchronisation.
 
