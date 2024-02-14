@@ -27,6 +27,7 @@
       - dfc
       - atool
       - ripgrep
+      - vim
     state: latest
   become: yes
 
