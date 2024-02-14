@@ -1,0 +1,138 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Install packages
+  package:
+    update_cache: yes
+    pkg:
+      - redis-server
+    state: latest
+  become: yes
+
+- name: Configure authentik user
+  user:
+    name: authentik
+    state: present
+  register: authentik_user
+  become: yes
+
+- name: Bind Redis to Docker address
+  lineinfile:
+    dest: /etc/redis/redis.conf
+    line: 'bind 172.17.0.1 -::1'
+    insertafter: '^bind '
+    state: present
+  become: yes
+
+- name: Disable Redis protected mode
+  lineinfile:
+    dest: /etc/redis/redis.conf
+    regexp: '^protected-mode'
+    line: 'protected-mode no'
+    state: present
+  become: yes
+
+- name: Prepare Authentik base directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+    - '{{ authentik_root_path }}'
+    - '{{ authentik_root_path }}/{{ authentik_name }}'
+  become: yes
+
+- name: Prepare Authentik data directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: authentik
+    group: authentik
+    mode: '0700'
+  loop:
+    - '{{ authentik_root_path }}/{{ authentik_name }}/media'
+    - '{{ authentik_root_path }}/{{ authentik_name }}/certs'
+    - '{{ authentik_root_path }}/{{ authentik_name }}/templates'
+  become: yes
+
+- name: Generate random salt
+  block:
+  - name: Generate random salt 1/4
+    stat:
+      path: '{{ authentik_root_path }}/{{ authentik_name }}/salt'
+    register: salt1
+    become: yes
+  - name: Generate random salt 2/4
+    copy:
+      dest: '{{ authentik_root_path }}/{{ authentik_name }}/salt'
+      owner: root
+      group: root
+      mode: '0644'
+      content: '{{ lookup("community.general.random_string", length=64, special=False) }}'
+    when: 'not salt1.stat.exists'
+    become: yes
+  - name: Generate random salt 3/4
+    slurp:
+      src: '{{ authentik_root_path }}/{{ authentik_name }}/salt'
+    register: salt2
+    become: yes
+  - name: Generate random salt 4/4
+    set_fact:
+      authentik_salt: '{{ salt2.content | b64decode }}'
+
+- name: Configure docker compose for Authentik
+  template:
+    src: '{{ item.name }}.j2'
+    dest: '{{ authentik_root_path }}/{{ authentik_name }}/{{ item.name }}'
+    owner: root
+    group: root
+    mode: '{{ item.mode }}'
+  loop:
+    - name: docker-compose.yml
+      mode: '0644'
+    - name: ENV
+      mode: '0600'
+  become: yes
+
+- name: Install Authentik service file
+  template:
+    src: authentik@.service.j2
+    dest: '/etc/systemd/system/authentik@.service'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart Redis service
+  service:
+    name: redis
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Restart Authentik services
+  service:
+    name: 'authentik@{{ authentik_name }}'
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes

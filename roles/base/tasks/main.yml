@@ -18,6 +18,7 @@
       - ufw
       - docker-compose
       - docker.io
+      - apparmor-utils
       - rsync
       - acl
       - gpg

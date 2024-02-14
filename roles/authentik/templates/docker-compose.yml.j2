@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  server:
+    image: '{{ authentik_image }}'
+    restart: unless-stopped
+    command: server
+    user: {{ authentik_user.uid }}:{{ authentik_user.group }}
+    env_file: ENV
+    volumes:
+      - '{{ authentik_root_path }}/{{ authentik_name }}/media:/media'
+      - '{{ authentik_root_path }}/{{ authentik_name }}/templates:/templates'
+    ports:
+      - {{ authentik_port }}:9000
+
+  worker:
+    image: '{{ authentik_image }}'
+    restart: unless-stopped
+    command: worker
+    user: {{ authentik_user.uid }}:{{ authentik_user.group }}
+    env_file: ENV
+    volumes:
+      - '{{ authentik_root_path }}/{{ authentik_name }}/media:/media'
+      - '{{ authentik_root_path }}/{{ authentik_name }}/certs:/certs'
+      - '{{ authentik_root_path }}/{{ authentik_name }}/templates:/templates'
