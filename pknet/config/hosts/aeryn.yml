@@ -407,6 +407,19 @@ nginx_domains:
           }
       }
 
+  - name: rekkord.org
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 302 https://koromix.dev/rekkord;
+      }
+  - name: www.rekkord.org
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://rekkord.org$request_uri;
+      }
+
 goaccess_domains:
   - name: demheter.fr
     username: stat
