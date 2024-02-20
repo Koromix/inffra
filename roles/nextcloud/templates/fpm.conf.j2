@@ -7,10 +7,11 @@ listen = /run/php/nextcloud-fpm.sock
 listen.owner = www-data
 listen.group = www-data
 
-pm = static
-pm.max_children = 64
+pm = ondemand
+pm.max_children = {{ nextcloud_max_children }}
+pm.process_idle_timeout = 10s
 
-php_admin_value[memory_limit] = 512M
+php_admin_value[memory_limit] = {{ nextcloud_memory_limit }}
 
 env[PATH] = /usr/local/bin:/usr/bin:/bin
 env[TMP] = /tmp

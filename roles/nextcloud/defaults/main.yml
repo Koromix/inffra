@@ -25,5 +25,8 @@ nextcloud_default_password: admin
 
 # nextcloud_smtp:
 
+nextcloud_max_children: 12
+nextcloud_memory_limit: 512M
+
 # onlyoffice_port:
 # onlyoffice_jwt_secret:
