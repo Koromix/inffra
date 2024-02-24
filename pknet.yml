@@ -30,7 +30,7 @@
 - import_playbook: 'pknet/config/services/lufi.yml'
 - import_playbook: 'pknet/config/services/napka.yml'
 - import_playbook: 'pknet/config/services/thop.yml'
-- import_playbook: 'pknet/config/services/gitea.yml'
+- import_playbook: 'pknet/config/services/forgejo.yml'
 - import_playbook: 'pknet/config/services/wordpress.yml'
 - import_playbook: 'pknet/config/services/discourse.yml'
 - import_playbook: 'pknet/config/services/nextcloud.yml'

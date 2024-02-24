@@ -16,7 +16,7 @@ ansible_port: 22
 ansible_user: debian
 ansible_python_interpreter: /usr/bin/python3
 
-# Keep SSH public for gitea
+# Keep SSH public for Forgejo
 
 ufw_rules:
   - rule: allow

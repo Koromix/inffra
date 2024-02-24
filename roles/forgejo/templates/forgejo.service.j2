@@ -12,17 +12,17 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description=Gitea (Git with a cup of tea)
+Description=Forgejo (Beyond coding. We forge.)
 After=syslog.target
 After=network.target
 
 [Service]
 Type=simple
-User=gitea
-Group=gitea
-WorkingDirectory={{ gitea_root_path }}
-ExecStart={{ gitea_root_path }}/gitea web --config {{ gitea_root_path }}/etc/app.ini
-Environment=USER=gitea HOME=/home/gitea GITEA_WORK_DIR={{ gitea_root_path }}
+User=forgejo
+Group=forgejo
+WorkingDirectory={{ forgejo_root_path }}
+ExecStart={{ forgejo_root_path }}/forgejo web --config {{ forgejo_root_path }}/etc/app.ini
+Environment=USER=forgejo HOME=/home/forgejo FORGEJO_WORK_DIR={{ forgejo_root_path }}
 Restart=always
 RestartSec=2s
 

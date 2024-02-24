@@ -11,13 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-gitea_url: https://dl.gitea.com/gitea/1.21.5/gitea-1.21.5-linux-amd64
-gitea_checksum: 'sha256:7a521914203b07c7a0613ae30d8ab229111b149a2fa219423e643cd9a039256e'
+forgejo_url: https://codeberg.org/forgejo/forgejo/releases/download/v1.21.6-0/forgejo-1.21.6-0-linux-amd64
+forgejo_checksum: 'sha256:e86f446236a287b9ba2c65f8ff7b0a9ea4f451a5ffc3134f416f751e1eecf97c'
 
-gitea_root_path: /opt/gitea
+forgejo_root_path: /opt/forgejo
 
-gitea_port: 3000
-gitea_config:
+forgejo_port: 3000
+forgejo_config:
 
-# gitea_domain:
-# gitea_smtp:
+# forgejo_domain:
+# forgejo_smtp:

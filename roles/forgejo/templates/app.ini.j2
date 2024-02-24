@@ -1,0 +1,49 @@
+APP_NAME = {{ forgejo_name }}
+RUN_MODE = prod
+
+[server]
+HTTP_ADDR = 127.0.0.1
+HTTP_PORT = {{ forgejo_port }}
+ROOT_URL = https://{{ forgejo_domain }}
+
+{{ forgejo_config.server | default('') }}
+
+[database]
+DB_TYPE = sqlite3
+SQLITE_JOURNAL_MODE = WAL
+
+[security]
+INSTALL_LOCK = true
+SECRET_KEY_URI = file:{{ forgejo_root_path }}/etc/secret_key
+INTERNAL_TOKEN_URI = file:{{ forgejo_root_path }}/etc/internal_token
+
+{{ forgejo_config.security | default('') }}
+
+{% if forgejo_smtp is defined -%}
+
+[mailer]
+ENABLED = true
+PROTOCOL = {{ forgejo_smtp.protocol }}
+SMTP_ADDR = {{ forgejo_smtp.host | split(':') | first }}
+SMTP_PORT = {{ forgejo_smtp.host | split(':') | last }}
+{% if forgejo_smtp.username is defined %}
+USER = {{ forgejo_smtp.username }}
+PASSWD = {{ forgejo_smtp.password }}
+{% endif %}
+FROM = {{ forgejo_smtp.from }}
+
+{%- endif %}
+
+[session]
+COOKIE_SECURE = true
+
+{{ forgejo_config.session | default('') }}
+
+{% for section, config in forgejo_config.items() %}
+{% if section != 'server' and section != 'security' and section != 'session' -%}
+
+[{{ section }}]
+{{ config }}
+
+{%- endif %}
+{% endfor %}

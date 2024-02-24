@@ -19,80 +19,80 @@
     state: latest
   become: yes
 
-- name: Configure gitea user
+- name: Configure forgejo user
   user:
-    name: gitea
+    name: forgejo
     state: present
   become: yes
 
-- name: Prepare Gitea base directory
+- name: Prepare Forgejo base directory
   file:
-    path: '{{ gitea_root_path }}'
+    path: '{{ forgejo_root_path }}'
     state: directory
     owner: root
     group: root
     mode: '0755'
   become: yes
 
-- name: Prepare Gitea data directories
+- name: Prepare Forgejo data directories
   file:
     path: '{{ item }}'
     state: directory
-    owner: gitea
-    group: gitea
+    owner: forgejo
+    group: forgejo
     mode: '0750'
   loop:
-    - '{{ gitea_root_path }}/custom'
-    - '{{ gitea_root_path }}/etc'
-    - '{{ gitea_root_path }}/data'
-    - '{{ gitea_root_path }}/log'
+    - '{{ forgejo_root_path }}/custom'
+    - '{{ forgejo_root_path }}/etc'
+    - '{{ forgejo_root_path }}/data'
+    - '{{ forgejo_root_path }}/log'
   become: yes
 
-- name: Fetch Gitea binary
+- name: Fetch Forgejo binary
   get_url:
-    url: '{{ gitea_url }}'
-    dest: '{{ gitea_root_path }}/gitea'
-    checksum: '{{ gitea_checksum }}'
+    url: '{{ forgejo_url }}'
+    dest: '{{ forgejo_root_path }}/forgejo'
+    checksum: '{{ forgejo_checksum }}'
     owner: root
     group: root
     mode: '0755'
   become: yes
 
-- name: Configure Gitea
+- name: Configure Forgejo
   template:
     src: app.ini.j2
-    dest: '{{ gitea_root_path }}/etc/app.ini'
-    owner: gitea
-    group: gitea
+    dest: '{{ forgejo_root_path }}/etc/app.ini'
+    owner: forgejo
+    group: forgejo
     mode: '0644'
   become: yes
 
-- name: Create Gitea keys
+- name: Create Forgejo keys
   shell:
-    cmd: '{{ gitea_root_path }}/gitea generate secret {{ item | upper }} > etc/{{ item }}'
-    chdir: '{{ gitea_root_path }}'
-    creates: '{{ gitea_root_path }}/etc/{{ item }}'
+    cmd: '{{ forgejo_root_path }}/forgejo generate secret {{ item | upper }} > etc/{{ item }}'
+    chdir: '{{ forgejo_root_path }}'
+    creates: '{{ forgejo_root_path }}/etc/{{ item }}'
   loop:
     - secret_key
     - internal_token
   become: yes
 
-- name: Securize Gitea keys
+- name: Securize Forgejo keys
   file:
-    path: '{{ gitea_root_path }}/etc/{{ item }}'
+    path: '{{ forgejo_root_path }}/etc/{{ item }}'
     state: file
-    owner: gitea
-    group: gitea
+    owner: forgejo
+    group: forgejo
     mode: '0600'
   loop:
     - secret_key
     - internal_token
   become: yes
 
-- name: Install Gitea service file
+- name: Install Forgejo service file
   template:
-    src: gitea.service.j2
-    dest: '/etc/systemd/system/gitea.service'
+    src: forgejo.service.j2
+    dest: '/etc/systemd/system/forgejo.service'
     owner: root
     group: root
     mode: '0644'
@@ -104,9 +104,9 @@
   when: 'not ansible_check_mode'
   become: yes
 
-- name: Restart Gitea service
+- name: Restart Forgejo service
   service:
-    name: gitea
+    name: forgejo
     enabled: yes
     state: restarted
   when: 'not ansible_check_mode'

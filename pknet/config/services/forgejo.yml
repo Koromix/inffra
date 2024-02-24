@@ -11,14 +11,14 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Gitea for F2RSMpsy
+- name: Forgejo for F2RSMpsy
   hosts: tools1
   roles:
-    - role: ../../../../roles/gitea
+    - role: ../../../../roles/forgejo
       vars:
-        gitea_name: F2RSMpsy
-        gitea_domain: git.f2rsmpsy.org
-        gitea_smtp:
+        forgejo_name: F2RSMpsy
+        forgejo_domain: git.f2rsmpsy.org
+        forgejo_smtp:
           host: mail.smtp2go.com:587
           username: !vault |
             $ANSIBLE_VAULT;1.1;AES256
@@ -36,7 +36,7 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@f2rsmpsy.org
           protocol: smtp+starttls
-        gitea_config:
+        forgejo_config:
           i18n: |
             LANGS = fr-FR,en-US
             NAMES = Français,English
@@ -44,4 +44,4 @@
             REGISTER_EMAIL_CONFIRM = true
             REGISTER_MANUAL_CONFIRM = true
             REQUIRE_SIGNIN_VIEW = true
-  tags: [gitea]
+  tags: [forgejo]
