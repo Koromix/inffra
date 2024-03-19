@@ -1,5 +1,5 @@
 #!/bin/sh -e
 
 {% for dir in rekkord_directories %}
-/usr/bin/rekkord put -n "{{ dir.name }}" "{{ dir.src }}"
+/usr/bin/rekkord save -n "{{ dir.name }}" "{{ dir.src }}"
 {% endfor %}
