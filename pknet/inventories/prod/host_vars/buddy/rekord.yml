@@ -14,8 +14,6 @@
 rekkord_directories:
   - name: '{{ inventory_hostname }}/opt'
     src: /opt
-  - name: '{{ inventory_hostname }}/var/log'
-    src: /var/log
   - name: '{{ inventory_hostname }}/var/lib/plexmediaserver'
     src: /var/lib/plexmediaserver
   - name: '{{ inventory_hostname }}/var/lib/goupile'

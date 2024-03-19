@@ -14,6 +14,3 @@
 rekkord_directories:
   - name: '{{ inventory_hostname }}/opt'
     src: /opt
-  - name: '{{ inventory_hostname }}/var/log'
-    src: /var/log
-
