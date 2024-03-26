@@ -92,7 +92,7 @@
   loop:
     - rekord.service
     - rekord.timer
-  ignore_errors: true
+  ignore_errors: yes
   become: yes
 
 - name: Enabled scheduled rekkord sync
