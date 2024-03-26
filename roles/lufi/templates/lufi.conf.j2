@@ -8,7 +8,7 @@
         clients => 1
     },
 
-    instance_name => '{{ lufi_title }}',
+    instance_name => {{ lufi_title | to_json(ensure_ascii=False) }},
     contact       => '<a href="mailto:{{ lufi_contact }}">Mail de contact</a>',
     report        => '{{ lufi_contact }}',
 
@@ -23,6 +23,7 @@
 
     upload_dir => '{{ lufi_root_path }}/{{ lufi_name }}/files',
 
+{% if lufi_database.type == 'postgresql' %}
     dbtype => 'postgresql',
     pgdb => {
         host     => '{{ lufi_database.host }}',
@@ -30,4 +31,16 @@
         pwd      => '{{ lufi_database.password }}',
         database => '{{ lufi_database.name }}'
     }
+{% elif lufi_database.type == 'mysql' %}
+    dbtype => 'mysql',
+    mysqldb => {
+        host     => '{{ lufi_database.host }}',
+        user     => '{{ lufi_database.user }}',
+        pwd      => '{{ lufi_database.password }}',
+        database => '{{ lufi_database.name }}'
+    }
+{% elif lufi_database.type == 'sqlite' %}
+    dbtype => 'sqlite',
+    db_path => '{{ lufi_database.path }}'
+{% endif %}
 }

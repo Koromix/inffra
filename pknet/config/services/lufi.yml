@@ -35,6 +35,7 @@
         lufi_title: 'F2RSM psy'
         lufi_contact: niels.martignene@protonmail.com
         lufi_database:
+          type: postgresql
           host: 127.0.0.1
           name: lu_f2rsmpsy
           user: lu_f2rsmpsy
