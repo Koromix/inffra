@@ -111,3 +111,20 @@
       vars:
         static_name: cn2r.fr/test
   tags: [cn2r.fr, static]
+
+- name: rekkord.org
+  hosts: aeryn
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: rekkord.org/www
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/rekkord.org/dist
+        static_build:
+          - cmd: '{{ static_root_path }}/repo/rekkord.org/www/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/rekkord.org/www'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org/dist'
+            chdir: '{{ static_root_path }}/repo/rekkord.org/www'
+          - cmd: '{{ static_root_path }}/repo/rekkord.org/www/felix -pFast --run_here hodler . -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org'
+  tags: [rekkord.org, static]

@@ -411,7 +411,27 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          return 302 https://koromix.dev/rekkord;
+          index index.html;
+
+          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)$ $1.html;
+          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
+          try_files $uri $uri/ =404;
+
+          root /opt/static/live/rekkord.org/www;
+
+          expires 1h;
+          add_header Cache-Control "public, no-transform";
+
+          location /static/ {
+              expires 28d;
+
+              gzip on;
+              gzip_vary on;
+              gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+              gzip_proxied no-cache no-store private expired auth;
+              gzip_min_length 1000;
+              gzip_static on;
+          }
       }
   - name: www.rekkord.org
     ssl_certbot_email: niels.martignene@protonmail.com
