@@ -27,14 +27,14 @@
       vars:
         static_name: goupile.org/beta
         static_repo: https://github.com/Koromix/rygel.git
-        static_path: web/goupile.org/fr/dist
+        static_path: web/goupile.org/dist
         static_build:
           - cmd: '{{ static_root_path }}/repo/goupile.org/beta/bootstrap.sh'
             chdir: '{{ static_root_path }}/repo/goupile.org/beta'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/goupile.org/beta/web/goupile.org/fr/dist'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/goupile.org/beta/web/goupile.org/dist'
             chdir: '{{ static_root_path }}/repo/goupile.org/beta'
           - cmd: '{{ static_root_path }}/repo/goupile.org/beta/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/goupile.org/beta/web/goupile.org/fr'
+            chdir: '{{ static_root_path }}/repo/goupile.org/beta/web/goupile.org'
   tags: [goupile.org, static]
 
 - name: koromix.dev
