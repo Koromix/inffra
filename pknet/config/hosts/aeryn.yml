@@ -62,7 +62,7 @@ nginx_domains:
 
           gzip on;
           gzip_vary on;
-          gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+          gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
           gzip_proxied no-cache no-store private expired auth;
           gzip_min_length 1000;
 
@@ -99,7 +99,7 @@ nginx_domains:
 
               gzip on;
               gzip_vary on;
-              gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
               gzip_proxied no-cache no-store private expired auth;
               gzip_min_length 1000;
               gzip_static on;
@@ -132,7 +132,7 @@ nginx_domains:
 
               gzip on;
               gzip_vary on;
-              gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
               gzip_proxied no-cache no-store private expired auth;
               gzip_min_length 1000;
               gzip_static on;
@@ -233,7 +233,7 @@ nginx_domains:
 
           gzip on;
           gzip_vary on;
-          gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+          gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
           gzip_proxied no-cache no-store private expired auth;
           gzip_min_length 1000;
 
@@ -287,7 +287,7 @@ nginx_domains:
 
               gzip on;
               gzip_vary on;
-              gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
               gzip_proxied no-cache no-store private expired auth;
               gzip_min_length 1000;
               gzip_static on;
@@ -348,7 +348,7 @@ nginx_domains:
 
               gzip on;
               gzip_vary on;
-              gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
               gzip_proxied no-cache no-store private expired auth;
               gzip_min_length 1000;
               gzip_static on;
@@ -428,7 +428,7 @@ nginx_domains:
 
               gzip on;
               gzip_vary on;
-              gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml image/svg+xml;
+              gzip_types text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
               gzip_proxied no-cache no-store private expired auth;
               gzip_min_length 1000;
               gzip_static on;
