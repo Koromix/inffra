@@ -11,6 +11,8 @@ pm = ondemand
 pm.max_children = {{ nextcloud_max_children }}
 pm.process_idle_timeout = 10s
 
+php_value[upload_max_filesize] = 64M
+php_value[post_max_size] = 128M
 php_admin_value[memory_limit] = {{ nextcloud_memory_limit }}
 
 env[PATH] = /usr/local/bin:/usr/bin:/bin
