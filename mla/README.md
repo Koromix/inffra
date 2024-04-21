@@ -69,7 +69,7 @@ Les domaines suivants sont accessibles publiquement :
 - https://mlalerte.org/ (WordPress)
 - https://partage.mlalerte.org/ (Nextcloud)
 - https://signalement.mlalerte.org/ (Globaleaks)
-- https://vpn.mlalerte.org/ (Contrôle du VPN)
+- https://vpn.mlalerte.org/ (Wireguard Easy)
 
 Les domaines suivants sont accessibles via le VPN :
 
@@ -103,11 +103,11 @@ Vous devez être connecté au VPN de la MLA pour pouvoir effectuer un déploieme
 
 ## Environnement de production (MLA)
 
-La machine utilisée pour le déploiement doit être connectée aux deux réseaux VPN décrits ci-dessous. Idéalement, l'accès de cette machine aux deux réseaux n'est activé que temporairement lors des déploiements, en passant par l'interface d'administration ZeroTier.
+La machine utilisée pour le déploiement doit être connectée au réseau VPN décrit ci-dessus. Idéalement, l'accès de cette machine au VPN n'est activé que temporairement lors des déploiements, en passant par l'interface d'administration Wireguard Easy.
 
 Par ailleurs, l'utilisation de ce playbook nécessite la possession de la clé Ansible Vault privée, qui ne doit **en aucun cas être enregistrée dans le dépôt** ! A cette fin, le fichier `.gitignore` est paramétré pour ignorer les fichiers ayant l'extension `.vault`.
 
-Une fois les deux réseaux ZeroTier connectés et la clé en votre posession, vous pouvez lancer le déploiement complet avec la commande suivante :
+Avec la connexion au VPN activée et la clé en votre posession, vous pouvez lancer le déploiement complet avec la commande suivante :
 
 ```sh
 ansible-playbook mla.yml -i mla/inventories/prod --vault-password-file keys/mla.vault
