@@ -159,10 +159,21 @@ Des snapshots du disque rsync.net sont réalisés de manière automatique et quo
 
 ### Système d'alerte
 
-Des avertissements sont mis en place pour avertir les administrateurs par mail et SMS :
+Un monitoring par Prometheus et Grafana est mis en place pour les serveurs et les services de la MLA.
 
-- Erreur lorsqu'un ou plusieurs services systemd (dont les backups) échoue, ou de la modification des unités actives
-- Alertes venant de rsync.net 
+![Overview of Grafana dashboard](doc/assets/grafana_dashboard.png)
+
+En plus de ce tableau de bord, des alertes mails et Discord sont configurées en cas d'anomalie :
+
+- Panne d'un serveur OVH
+- Panne d'un service web de la MLA, détecté par des sondes HTTPS exécutées toutes les 2 minutes (y compris pour l'intranet VPN)
+- Espace disque < 5%
+- Erreur lorsqu'un ou plusieurs services systemd échoue
+- Erreur lors du backup rekkord quotidien
+- Ancienneté excessive d'un backup (> 28 heures)
+- Alertes venant de rsync.net en cas d'absence de nouvelle données
+
+Par ailleurs, le serveur/collecteur Prometheus/Grafana est paramétré pour signaler son propre fonctionnement à healthchecks.io. En cas de panne du collecteur lui-même, le service externe healthchecks.io envoie une alerte mail et Discord.
 
 ### Test des backups
 
