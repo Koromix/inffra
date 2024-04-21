@@ -155,18 +155,18 @@ Des snapshots du disque rsync.net sont réalisés de manière automatique et quo
 
 - Les 3 derniers snapshots quotidiens
 - Les 2 derniers snapshots hebdomadaires (remontant donc à 3 semaines)
-- Les 2 dernier snapshot mensuels (remontant donc à 1 mois et 3 semaines)
+- Les 2 dernier snapshot mensuels (remontant donc à 2 mois et 3 semaines)
 
 ### Système d'alerte
 
 Des avertissements sont mis en place pour avertir les administrateurs par mail et SMS :
 
-- Erreur lorsqu'un ou plusieurs services systemd (dont les backups) échoue, ou de la modification des unités actives **[WIP]**
+- Erreur lorsqu'un ou plusieurs services systemd (dont les backups) échoue, ou de la modification des unités actives
 - Alertes venant de rsync.net 
 
 ### Test des backups
 
-Une séance mensuelle de restauration des données de production (à partir des backups) vers un environnement virtual local est effectuée. Cette séance est sous la responsabilité d'InterHop.
+Une séance mensuelle de restauration des données de production (à partir des backups) vers un environnement virtuel local est effectuée. Cette séance est sous la responsabilité d'InterHop.
 
 Ces tests sont effectuées sur une machine hôte locale dédiée à cet usage, et les machines virtuelles sont supprimées après le test.
 
