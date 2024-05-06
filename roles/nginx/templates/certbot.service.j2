@@ -1,0 +1,7 @@
+[Unit]
+Description=Certbot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot renew --quiet --post-hook "/usr/bin/systemctl reload nginx"
+PrivateTmp=true

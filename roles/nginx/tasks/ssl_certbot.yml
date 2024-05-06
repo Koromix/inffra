@@ -66,13 +66,6 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
-- name: Enable certbot renewal unit
-  service:
-    name: certbot.timer
-    enabled: yes
-  when: 'not force_self_ssl'
-  become: yes
-
 - name: List old certbot renewals
   find:
     paths:
@@ -97,5 +90,31 @@
     path: '{{ item.path }}'
     state: absent
   loop: '{{ certbot_old.files }}'
+  when: 'not force_self_ssl'
+  become: yes
+
+- name: Install Certbot systemd units
+  template:
+    src: '{{ item }}.j2'
+    dest: '/etc/systemd/system/{{ item }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - certbot.service
+    - certbot.timer
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Enable certbot renewal unit
+  service:
+    name: certbot.timer
+    state: started
+    enabled: yes
   when: 'not force_self_ssl'
   become: yes
