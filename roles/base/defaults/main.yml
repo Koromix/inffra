@@ -16,6 +16,7 @@ restrict_ssh_access: no
 
 force_self_ssl: no
 
+ufw_enable: yes
 ufw_rules:
   - rule: allow
     to: '{{ ansible_host if restrict_ssh_access else "any" }}'

@@ -91,12 +91,13 @@
 - name: Disable ufw logging
   ufw:
     logging: off
+  when: 'ufw_enable'
   become: yes
 
 - name: Reset ufw rules
   ufw:
     state: reset
-  when: 'not ansible_check_mode'
+  when: 'ufw_enable and not ansible_check_mode'
   become: yes
 
 - name: Configure ufw rules
@@ -106,6 +107,7 @@
     port: '{{ item.port }}'
     proto: '{{ item.proto | default("any") }}'
   loop: '{{ ufw_rules }}'
+  when: 'ufw_enable'
   become: yes
 
 - name: Configure ufw defaults
@@ -117,23 +119,26 @@
       policy: deny
     - direction: outgoing
       policy: allow
+  when: 'ufw_enable'
   become: yes
 
 - name: Allow connections from Docker containers to host
   ufw:
     interface_in: docker0
     policy: allow
+  when: 'ufw_enable'
   become: yes
 
 - name: Enable ufw
   ufw:
     state: enabled
+  when: 'ufw_enable'
   become: yes
 
 - name: Reload ufw
   ufw:
     state: reloaded
-  when: 'not ansible_check_mode'
+  when: 'ufw_enable and not ansible_check_mode'
   become: yes
 
 - name: Restrict ptrace scope (YAMA)
