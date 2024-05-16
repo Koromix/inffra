@@ -15,5 +15,5 @@
 
 cd "{{ postgresql_backup_path }}"
 
-sudo -u postgres pg_dumpall > backups/$(date +%Y%m%d_%H%M%S).sql
+sudo -u postgres pg_dumpall | gzip > "backups/$(date +%Y%m%d_%H%M%S).sql.gz"
 ls -1 backups/* | sort -r | tail -n +4 | xargs rm -f
