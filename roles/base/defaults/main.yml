@@ -16,6 +16,8 @@ restrict_ssh_access: no
 
 force_self_ssl: no
 
+timezone: Etc/UTC
+
 ufw_enable: yes
 ufw_rules:
   - rule: allow

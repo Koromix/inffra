@@ -88,6 +88,13 @@
   when: ovh_ipv6_config.changed
   become: yes
 
+- name: Adjust server time zone
+  file:
+    path: /etc/localtime
+    src: '/usr/share/zoneinfo/{{ timezone }}'
+    state: link
+  become: yes
+
 - name: Disable ufw logging
   ufw:
     logging: off
