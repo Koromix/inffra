@@ -35,6 +35,7 @@
       - php8.2-xml
       - php8.2-mbstring
       - php8.2-zip
+      - php8.2-bz2
       - php8.2-fpm
       - php8.2-memcache
       - php8.2-apcu
