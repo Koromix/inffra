@@ -58,6 +58,26 @@ Par défaut ce VPN n'est pas activé, ouvrez l'application WireGuard et activez 
 
 ![Enable VPN in WireGuard](doc/assets/android_enable.png)
 
+## iPhone
+
+Commencez par installer [WireGuard depuis l'App Store](https://apps.apple.com/us/app/wireguard/id1441195209).
+
+![Install WireGuard through the App Store](doc/assets/ios_install.png)
+
+Une fois WireGuard installé et visible à l'écran, cliquez sur le bouton **+** pour importer un nouveau VPN. Utilisez l'option QR Code, et scanner le QR Code disponible dans le mail qui vous a été envoyé.
+
+![Base Wireguard Screen](doc/assets/ios_wireguard.png)
+
+![Import QR code config](doc/assets/ios_import.png)
+
+Ensuite, vous pouvez nommer la connexion VPN, nous suggérons *MLA* mais c'est un choix libre.
+
+![Name VPN configuration](doc/assets/ios_name.png)
+
+Par défaut ce VPN n'est pas activé, ouvrez l'application WireGuard et activez le VPN quand vous en avez besoin.
+
+![Enable VPN in WireGuard](doc/assets/ios_enable.png)
+
 # Environnements (stages)
 
 ## Production

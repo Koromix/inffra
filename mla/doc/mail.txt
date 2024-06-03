@@ -1,0 +1,19 @@
+Bonjour,
+
+Connectez-vous au VPN à l'aide des instructions suivantes :
+
+- Documentation : https://framagit.org/interhop/inffra/-/tree/main/mla/doc/
+- Pour une connexion via ordinateur : utilisez le fichier MLA.conf en pièce jointe
+- Pour une connexion mobile : utilisez le QR code en pièce jointe
+
+Une fois connecté(e) au VPN, connectez-vous au Vault pour retrouver vos autres identifiants :
+
+- Adresse du Vault : https://vault.intra.mlalerte.org/
+- Identifiant : <Identifiant Vault>
+- Mot de passe : <Lien Send avec mot de passe dispo 7 jours>
+
+Attention, enregistrez ou copiez le mot de passe Vault, le lien pour récupérer ce mot de passe ne sera actif que 7 jours.
+
+Cordialement,
+
+Niels
