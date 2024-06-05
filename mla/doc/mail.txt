@@ -2,9 +2,9 @@ Bonjour,
 
 Connectez-vous au VPN à l'aide des instructions suivantes :
 
-- Documentation : https://framagit.org/interhop/inffra/-/tree/main/mla/doc/
-- Pour une connexion via ordinateur : utilisez le fichier MLA.conf en pièce jointe
-- Pour une connexion mobile : utilisez le QR code en pièce jointe
+- Documentation : https://framagit.org/interhop/inffra/-/blob/main/mla/doc/start.md
+- Pour une connexion via ordinateur, utilisez ce [fichier de configuration](Lien Lufi)
+- Pour une connexion mobile, utilisez ce [QR code](Lien Lufi)
 
 L'installation du logiciel VPN et sa configuration nécessite d'avoir des droits administrateur sur la machine.
 
@@ -15,6 +15,8 @@ Une fois connecté(e) au VPN, connectez-vous au Vault pour retrouver vos autres 
 - Mot de passe : <Lien Send avec mot de passe dispo 7 jours>
 
 Attention, enregistrez ou copiez le mot de passe Vault, le lien pour récupérer ce mot de passe ne sera actif que 7 jours.
+
+L'adresse des différents services web est disponible ici : https://framagit.org/interhop/inffra/-/blob/main/mla/doc/start.md#services-web
 
 Cordialement,
 
