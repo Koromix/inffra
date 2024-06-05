@@ -3,7 +3,7 @@ version: '3'
 services:
   wg-easy:
     container_name: 'wg-easy.{{ wg_name }}'
-    image: weejewel/wg-easy
+    image: '{{ wg_image }}'
 
     env_file: ENV
 
