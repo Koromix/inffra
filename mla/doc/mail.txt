@@ -6,6 +6,8 @@ Connectez-vous au VPN à l'aide des instructions suivantes :
 - Pour une connexion via ordinateur : utilisez le fichier MLA.conf en pièce jointe
 - Pour une connexion mobile : utilisez le QR code en pièce jointe
 
+L'installation du logiciel VPN et sa configuration nécessite d'avoir des droits administrateur sur la machine.
+
 Une fois connecté(e) au VPN, connectez-vous au Vault pour retrouver vos autres identifiants :
 
 - Adresse du Vault : https://vault.intra.mlalerte.org/
