@@ -31,7 +31,7 @@ env:
 
   ## How many concurrent web requests are supported? Depends on memory and CPU cores.
   ## will be set automatically by bootstrap based on detected CPUs, or you can override
-  UNICORN_WORKERS: {{ [1, ansible_processor_count - 1] | max }}
+  UNICORN_WORKERS: {{ [2, ansible_processor_count] | max }}
 
   ## TODO: The domain name this Discourse instance will respond to
   ## Required. Discourse will not work with a bare IP number.
