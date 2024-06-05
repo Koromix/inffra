@@ -14,5 +14,5 @@
 ansible_host: 192.168.58.9
 ansible_port: 22
 ansible_user: vagrant
-ansible_ssh_private_key_file: pknet/vagrant/.vagrant/machines/auth/virtualbox/private_key
+ansible_ssh_private_key_file: pknet/vagrant/.vagrant/machines/bouncer/virtualbox/private_key
 ansible_python_interpreter: /usr/bin/python3

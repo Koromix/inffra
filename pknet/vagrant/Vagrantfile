@@ -17,7 +17,7 @@ cloud_ip = '192.168.58.8'
 tools1_ip = '192.168.58.5'
 tools2_ip = '192.168.58.7'
 wordpress_ip = '192.168.58.6'
-auth_ip = '192.168.58.9'
+bouncer_ip = '192.168.58.9'
 
 Vagrant.configure('2') do |config|
     config.hostmanager.enabled = true
@@ -122,13 +122,13 @@ Vagrant.configure('2') do |config|
         end
     end
 
-    config.vm.define 'auth' do |m|
+    config.vm.define 'bouncer' do |m|
         m.vm.box = 'generic/debian12'
-        m.vm.hostname = 'pknet-auth.local'
-        m.vm.network 'private_network', ip: auth_ip
+        m.vm.hostname = 'pknet-bouncer.local'
+        m.vm.network 'private_network', ip: bouncer_ip
 
         m.vm.provider 'virtualbox' do |v|
-            v.name = 'pknet_auth'
+            v.name = 'pknet_bouncer'
             v.memory = 2048
             v.cpus = 1
             v.linked_clone = true

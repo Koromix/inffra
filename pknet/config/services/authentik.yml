@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Authentik for F2RSMpsy
-  hosts: auth
+  hosts: bouncer
   roles:
     - role: ../../../../roles/postgresql
       vars:
