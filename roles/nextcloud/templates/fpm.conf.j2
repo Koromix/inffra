@@ -7,9 +7,10 @@ listen = /run/php/nextcloud-fpm.sock
 listen.owner = www-data
 listen.group = www-data
 
-pm = ondemand
-pm.max_children = {{ nextcloud_max_children }}
-pm.process_idle_timeout = 10s
+pm = {{ nextcloud_fpm_pm }}
+{% for key, value in nextcloud_fpm_config.items() %}
+pm.{{ key }} = {{ value }}
+{% endfor %}
 
 php_value[upload_max_filesize] = 64M
 php_value[post_max_size] = 128M

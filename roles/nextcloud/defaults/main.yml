@@ -25,7 +25,10 @@ nextcloud_default_password: admin
 
 # nextcloud_smtp:
 
-nextcloud_max_children: 12
+nextcloud_fpm_pm: ondemand
+nextcloud_fpm_config:
+  max_children: 12
+  process_idle_timeout: 60s
 nextcloud_memory_limit: 512M
 
 # onlyoffice_port:
