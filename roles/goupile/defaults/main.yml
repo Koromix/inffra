@@ -11,7 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-goupile_repo: https://framagit.org/interhop/goupile.git
+goupile_repo: https://github.com/Koromix/rygel.git
 goupile_commit: master
 
 goupile_update_auto: yes
@@ -33,6 +33,7 @@ goupile_archive_zone: Local
 goupile_archive_retention: 7 # days
 
 # goupile_name:
+goupile_demo: no
 
 # Set these to enable SMTP support
 # goupile_smtp:

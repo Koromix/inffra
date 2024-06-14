@@ -45,6 +45,7 @@
     - '{{ goupile_root_path }}'
     - '{{ goupile_root_path }}/domains'
     - '{{ goupile_root_path }}/sync'
+    - '{{ goupile_root_path }}/sync/domains'
     - '{{ goupile_archive_path }}'
     - '{{ goupile_snapshot_path }}'
   become: yes
@@ -86,6 +87,9 @@
     - src: sync.ini.j2
       dest: '{{ goupile_root_path }}/sync/sync.ini'
       mode: '0600'
+    - src: domain.ini.j2
+      dest: '{{ goupile_root_path }}/sync/domains/{{ goupile_name }}.ini'
+      mode: '0600'
     - src: goupile@.service.j2
       dest: /etc/systemd/system/goupile@.service
       mode: '0644'
@@ -96,23 +100,6 @@
   systemd:
     daemon_reload: yes
   when: upload_config.changed
-  become: yes
-
-- name: Create list of domains
-  shell:
-    cmd: 'echo "[Domains]" > keys.ini'
-    chdir: '{{ goupile_root_path }}/sync'
-    creates: '{{ goupile_root_path }}/sync/keys.ini'
-  become: yes
-
-- name: Add to list of active Goupile domains
-  lineinfile:
-    path: '{{ goupile_root_path }}/sync/keys.ini'
-    line: '{{ goupile_name }} = {{ goupile_archive_key }}'
-    owner: root
-    group: root
-    mode: '0600'
-    state: present
   become: yes
 
 - name: Set up Goupile update

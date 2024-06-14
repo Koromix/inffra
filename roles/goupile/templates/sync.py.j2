@@ -32,6 +32,7 @@ class DomainConfig:
     archive_directory = None
     snapshot_directory = None
     socket = None
+    archive_key = None
     mismatch = False
 
 @dataclass
@@ -88,17 +89,42 @@ def commit_file(filename, data):
     else:
         return False
 
-def list_domains(root_dir, archive_dir, snapshot_dir, names):
-    domains = {}
+def list_domains(key_dir, root_dir, archive_dir, snapshot_dir):
+    domains = []
 
-    for domain in names:
-        info = DomainConfig()
-        info.main_directory = os.path.join(root_dir, domain)
-        info.archive_directory = os.path.join(archive_dir, domain)
-        info.snapshot_directory = os.path.join(snapshot_dir, domain)
-        info.socket = f'/run/goupile/{domain}.sock'
+    used_names = set()
+    used_ports = set()
 
-        domains[domain] = info
+    for name in os.listdir(key_dir):
+        if not name.endswith('.ini'):
+            continue
+
+        filename = os.path.join(key_dir, name)
+        name, _ = os.path.splitext(name)
+
+        config = load_config(filename)
+        section = config['Domain']
+
+        domain = DomainConfig()
+
+        domain.name = name
+        domain.main_directory = os.path.join(root_dir, domain)
+        domain.archive_directory = os.path.join(archive_dir, domain)
+        domain.snapshot_directory = os.path.join(snapshot_dir, domain)
+        domain.socket = f'/run/goupile/{domain}.sock'
+        domain.archive_key = decode_key(section['ArchiveKey'])
+        if 'DemoMode' in section:
+            domain.demo_mode = decode_bool(section['DemoMode'])
+
+        if domain.name in used_names:
+            raise ValueError(f'Name "{domain.name}" used multiple times')
+        if domain.port in used_ports:
+            raise ValueError(f'Port {domain.port} used multiple times')
+
+        used_names.add(domain.name)
+        used_ports.add(domain.port)
+
+        domains.append(domain)
 
     return domains
 
@@ -185,7 +211,7 @@ def update_domain_config(domain, info, archive_key, auto, smtp, sms):
         ini.write(f)
         return commit_file(filename, f.getvalue())
 
-def run_sync(config, keys):
+def run_sync(config, key_dir):
     binary = config['Goupile.BinaryFile']
 
     # Create missing domains
@@ -198,8 +224,9 @@ def run_sync(config, keys):
                           config['Goupile.DefaultAdmin'], config['Goupile.DefaultPassword'])
 
     # List existing domains and services
-    domains = list_domains(config['Goupile.DomainDirectory'], config['Goupile.ArchiveDirectory'],
-                           config['Goupile.SnapshotDirectory'], keys.keys())
+    domains = list_domains(key_dir, config['Goupile.DomainDirectory'],
+                                    config['Goupile.ArchiveDirectory'],
+                                    config['Goupile.SnapshotDirectory'])
     services = list_services()
 
     # Detect binary mismatches
@@ -283,7 +310,4 @@ if __name__ == '__main__':
     config['Goupile.ArchiveDirectory'] = os.path.abspath(config['Goupile.ArchiveDirectory'])
     config['Goupile.SnapshotDirectory'] = os.path.abspath(config['Goupile.SnapshotDirectory'])
 
-    keys = load_config('keys.ini')
-    keys = keys['Domains']
-
-    run_sync(config, keys)
+    run_sync(config, 'domains')

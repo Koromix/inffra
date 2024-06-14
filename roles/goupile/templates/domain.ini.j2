@@ -13,5 +13,4 @@
 
 [Domain]
 ArchiveKey = {{ goupile_archive_key }}
-Port = {{ goupile_port | default('/run/goupile/' + goupile_name + '.sock') }}
 DemoMode = {{ 'On' if goupile_demo else 'Off' }}
