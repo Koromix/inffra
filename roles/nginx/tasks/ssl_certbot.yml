@@ -66,6 +66,16 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
+- name: Install post-renewal script
+  template:
+    src: certbot_reload.sh.j2
+    dest: /etc/letsencrypt/renewal-hooks/post/reload.sh
+    owner: root
+    group: root
+    mode: '0755'
+  when: 'not force_self_ssl'
+  become: yes
+
 - name: List old certbot renewals
   find:
     paths:
@@ -93,13 +103,10 @@
   when: 'not force_self_ssl'
   become: yes
 
-- name: Install Certbot systemd units
-  template:
-    src: '{{ item }}.j2'
-    dest: '/etc/systemd/system/{{ item }}'
-    owner: root
-    group: root
-    mode: '0644'
+- name: Remove custom certbot systemd units
+  file:
+    path: '/etc/systemd/system/{{ item }}'
+    state: absent
   loop:
     - certbot.service
     - certbot.timer
