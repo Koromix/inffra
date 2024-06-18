@@ -95,7 +95,7 @@
 
 - name: Build THOP
   command:
-    cmd: '{{ thop_root_path }}/repo/felix -pParanoid --host=,clang,lld thop'
+    cmd: '{{ thop_root_path }}/repo/felix -pParanoid --host=:clang:lld thop'
     chdir: '{{ thop_root_path }}/repo'
   register: build_thop
   changed_when: 'build_thop.stderr_lines[-1] != "Nothing to do!" and build_thop.stderr_lines[-2] != "Nothing to do!"'
