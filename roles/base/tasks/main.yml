@@ -29,6 +29,7 @@
       - atool
       - ripgrep
       - vim
+      - mosh
     state: latest
   become: yes
 

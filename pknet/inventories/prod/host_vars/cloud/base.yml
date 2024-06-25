@@ -35,3 +35,6 @@ ufw_rules:
   - rule: allow
     port: 9993
     proto: udp
+  - rule: allow
+    port: 60000:61000
+    proto: udp
