@@ -17,12 +17,10 @@ cd '{{ goupile_root_path }}/repo'
 USER=$(stat -c '%U' .)
 
 # Get remote changes
-sudo -u $USER git fetch --all --prune --force
-sudo -u $USER git fetch --tags --force
-sudo -u $USER git reset --hard
-sudo -u $USER git switch --detach HEAD
+sudo -u $USER git fetch --all --prune --tags --force
+sudo -u $USER git switch --discard-changes --detach HEAD
 sudo -u $USER sh -c "git show-ref --heads | cut -d ' ' -f 2 | xargs -r -n1 basename | xargs -r -n1 git branch -D 2>/dev/null"
-sudo -u $USER git switch --detach '{{ goupile_commit }}'
+sudo -u $USER git switch --discard-changes --detach '{{ goupile_commit }}'
 
 # Build Goupile
 sudo -u $USER ./bootstrap.sh
