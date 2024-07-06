@@ -29,8 +29,14 @@
       - atool
       - ripgrep
       - vim
-      - mosh
     state: latest
+  become: yes
+
+- name: Remove packages
+  package:
+    pkg:
+      - mosh
+    state: absent
   become: yes
 
 - name: Avoid SSH IP binding (too fragile with VPN)
