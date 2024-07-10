@@ -92,7 +92,7 @@
 - name: Clone repository
   git:
     repo: '{{ static_repo }}'
-    version: '{{ static_version | default("HEAD") }}'
+    version: '{{ static_version | default("master") }}'
     dest: '{{ static_root_path }}/repo/{{ static_name }}'
     depth: 1
     force: yes
