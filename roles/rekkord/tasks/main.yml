@@ -48,13 +48,19 @@
     mode: '0755'
   become: yes
 
-- name: Create rekkord environment file
+- name: Create rekkord config file
   template:
-    src: ENV.j2
-    dest: '{{ rekkord_root_path }}/ENV'
+    src: config.ini.j2
+    dest: '{{ rekkord_root_path }}/config.ini'
     owner: root
     group: root
     mode: '0600'
+  become: yes
+
+- name: Delete old environment file
+  file:
+    path: '{{ rekkord_root_path }}/ENV'
+    state: absent
   become: yes
 
 - name: Create rekkord script

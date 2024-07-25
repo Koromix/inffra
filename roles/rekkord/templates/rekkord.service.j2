@@ -18,5 +18,5 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-EnvironmentFile={{ rekkord_root_path }}/ENV
+Environment=HOME=/root
 ExecStart={{ rekkord_root_path }}/rekkord.sh

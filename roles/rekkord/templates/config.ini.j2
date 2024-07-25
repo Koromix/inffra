@@ -1,0 +1,7 @@
+{% for section, values in rekkord_config.items() %}
+[{{ section }}]
+{% for key, value in values.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+
+{% endfor %}
