@@ -38,6 +38,7 @@ http {
 
     types {
         application/javascript js mjs;
+        application/wasm wasm;
     }
 
     limit_req_zone $binary_remote_addr zone=default:10m rate=100r/s;
