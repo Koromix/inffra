@@ -375,6 +375,11 @@ nginx_domains:
     config: |
       location / {
           alias /opt/static/live/cn2r.fr/test/;
+
+          location /track/ {
+              add_header Cross-Origin-Opener-Policy "same-origin" always;
+              add_header Cross-Origin-Embedder-Policy "require-corp" always;
+          }
       }
 
   - name: rekkord.org
