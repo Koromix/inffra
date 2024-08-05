@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-wekan_url: https://github.com/wekan/wekan/releases/download/v7.51/wekan-7.51-amd64.zip
-wekan_checksum: 'sha256:0c2830cd039096cc8b4f09ec0b806bf3c611572807a4587b6aa16c9651d52762'
+wekan_url: https://github.com/wekan/wekan/releases/download/v7.53/wekan-7.53-amd64.zip
+wekan_checksum: 'sha256:480279ccb9d7188d9017c028293866461079103fb6faea1187d334af9c786069'
 
 wekan_root_path: /opt/wekan
 
