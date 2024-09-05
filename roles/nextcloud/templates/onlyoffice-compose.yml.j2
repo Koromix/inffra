@@ -3,7 +3,7 @@ version: '3'
 services:
   onlyoffice_{{ nextcloud_name }}:
     container_name: 'onlyoffice_{{ nextcloud_name }}'
-    image: 'onlyoffice/documentserver:latest'
+    image: '{{ onlyoffice_image }}'
 
     networks:
       - {{ nextcloud_name }}
