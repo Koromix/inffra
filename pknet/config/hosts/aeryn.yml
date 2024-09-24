@@ -441,6 +441,12 @@ nginx_domains:
               gzip_static on;
           }
       }
+  - name: www.ldv-recherche.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://ldv-recherche.fr$request_uri;
+      }
 
 goaccess_domains:
   - name: demheter.fr
