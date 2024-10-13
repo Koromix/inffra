@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-wordpress_url: https://wordpress.org/wordpress-6.4.1.tar.gz
-wordpress_checksum: 'sha256:345dedbd535462528fbedbc967333b76319f94e513e155259b80321cf1737ddc'
+wordpress_url: https://wordpress.org/wordpress-6.6.2.tar.gz
+wordpress_checksum: 'sha256:2697a68cb3dcf483f4fce8804925698c7466401b369fc32de2707a59c4c207d6'
 
 wordpress_root_path: /opt/wordpress
 
