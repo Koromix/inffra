@@ -41,9 +41,9 @@ http {
         application/wasm wasm;
     }
 
-    limit_req_zone $binary_remote_addr zone=default:10m rate=100r/s;
-    limit_req_status 429;
-    limit_req zone=default burst=100 nodelay;
+    # limit_req_zone $binary_remote_addr zone=default:10m rate=100r/s;
+    # limit_req_status 429;
+    # limit_req zone=default burst=100 nodelay;
 
     map $http_upgrade $connection_upgrade {  
         default upgrade;

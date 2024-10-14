@@ -57,7 +57,7 @@ nginx_domains:
     ssl_file_key: '/opt/certificates/watch.{{ private_domain }}.key'
     config: |
       location / {
-          limit_req zone=default burst=100 nodelay;
+          # limit_req zone=default burst=100 nodelay;
 
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

@@ -133,7 +133,7 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          limit_req zone=default burst=100 nodelay;
+          # limit_req zone=default burst=100 nodelay;
 
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Host $host;
