@@ -16,9 +16,10 @@ ansible_port: 22
 ansible_user: debian
 ansible_python_interpreter: /usr/bin/python3
 
+# Keep SSH public for Forgejo
+
 ufw_rules:
   - rule: allow
-    to: '{{ ansible_host }}'
     port: 22
     proto: tcp
   - rule: allow
