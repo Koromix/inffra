@@ -15,8 +15,6 @@
   file:
     path: '{{ item.path }}'
     state: directory
-    owner: root
-    group: root
     mode: '{{ item.mode }}'
   loop:
     - path: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/office'
