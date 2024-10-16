@@ -70,7 +70,7 @@
               3561636361363265636630396261326136653232643361343531
     - role: ../../../../roles/lufi
       vars:
-        lufi_name: f2rsmpsy
+        lufi_name: interactions
         lufi_title: Interactions
         lufi_contact: niels.martignene@protonmail.com
         lufi_port: 12001
