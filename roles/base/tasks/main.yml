@@ -77,22 +77,44 @@
   when: 'not ansible_check_mode'
   become: yes
 
-- name: Configure IPv6 (OVH)
+- name: Detect netplan (OVH)
+  stat:
+    path: /etc/netplan
+  register: ovh_netplan
+  become: no
+
+- name: Configure IPv6 without netplan (OVH)
   template:
-    src: ovh_ipv6.cfg.j2
+    src: ovh_ipv6_v1.cfg.j2
     dest: /etc/network/interfaces.d/51-cloud-init-ipv6.cfg
     owner: root
     group: root
     mode: '0644'
-  register: ovh_ipv6_config
-  when: 'ovh_ipv6_addr is defined'
+  register: ovh_ipv6_v1
+  when: 'ovh_ipv6_addr is defined and not ovh_netplan.stat.exists'
   become: yes
 
-- name: Enable IPv6 (OVH)
+- name: Enable IPv6 without netplan (OVH)
   service:
     name: networking
     state: restarted
-  when: ovh_ipv6_config.changed
+  when: ovh_ipv6_v1.changed
+  become: yes
+
+- name: Configure IPv6 with netplan (OVH)
+  template:
+    src: ovh_ipv6_v2.yaml.j2
+    dest: /etc/netplan/51-cloud-init-ipv6.yaml
+    owner: root
+    group: root
+    mode: '0644'
+  register: ovh_ipv6_v2
+  when: 'ovh_ipv6_addr is defined and ovh_netplan.stat.exists'
+  become: yes
+
+- name: Enable IPv6 with netplan (OVH)
+  command: 'netplan apply'
+  when: ovh_ipv6_v2.changed
   become: yes
 
 - name: Adjust server time zone

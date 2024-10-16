@@ -1,0 +1,9 @@
+network:
+  version: 2
+  ethernets:
+    {{ ovh_ipv6_iface }}:
+      dhcp6: no
+      match:
+        name: {{ ovh_ipv6_iface }}
+      addresses:
+        - {{ ovh_ipv6_addr }}/{{ ovh_ipv6_netmask }}
