@@ -466,6 +466,31 @@ nginx_domains:
           proxy_pass http://127.0.0.1:3000/;
       }
 
+  - name: team-interactions.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://interactions-team.fr$request_uri;
+      }
+  - name: cloud.team-interactions.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://cloud.interactions-team.fr$request_uri;
+      }
+  - name: git.team-interactions.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://git.interactions-team.fr$request_uri;
+      }
+  - name: vault.team-interactions.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://vault.interactions-team.fr$request_uri;
+      }
+
 goaccess_domains:
   - name: demheter.fr
     username: stat
