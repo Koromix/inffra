@@ -92,6 +92,7 @@
   loop:
     - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/new'
     - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live'
+    - '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/custom-apps'
   become: yes
 
 - name: Fetch Nextcloud archive
@@ -153,7 +154,7 @@
 
 - name: Synchronize new Nextcloud version
   shell:
-    cmd: rsync -av --delete --exclude=/config --exclude=/data --exclude=/custom_apps new/ live/
+    cmd: rsync -av --delete --exclude=/config --exclude=/data --exclude=/custom-apps new/ live/
     chdir: '{{ nextcloud_root_path }}/{{ nextcloud_name }}'
   when: 'install_check.stat.exists'
   become: yes

@@ -32,6 +32,19 @@
         "maintenance_window_start": 1,
 
         "default_language": "{{ nextcloud_language }}",
-        "default_locale": "{{ nextcloud_locale }}"
+        "default_locale": "{{ nextcloud_locale }}",
+
+        "apps_paths": [
+            {
+                "path": "{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/apps",
+                "url": "/apps",
+                "writable": false
+            },
+            {
+                "path": "{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/custom-apps",
+                "url": "/custom-apps",
+                "writable": true
+            }
+        ]
     }
 }
