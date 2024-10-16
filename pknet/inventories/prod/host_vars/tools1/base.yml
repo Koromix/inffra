@@ -18,7 +18,7 @@ ansible_python_interpreter: /usr/bin/python3
 
 ovh_ipv6_iface: ens3
 ovh_ipv6_addr: 2001:41d0:304:200::74ec
-ovh_ipv6_netmask: 128
+ovh_ipv6_netmask: 56
 ovh_ipv6_gateway: 2001:41d0:304:200::1
 
 # Keep SSH public for Forgejo
