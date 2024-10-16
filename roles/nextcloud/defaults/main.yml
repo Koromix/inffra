@@ -25,6 +25,9 @@ nextcloud_default_password: admin
 
 # nextcloud_smtp:
 
+nextcloud_language: en
+nextcloud_locale: en_US
+
 nextcloud_fpm_pm: ondemand
 nextcloud_fpm_config:
   max_children: 12

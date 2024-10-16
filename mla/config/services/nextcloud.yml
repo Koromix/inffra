@@ -30,6 +30,8 @@
       vars:
         nextcloud_name: team
         nextcloud_domain: 'cloud.{{ private_domain }}'
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -87,6 +89,8 @@
       vars:
         nextcloud_name: partage
         nextcloud_domain: 'partage.{{ public_domain }}'
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256

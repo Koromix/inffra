@@ -31,6 +31,8 @@
       vars:
         nextcloud_name: koromix
         nextcloud_domain: cloud.koromix.dev
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -101,6 +103,8 @@
       vars:
         nextcloud_name: demheter
         nextcloud_domain: cloud.demheter.fr
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -162,6 +166,8 @@
       vars:
         nextcloud_name: cn2r
         nextcloud_domain: cloud.cn2r.fr
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -223,6 +229,8 @@
       vars:
         nextcloud_name: crp
         nextcloud_domain: crp.cn2r.fr
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -284,6 +292,8 @@
       vars:
         nextcloud_name: interactions
         nextcloud_domain: cloud.interactions-team.fr
+        nextcloud_language: fr
+        nextcloud_locale: fr_FR
         nextcloud_default_user: admin
         nextcloud_default_password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
