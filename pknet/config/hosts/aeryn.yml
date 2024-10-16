@@ -478,6 +478,12 @@ nginx_domains:
       location / {
           return 301 https://cloud.interactions-team.fr$request_uri;
       }
+  - name: drop.team-interactions.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://drop.interactions-team.fr$request_uri;
+      }
   - name: git.team-interactions.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
