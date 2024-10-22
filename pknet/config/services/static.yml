@@ -59,13 +59,13 @@
         static_name: koffi.dev/www
         static_repo: https://github.com/Koromix/rygel.git
         static_version: koffi2
-        static_path: web/koffi.dev/dist/html
+        static_path: web/koffi.dev/dist
         static_build:
-          - cmd: '{{ static_root_path }}/poetry/bin/poetry install'
-            chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
-          - cmd: '{{ static_root_path }}/poetry/bin/poetry run make clean'
-            chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
-          - cmd: '{{ static_root_path }}/poetry/bin/poetry run make html'
+          - cmd: '{{ static_root_path }}/repo/koffi.dev/www/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/koffi.dev/www'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev/dist'
+            chdir: '{{ static_root_path }}/repo/koffi.dev/www'
+          - cmd: '{{ static_root_path }}/repo/koffi.dev/www/felix -pFast --run_here hodler . -O dist --gzip'
             chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
   tags: [koffi.dev, static]
 
