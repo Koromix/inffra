@@ -88,6 +88,8 @@
     cmd: '{{ agnos_root_path }}/agnos --no-staging {{ agnos_root_path }}/agnos.toml'
     chdir: '{{ agnos_root_path }}'
   when: 'not ansible_check_mode'
+  register: agnos
+  failed_when: 'agnos.rc != 0 and "error:rateLimited" not in agnos.stderr'
   become: yes
   become_user: agnos
 
