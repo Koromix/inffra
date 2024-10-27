@@ -29,6 +29,7 @@
       - atool
       - ripgrep
       - vim
+      - systemd-coredump
     state: latest
   become: yes
 
@@ -261,6 +262,15 @@
 - name: Enable unattended upgrades
   shell: dpkg-reconfigure -pmedium unattended-upgrades
   when: 'not ansible_check_mode'
+  become: yes
+
+- name: Adjust systemd coredump retention period
+  template:
+    src: coredump.conf.j2
+    dest: /etc/tmpfiles.d/coredump.cpnf
+    owner: root
+    group: root
+    mode: '0644'
   become: yes
 
 - name: Configure CoreDNS server

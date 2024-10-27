@@ -31,6 +31,8 @@ ufw_rules:
     port: 443
     proto: tcp
 
+coredump_days: 7
+
 # Use these variables to set up IPv6 on OVH VPS
 # Documentation here: https://docs.ovh.com/fr/vps/configurer-ipv6/
 # ovh_ipv6_addr:
