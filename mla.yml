@@ -24,6 +24,7 @@
   tags: [system]
 
 - import_playbook: 'mla/config/services/wireguard.yml'
+- import_playbook: 'mla/config/services/socat.yml'
 - import_playbook: 'mla/config/services/discourse.yml'
 - import_playbook: 'mla/config/services/cryptpad.yml'
 - import_playbook: 'mla/config/services/globaleaks.yml'

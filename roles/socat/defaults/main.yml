@@ -11,36 +11,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ansible_host: 57.128.60.175
-ansible_port: 22
-ansible_user: debian
-ansible_python_interpreter: /usr/bin/python3
+socat_root_path: /opt/socat
 
-ufw_rules:
-  - rule: allow
-    port: 22
-    proto: tcp
-  - rule: allow
-    port: 53
-  - rule: allow
-    port: 80
-    proto: tcp
-  - rule: allow
-    port: 443
-    proto: tcp
-  - rule: allow
-    port: 51820
-    proto: udp
-  - rule: allow
-    port: 993
-    proto: tcp
-  - rule: allow
-    port: 465
-    proto: tcp
-
-dns_server: yes
-dns_authorities:
-  - name: '{{ private_domain }}'
-    mail: 'admin@{{ private_domain }}'
-dns_le_accounts:
-  main: niels.martignene@protonmail.com
+# socat_name:
+# socat_args:

@@ -11,36 +11,20 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ansible_host: 57.128.60.175
-ansible_port: 22
-ansible_user: debian
-ansible_python_interpreter: /usr/bin/python3
+- name: Configure OVH IMAP socat
+  hosts: vpn
+  roles:
+    - role: ../../../../roles/socat
+      vars:
+        socat_name: ovh_imap
+        socat_args: 'TCP4-LISTEN:993,fork,reuseaddr TCP4:ssl0.ovh.net:993'
+  tags: [socat]
 
-ufw_rules:
-  - rule: allow
-    port: 22
-    proto: tcp
-  - rule: allow
-    port: 53
-  - rule: allow
-    port: 80
-    proto: tcp
-  - rule: allow
-    port: 443
-    proto: tcp
-  - rule: allow
-    port: 51820
-    proto: udp
-  - rule: allow
-    port: 993
-    proto: tcp
-  - rule: allow
-    port: 465
-    proto: tcp
-
-dns_server: yes
-dns_authorities:
-  - name: '{{ private_domain }}'
-    mail: 'admin@{{ private_domain }}'
-dns_le_accounts:
-  main: niels.martignene@protonmail.com
+- name: Configure OVH SMTP socat
+  hosts: vpn
+  roles:
+    - role: ../../../../roles/socat
+      vars:
+        socat_name: ovh_smtp
+        socat_args: 'TCP4-LISTEN:465,fork,reuseaddr TCP4:ssl0.ovh.net:465'
+  tags: [socat]
