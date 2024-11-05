@@ -23,7 +23,6 @@
       when: 'rekkord_directories is defined'
   tags: [system]
 
-- import_playbook: 'pknet/config/services/authentik.yml'
 - import_playbook: 'pknet/config/services/goupile.yml'
 - import_playbook: 'pknet/config/services/static.yml'
 - import_playbook: 'pknet/config/services/lufi.yml'
