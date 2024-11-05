@@ -13,7 +13,8 @@
 
 goupile1_ip = '192.168.58.3'
 aeryn_ip = '192.168.58.4'
-cloud_ip = '192.168.58.8'
+cloud1_ip = '192.168.58.8'
+cloud2_ip = '192.168.58.10'
 tools1_ip = '192.168.58.5'
 tools2_ip = '192.168.58.7'
 wordpress_ip = '192.168.58.6'
@@ -54,16 +55,33 @@ Vagrant.configure('2') do |config|
         end
     end
 
-    config.vm.define 'cloud' do |m|
+    config.vm.define 'cloud1' do |m|
         m.vm.box = 'generic/debian11'
-        m.vm.hostname = 'pknet-cloud.local'
-        m.vm.network 'private_network', ip: cloud_ip
+        m.vm.hostname = 'pknet-cloud1.local'
+        m.vm.network 'private_network', ip: cloud1_ip
 
         # It's kind of ugly to hardcode this but.. meh. Keep it simple
-        m.hostmanager.aliases = ['cloud.pknet.local']
+        m.hostmanager.aliases = ['cloud1.pknet.local']
 
         m.vm.provider 'virtualbox' do |v|
-            v.name = 'pknet_cloud'
+            v.name = 'pknet_cloud1'
+            v.memory = 4096
+            v.cpus = 2
+            v.linked_clone = true
+            v.gui = false
+        end
+    end
+
+    config.vm.define 'cloud2' do |m|
+        m.vm.box = 'generic/debian11'
+        m.vm.hostname = 'pknet-cloud2.local'
+        m.vm.network 'private_network', ip: cloud2_ip
+
+        # It's kind of ugly to hardcode this but.. meh. Keep it simple
+        m.hostmanager.aliases = ['cloud2.pknet.local']
+
+        m.vm.provider 'virtualbox' do |v|
+            v.name = 'pknet_cloud2'
             v.memory = 4096
             v.cpus = 2
             v.linked_clone = true
