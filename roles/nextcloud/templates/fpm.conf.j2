@@ -15,8 +15,8 @@ pm.{{ key }} = {{ value }}
 php_value[upload_max_filesize] = 64M
 php_value[post_max_size] = 128M
 php_admin_value[memory_limit] = {{ nextcloud_memory_limit }}
-php_value[opcache.memory_consumption] = 512
-php_value[opcache.interned_strings_buffer] = 64
+php_value[opcache.memory_consumption] = 128
+php_value[opcache.interned_strings_buffer] = 32
 php_value[opcache.revalidate_freq] = 60
 
 env[PATH] = /usr/local/bin:/usr/bin:/bin
