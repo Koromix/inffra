@@ -55,9 +55,9 @@
 
 - name: Download external Prometheus packages
   get_url:
-    url: '{{ prometheus_packages[item].url }}'
-    checksum: '{{ prometheus_packages[item].checksum }}'
-    dest: '{{ prometheus_root_path }}/packages/{{ prometheus_packages[item].url | basename }}'
+    url: '{{ prometheus_packages[item].url[ansible_architecture] }}'
+    checksum: '{{ prometheus_packages[item].checksum[ansible_architecture] }}'
+    dest: '{{ prometheus_root_path }}/packages/{{ prometheus_packages[item].url[ansible_architecture] | basename }}'
     mode: '0644'
   register: download
   until: download is succeeded
@@ -69,7 +69,7 @@
 
 - name: Extract Prometheus packages
   unarchive:
-    src: '{{ prometheus_root_path }}/packages/{{ prometheus_packages[item].url | basename }}'
+    src: '{{ prometheus_root_path }}/packages/{{ prometheus_packages[item].url[ansible_architecture] | basename }}'
     remote_src: yes
     dest: '{{ prometheus_root_path }}/packages/{{ item }}'
   loop: '{{ prometheus_services }}'
@@ -79,7 +79,7 @@
 - name: Install internal Prometheus exporters
   copy:
     src: '{{ prometheus_packages[item].src }}'
-    dest: '{{ prometheus_root_path }}/packages/{{ item }}/{{ prometheus_packages[item].binary }}'
+    dest: '{{ prometheus_root_path }}/packages/{{ item }}/{{ prometheus_packages[item].binary[ansible_architecture] }}'
     owner: root
     group: root
     mode: '0755'
@@ -91,7 +91,7 @@
   copy:
     content: |
       #!/bin/sh -e
-      {{ prometheus_root_path }}/packages/{{ item }}/{{ prometheus_packages[item].binary }} {{ prometheus_packages[item].args | trim }} "$@"
+      {{ prometheus_root_path }}/packages/{{ item }}/{{ prometheus_packages[item].binary[ansible_architecture] }} {{ prometheus_packages[item].args | trim }} "$@"
     dest: '{{ prometheus_root_path }}/{{ item }}'
     owner: root
     group: root

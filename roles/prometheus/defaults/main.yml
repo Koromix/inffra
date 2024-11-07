@@ -19,9 +19,15 @@ prometheus_root_path: /opt/prometheus # Installation directory
 
 prometheus_packages:
   prometheus:
-    url: 'https://github.com/prometheus/prometheus/releases/download/v2.27.1/prometheus-2.27.1.linux-amd64.tar.gz'
-    checksum: 'sha256:ce637d0167d5e6d2561f3bd37e1c58fe8601e13e4e1ea745653c068f6e1317ae'
-    binary: prometheus-2.27.1.linux-amd64/prometheus
+    url:
+      x86_64: 'https://github.com/prometheus/prometheus/releases/download/v2.27.1/prometheus-2.27.1.linux-amd64.tar.gz'
+      aarch64: 'https://github.com/prometheus/prometheus/releases/download/v2.27.1/prometheus-2.27.1.linux-arm64.tar.gz'
+    checksum:
+      x86_64: 'sha256:ce637d0167d5e6d2561f3bd37e1c58fe8601e13e4e1ea745653c068f6e1317ae'
+      aarch64: 'sha256:a96fc1466d9030a9a899c783c087c30e91471342a771544d4e494ceead95cedc'
+    binary:
+      x86_64: prometheus-2.27.1.linux-amd64/prometheus
+      aarch64: prometheus-2.27.1.linux-arm64/prometheus
     port: 9090
     args: |
       --web.listen-address 127.0.0.1:9090 \
@@ -32,31 +38,55 @@ prometheus_packages:
           --web.console.libraries "{{ prometheus_root_path }}/packages/prometheus/prometheus-2.27.1.linux-amd64/console_libraries" \
           --web.page-title "Monitoring"
   node_exporter:
-    url: 'https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz'
-    checksum: 'sha256:8c1f6a317457a658e0ae68ad710f6b4098db2cad10204649b51e3c043aa3e70d'
-    binary: node_exporter-1.1.2.linux-amd64/node_exporter
+    url: 
+      x86_64: 'https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz'
+      aarch64: 'https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-arm64.tar.gz'
+    checksum:
+      x86_64: 'sha256:8c1f6a317457a658e0ae68ad710f6b4098db2cad10204649b51e3c043aa3e70d'
+      aarch64: 'sha256:eb5e7d16f18bb3272d0d832986fc8ac6cb0b6c42d487c94e15dabb10feae8e04'
+    binary:
+      x86_64: node_exporter-1.1.2.linux-amd64/node_exporter
+      aarch64: node_exporter-1.1.2.linux-arm64/node_exporter
     port: 9100
     args: |
       --web.listen-address 127.0.0.1:9100
   nginx_exporter:
-    url: 'https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.9.0/nginx-prometheus-exporter_0.9.0_linux_amd64.tar.gz'
-    checksum: 'sha256:469851e5705a83e9bba9eb402a7484d196293826470f4f66b1d2a4a1074b6599'
-    binary: nginx-prometheus-exporter
+    url:
+      x86_64: 'https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.9.0/nginx-prometheus-exporter_0.9.0_linux_amd64.tar.gz'
+      aarch64: 'https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.9.0/nginx-prometheus-exporter_0.9.0_linux_arm64.tar.gz'
+    checksum:
+      x86_64: 'sha256:469851e5705a83e9bba9eb402a7484d196293826470f4f66b1d2a4a1074b6599'
+      aarch64: 'sha256:f50342dd2da45814868487464158fb7c3b459ebe2a8694de2174512e908a3125'
+    binary:
+      x86_64: nginx-prometheus-exporter
+      aarch64: nginx-prometheus-exporter
     port: 9113
     args: |
       -web.listen-address 127.0.0.1:9113 \
           -nginx.scrape-uri http://127.0.0.1:80/stub_status
   systemd_exporter:
-    url: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.5.0/systemd_exporter-0.5.0.linux-amd64.tar.gz'
-    checksum: 'sha256:d5ea3305dd9546dfb8549f552a16e82320965631462831ad0d7f36047a625f48'
-    binary: systemd_exporter-0.5.0.linux-amd64/systemd_exporter
+    url:
+      x86_64: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.5.0/systemd_exporter-0.5.0.linux-amd64.tar.gz'
+      aarch64: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.5.0/systemd_exporter-0.5.0.linux-arm64.tar.gz'
+    checksum:
+      x86_64: 'sha256:d5ea3305dd9546dfb8549f552a16e82320965631462831ad0d7f36047a625f48'
+      aarch64: 'sha256:a81794f7dd5702da6487b15e51b74e2169246cff2019294ea8ddafdda64bada9'
+    binary:
+      x86_64: systemd_exporter-0.5.0.linux-amd64/systemd_exporter
+      aarch64: systemd_exporter-0.5.0.linux-arm64/systemd_exporter
     port: 9558
     args: |
       --web.listen-address 127.0.0.1:9558
   blackbox_exporter:
-    url: 'https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz'
-    checksum: 'sha256:81b36cece040491ac0d9995db2a0964c40e24838a03a151c3333a7dc3eef94ff'
-    binary: blackbox_exporter-0.24.0.linux-amd64/blackbox_exporter
+    url:
+      x86_64: 'https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-amd64.tar.gz'
+      aarch64: 'https://github.com/prometheus/blackbox_exporter/releases/download/v0.24.0/blackbox_exporter-0.24.0.linux-arm64.tar.gz'
+    checksum:
+      x86_64: 'sha256:81b36cece040491ac0d9995db2a0964c40e24838a03a151c3333a7dc3eef94ff'
+      aarch64: 'sha256:acbbedf03de862fa833bc4dd810e63f105cb44e47abf493192fce3451852dc58'
+    binary:
+      x86_64: blackbox_exporter-0.24.0.linux-amd64/blackbox_exporter
+      aarch64: blackbox_exporter-0.24.0.linux-arm64/blackbox_exporter
     port: 9115
     args: |
       --web.listen-address=127.0.0.1:9115 --config.file="{{ prometheus_root_path }}/blackbox.yml"
