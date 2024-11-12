@@ -28,6 +28,7 @@ from dataclasses import dataclass
 
 @dataclass
 class DomainConfig:
+    demo_mode = False
     main_directory = None
     archive_directory = None
     snapshot_directory = None
@@ -182,6 +183,7 @@ def update_domain_config(domain, info, auto, smtp, sms):
 
     ini.add_section('Domain')
     ini.set('Domain', 'Title', domain)
+    ini.set('Domain', 'DemoMode', 'On' if info.demo_mode else 'Off')
 
     ini.add_section('Data')
     ini.set('Data', 'ArchiveDirectory', info.archive_directory)
