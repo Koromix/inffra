@@ -17,8 +17,8 @@
     - role: ../../../../roles/postgresql
       vars:
         postgresql_databases:
-          - database: lu_f2rsmpsy
-            user: lu_f2rsmpsy
+          - database: lu_f2rsm
+            user: lu_f2rsm
             password: !vault |
               $ANSIBLE_VAULT;1.1;AES256
               34363936376637343630333830393466646338376335306239323834303836356363633234373334
@@ -31,15 +31,15 @@
               39393963376264356338
     - role: ../../../../roles/lufi
       vars:
-        lufi_name: f2rsmpsy
+        lufi_name: f2rsm
         lufi_title: 'F2RSM psy'
         lufi_contact: niels.martignene@protonmail.com
         lufi_port: 12000
         lufi_database:
           type: postgresql
           host: 127.0.0.1
-          name: lu_f2rsmpsy
-          user: lu_f2rsmpsy
+          name: lu_f2rsm
+          user: lu_f2rsm
           password: !vault |
             $ANSIBLE_VAULT;1.1;AES256
             34363936376637343630333830393466646338376335306239323834303836356363633234373334
