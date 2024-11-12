@@ -71,9 +71,9 @@
   when: 'root_password is defined'
   become: yes
 
-- name: Reload sshd to apply new settings
+- name: Reload SSH server to apply new settings
   service:
-    name: sshd
+    name: ssh
     state: reloaded
   when: 'not ansible_check_mode'
   become: yes
