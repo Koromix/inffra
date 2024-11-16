@@ -146,7 +146,7 @@
           mode: starttls
   tags: [nextcloud]
 
-- name: Nextcloud Interactions
+- name: Nextcloud INTERACTIONS
   hosts: cloud1
   roles:
     - role: ../../../../roles/mariadb

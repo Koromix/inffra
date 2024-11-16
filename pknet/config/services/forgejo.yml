@@ -46,12 +46,12 @@
             REQUIRE_SIGNIN_VIEW = true
   tags: [forgejo]
 
-- name: Forgejo for Interactions
+- name: Forgejo for INTERACTIONS
   hosts: aeryn
   roles:
     - role: ../../../../roles/forgejo
       vars:
-        forgejo_name: Interactions
+        forgejo_name: INTERACTIONS
         forgejo_domain: git.interactions-team.fr
         forgejo_smtp:
           host: mail.smtp2go.com:587

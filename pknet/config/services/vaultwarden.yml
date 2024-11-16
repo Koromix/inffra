@@ -75,7 +75,7 @@
           mode: starttls
   tags: [vaultwarden]
 
-- name: Vaultwarden for Interactions
+- name: Vaultwarden for INTERACTIONS
   hosts: tools2
   roles:
     - role: ../../../../roles/postgresql

@@ -52,7 +52,7 @@
             39393963376264356338
   tags: [lufi]
 
-- name: Lufi for Interactions
+- name: Lufi for INTERACTIONS
   hosts: tools2
   roles:
     - role: ../../../../roles/postgresql
@@ -71,7 +71,7 @@
     - role: ../../../../roles/lufi
       vars:
         lufi_name: interactions
-        lufi_title: Interactions
+        lufi_title: INTERACTIONS
         lufi_contact: niels.martignene@protonmail.com
         lufi_port: 12001
         lufi_database:
