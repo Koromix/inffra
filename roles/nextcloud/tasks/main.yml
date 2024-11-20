@@ -47,6 +47,7 @@
       - bzip2
       - acl
       - clamav
+      - clamav-daemon
     state: latest
   become: yes
 
