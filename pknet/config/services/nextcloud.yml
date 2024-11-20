@@ -72,6 +72,10 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
           mode: starttls
+        nextcloud_fpm_pm: static
+        nextcloud_fpm_config:
+          max_children: 32
+        nextcloud_memory_limit: 256M
         onlyoffice_port: 8888
         onlyoffice_jwt_secret: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -146,6 +150,10 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
           mode: starttls
+        nextcloud_fpm_pm: static
+        nextcloud_fpm_config:
+          max_children: 32
+        nextcloud_memory_limit: 256M
   tags: [nextcloud]
 
 - name: Nextcloud Koromix
@@ -209,6 +217,10 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
           mode: starttls
+        nextcloud_fpm_pm: static
+        nextcloud_fpm_config:
+          max_children: 32
+        nextcloud_memory_limit: 256M
   tags: [nextcloud]
 
 - name: Nextcloud DEMHETER
@@ -272,6 +284,10 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
           mode: starttls
+        nextcloud_fpm_pm: static
+        nextcloud_fpm_config:
+          max_children: 32
+        nextcloud_memory_limit: 256M
   tags: [nextcloud]
 
 - name: Nextcloud INTERACTIONS
@@ -335,4 +351,8 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
           mode: starttls
+        nextcloud_fpm_pm: static
+        nextcloud_fpm_config:
+          max_children: 32
+        nextcloud_memory_limit: 256M
   tags: [nextcloud]
