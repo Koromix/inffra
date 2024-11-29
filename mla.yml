@@ -19,9 +19,14 @@
       when: 'nginx_domains is defined'
     - name: prometheus
       when: 'prometheus_exporters is defined or grafana_url is defined'
+  tags: [system]
+
+- name: Rekkord
+  hosts: all
+  roles:
     - name: rekkord
       when: 'rekkord_directories is defined'
-  tags: [system]
+  tags: [system, rekkord]
 
 - import_playbook: 'mla/config/services/wireguard.yml'
 - import_playbook: 'mla/config/services/socat.yml'
