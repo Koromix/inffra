@@ -124,7 +124,7 @@
             chdir: '{{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org'
   tags: [rekkord.org, static]
 
-- name: ldv-recherche.fr
+- name: beta.ldv-recherche.fr
   hosts: aeryn
   roles:
     - role: ../../../../roles/static

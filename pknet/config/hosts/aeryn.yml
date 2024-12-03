@@ -415,7 +415,7 @@ nginx_domains:
           return 301 https://rekkord.org$request_uri;
       }
 
-  - name: ldv-recherche.fr
+  - name: beta.ldv-recherche.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
@@ -440,12 +440,6 @@ nginx_domains:
               gzip_min_length 1000;
               gzip_static on;
           }
-      }
-  - name: www.ldv-recherche.fr
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location / {
-          return 301 https://ldv-recherche.fr$request_uri;
       }
 
   - name: git.interactions-team.fr
