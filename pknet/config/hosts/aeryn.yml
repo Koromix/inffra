@@ -415,6 +415,17 @@ nginx_domains:
           return 301 https://rekkord.org$request_uri;
       }
 
+  - name: ldv-recherche.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          index index.html;
+
+          root /opt/static/live/ldv-recherche.fr/wip;
+
+          expires 1h;
+          add_header Cache-Control "public, no-transform";
+      }
   - name: beta.ldv-recherche.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |

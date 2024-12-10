@@ -124,9 +124,14 @@
             chdir: '{{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org'
   tags: [rekkord.org, static]
 
-- name: beta.ldv-recherche.fr
+- name: ldv-recherche.fr
   hosts: aeryn
   roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: ldv-recherche.fr/wip
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: web/ldv-recherche.fr/wip
     - role: ../../../../roles/static
       vars:
         static_name: ldv-recherche.fr/www
