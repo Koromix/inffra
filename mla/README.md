@@ -130,7 +130,7 @@ Par ailleurs, l'utilisation de ce playbook nécessite la possession de la clé A
 Avec la connexion au VPN activée et la clé en votre posession, vous pouvez lancer le déploiement complet avec la commande suivante :
 
 ```sh
-ansible-playbook mla.yml -i mla/inventories/prod --vault-password-file keys/mla.vault
+ansible-playbook play.yml -i inventories/prod --vault-password-file ../keys/mla.vault
 ```
 
 ## Environnement Vagrant
@@ -140,7 +140,7 @@ sudo apt install vagrant vagrant-hostmanager
 
 cd vagrant
 vagrant up
-ansible-playbook ../mla.yml -i mla/inventories/vagrant --vault-password-file keys/mla.vault
+ansible-playbook ../play.yml -i ../inventories/vagrant --vault-password-file ../../keys/mla.vault
 ```
 
 # Stratégie de sauvegarde

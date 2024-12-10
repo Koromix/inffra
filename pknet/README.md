@@ -13,5 +13,5 @@ sudo zerotier-cli join <safe ID> # Replace <safe ID> values with info from priva
 # Déploiement Ansible
 
 ```sh
-ansible-playbook pknet.yml -i pknet/inventories/prod --vault-password-file keys/pknet.vault
+ansible-playbook play.yml -i inventories/prod --vault-password-file ../keys/pknet.vault
 ```

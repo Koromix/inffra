@@ -7,3 +7,7 @@ Service de déploiement d'outils libres et sécurisés, modulables, à destinati
 ## MLA
 
 Suivez la [documentation MLA](mla/) pour plus d'informations.
+
+## PKnet
+
+Suivez la [documentation PKnet](pknet/) pour plus d'informations.
