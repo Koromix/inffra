@@ -16,4 +16,4 @@
 cd "{{ mariadb_backup_path }}"
 
 mysqldump --all-databases --single-transaction --quick --lock-tables=false | gzip > "backups/$(date +%Y%m%d_%H%M%S).sql.gz"
-ls -1 backups/* | sort -r | tail -n +4 | xargs rm -f
+ls -1 backups/* | sort -r | tail -n +2 | xargs rm -f

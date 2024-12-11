@@ -16,4 +16,4 @@
 cd "{{ mongodb_backup_path }}"
 
 mongodump --archive | gzip > "backups/$(date +%Y%m%d_%H%M%S).dump.gz"
-ls -1 backups/* | sort -r | tail -n +4 | xargs rm -f
+ls -1 backups/* | sort -r | tail -n +2 | xargs rm -f

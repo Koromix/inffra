@@ -21,6 +21,6 @@ mkdir "$TIME"
 find . -maxdepth 1 -name "*.db" -exec sqlite3 "{}" ".backup '$TIME/{}'" \;
 
 tar czf "../backups/$TIME.tar.gz" "$TIME"
-ls -1 ../backups/* | sort -r | tail -n +4 | xargs rm -f
+ls -1 ../backups/* | sort -r | tail -n +2 | xargs rm -f
 
 rm -rf "$TIME"
