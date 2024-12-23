@@ -59,15 +59,15 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
 
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
           location /static/ {
               expires 28d;
-
-              gzip on;
-              gzip_vary on;
-              gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-              gzip_proxied no-cache no-store private expired auth;
-              gzip_min_length 1000;
-              gzip_static on;
           }
       }
 
@@ -101,15 +101,15 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
 
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
           location /static/ {
               expires 28d;
-
-              gzip on;
-              gzip_vary on;
-              gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-              gzip_proxied no-cache no-store private expired auth;
-              gzip_min_length 1000;
-              gzip_static on;
           }
       }
 
@@ -210,8 +210,9 @@ nginx_domains:
           gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
           gzip_proxied no-cache no-store private expired auth;
           gzip_min_length 1000;
+          gzip_static on;
 
-          location /_static/ {
+          location /static/ {
               expires 28d;
           }
       }
@@ -256,15 +257,15 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
 
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
           location /static/ {
               expires 28d;
-
-              gzip on;
-              gzip_vary on;
-              gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-              gzip_proxied no-cache no-store private expired auth;
-              gzip_min_length 1000;
-              gzip_static on;
           }
 
           location = /courier {
@@ -317,15 +318,15 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
 
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
           location /static/ {
               expires 28d;
-
-              gzip on;
-              gzip_vary on;
-              gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-              gzip_proxied no-cache no-store private expired auth;
-              gzip_min_length 1000;
-              gzip_static on;
           }
 
           location ~ \.php$ {
@@ -397,15 +398,15 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
 
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
           location /static/ {
               expires 28d;
-
-              gzip on;
-              gzip_vary on;
-              gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-              gzip_proxied no-cache no-store private expired auth;
-              gzip_min_length 1000;
-              gzip_static on;
           }
       }
   - name: www.rekkord.org
@@ -441,15 +442,15 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
 
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
           location /static/ {
               expires 28d;
-
-              gzip on;
-              gzip_vary on;
-              gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-              gzip_proxied no-cache no-store private expired auth;
-              gzip_min_length 1000;
-              gzip_static on;
           }
       }
 
