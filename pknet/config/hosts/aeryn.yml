@@ -114,6 +114,9 @@ nginx_domains:
       }
 
       location /test/ {
+          add_header Cross-Origin-Opener-Policy "same-origin" always;
+          add_header Cross-Origin-Embedder-Policy "require-corp" always;
+
           alias /opt/static/live/koromix.dev/test/;
       }
 
@@ -441,6 +444,9 @@ nginx_domains:
 
           expires 1h;
           add_header Cache-Control "public, no-transform";
+
+          add_header Cross-Origin-Opener-Policy "same-origin" always;
+          add_header Cross-Origin-Embedder-Policy "require-corp" always;
 
           gzip on;
           gzip_vary on;
