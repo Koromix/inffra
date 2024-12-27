@@ -1,5 +1,0 @@
-#!/bin/sh -e
-
-{% for dir in rekkord_directories %}
-/usr/bin/rekkord save -C {{ rekkord_root_path }}/config.ini -n "{{ dir.name }}" "{{ dir.src }}"
-{% endfor %}
