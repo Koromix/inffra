@@ -40,3 +40,4 @@
 - import_playbook: 'config/services/mattermost.yml'
 - import_playbook: 'config/services/cryptpad.yml'
 - import_playbook: 'config/services/vaultwarden.yml'
+- import_playbook: 'config/services/photoview.yml'
