@@ -36,7 +36,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -52,7 +51,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -68,7 +66,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -91,7 +88,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -107,7 +103,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -123,7 +118,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -147,7 +141,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -163,7 +156,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
@@ -179,7 +171,6 @@ nginx_domains:
     config: |
       location / {
           proxy_http_version 1.1;
-          proxy_request_buffering off;
           proxy_buffering on;
           proxy_read_timeout 180;
           send_timeout 180;
