@@ -66,14 +66,14 @@ prometheus_packages:
           -nginx.scrape-uri http://127.0.0.1:80/stub_status
   systemd_exporter:
     url:
-      x86_64: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.5.0/systemd_exporter-0.5.0.linux-amd64.tar.gz'
-      aarch64: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.5.0/systemd_exporter-0.5.0.linux-arm64.tar.gz'
+      x86_64: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.6.0/systemd_exporter-0.6.0.linux-amd64.tar.gz'
+      aarch64: 'https://github.com/prometheus-community/systemd_exporter/releases/download/v0.6.0/systemd_exporter-0.6.0.linux-arm64.tar.gz'
     checksum:
-      x86_64: 'sha256:d5ea3305dd9546dfb8549f552a16e82320965631462831ad0d7f36047a625f48'
-      aarch64: 'sha256:a81794f7dd5702da6487b15e51b74e2169246cff2019294ea8ddafdda64bada9'
+      x86_64: 'sha256:2644d770939c1ba296e0c1257888e46bd78141cfc0e599c1518ee9b7ab558ffb'
+      aarch64: 'sha256:d6e4fd4cdc3f9392659825051d30a5f23205a7860baeb405e25995de83a4ee17'
     binary:
-      x86_64: systemd_exporter-0.5.0.linux-amd64/systemd_exporter
-      aarch64: systemd_exporter-0.5.0.linux-arm64/systemd_exporter
+      x86_64: systemd_exporter-0.6.0.linux-amd64/systemd_exporter
+      aarch64: systemd_exporter-0.6.0.linux-arm64/systemd_exporter
     port: 9558
     args: |
       --web.listen-address 127.0.0.1:9558
