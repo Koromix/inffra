@@ -46,6 +46,16 @@
             chdir: '{{ static_root_path }}/repo/koromix.dev/www'
           - cmd: '{{ static_root_path }}/repo/koromix.dev/www/felix -pFast --run_here hodler . -O dist --gzip'
             chdir: '{{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev'
+    - role: ../../../../roles/static
+      vars:
+        static_name: koromix.dev/staks
+        static_repo: https://github.com/Koromix/rygel.git
+        static_path: src/staks/dist
+        static_build:
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/staks/src/staks/dist'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/staks/src/staks'
+          - cmd: '{{ static_root_path }}/repo/koromix.dev/staks/src/staks/build.js'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/staks/src/staks'
     - role: ../../../../roles/static 
       vars:
         static_name: koromix.dev/test

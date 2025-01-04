@@ -182,6 +182,23 @@ nginx_domains:
 
           proxy_pass http://unix:/run/thop/thop.koromix.dev.sock:;
       }
+  - name: staks.koromix.dev
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          index index.html;
+
+          root /opt/static/live/koromix.dev/staks;
+
+          expires 1h;
+          add_header Cache-Control "public, no-transform";
+          add_header Cross-Origin-Opener-Policy "same-origin" always;
+          add_header Cross-Origin-Embedder-Policy "require-corp" always;
+
+          location /static/ {
+              expires 28d;
+          }
+      }
   - name: stat.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
