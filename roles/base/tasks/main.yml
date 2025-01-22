@@ -264,13 +264,35 @@
   when: 'not ansible_check_mode'
   become: yes
 
-- name: Adjust systemd coredump retention period
+- name: Configure systemd coredump
   template:
     src: coredump.conf.j2
-    dest: /etc/tmpfiles.d/coredump.cpnf
+    dest: /etc/systemd/coredump.conf
     owner: root
     group: root
     mode: '0644'
+  become: yes
+
+- name: Adjust systemd coredump retention period
+  template:
+    src: coredump.clean.j2
+    dest: /etc/tmpfiles.d/coredump.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Delete misnamed coredump config file
+  file:
+    path: /etc/tmpfiles.d/coredump.cpnf
+    state: absent
+  become: yes
+
+- name: Restart systemd coredump service
+  service:
+    name: systemd-coredump.socket
+    state: restarted
+  when: 'not ansible_check_mode'
   become: yes
 
 - name: Configure CoreDNS server
