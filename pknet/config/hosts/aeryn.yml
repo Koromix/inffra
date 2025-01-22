@@ -182,13 +182,13 @@ nginx_domains:
 
           proxy_pass http://unix:/run/thop/thop.koromix.dev.sock:;
       }
-  - name: staks.koromix.dev
+  - name: games.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
           index index.html;
 
-          root /opt/static/live/koromix.dev/staks;
+          root /opt/static/live/koromix.dev/games;
 
           expires 1h;
           add_header Cache-Control "public, no-transform";
