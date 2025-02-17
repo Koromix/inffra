@@ -195,7 +195,7 @@ nginx_domains:
           add_header Cross-Origin-Opener-Policy "same-origin" always;
           add_header Cross-Origin-Embedder-Policy "require-corp" always;
 
-          location /static/ {
+          location ~ /static/ {
               expires 28d;
           }
       }
