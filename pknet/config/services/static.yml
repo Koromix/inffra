@@ -201,11 +201,6 @@
   roles:
     - role: ../../../../roles/static
       vars:
-        static_name: ldv-recherche.fr/wip
-        static_repo: https://github.com/Koromix/rygel.git
-        static_path: web/ldv-recherche.fr
-    - role: ../../../../roles/static
-      vars:
         static_name: ldv-recherche.fr/www
         static_repo: https://github.com/Koromix/rygel.git
         static_path: src/ludivine/web/dist
