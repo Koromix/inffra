@@ -458,44 +458,6 @@ nginx_domains:
           expires 1h;
           add_header Cache-Control "public, no-transform";
       }
-  - name: beta.ldv-recherche.fr
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location / {
-          index index.html;
-
-          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)$ $1.html;
-          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
-          try_files $uri $uri/ =404;
-
-          root /opt/static/live/ldv-recherche.fr/www;
-
-          expires 1h;
-          add_header Cache-Control "public, no-transform";
-
-          add_header Cross-Origin-Opener-Policy "same-origin" always;
-          add_header Cross-Origin-Embedder-Policy "require-corp" always;
-
-          gzip on;
-          gzip_vary on;
-          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-          gzip_proxied no-cache no-store private expired auth;
-          gzip_min_length 1000;
-          gzip_static on;
-
-          location /static/ {
-              expires 28d;
-          }
-      }
-  - name: app.ldv-recherche.fr
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location / {
-          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
-          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
-          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
-          proxy_pass https://192.168.192.250/ludivine/;
-      }
 
   - name: git.interactions-team.fr
     ssl_certbot_email: niels.martignene@protonmail.com
