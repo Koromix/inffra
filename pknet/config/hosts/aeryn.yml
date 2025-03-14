@@ -457,6 +457,10 @@ nginx_domains:
 
           expires 1h;
           add_header Cache-Control "public, no-transform";
+
+          location /static/ {
+              expires 28d;
+          }
       }
 
   - name: git.interactions-team.fr
