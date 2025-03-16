@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 mattermost_url: https://releases.mattermost.com/10.6.0/mattermost-10.6.0-linux-amd64.tar.gz
-mattermost_checksum: 'sha256:e70c16f0358e68e819008f82766a39f66e0dd70a6ff19dd369ff7634c5f454c2'
+mattermost_checksum: 'sha256:0a8b1d7d89f669857ed438fcf5827d9f739bff93056470a1b803a696e04389fd'
 
 mattermost_root_path: /opt/mattermost
 
