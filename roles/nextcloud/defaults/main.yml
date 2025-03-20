@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-nextcloud_url: https://download.nextcloud.com/server/releases/nextcloud-30.0.6.tar.bz2
-nextcloud_checksum: 'sha256:ac0e091be6920965dc0c82f149b632d6b5ade7adee84a7b3c8cfd847450a8ddc'
+nextcloud_url: https://download.nextcloud.com/server/releases/nextcloud-31.0.2.tar.bz2
+nextcloud_checksum: 'sha256:00b572111b7c2b98842d95c046de79ef463ccfadc8a04b54006c786e1f94c310'
 
 nextcloud_root_path: /opt/nextcloud
 
