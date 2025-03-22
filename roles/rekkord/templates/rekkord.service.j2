@@ -18,6 +18,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
+TimeoutStartSec={{ rekkord_timeout }}
 Environment=HOME=/root
 {% for dir in rekkord_directories %}
 ExecStart=/usr/bin/rekkord save -C "{{ rekkord_root_path }}/config.ini" -n "{{ dir.name }}" "{{ dir.src }}"

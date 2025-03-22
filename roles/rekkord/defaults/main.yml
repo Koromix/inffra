@@ -15,6 +15,7 @@ rekkord_root_path: /opt/rekkord
 
 rekkord_schedule: '*-*-* 5:00'
 rekkord_randomize: 1h
+rekkord_timeout: 3h
 
 # rekkord_environment:
 # rekkord_directories:
