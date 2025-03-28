@@ -125,6 +125,8 @@ blackbox_sites:
   - https://psy-lille.goupile.fr/
   - https://goupile.interhop.org/
   - https://goupile.hds.interhop.org/
+  - https://beta.goupile.fr/
+  - https://demo.goupile.fr/
 
   - https://demheter.fr/
   - https://beta.demheter.fr/
