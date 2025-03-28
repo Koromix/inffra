@@ -48,9 +48,9 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
-- name: Creates Let's Encrypt key symbolic links
+- name: Create Let's Encrypt key symbolic links
   file:
-    state: 'link'
+    state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
     src: '/etc/letsencrypt/live/{{ item.name }}/privkey.pem'
   loop: '{{ nginx_domains }}'
@@ -59,11 +59,21 @@
 
 - name: Creates Let's Encrypt certificate symbolic links
   file:
-    state: 'link'
+    state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt'
     src: '/etc/letsencrypt/live/{{ item.name }}/fullchain.pem'
   loop: '{{ nginx_domains }}'
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  become: yes
+
+- name: Make sure Certbot post-renewal directory exists
+  file:
+    state: directory
+    path: /etc/letsencrypt/renewal-hooks/post
+    owner: root
+    group: root
+    mode: '0755'
+  when: 'not force_self_ssl'
   become: yes
 
 - name: Install post-renewal script
