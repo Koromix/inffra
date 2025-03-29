@@ -575,5 +575,5 @@ grafana_smtp:
   from: nepasrepondre@koromix.dev
   start_tls: MandatoryStartTLS
 
-grafana_dashboards: '{{ inventory_dir }}/../../config/prometheus/dashboards'
-grafana_alerts: '{{ inventory_dir }}/../../config/prometheus/alerting'
+grafana_dashboards: '{{ inventory_dir }}/../config/prometheus/dashboards'
+grafana_alerts: '{{ inventory_dir }}/../config/prometheus/alerting'
