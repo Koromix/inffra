@@ -260,7 +260,7 @@
   become: yes
 
 - name: Enable unattended upgrades
-  shell: dpkg-reconfigure -pmedium unattended-upgrades
+  shell: dpkg-reconfigure -pmedium -fnoninteractive unattended-upgrades
   when: 'not ansible_check_mode'
   become: yes
 
