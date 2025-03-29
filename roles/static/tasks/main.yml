@@ -42,6 +42,7 @@
       - acl
       - gcc
       - g++
+      - nodejs
     state: latest
   become: yes
 
@@ -63,7 +64,7 @@
 
 - name: Prepare static repository directory
   file:
-    path: '{{ static_root_path }}/repo'
+    path: '{{ static_root_path }}/repo/{{ static_name | dirname }}'
     state: directory
     owner: www-data
     group: www-data
