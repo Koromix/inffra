@@ -17,18 +17,12 @@
     state: present
   become: yes
 
-- name: Configure Node repository key
-  apt_key:
-    url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
-    id: '68576280'
-    state: present
-  become: yes
-
 - name: Install packages
   apt:
     update_cache: yes
     pkg:
       - nodejs
+      - npm
       - git
     state: latest
   become: yes
