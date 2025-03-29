@@ -21,7 +21,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.aeryn.ansible_host }};
+          allow {{ hostvars.static.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
@@ -133,7 +133,7 @@ nginx_domains:
       }
       location /annuaire/ {
           proxy_set_header Host carto.koromix.dev;
-          proxy_pass https://192.168.192.157/3114/;
+          proxy_pass https://192.168.192.216/3114/;
       }
 
   - name: forparis.goupile.fr

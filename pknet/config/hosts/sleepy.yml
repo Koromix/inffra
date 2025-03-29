@@ -21,7 +21,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.aeryn.ansible_host }};
+          allow {{ hostvars.static.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
@@ -34,7 +34,7 @@ nginx_domains:
       {% if blackbox_sites is defined %}
 
       location /metrics/probe {
-          allow {{ hostvars.aeryn.ansible_host }};
+          allow {{ hostvars.static.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
@@ -55,15 +55,6 @@ nginx_domains:
           proxy_pass http://127.0.0.1:9999;
       }
 
-      location /files/ {
-          alias /opt/files/;
-
-          location ~ ^/files/[a-zA-Z0-9_]+/ {
-              autoindex on;
-              autoindex_exact_size off;
-          }
-      }
-
       location /photo/ {
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Host $host;
@@ -76,13 +67,6 @@ nginx_domains:
 
           proxy_pass http://127.0.0.1:8134/;
           proxy_http_version 1.1;
-      }
-
-      location /download/ {
-          alias /opt/download/;
-
-          autoindex on;
-          autoindex_exact_size on;
       }
 
       location /ludivine/ {
@@ -135,7 +119,6 @@ blackbox_sites:
 
   - https://f2rsm.goupile.org/annuaire/
   - https://koromix.dev/procemot/
-  - https://koromix.dev/R/
 
   - https://chat.f2rsmpsy.org/
   - https://cpad.f2rsmpsy.org/
