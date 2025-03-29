@@ -185,10 +185,6 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
-          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
-          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
-
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -201,10 +197,6 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
-          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
-          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
-
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -217,10 +209,6 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
-          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
-          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
-
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -233,10 +221,6 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
-          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
-          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
-
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
