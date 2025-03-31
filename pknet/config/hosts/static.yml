@@ -456,6 +456,53 @@ nginx_domains:
           return 301 https://vault.interactions-team.fr$request_uri;
       }
 
+  - name: beta.ldv-recherche.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          index index.html;
+
+          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)$ $1.html;
+          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
+          try_files $uri $uri/ @app;
+
+          root /opt/static/live/ldv-recherche.fr/www;
+
+          expires 1h;
+          add_header Cache-Control "public, no-transform";
+
+          add_header Cross-Origin-Opener-Policy "same-origin" always;
+          add_header Cross-Origin-Embedder-Policy "require-corp" always;
+
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
+          location /static/ {
+              try_files $uri $uri/ @app;
+              expires 28d;
+          }
+      }
+
+      location /api/ {
+          try_files /dev/null @app;
+      }
+
+      location @app {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/ludivine/beta.sock:;
+      }
+
 goaccess_domains:
   - name: demheter.fr
     username: stat
