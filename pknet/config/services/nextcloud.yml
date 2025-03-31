@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Nextcloud Cn2r
-  hosts: cloud2
+  hosts: cloud3
   roles:
     - role: ../../../../roles/mariadb
       vars:
@@ -90,7 +90,7 @@
   tags: [nextcloud]
 
 - name: Nextcloud CRP
-  hosts: cloud2
+  hosts: cloud3
   roles:
     - role: ../../../../roles/mariadb
       vars:
@@ -157,7 +157,7 @@
   tags: [nextcloud]
 
 - name: Nextcloud Koromix
-  hosts: cloud2
+  hosts: cloud3
   roles:
     - role: ../../../../roles/mariadb
       vars:
@@ -224,7 +224,7 @@
   tags: [nextcloud]
 
 - name: Nextcloud DEMHETER
-  hosts: cloud2
+  hosts: cloud3
   roles:
     - role: ../../../../roles/mariadb
       vars:
@@ -291,7 +291,7 @@
   tags: [nextcloud]
 
 - name: Nextcloud INTERACTIONS
-  hosts: cloud2
+  hosts: cloud3
   roles:
     - role: ../../../../roles/mariadb
       vars:

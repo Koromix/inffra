@@ -197,7 +197,7 @@
   tags: [rekkord.org, static]
 
 - name: ldv-recherche.fr
-  hosts: goupile1
+  hosts: static
   roles:
     - role: ../../../../roles/static
       vars:
