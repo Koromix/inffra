@@ -87,7 +87,7 @@
 - name: Configure IPv6 without netplan (OVH)
   template:
     src: ovh_ipv6_v1.cfg.j2
-    dest: /etc/network/interfaces.d/51-cloud-init-ipv6.cfg
+    dest: /etc/network/interfaces.d/51-cloud-init-ipv6
     owner: root
     group: root
     mode: '0644'
