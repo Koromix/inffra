@@ -23,13 +23,6 @@
     state: present
   become: yes
 
-- name: Remove old package
-  apt:
-    pkg:
-      - rekord
-    state: absent
-  become: yes
-
 - name: Install packages
   apt:
     update_cache: yes
