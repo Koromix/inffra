@@ -218,10 +218,10 @@
         static_repo: https://codeberg.org/Koromix/rygel.git
         static_path: src/ludivine/web/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/ldv-recherche.fr/www/src/ludivine/web/dist'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/www'
-          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/www/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/www/src/ludivine/web'
+          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/bootstrap.sh'
+            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/ldv-recherche.fr/beta/src/ludivine/web/dist'
+            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta'
+          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/src/ludivine/web'
   tags: [ldv-recherche.fr, static]
