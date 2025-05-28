@@ -22,7 +22,6 @@
     update_cache: yes
     pkg:
       - nodejs
-      - npm
       - unzip
     state: latest
   become: yes

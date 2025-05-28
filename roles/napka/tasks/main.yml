@@ -22,7 +22,6 @@
     update_cache: yes
     pkg:
       - nodejs
-      - npm
       - unzip
       - git
       - rsync
