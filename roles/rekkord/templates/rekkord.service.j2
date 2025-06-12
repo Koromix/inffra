@@ -21,5 +21,5 @@ Type=oneshot
 TimeoutStartSec={{ rekkord_timeout }}
 Environment=HOME=/root
 {% for dir in rekkord_directories %}
-ExecStart=/usr/bin/rekkord save -C "{{ rekkord_root_path }}/config.ini" -c "{{ dir.name }}" "{{ dir.src }}"
+ExecStart=/usr/bin/rekkord save -C "{{ rekkord_root_path }}/config.ini" "{{ dir.name }}" "{{ dir.src }}"
 {% endfor %}
