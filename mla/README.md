@@ -154,7 +154,7 @@ Les machines OVH sont configurées de manière à réaliser un snapshot quotidie
 Une sauvegarde nocture des données est réalisée quotidiennement, elle comprend deux étapes :
 
 - Export des données spécifiques des services
-- Synchronisation chiffrée des données vers rsync.net (prestataire hors OVH)
+- Synchronisation chiffrée des données vers Exoscale Object Storage (prestataire hors OVH)
 
 ### Export des données
 
@@ -162,20 +162,16 @@ Toutes les applications sont paramétrées pour stocker leurs données dans `/op
 
 - MariaDB
 - MongoDB
-- Globaleaks (rsync et backup sqlite3)
+- GlobaLeaks (rsync et backup sqlite3)
 - PostgreSQL
 
 ### Synchronisation rekkord
 
-Chaque serveur de production (et de préproduction) est configuré pour réaliser des backups chiffrés sur rsync.net via rekkord (en SFTP). Le chiffrement asymétrique repose sur un mot de passe aléatoire de 32 caractères.
+Chaque serveur de production (et de préproduction) est configuré pour réaliser des backups chiffrés sur Exoscale Object Storage via rekkord (S3). Le chiffrement asymétrique repose sur un mot de passe aléatoire de 32 caractères.
 
 Tout le contenu du répertoire `/opt` est compris dans chaque synchronisation.
 
-Des snapshots du disque rsync.net sont réalisés de manière automatique et quotidienne, avec un roulement qui comprend :
-
-- Les 3 derniers snapshots quotidiens
-- Les 2 derniers snapshots hebdomadaires (remontant donc à 3 semaines)
-- Les 2 dernier snapshot mensuels (remontant donc à 2 mois et 3 semaines)
+Les buckets S3 sont versionnés. Les objets S3 utilisés Rekkord sont verrouillés pour 30 jours lors de leur création (Object Lock en mode GOUVERNANCE). Un checkup des objets S3 est réalisés tous les 7 jours, pour repérer la moindre anomalie (malveillance, bitrot), et le verrouillage de chaque objet S3 vérifié est étendu de 30 jours à cette occasion.
 
 ### Système d'alerte
 
@@ -187,11 +183,10 @@ En plus de ce tableau de bord, des alertes mails et Discord sont configurées en
 
 - Panne d'un serveur OVH
 - Panne d'un service web de la MLA, détecté par des sondes HTTPS exécutées toutes les 2 minutes (y compris pour l'intranet VPN)
-- Espace disque < 5%
+- Espace disque < 2%
 - Erreur lorsqu'un ou plusieurs services systemd échoue
 - Erreur lors du backup rekkord quotidien
 - Ancienneté excessive d'un backup (> 28 heures)
-- Alertes venant de rsync.net en cas d'absence de nouvelle données
 
 Par ailleurs, le serveur/collecteur Prometheus/Grafana est paramétré pour signaler son propre fonctionnement à healthchecks.io. En cas de panne du collecteur lui-même, le service externe healthchecks.io envoie une alerte mail et Discord.
 
