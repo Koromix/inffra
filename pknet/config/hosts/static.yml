@@ -518,7 +518,7 @@ nginx_domains:
           rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
           try_files $uri $uri/ @app;
 
-          root /opt/static/live/ldv-recherche.fr/www;
+          root /opt/static/live/ldv-recherche.fr/beta;
 
           expires 1h;
           add_header Cache-Control "public, no-transform";
