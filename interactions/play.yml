@@ -28,6 +28,7 @@
       when: 'rekkord_directories is defined'
   tags: [system, rekkord]
 
-- import_playbook: 'services/wireguard.yml'
+- import_playbook: 'services/authentik.yml'
 - import_playbook: 'services/forgejo.yml'
 - import_playbook: 'services/nextcloud.yml'
+- import_playbook: 'services/wireguard.yml'
