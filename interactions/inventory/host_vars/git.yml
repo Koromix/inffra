@@ -1,0 +1,82 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+ansible_host: 10.147.18.140
+ansible_port: 22
+ansible_user: debian
+ansible_python_interpreter: /usr/bin/python3
+
+ufw_rules:
+  - rule: allow
+    to: '{{ ansible_host }}'
+    port: 22
+    proto: tcp
+  - rule: allow
+    port: 80
+    proto: tcp
+  - rule: allow
+    port: 443
+    proto: tcp
+  - rule: allow
+    port: 2222
+    proto: tcp
+  - rule: allow
+    port: 9993
+    proto: udp
+  - rule: allow
+    port: 51820
+    proto: udp
+
+rekkord_directories:
+  - name: '{{ inventory_hostname }}/opt'
+    src: /opt
+
+nginx_mode: back
+nginx_domains:
+  - name: '{{ ansible_host }}'
+    config: |
+      {% for exporter in prometheus_exporters %}
+
+      location /metrics/{{ exporter }} {
+          allow {{ hostvars.watch.ansible_host }};
+          deny all;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
+      }
+      {% endfor %}
+
+  - name: git.interactions-team.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_request_buffering off;
+          client_max_body_size 2G;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:3000/;
+      }
+
+prometheus_exporters:
+  - node_exporter
+  - nginx_exporter
+  - systemd_exporter

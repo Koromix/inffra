@@ -11,22 +11,23 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-nginx_default_server: yes
+- name: Global configuration
+  hosts: all
+  roles:
+    - name: base
+    - name: nginx
+      when: 'nginx_domains is defined'
+    - name: prometheus
+      when: 'prometheus_exporters is defined or grafana_url is defined'
+  tags: [system]
 
-nginx_mode: single
-nginx_http_port: 80
-nginx_https_port: 443
+- name: Rekkord
+  hosts: all
+  roles:
+    - name: rekkord
+      when: 'rekkord_directories is defined'
+  tags: [system, rekkord]
 
-# List of domains to serve
-# nginx_domains:
-
-goaccess_url: https://tar.goaccess.io/goaccess-1.7.2.tar.gz
-goaccess_checksum: 'sha256:0e9aaba29c021d1c6a187130a91404730183ee8ab81cd31381854b47149d126b'
-
-goaccess_root_path: /opt/goaccess
-
-goaccess_schedule: '*-*-* 01:00'
-goaccess_randomize: 20m
-
-# List of domains with stats
-# goaccess_domains:
+- import_playbook: 'services/wireguard.yml'
+- import_playbook: 'services/forgejo.yml'
+- import_playbook: 'services/nextcloud.yml'

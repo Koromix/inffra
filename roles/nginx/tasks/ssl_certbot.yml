@@ -11,13 +11,25 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
+- name: Gather domain names (back)
+  set_fact:
+    nginx_certificates: '{{ nginx_domains }}'
+  when: 'nginx_mode != "front"'
+  become: no
+
+- name: Gather domain names (front)
+  set_fact:
+    nginx_certificates: '{{ hostvars.values() | map(attribute = "nginx_domains", default = []) | list | flatten }}'
+  when: 'nginx_mode == "front"'
+  become: no
+
 - name: Bootstrap missing Let's Encrypt certificates
   shell:
     cmd: |
       ln -sf "/opt/nginx/ssl/internal/{{ inventory_hostname }}.key" "/opt/nginx/ssl/letsencrypt/{{ item.name }}.key"
       ln -sf "/opt/nginx/ssl/internal/{{ inventory_hostname }}.crt" "/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt"
     creates: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
-  loop: '{{ nginx_domains }}'
+  loop: '{{ nginx_certificates }}'
   become: yes
 
 - name: Reload NGINX (for certbot)
@@ -34,7 +46,7 @@
     owner: root
     group: root
     mode: '0755'
-  loop: '{{ nginx_domains }}'
+  loop: '{{ nginx_certificates }}'
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
@@ -44,7 +56,7 @@
       rm -rf /etc/letsencrypt/live/{{ item.name }} /etc/letsencrypt/renewal/{{ item.name }}.conf /etc/letsencrypt/archive/{{ item.name }}
       certbot certonly --cert-name {{ item.name }} --webroot --preferred-challenges http -w /opt/nginx/ssl/webroot/{{ item.name }} -d {{ item.name }} -m {{ item.ssl_certbot_email }} --agree-tos --noninteractive
     creates: '/etc/letsencrypt/live/{{ item.name }}/chain.pem'
-  loop: '{{ nginx_domains }}'
+  loop: '{{ nginx_certificates }}'
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
@@ -53,7 +65,7 @@
     state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
     src: '/etc/letsencrypt/live/{{ item.name }}/privkey.pem'
-  loop: '{{ nginx_domains }}'
+  loop: '{{ nginx_certificates }}'
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
@@ -62,7 +74,7 @@
     state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt'
     src: '/etc/letsencrypt/live/{{ item.name }}/fullchain.pem'
-  loop: '{{ nginx_domains }}'
+  loop: '{{ nginx_certificates }}'
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
@@ -96,10 +108,10 @@
     file_type: any
     recurse: no
     exclude: |
-      {{ nginx_domains | map(attribute = "name") | list |
-         union(nginx_domains | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.conf") | list) |
-         union(nginx_domains | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.key") | list) |
-         union(nginx_domains | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.crt") | list) |
+      {{ nginx_certificates | map(attribute = "name") | list |
+         union(nginx_certificates | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.conf") | list) |
+         union(nginx_certificates | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.key") | list) |
+         union(nginx_certificates | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.crt") | list) |
          union(["README"]) }}
   register: certbot_old
   when: 'not force_self_ssl'

@@ -1,0 +1,897 @@
+{
+    "groups": [
+        {
+            "orgID": 1,
+            "name": "MLA",
+            "folder": "Alerts",
+            "interval": "2m",
+            "rules": [
+                {
+                    "uid": "GQzJE4c4z",
+                    "title": "Uptime",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model": {
+                                "editorMode": "builder",
+                                "expr": "up { job = \"node_exporter\" }",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": true,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "-100",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "-100"
+                                },
+                                "expression": "A",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "-100",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                1
+                                            ],
+                                            "type": "lt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "-100"
+                                },
+                                "expression": "B",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2022-12-12T19:59:54Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "6m"
+                },
+                {
+                    "uid": "vIEyPVcVk",
+                    "title": "Disk space",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model": {
+                                "editorMode": "code",
+                                "expr": "node_filesystem_avail_bytes { fstype != 'ramfs' } / node_filesystem_size_bytes { fstype != 'ramfs' }",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": true,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "-100",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "-100"
+                                },
+                                "expression": "A",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "-100",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0.02
+                                            ],
+                                            "type": "lt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "-100"
+                                },
+                                "expression": "B",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2022-12-12T19:59:54Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "6m"
+                },
+                {
+                    "uid": "ZN4oYPxVk",
+                    "title": "Services",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model": {
+                                "editorMode": "builder",
+                                "expr": "systemd_unit_state{state=\"failed\"}",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": true,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2023-03-03T14:14:58Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "6m"
+                },
+                {
+                    "uid": "GszyjEbVk",
+                    "title": "Old backups",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model": {
+                                "editorMode": "code",
+                                "expr": "time() - systemd_timer_last_trigger_seconds { name=\"rekkord.timer\" }",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": true,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                100800
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2023-03-03T16:39:56Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "6m"
+                },
+                {
+                    "uid": "KpBUjPx4z",
+                    "title": "Failed backups",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model": {
+                                "editorMode": "code",
+                                "expr": "systemd_unit_state { name=\"rekkord.service\", state=\"failed\" }",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": true,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange": {
+                                "from": 900,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "hide": false,
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2023-03-03T16:39:56Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "6m"
+                },
+                {
+                    "uid": "fd23e6f7-3b91-4372-918d-b8733e2b0c93",
+                    "title": "Blackbox",
+                    "condition": "C",
+                    "data":
+                    [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange":
+                            {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model":
+                            {
+                                "disableTextWrap": false,
+                                "editorMode": "builder",
+                                "expr": "probe_success",
+                                "fullMetaSearch": false,
+                                "includeNullMetadata": true,
+                                "instant": true,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": false,
+                                "refId": "A",
+                                "useBackend": false
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange":
+                            {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model":
+                            {
+                                "conditions":
+                                [
+                                    {
+                                        "evaluator":
+                                        {
+                                            "params":
+                                            [],
+                                            "type": "gt"
+                                        },
+                                        "operator":
+                                        {
+                                            "type": "and"
+                                        },
+                                        "query":
+                                        {
+                                            "params":
+                                            [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer":
+                                        {
+                                            "params":
+                                            [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource":
+                                {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange":
+                            {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model":
+                            {
+                                "conditions":
+                                [
+                                    {
+                                        "evaluator":
+                                        {
+                                            "params":
+                                            [
+                                                1
+                                            ],
+                                            "type": "lt"
+                                        },
+                                        "operator":
+                                        {
+                                            "type": "and"
+                                        },
+                                        "query":
+                                        {
+                                            "params":
+                                            [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer":
+                                        {
+                                            "params":
+                                            [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource":
+                                {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2023-11-03T08:39:16Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "6m"
+                }
+            ]
+        },
+        {
+            "orgID": 1,
+            "name": "MLA",
+            "folder": "Watchdog",
+            "interval": "2m",
+            "rules": [
+                {
+                    "uid": "ec756774-ed49-459d-ada6-5bda7c722c95",
+                    "title": "healthchecks.io",
+                    "condition": "C",
+                    "data":
+                    [
+                        {
+                            "refId": "A",
+                            "queryType": "",
+                            "relativeTimeRange":
+                            {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model":
+                            {
+                                "editorMode": "code",
+                                "expr": "vector(1)",
+                                "instant": true,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": false,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "B",
+                            "queryType": "",
+                            "relativeTimeRange":
+                            {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model":
+                            {
+                                "conditions":
+                                [
+                                    {
+                                        "evaluator":
+                                        {
+                                            "params":
+                                            [],
+                                            "type": "gt"
+                                        },
+                                        "operator":
+                                        {
+                                            "type": "and"
+                                        },
+                                        "query":
+                                        {
+                                            "params":
+                                            [
+                                                "B"
+                                            ]
+                                        },
+                                        "reducer":
+                                        {
+                                            "params":
+                                            [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource":
+                                {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "reducer": "last",
+                                "refId": "B",
+                                "type": "reduce"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "",
+                            "relativeTimeRange":
+                            {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model":
+                            {
+                                "conditions":
+                                [
+                                    {
+                                        "evaluator":
+                                        {
+                                            "params":
+                                            [
+                                                0
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator":
+                                        {
+                                            "type": "and"
+                                        },
+                                        "query":
+                                        {
+                                            "params":
+                                            [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer":
+                                        {
+                                            "params":
+                                            [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource":
+                                {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "B",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "updated": "2023-11-03T10:11:44Z",
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "0s",
+                    "isPaused": false
+                }
+            ]
+        }
+    ],
+
+    "deleteRules": [
+        {
+            "orgID": 1,
+            "uid": "qIgDP4cVz"
+        }
+    ]
+}
