@@ -201,6 +201,7 @@ http {
             proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
             proxy_ssl_verify on;
             proxy_ssl_verify_depth 2;
+            proxy_ssl_name {{ vars.ansible_host }};
 
             proxy_pass_request_headers on;
             proxy_set_header Host $host;
@@ -208,7 +209,7 @@ http {
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
 
-            proxy_pass https://{{ vars.ansible_host }}:{{ domain.https_port if domain.https_port is defined else nginx_https_port }};
+            proxy_pass https://{{ vars.nginx_relay | default(vars.ansible_host) }}:{{ domain.https_port if domain.https_port is defined else nginx_https_port }};
         }
     }
 

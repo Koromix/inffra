@@ -16,6 +16,8 @@ ansible_port: 22
 ansible_user: debian
 ansible_python_interpreter: /usr/bin/python3
 
+nginx_relay: 10.10.10.8
+
 ufw_rules:
   - rule: allow
     to: '{{ ansible_host }}'
