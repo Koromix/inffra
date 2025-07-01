@@ -86,12 +86,12 @@ prometheus_exporters:
   - node_exporter
   - nginx_exporter
   - systemd_exporter
-#   - blackbox_exporter
+  - blackbox_exporter
 
-# blackbox_sites:
-#   - https://git.interactions-team.fr/
-#   - https://vpn.interactions-team.fr/
-#   - https://watch.interactions-team.fr/
+blackbox_sites:
+  - https://git.interactions-team.fr/
+  - https://vpn.interactions-team.fr/
+  - https://watch.interactions-team.fr/
 
 grafana_url: https://watch.interactions-team.fr
 grafana_default_password: !vault |
