@@ -11,26 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
+- name: Cryptpad
+  hosts: cpad
   roles:
-    - name: base
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [system]
-
-- name: Rekkord
-  hosts: all
-  roles:
-    - name: rekkord
-      when: 'rekkord_directories is defined'
-  tags: [system, rekkord]
-
-- import_playbook: 'services/authentik.yml'
-- import_playbook: 'services/cryptpad.yml'
-- import_playbook: 'services/forgejo.yml'
-- import_playbook: 'services/mattermost.yml'
-- import_playbook: 'services/nextcloud.yml'
-- import_playbook: 'services/wireguard.yml'
+    - role: ../roles/cryptpad
+      vars:
+        cpad_name: interactions
+        cpad_main_domain: 'cpad.interactions-team.fr'
+        cpad_safe_domain: 'cpadsb.interactions-team.fr'
+        cpad_admin_mail: 'niels.martignene@protonmail.com'
+  tags: [cryptpad]
