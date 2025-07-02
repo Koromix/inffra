@@ -22,6 +22,7 @@
     update_cache: yes
     pkg:
       - nodejs
+      - npm
       - git
     state: latest
   become: yes

@@ -43,6 +43,7 @@
       - gcc
       - g++
       - nodejs
+      - npm
     state: latest
   become: yes
 
