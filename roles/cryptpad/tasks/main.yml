@@ -37,20 +37,6 @@
     - '{{ cpad_root_path }}'
     - '{{ cpad_root_path }}/{{ cpad_name }}'
     - '{{ cpad_root_path }}/{{ cpad_name }}/app'
-    - '{{ cpad_root_path }}/{{ cpad_name }}/app/customize'
-  become: yes
-
-- name: Prepare Cryptpad data directories
-  file:
-    path: '{{ item }}'
-    state: directory
-    owner: cpad
-    group: cpad
-    mode: '0755'
-  loop:
-    - '{{ cpad_root_path }}/{{ cpad_name }}/data'
-    - '{{ cpad_root_path }}/{{ cpad_name }}/data/block'
-    - '{{ cpad_root_path }}/{{ cpad_name }}/app/data'
   become: yes
 
 - name: Fetch Cryptpad repository
@@ -59,6 +45,28 @@
     version: '{{ cpad_commit }}'
     dest: '{{ cpad_root_path }}/{{ cpad_name }}/app'
     force: yes
+  become: yes
+
+- name: Prepare Cryptpad app directories
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '0755'
+  loop:
+    - path: '{{ cpad_root_path }}/{{ cpad_name }}/app/customize'
+      owner: root
+      group: root
+    - path: '{{ cpad_root_path }}/{{ cpad_name }}/data'
+      owner: cpad
+      group: cpad
+    - path: '{{ cpad_root_path }}/{{ cpad_name }}/data/block'
+      owner: cpad
+      group: cpad
+    - path: '{{ cpad_root_path }}/{{ cpad_name }}/app/data'
+      owner: cpad
+      group: cpad
   become: yes
 
 - name: Run NPM install
