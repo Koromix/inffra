@@ -91,6 +91,9 @@ prometheus_exporters:
   - blackbox_exporter
 
 blackbox_sites:
+  - https://chat.interactions-team.fr/
+  - https://cpad.interactions-team.fr/
+  - https://cpadsb.interactions-team.fr/
   - https://git.interactions-team.fr/
   - https://vpn.interactions-team.fr/
   - https://watch.interactions-team.fr/
