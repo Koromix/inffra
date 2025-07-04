@@ -11,7 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-mongodb_version: 6.0
+mongodb_version: 8.0
+mongodb_key_id: 4E7DCA05
 
 mongodb_backup_path: /opt/mongodb
 mongodb_backup_schedule: '*-*-* 03:00'

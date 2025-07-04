@@ -14,7 +14,7 @@
 - name: Configure MongoDB repository key
   apt_key:
     url: 'https://www.mongodb.org/static/pgp/server-{{ mongodb_version }}.asc'
-    id: 64C3C388
+    id: '{{ mongodb_key_id }}'
     state: present
   become: yes
 
@@ -32,11 +32,35 @@
     state: latest
   become: yes
 
-- name: Start MongoDB service
+- name: Bind MongoDB to Docker address
+  lineinfile:
+    dest: /etc/mongod.conf
+    regexp: '^  bindIp:'
+    line: '  bindIp: 172.17.0.1'
+    state: present
+  become: yes
+
+- name: Restart MongoDB service
   service:
     name: mongod
-    state: started
+    state: restarted
     enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Set self-managed replica set name
+  blockinfile:
+    path: /etc/mongod.conf
+    block: |
+      replication:
+        replSetName: "rs0"
+    state: present
+  become: yes
+
+- name: Enable self-managed replica set
+  shell: |
+    mongosh mongodb://172.17.0.1 --eval "rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: '172.17.0.1:27017' }] })"
+  ignore_errors: yes
   become: yes
 
 - name: Create backup directories

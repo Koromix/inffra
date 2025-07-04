@@ -15,6 +15,9 @@
   hosts: pri_tools
   roles:
     - role: ../../../../roles/mongodb
+      vars:
+        mongodb_version: 6.0
+        mongodb_key_id: 64C3C388
     - role: ../../../../roles/wekan
       vars:
         wekan_name: team
