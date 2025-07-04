@@ -93,6 +93,7 @@ prometheus_exporters:
 blackbox_sites:
   - https://chat.interactions-team.fr/
   - https://git.interactions-team.fr/
+  - https://overleaf.interactions-team.fr/
   - https://vpn.interactions-team.fr/
   - https://watch.interactions-team.fr/
 

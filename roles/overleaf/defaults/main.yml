@@ -11,26 +11,16 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Global configuration
-  hosts: all
-  roles:
-    - name: base
-    - name: nginx
-      when: 'nginx_domains is defined'
-    - name: prometheus
-      when: 'prometheus_exporters is defined or grafana_url is defined'
-  tags: [system]
+overleaf_repo: https://github.com/overleaf/overleaf.git
+overleaf_commit: a74c0abdf547a59055f7fb5c6e6a055511298f72
 
-- name: Rekkord
-  hosts: all
-  roles:
-    - name: rekkord
-      when: 'rekkord_directories is defined'
-  tags: [system, rekkord]
+overleaf_root_path: /opt/overleaf
 
-- import_playbook: 'services/authentik.yml'
-- import_playbook: 'services/forgejo.yml'
-- import_playbook: 'services/mattermost.yml'
-- import_playbook: 'services/nextcloud.yml'
-- import_playbook: 'services/overleaf.yml'
-- import_playbook: 'services/wireguard.yml'
+overleaf_port: 4567
+
+# overleaf_title:
+# overleaf_url:
+# overleaf_admin_mail:
+# overleaf_database:
+
+# overleaf_smtp:

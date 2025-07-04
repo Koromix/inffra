@@ -1,0 +1,13 @@
+version: '2.2'
+
+services:
+    sharelatex:
+        restart: always
+        image: sharelatex/sharelatex
+        container_name: 'overleaf.{{ overleaf_name }}'
+        stop_grace_period: 60s
+        ports:
+            - {{ overleaf_port }}:80
+        volumes:
+            - ~/sharelatex_data:{{ overleaf_root_path }}/data
+        env_file: ENV
