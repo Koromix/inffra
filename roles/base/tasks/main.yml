@@ -11,13 +11,27 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
+- name: Fetch Docker repository key
+  get_url:
+    url: https://download.docker.com/linux/debian/gpg
+    dest: /usr/share/keyrings/docker.asc
+  become: yes
+
+- name: Configure Docker repository
+  apt_repository:
+    repo: 'deb [signed-by=/usr/share/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable'
+    state: present
+  become: yes
+
 - name: Install packages
   package:
     update_cache: yes
     pkg:
       - ufw
-      - docker-compose
-      - docker.io
+      - docker-ce
+      - docker-ce-cli
+      - docker-buildx-plugin
+      - docker-compose-plugin
       - apparmor-utils
       - rsync
       - acl
