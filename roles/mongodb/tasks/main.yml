@@ -40,6 +40,26 @@
     state: present
   become: yes
 
+- name: Start MongoDB after Docker (1)
+  file:
+    path: /etc/systemd/system/mongod.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Start MongoDB after Docker (2)
+  copy:
+    content: |
+      [Unit]
+      After=docker.service
+    dest: /etc/systemd/system/mongod.service.d/override.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
 - name: Restart MongoDB service
   service:
     name: mongod
