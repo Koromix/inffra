@@ -130,7 +130,6 @@
       vars:
         static_name: koffi.dev/www
         static_repo: https://codeberg.org/Koromix/rygel.git
-        static_version: koffi2
         static_path: web/koffi.dev/dist
         static_build:
           - cmd: '{{ static_root_path }}/repo/koffi.dev/www/bootstrap.sh'
