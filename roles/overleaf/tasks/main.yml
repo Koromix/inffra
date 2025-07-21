@@ -138,3 +138,9 @@
     enabled: yes
   when: 'not ansible_check_mode'
   become: yes
+
+- name: Install Tex Live packages
+  shell: |
+      docker exec overleaf.{{ overleaf_name }} tlmgr update --self
+      docker exec overleaf.{{ overleaf_name }} tlmgr install scheme-full
+  become: yes
