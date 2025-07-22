@@ -4,9 +4,9 @@ Service de déploiement d'outils libres et sécurisés, modulables, à destinati
 
 # Déploiements existants
 
-## MLA
+## INTERACTIONS
 
-Suivez la [documentation MLA](mla/) pour plus d'informations.
+Suivez la [documentation INTERACTIONS](interactions/) pour plus d'informations.
 
 ## PKnet
 
