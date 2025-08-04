@@ -1,0 +1,31 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+rekkow_repo: https://codeberg.org/Koromix/rygel.git
+rekkow_commit: master
+
+rekkow_root_path: /opt/rekkow # Installation directory
+rekkow_run_user: rekkow # POSIX user that will run THOP services
+rekkow_run_group: rekkow # POSIX group that will run THOP services
+
+rekkow_sandbox: yes
+
+# rekkow_name:
+# rekkow_title:
+# rekkow_url:
+
+# rekkow_smtp:
+#   url:
+#   username:
+#   password:
+#   from:

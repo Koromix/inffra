@@ -1,0 +1,135 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Install packages
+  apt:
+    update_cache: yes
+    pkg:
+      - git
+      - clang
+      - lld
+      - gcc
+      - g++
+      - unzip
+    state: latest
+  become: yes
+
+- name: Create Rekkow user
+  user:
+    name: rekkow
+    create_home: no
+    home: /nonexistent
+    shell: /usr/sbin/nologin
+    system: yes
+  register: rekkow_user
+  become: yes
+
+- name: Prepare Rekkow installation directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - '{{ rekkow_root_path }}'
+    - '{{ rekkow_root_path }}/{{ rekkow_name }}'
+  become: yes
+
+- name: Prepare Rekkow data directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: rekkow
+    group: rekkow
+    mode: '0755'
+  loop:
+    - '{{ rekkow_root_path }}/{{ rekkow_name }}/data'
+    - '{{ rekkow_root_path }}/{{ rekkow_name }}/tmp'
+  become: yes
+
+- name: Prepare Rekkow repository directory
+  file:
+    path: '{{ rekkow_root_path }}/repo'
+    state: directory
+    owner: '{{ ansible_user | default(lookup("env", "USER"), True) }}'
+  become: yes
+
+- name: Fetch Rekkow repository
+  git:
+    repo: '{{ rekkow_repo }}'
+    version: '{{ rekkow_commit }}'
+    dest: '{{ rekkow_root_path }}/repo'
+    force: yes
+  become: no
+
+- name: Update configuration files
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: root
+    group: root
+    mode: '{{ item.mode }}'
+  loop:
+    - src: rekkow.ini.j2
+      dest: '{{ rekkow_root_path }}/{{ rekkow_name }}/rekkow.ini'
+      mode: '0644'
+    - src: rekkow@.service.j2
+      dest: /etc/systemd/system/rekkow@.service
+      mode: '0644'
+  register: upload_config
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: upload_config.changed
+  become: yes
+
+- name: Bootstrap Felix
+  shell:
+    cmd: '{{ rekkow_root_path }}/repo/bootstrap.sh'
+    chdir: '{{ rekkow_root_path }}/repo'
+  when: 'not ansible_check_mode'
+  become: no
+
+- name: Build Rekkow
+  command:
+    cmd: '{{ rekkow_root_path }}/repo/felix -pParanoid --host=:clang:lld rekkow'
+    chdir: '{{ rekkow_root_path }}/repo'
+  register: build_rekkow
+  changed_when: 'build_rekkow.stderr_lines[-1] != "Nothing to do!" and build_rekkow.stderr_lines[-2] != "Nothing to do!"'
+  become: no
+
+- name: Install Rekkow
+  copy:
+    src: '{{ rekkow_root_path }}/repo/bin/Paranoid/rekkow'
+    remote_src: yes
+    dest: '{{ rekkow_root_path }}/rekkow'
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Enable Rekkow service
+  service:
+    name: 'rekkow@{{ rekkow_name }}'
+    enabled: yes
+  become: yes
+
+- name: Restart Rekkow
+  service:
+    name: 'rekkow@{{ rekkow_name }}'
+    state: restarted
+  when: build_rekkow.changed
+  become: yes
