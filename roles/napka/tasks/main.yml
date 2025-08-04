@@ -80,8 +80,8 @@
 
 - name: Install Napka code
   synchronize:
-    src: '{{ napka_root_path }}/repo/src/napka/'
-    dest: '{{ napka_root_path }}/builds/{{ napka_name }}/src/napka'
+    src: '{{ napka_root_path }}/repo/{{ item }}/'
+    dest: '{{ napka_root_path }}/builds/{{ napka_name }}/{{ item }}'
     delete: yes
     recursive: yes
     owner: false
@@ -89,20 +89,11 @@
     rsync_opts:
       - "--mkpath --exclude=node_modules/"
   delegate_to: '{{ inventory_hostname }}'
-  become: yes
-  become_user: napka
-
-- name: Install Napka dependencies
-  synchronize:
-    src: '{{ napka_root_path }}/repo/src/web/'
-    dest: '{{ napka_root_path }}/builds/{{ napka_name }}/src/web/'
-    delete: yes
-    recursive: yes
-    owner: false
-    group: false
-    rsync_opts:
-      - "--mkpath"
-  delegate_to: '{{ inventory_hostname }}'
+  loop:
+    - src/napka
+    - src/web
+    - vendor/esbuild
+    - vendor/lit-html
   become: yes
   become_user: napka
 
