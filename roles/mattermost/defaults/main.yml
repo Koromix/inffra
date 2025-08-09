@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-mattermost_url: https://releases.mattermost.com/10.9.4/mattermost-10.9.4-linux-amd64.tar.gz
-mattermost_checksum: 'sha256:ce857330e887df55913ff7841af708f753e821384fca8a51c43e31d3a63e3b9c'
+mattermost_url: https://releases.mattermost.com/10.11.1/mattermost-10.11.1-linux-amd64.tar.gz
+mattermost_checksum: 'sha256:b85a625bb13102160496793f40bb5e50320ddec7ecd38279ff5402cff652bf16'
 
 mattermost_root_path: /opt/mattermost
 
