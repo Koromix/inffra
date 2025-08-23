@@ -1,0 +1,45 @@
+tolgee:
+  front-end-url: https://{{ tolgee_domain }}
+
+  authentication:
+    enabled: true
+    initial-username: {{ tolgee_admin_user }}
+    initial-password: {{ tolgee_admin_password }}
+    needs-email-verification: true
+
+  machine-translation:
+{% if tolgee_translators.deepl is defined %}
+    deepl:
+      auth-key: '{{ tolgee_keys.deepl }}'
+{% endif %}
+{% if tolgee_translators.google is defined %}
+    google:
+      api-key: '{{ tolgee_keys.google }}'
+{% endif %}
+
+  postgres-autostart:
+    enabled: false
+
+  smtp:
+    from: '{{ tolgee_smtp.from }}'
+    host: '{{ tolgee_smtp.host | split(':') | first }}'
+    port: {{ tolgee_smtp.host | split(':') | last }}
+{% if tolgee_smtp.mode == 'starttls' %}
+    tls-enabled: true
+    tls-required: true
+{% elif tolgee_smtp.mode == 'smtps' %}
+    ssl-enabled: true
+{% endif %}
+{% if tolgee_smtp.username is defined %}
+    auth: true
+    username: '{{ tolgee_smtp.username }}'
+    password: '{{ tolgee_smtp.password }}'
+{% else %}
+    auth: false
+{% endif %}
+
+spring:
+  datasource:
+    url: 'jdbc:postgresql://{{ tolgee_database.host }}/{{ tolgee_database.name }}'
+    username: '{{ tolgee_database.user }}'
+    password: '{{ tolgee_database.password }}'
