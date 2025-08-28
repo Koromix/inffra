@@ -29,6 +29,7 @@ from dataclasses import dataclass
 @dataclass
 class DomainConfig:
     demo_mode = False
+    default_language = None
     main_directory = None
     archive_directory = None
     snapshot_directory = None
@@ -113,6 +114,8 @@ def list_domains(key_dir, root_dir, archive_dir, snapshot_dir):
         domain.archive_key = section['ArchiveKey']
         if 'DemoMode' in section:
             domain.demo_mode = decode_bool(section['DemoMode'])
+        if 'DefaultLang' in section:
+            domain.default_language = section['DefaultLang']
 
         if domain.name in domains:
             raise ValueError(f'Name "{domain.name}" used multiple times')
@@ -184,6 +187,8 @@ def update_domain_config(domain, info, auto, smtp, sms):
     ini.add_section('Domain')
     ini.set('Domain', 'Title', domain)
     ini.set('Domain', 'DemoMode', 'On' if info.demo_mode else 'Off')
+    if info.default_language is not None:
+        ini.set('Domain', 'DefaultLang', info.default_language)
 
     ini.add_section('Data')
     ini.set('Data', 'ArchiveDirectory', info.archive_directory)

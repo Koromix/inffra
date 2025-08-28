@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 goupile_repo: https://codeberg.org/Koromix/rygel.git
-goupile_commit: goupile/3.9.3
+goupile_commit: goupile/3.11.0
 
 goupile_update_auto: yes
 goupile_update_hour: 3 # UTC
@@ -27,6 +27,8 @@ goupile_run_group: goupile # POSIX group that will run goupile services
 goupile_sandbox: yes
 goupile_default_username: admin # Default admin username and password for newly created goupile domains
 goupile_default_password: rygel!16/default_pwd
+
+goupile_default_language: fr
 
 goupile_archive_hour: 1
 goupile_archive_retention: 7 # days
