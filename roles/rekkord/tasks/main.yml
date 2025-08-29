@@ -50,6 +50,15 @@
     mode: '0600'
   become: yes
 
+- name: Write rekkord keyfile
+  copy:
+    content: '{{ rekkord_key }}'
+    dest: '{{ rekkord_root_path }}/rekkord.key'
+    owner: root
+    group: root
+    mode: '0600'
+  become: yes
+
 - name: Delete old config files
   file:
     path: '{{ item }}'

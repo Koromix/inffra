@@ -3,5 +3,8 @@
 {% for key, value in values.items() %}
 {{ key }}={{ value }}
 {% endfor %}
+{% if section == 'Repository' %}
+KeyFile=rekkord.key
+{% endif %}
 
 {% endfor %}
