@@ -27,7 +27,11 @@
             chdir: '{{ static_root_path }}/repo/goupile.org/www'
           - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/goupile.org/www/web/goupile.org/dist'
             chdir: '{{ static_root_path }}/repo/goupile.org/www'
-          - cmd: '{{ static_root_path }}/repo/goupile.org/www/felix -pFast --run_here hodler . -O dist --gzip'
+          - cmd: '{{ static_root_path }}/repo/goupile.org/www/felix -pFast --run_here hodler fr -b / -O dist --gzip'
+            chdir: '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org'
+          - cmd: '{{ static_root_path }}/repo/goupile.org/www/felix -pFast --run_here hodler en -b /en -O dist/en --gzip'
+            chdir: '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org'
+          - cmd: 'ln -s {{ static_root_path }}/live/goupile.org/www/en/index.html dist/en.html'
             chdir: '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org'
   tags: [goupile.org, static]
 
