@@ -167,7 +167,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Value",
+            "alias": "",
             "mode": "reduceRow",
             "reduce": {
               "include": [
@@ -446,7 +446,7 @@
         {
           "id": "calculateField",
           "options": {
-            "alias": "Value",
+            "alias": "",
             "mode": "reduceRow",
             "reduce": {
               "include": [
