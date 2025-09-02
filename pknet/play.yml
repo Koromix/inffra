@@ -28,7 +28,6 @@
       when: 'rekkord_directories is defined'
   tags: [system, rekkord]
 
-- import_playbook: 'config/services/goupile.yml'
 - import_playbook: 'config/services/static.yml'
 - import_playbook: 'config/services/lufi.yml'
 - import_playbook: 'config/services/napka.yml'

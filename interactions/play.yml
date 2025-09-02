@@ -30,6 +30,7 @@
 
 - import_playbook: 'services/authentik.yml'
 - import_playbook: 'services/forgejo.yml'
+- import_playbook: 'services/goupile.yml'
 - import_playbook: 'services/mattermost.yml'
 - import_playbook: 'services/nextcloud.yml'
 - import_playbook: 'services/overleaf.yml'
