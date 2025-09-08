@@ -95,6 +95,7 @@ blackbox_sites:
   - https://thop.koromix.dev/
   - https://watch.koromix.dev/
   - https://cloud.koromix.dev/
+  - https://i18n.koromix.dev/
 
   - https://cn2r.fr/
   - https://carto.cn2r.fr/
@@ -127,13 +128,6 @@ blackbox_sites:
   - https://forum.f2rsmpsy.org/
   - https://git.f2rsmpsy.org/
   - https://vault.f2rsmpsy.org/
-
-  - https://cloud.interactions-team.fr/
-  - https://drop.interactions-team.fr/
-  - https://vault.interactions-team.fr/
-  - https://cloud.team-interactions.fr/
-  - https://drop.team-interactions.fr/
-  - https://vault.team-interactions.fr/
 
   - https://ldv-recherche.fr/
   - https://www.ldv-recherche.fr/
