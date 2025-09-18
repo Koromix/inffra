@@ -28,7 +28,7 @@ goupile_sandbox: yes
 goupile_default_username: admin # Default admin username and password for newly created goupile domains
 goupile_default_password: rygel!16/default_pwd
 
-goupile_default_language: fr
+goupile_default_lang: fr
 
 goupile_archive_hour: 1
 goupile_archive_retention: 7 # days
