@@ -124,7 +124,7 @@
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/trikub/src/trikub'
     - role: ../../../../roles/static
       vars:
-        static_name: koromix.dev/games/sutun
+        static_name: koromix.dev/games/motris
         static_repo: git@github.com:Koromix/games.git
         static_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -152,14 +152,14 @@
           64376238353932383062316536336430623163323933333961636533363139376233306262316366
           64643234303362376138373361646464373263623737366265343464373436383934353264326561
           37386165316438336465
-        static_path: src/sutun/dist
+        static_path: src/motris/dist
         static_build:
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun/dist'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun'
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun/build.js'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun'
+          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/dist'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris'
+          - cmd: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/build.js'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris'
           - cmd: 'gzip -k static/game.js static/game.css'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun/dist'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/dist'
     - role: ../../../../roles/static 
       vars:
         static_name: koromix.dev/test
