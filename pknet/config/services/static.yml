@@ -158,6 +158,8 @@
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun'
           - cmd: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun/build.js'
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun'
+          - cmd: 'gzip -k static/game.js static/game.css'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/games/sutun/src/sutun/dist'
     - role: ../../../../roles/static 
       vars:
         static_name: koromix.dev/test
