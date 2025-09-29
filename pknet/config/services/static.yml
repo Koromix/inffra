@@ -220,6 +220,14 @@
         static_name: cn2r.fr/test
   tags: [cn2r.fr, static]
 
+- name: interactions-team.fr test area
+  hosts: static
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: interactions-team.fr/test
+  tags: [interactions-team.fr, static]
+
 - name: rekkord.org
   hosts: static
   roles:

@@ -452,6 +452,18 @@ nginx_domains:
           proxy_pass http://unix:/run/rekkow/web.sock:;
       }
 
+  - name: test.interactions-team.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          alias /opt/static/live/interactions-team.fr/test/;
+
+          location /track/ {
+              add_header Cross-Origin-Opener-Policy "same-origin" always;
+              add_header Cross-Origin-Embedder-Policy "require-corp" always;
+          }
+      }
+
   - name: team-interactions.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
