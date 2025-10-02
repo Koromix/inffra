@@ -158,7 +158,7 @@
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris'
           - cmd: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/build.js'
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris'
-          - cmd: 'gzip -k static/game.js static/game.css'
+          - cmd: 'sh -c "gzip -k static/*.js static/*.css static/*.json"'
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/dist'
     - role: ../../../../roles/static 
       vars:
