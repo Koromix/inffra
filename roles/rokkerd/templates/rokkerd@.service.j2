@@ -19,17 +19,17 @@ After=network-online.target
 
 [Service]
 Type=notify
-User={{ rekkow_run_user }}
-Group={{ rekkow_run_group }}
-RuntimeDirectory=rekkow
+User={{ rokkerd_run_user }}
+Group={{ rokkerd_run_group }}
+RuntimeDirectory=rokkerd
 RuntimeDirectoryPreserve=yes
-WorkingDirectory={{ rekkow_root_path }}/%i
-ExecStart={{ rekkow_root_path }}/rekkord web {{ '--sandbox' if rekkow_sandbox else '' }}
+WorkingDirectory={{ rokkerd_root_path }}/%i
+ExecStart={{ rokkerd_root_path }}/rokkerd {{ '--sandbox' if rokkerd_sandbox else '' }}
 Restart=on-failure
 RestartSec=20
 TimeoutStopSec=30
 
-{% if rekkow_sandbox %}
+{% if rokkerd_sandbox %}
 # Allow Rekkow to manipulate namespaces despite
 # kernel.unprivileged_userns_clone=0.
 SecureBits=keep-caps

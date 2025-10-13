@@ -32,7 +32,7 @@
 - import_playbook: 'config/services/lufi.yml'
 - import_playbook: 'config/services/napka.yml'
 - import_playbook: 'config/services/thop.yml'
-- import_playbook: 'config/services/rekkow.yml'
+- import_playbook: 'config/services/rokkerd.yml'
 - import_playbook: 'config/services/forgejo.yml'
 - import_playbook: 'config/services/wordpress.yml'
 - import_playbook: 'config/services/discourse.yml'

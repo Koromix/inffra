@@ -11,15 +11,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Rekkow on PKnet
+- name: rokkerd on PKnet
   hosts: static
   roles:
-    - role: ../../../../roles/rekkow
+    - role: ../../../../roles/rokkerd
       vars:
-        rekkow_name: web
-        rekkow_title: Rekkord Web
-        rekkow_url: https://web.rekkord.org
-        rekkow_smtp:
+        rokkerd_name: web
+        rokkerd_title: Rekkord Web
+        rokkerd_url: https://web.rekkord.org
+        rokkerd_smtp:
           url: smtps://mail.smtp2go.com:465
           username: !vault |
             $ANSIBLE_VAULT;1.1;AES256
@@ -36,4 +36,4 @@
             3036313163636534640a636332323030346536343361366461303734633265666162343033396234
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
-  tags: [rekkow]
+  tags: [rokkerd]

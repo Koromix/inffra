@@ -11,23 +11,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-[General]
-Title = {{ rekkow_title }}
-URL = {{ rekkow_url }}
+rokkerd_repo: https://codeberg.org/Koromix/rygel.git
+rokkerd_commit: master
 
-[Data]
-DatabaseFile = data/data.db
-TempDirectory = tmp
+rokkerd_root_path: /opt/rokkerd # Installation directory
+rokkerd_run_user: rokkerd # POSIX user that will run THOP services
+rokkerd_run_group: rokkerd # POSIX group that will run THOP services
 
-[HTTP]
-SocketType = Unix
-UnixPath = /run/rekkow/{{ rekkow_name }}.sock
-ClientAddress = X-Forwarded-For
+rokkerd_sandbox: yes
 
-[SMTP]
-URL = {{ rekkow_smtp.url }}
-{% if rekkow_smtp.username is defined %}
-Username = {{ rekkow_smtp.username }}
-Password = {{ rekkow_smtp.password }}
-{% endif %}
-From = {{ rekkow_smtp.from }}
+# rokkerd_name:
+# rokkerd_title:
+# rokkerd_url:
+
+# rokkerd_smtp:
+#   url:
+#   username:
+#   password:
+#   from:
