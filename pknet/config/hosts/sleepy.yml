@@ -92,6 +92,9 @@ blackbox_sites:
   - https://goupile.org/
   - https://koffi.dev/
 
+  - https://rekkord.org
+  - https://web.rekkord.org
+
   - https://thop.koromix.dev/
   - https://watch.koromix.dev/
   - https://cloud.koromix.dev/
