@@ -11,25 +11,13 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Fetch LLVM repository key
-  get_url:
-    url: https://apt.llvm.org/llvm-snapshot.gpg.key
-    dest: /usr/share/keyrings/apt.llvm.org.asc
-  become: yes
-
-- name: Configure LLVM-18 repository
-  apt_repository:
-    repo: 'deb [signed-by=/usr/share/keyrings/apt.llvm.org.asc] https://apt.llvm.org/{{ ansible_distribution_release }}/ llvm-toolchain-{{ ansible_distribution_release }}-18 main'
-    state: present
-  become: yes
-
 - name: Install packages
   apt:
     update_cache: yes
     pkg:
       - git
-      - clang-18
-      - lld-18
+      - clang
+      - lld
       - gcc
       - g++
       - rsync

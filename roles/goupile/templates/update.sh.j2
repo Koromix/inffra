@@ -24,7 +24,7 @@ sudo -u $USER git switch --discard-changes '{{ goupile_commit }}'
 
 # Build Goupile
 sudo -u $USER ./bootstrap.sh
-sudo -u $USER ./felix -pParanoid --host=:clang-18:lld-18 goupile
+sudo -u $USER ./felix -pParanoid --host=:clang:lld goupile
 
 # Install Goupile
 rsync -cp bin/Paranoid/goupile '{{ goupile_root_path }}/goupile'
