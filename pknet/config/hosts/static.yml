@@ -452,6 +452,38 @@ nginx_domains:
           proxy_pass http://unix:/run/rokkerd/web.sock:;
       }
 
+  - name: interactions-team.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          index index.html;
+
+          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)$ $1.html;
+          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
+          try_files $uri $uri/ =404;
+
+          root /opt/static/live/interactions-team.fr/www;
+
+          expires 1h;
+          add_header Cache-Control "public, no-transform";
+
+          gzip on;
+          gzip_vary on;
+          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
+          gzip_proxied no-cache no-store private expired auth;
+          gzip_min_length 1000;
+          gzip_static on;
+
+          location /static/ {
+              expires 28d;
+          }
+      }
+  - name: www.interactions-team.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          return 301 https://interactions-team.fr$request_uri;
+      }
   - name: test.interactions-team.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |

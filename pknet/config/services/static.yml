@@ -274,3 +274,13 @@
           - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
             chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/src/ludivine/web'
   tags: [ldv-recherche.fr, static]
+
+- name: interactions-team.fr
+  hosts: static
+  roles:
+    - role: ../../../../roles/static
+      vars:
+        static_name: interactions-team.fr/www
+        static_repo: https://codeberg.org/Koromix/rygel.git
+        static_path: web/interactions-team.fr
+  tags: [interactions-team.fr, static]
