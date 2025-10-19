@@ -31,10 +31,10 @@ class DomainConfig:
     demo_mode = False
     default_lang = None
     main_directory = None
+    data_directory = None
     archive_directory = None
     snapshot_directory = None
     socket = None
-    archive_key = None
     mismatch = False
 
 @dataclass
@@ -108,10 +108,10 @@ def list_domains(key_dir, root_dir, archive_dir, snapshot_dir):
 
         domain.name = name
         domain.main_directory = os.path.join(root_dir, name)
+        domain.data_directory = os.path.join(domain.main_directory, 'data')
         domain.archive_directory = os.path.join(archive_dir, name)
         domain.snapshot_directory = os.path.join(snapshot_dir, name)
         domain.socket = f'/run/goupile/{name}.sock'
-        domain.archive_key = section['ArchiveKey']
         if 'DemoMode' in section:
             domain.demo_mode = decode_bool(section['DemoMode'])
         if 'DefaultLang' in section:
@@ -134,13 +134,9 @@ def decode_bool(s):
     else:
         raise ValueError(f'Invalid truth value "{s}"')
 
-def create_domain(binary, domain, main_dir, archive_key,
-                  owner_user, owner_group, admin_username, admin_password):
+def create_domain(binary, domain, main_dir):
     print(f'  + Create domain {domain} ({main_dir})', file = sys.stderr)
-
-    execute_command([binary, 'init', '-o', owner_user, '--archive_key', archive_key,
-                     '--title', domain, '--username', admin_username,
-                     '--password', admin_password, main_dir])
+    execute_command([binary, 'init', main_dir])
 
 def list_services():
     services = {}
@@ -178,29 +174,19 @@ def run_service_command(domain, cmd):
     print(f'  + {cmd.capitalize()} {service}', file = sys.stderr)
     execute_command(['systemctl', cmd, '--quiet', service])
 
-def update_domain_config(domain, info, auto, smtp, sms):
+def update_domain_config(domain, info, smtp, sms):
     filename = os.path.join(info.main_directory, 'goupile.ini')
 
     ini = configparser.ConfigParser()
     ini.optionxform = str
 
-    ini.add_section('Domain')
-    ini.set('Domain', 'Title', domain)
-    ini.set('Domain', 'DemoMode', 'On' if info.demo_mode else 'Off')
+    ini.add_section('Demo')
+    ini.set('Demo', 'DemoMode', 'On' if info.demo_mode else 'Off')
 
     ini.add_section('Data')
+    ini.set('Data', 'RootDirectory', info.data_directory)
     ini.set('Data', 'ArchiveDirectory', info.archive_directory)
     ini.set('Data', 'SnapshotDirectory', info.snapshot_directory)
-
-    if info.default_lang is not None:
-        ini.add_section('Defaults')
-        ini.set('Defaults', 'Language', info.default_lang)
-
-    ini.add_section('Archives')
-    ini.set('Archives', 'PublicKey', info.archive_key)
-    if auto is not None:
-        for key, value in auto.items():
-            ini.set('Archives', key, value)
 
     ini.add_section('HTTP')
     ini.set('HTTP', 'SocketType', 'Unix')
@@ -234,9 +220,7 @@ def run_sync(config, key_dir):
     print('>>> Create new domains', file = sys.stderr)
     for domain, info in domains.items():
         if not os.path.exists(info.main_directory):
-            create_domain(binary, domain, info.main_directory, info.archive_key,
-                          config['Goupile.RunUser'], config['Goupile.RunGroup'],
-                          config['Goupile.DefaultAdmin'], config['Goupile.DefaultPassword'])
+            create_domain(binary, domain, info.main_directory)
 
     # Detect binary mismatches
     print('>>> Check Goupile binary versions', file = sys.stderr)
@@ -256,8 +240,15 @@ def run_sync(config, key_dir):
 
     changed = False
 
-    # Create missing archive and snapshot directories
+    # Create missing directories
     for info in domains.values():
+        if not os.path.exists(info.data_directory):
+            os.mkdir(info.data_directory, mode = 0o700)
+            shutil.chown(info.data_directory, config['Goupile.RunUser'], config['Goupile.RunGroup'])
+
+            info.mismatch = True
+            changed = True
+
         if not os.path.exists(info.archive_directory):
             os.mkdir(info.archive_directory, mode = 0o700)
             shutil.chown(info.archive_directory, config['Goupile.RunUser'], config['Goupile.RunGroup'])
@@ -277,10 +268,9 @@ def run_sync(config, key_dir):
     # Update instance configuration files
     print('>>> Update Goupile configuration files', file = sys.stderr)
     for domain, info in domains.items():
-        auto = config.get('Archives')
         smtp = config.get('SMTP')
         sms = config.get('SMS')
-        if update_domain_config(domain, info, auto, smtp, sms):
+        if update_domain_config(domain, info, smtp, sms):
             info.mismatch = True
             changed = True
 

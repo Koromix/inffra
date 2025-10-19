@@ -25,13 +25,6 @@ goupile_run_user: goupile # POSIX user that will run goupile services
 goupile_run_group: goupile # POSIX group that will run goupile services
 
 goupile_sandbox: yes
-goupile_default_username: admin # Default admin username and password for newly created goupile domains
-goupile_default_password: rygel!16/default_pwd
-
-goupile_default_lang: fr
-
-goupile_archive_hour: 1
-goupile_archive_retention: 7 # days
 
 # goupile_name:
 goupile_demo: no

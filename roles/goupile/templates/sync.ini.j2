@@ -20,17 +20,6 @@ SnapshotDirectory = {{ goupile_snapshot_path }}
 RunUser = {{ goupile_run_user }}
 RunGroup = {{ goupile_run_group }}
 
-DefaultAdmin = {{ goupile_default_username }}
-DefaultPassword = {{ goupile_default_password }}
-
-{% if goupile_archive_hour is defined -%}
-
-[Archives]
-AutoHour = {{ goupile_archive_hour }}
-RetentionDays = {{ goupile_archive_retention }}
-
-{%- endif %}
-
 {% if goupile_smtp is defined -%}
 
 [SMTP]
