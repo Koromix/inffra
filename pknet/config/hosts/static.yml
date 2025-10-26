@@ -321,56 +321,6 @@ nginx_domains:
 
           error_page 404 /404.html;
       }
-  - name: beta.demheter.fr
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location /admin/ {
-          index index.php index.html index.htm;
-
-          root /opt/static/live/demheter.fr/beta;
-
-          location ~ \.php$ {
-              include fastcgi_params;
-              fastcgi_param SCRIPT_FILENAME $request_filename;
-              fastcgi_pass unix:/run/php/php8.2-fpm.sock;
-          }
-      }
-      location = /admin {
-          return 301 https://$host/admin/;
-      }
-
-      location / {
-          index index.php index.html index.htm;
-
-          rewrite ^/index$ /index.php;
-          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)$ $1.html;
-          rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
-          try_files $uri $uri/ =404;
-
-          root /opt/static/live/demheter.fr/beta;
-
-          expires 1h;
-          add_header Cache-Control "public, no-transform";
-
-          gzip on;
-          gzip_vary on;
-          gzip_types text/html text/plain text/css text/xml text/javascript application/javascript application/xml image/svg+xml;
-          gzip_proxied no-cache no-store private expired auth;
-          gzip_min_length 1000;
-          gzip_static on;
-
-          location /static/ {
-              expires 28d;
-          }
-
-          location ~ \.php$ {
-              include fastcgi_params;
-              fastcgi_param SCRIPT_FILENAME $request_filename;
-              fastcgi_pass unix:/run/php/php8.2-fpm.sock;
-          }
-
-          error_page 404 /404.html;
-      }
   - name: stat.demheter.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
