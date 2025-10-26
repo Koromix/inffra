@@ -69,6 +69,9 @@ nginx_domains:
           location /static/ {
               expires 28d;
           }
+
+          error_page 404 /404.html;
+          location /en/ { error_page 404 /en/404.html; }
       }
 
       location /files/ {
@@ -242,6 +245,8 @@ nginx_domains:
           location /static/ {
               expires 28d;
           }
+
+          error_page 404 /404.html;
       }
   - name: stat.koffi.dev
     ssl_certbot_email: niels.martignene@protonmail.com
@@ -313,6 +318,8 @@ nginx_domains:
               fastcgi_param SCRIPT_FILENAME $request_filename;
               fastcgi_pass unix:/run/php/php8.2-fpm.sock;
           }
+
+          error_page 404 /404.html;
       }
   - name: beta.demheter.fr
     ssl_certbot_email: niels.martignene@protonmail.com
@@ -361,6 +368,8 @@ nginx_domains:
               fastcgi_param SCRIPT_FILENAME $request_filename;
               fastcgi_pass unix:/run/php/php8.2-fpm.sock;
           }
+
+          error_page 404 /404.html;
       }
   - name: stat.demheter.fr
     ssl_certbot_email: niels.martignene@protonmail.com
@@ -430,6 +439,8 @@ nginx_domains:
           location /static/ {
               expires 28d;
           }
+
+          error_page 404 /404.html;
       }
   - name: www.rekkord.org
     ssl_certbot_email: niels.martignene@protonmail.com
