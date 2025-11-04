@@ -10,11 +10,11 @@ tolgee:
   machine-translation:
 {% if tolgee_translators.deepl is defined %}
     deepl:
-      auth-key: '{{ tolgee_keys.deepl }}'
+      auth-key: '{{ tolgee_translators.deepl }}'
 {% endif %}
 {% if tolgee_translators.google is defined %}
     google:
-      api-key: '{{ tolgee_keys.google }}'
+      api-key: '{{ tolgee_translators.google }}'
 {% endif %}
 
   postgres-autostart:
