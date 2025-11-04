@@ -34,7 +34,7 @@ nextcloud_fpm_config:
   process_idle_timeout: 60s
 nextcloud_memory_limit: 512M
 
-onlyoffice_image: onlyoffice/documentserver:9.0.4.1
+onlyoffice_image: onlyoffice/documentserver:9.1.0.1
 
 # onlyoffice_port:
 # onlyoffice_jwt_secret:
