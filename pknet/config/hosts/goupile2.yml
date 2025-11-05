@@ -1,0 +1,247 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+nginx_domains:
+  - name: '{{ ansible_host }}'
+    config: |
+      ssl_client_certificate /opt/nginx/ssl/internal/ca.crt;
+      ssl_verify_client on;
+      ssl_verify_depth 2;
+
+      {% for exporter in prometheus_exporters %}
+
+      location /metrics/{{ exporter }} {
+          allow {{ hostvars.static.ansible_host }};
+          deny all;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
+      }
+      {% endfor %}
+
+  - name: anesth-lille.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/anesth-lille.goupile.fr.sock:;
+      }
+
+  - name: beta.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/beta.goupile.fr.sock:;
+      }
+
+  - name: biosurv.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/biosurv.goupile.fr.sock:;
+      }
+
+  - name: cn2r.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/cn2r.goupile.fr.sock:;
+      }
+
+      location /R/tabarrival/ {
+          proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
+          proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
+          proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
+          proxy_pass https://192.168.192.250;
+      }
+
+  - name: demo.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/demo.goupile.fr.sock:;
+      }
+
+  - name: eval1.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/eval1.goupile.fr.sock:;
+      }
+
+  - name: eval2.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/eval2.goupile.fr.sock:;
+      }
+
+  - name: eval3.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/eval3.goupile.fr.sock:;
+      }
+
+  - name: f2rsm.goupile.org
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/f2rsm.goupile.org.sock:;
+      }
+
+      location = /annuaire {
+          rewrite ^([^.]*[^/])$ $1/ permanent;
+      }
+      location /annuaire/ {
+          proxy_set_header Host carto.koromix.dev;
+          proxy_pass https://192.168.192.216/3114/;
+      }
+
+  - name: forparis.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/forparis.goupile.fr.sock:;
+      }
+
+  - name: goupile.interhop.org
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/goupile.interhop.org.sock:;
+      }
+
+  - name: medita.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/medita.goupile.fr.sock:;
+      }
+
+  - name: test.goupile.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      location / {
+          proxy_http_version 1.1;
+          proxy_buffering on;
+          proxy_read_timeout 180;
+          send_timeout 180;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_pass http://unix:/run/goupile/test.goupile.fr.sock:;
+      }
+
+prometheus_exporters:
+  - node_exporter
+  - nginx_exporter
+  - systemd_exporter
