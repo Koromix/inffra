@@ -89,18 +89,6 @@
     mode: '0755'
   become: yes
 
-- name: Create htpasswd security files
-  htpasswd:
-    path: '{{ goaccess_root_path }}/html/{{ item.name }}.htpasswd'
-    name: '{{ item.username }}'
-    password: '{{ item.password }}'
-    owner: root
-    group: root
-    mode: '0644'
-  loop: '{{ goaccess_domains }}'
-  when: 'item.username is defined'
-  become: yes
-
 - name: Install scheduled update systemd units
   template:
     src: '{{ item }}.j2'

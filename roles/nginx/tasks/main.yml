@@ -42,6 +42,7 @@
     - /opt/nginx/ssl
     - /opt/nginx/ssl/internal
     - /opt/nginx/ssl/letsencrypt
+    - /opt/nginx/auth
   become: yes
 
 - name: Generate Diffie-Helman parameters
@@ -53,6 +54,18 @@
 - name: Generate private CA and certificates
   include_tasks: ssl_internal.yml
   when: 'not ansible_check_mode'
+
+- name: Create htpasswd security files
+  htpasswd:
+    path: '/opt/nginx/auth/{{ item.name }}.htpasswd'
+    name: '{{ item.auth_username }}'
+    password: '{{ item.auth_password }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop: '{{ nginx_domains }}'
+  when: 'item.auth_username is defined'
+  become: yes
 
 - name: Configure NGINX
   template:

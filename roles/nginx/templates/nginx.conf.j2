@@ -73,7 +73,7 @@ http {
     # limit_req_status 429;
     # limit_req zone=default burst=100 nodelay;
 
-    map $http_upgrade $connection_upgrade {  
+    map $http_upgrade $connection_upgrade {
         default upgrade;
         ''      close;
     }
@@ -145,6 +145,11 @@ http {
 {% else %}
         ssl_certificate {{ domain.ssl_file_crt }};
         ssl_certificate_key {{ domain.ssl_file_key }};
+{% endif %}
+
+{% if domain.auth_username is defined %}
+        auth_basic "{{ domain.name }}";
+        auth_basic_user_file /opt/nginx/auth/{{ domain.name }}.htpasswd;
 {% endif %}
 
         add_header Strict-Transport-Security "max-age=63072000; includeSubDomains" always;
