@@ -77,7 +77,10 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+{% if defined wordpress_home %}
+define( 'WP_HOME', '{{ wordpress_home }}' );
+define( 'WP_SITEURL', '{{ wordpress_home }}' );
+{% endif %}
 
 /* That's all, stop editing! Happy publishing. */
 

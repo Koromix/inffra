@@ -17,4 +17,5 @@ wordpress_checksum: 'sha256:3c654d079bc42c4e82ff20a6948c456293e104b6762ff7c9fc94
 wordpress_root_path: /opt/wordpress
 
 # wordpress_name: blog
+# wordpress_home:
 # wordpress_database:
