@@ -48,5 +48,5 @@
             SEND_NOTIFICATION_EMAIL_ON_NEW_USER = true
             REGISTER_EMAIL_CONFIRM = false
             REGISTER_MANUAL_CONFIRM = true
-            REQUIRE_SIGNIN_VIEW = true
+            REQUIRE_SIGNIN_VIEW = false
   tags: [forgejo]
