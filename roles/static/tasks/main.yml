@@ -71,46 +71,16 @@
     group: www-data
   become: yes
 
-- name: Write SSH key files
-  copy:
-    content: '{{ static_key }}'
-    dest: '{{ static_root_path }}/repo/{{ static_name }}.key'
-    owner: www-data
-    group: www-data
-    mode: '0600'
-  when: 'static_key is defined'
-  become: yes
-
-- name: Clone repository (no key)
+- name: Clone repository
   git:
     repo: '{{ static_repo }}'
     version: '{{ static_version | default("master") }}'
     dest: '{{ static_root_path }}/repo/{{ static_name }}'
     depth: 1
     force: yes
-  when: 'static_repo is defined and static_key is not defined'
+  when: 'static_repo is defined'
   become: yes
   become_user: www-data
-
-- name: Clone repository (with key)
-  git:
-    repo: '{{ static_repo }}'
-    key_file: '{{ static_root_path }}/repo/{{ static_name }}.key'
-    accept_hostkey: yes
-    version: '{{ static_version | default("master") }}'
-    dest: '{{ static_root_path }}/repo/{{ static_name }}'
-    depth: 1
-    force: yes
-  when: 'static_repo is defined and static_key is defined'
-  become: yes
-  become_user: www-data
-
-- name: Delete SSH keys
-  file:
-    path: '{{ static_root_path }}/repo/{{ static_name }}.key'
-    state: absent
-  when: 'static_key is defined'
-  become: yes
 
 - name: Create live directory
   file:
