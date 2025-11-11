@@ -21,18 +21,9 @@
       vars:
         static_name: goupile.org/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: web/goupile.org/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/goupile.org/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/goupile.org/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/goupile.org/www/web/goupile.org/dist'
-            chdir: '{{ static_root_path }}/repo/goupile.org/www'
-          - cmd: '{{ static_root_path }}/repo/goupile.org/www/felix -pFast --run_here hodler fr -b / -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org'
-          - cmd: '{{ static_root_path }}/repo/goupile.org/www/felix -pFast --run_here hodler en -b /en -O dist/en --gzip'
-            chdir: '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org'
-          - cmd: 'ln -s {{ static_root_path }}/live/goupile.org/www/en/index.html dist/en.html'
-            chdir: '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org'
+          - '{{ static_root_path }}/repo/goupile.org/www/web/goupile.org/build.sh'
+        static_path: bin/Web/goupile.org
   tags: [goupile.org, static]
 
 - name: koromix.dev
@@ -42,162 +33,21 @@
       vars:
         static_name: koromix.dev/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: web/koromix.dev/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev/dist'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/www'
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/www/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev'
+          - '{{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev/build.sh'
+        static_path: bin/Web/koromix.dev
     - role: ../../../../roles/static
       vars:
-        static_name: koromix.dev/games/staks
-        static_repo: git@github.com:Koromix/games.git
-        static_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          33623435336262343866646637623864636663383838643339306564366362383539373439626263
-          3663613961613633623131336663373139363139313330340a353162316236393330646434396165
-          30613961653835626564326535326136643134303862356538656263663666393464643664333332
-          6463376661343034380a326332333738343266643132636564353432333961633335356265333231
-          38333033663065323436373039363030623539343035303265353631383833336161653665306436
-          38383364656532316637616664393035333136356161646633346334346436363636383761356433
-          65626563613532393566346332613762306539653838653933653964303937396264346333373965
-          35323261386365666161396537323530626166373362656430333733323565653538373737366439
-          31643032383038633638373035316632373931653465343835326530303734616134393038373731
-          38613066346632626465393338306532393330333833663064373230383634333934343661363737
-          64313932393535386431346231653961376265653237393435616433356535656233333938303631
-          31333437386437313561303666383864633865626631643764626338396330643864653965323865
-          32346636386366623034333634393034336530303836313366356331376537633561373434343834
-          31663935643761653865363761356230383734373063643365373165363034643130316639633261
-          63366532396630353830386434666135346563313834306435323836336336613634383563346638
-          64373338306466623063363438346263303630393364646163323161396239646461626563666134
-          38396237633934623730646630613961363535343164666462383238653838386663313636613532
-          38626634656437353965373137646430323933396531306336393963313963373738346562663933
-          34396534363635343736616661663439323830656262383066633038353032636137633764366165
-          63396632313063333234633238633237373865633365656130636135633666663238326662373532
-          34393832613332633730306664363935616563643233333834626463386564616633616434363939
-          64376238353932383062316536336430623163323933333961636533363139376233306262316366
-          64643234303362376138373361646464373263623737366265343464373436383934353264326561
-          37386165316438336465
-        static_path: src/staks/dist
+        static_name: koromix.dev/games
+        static_repo: https://git.interactions-team.fr/Koromix/games.git
         static_build:
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/games/staks/src/staks/dist'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/staks/src/staks'
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/games/staks/src/staks/build.js'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/staks/src/staks'
-    - role: ../../../../roles/static
-      vars:
-        static_name: koromix.dev/games/trikub
-        static_repo: git@github.com:Koromix/games.git
-        static_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          33623435336262343866646637623864636663383838643339306564366362383539373439626263
-          3663613961613633623131336663373139363139313330340a353162316236393330646434396165
-          30613961653835626564326535326136643134303862356538656263663666393464643664333332
-          6463376661343034380a326332333738343266643132636564353432333961633335356265333231
-          38333033663065323436373039363030623539343035303265353631383833336161653665306436
-          38383364656532316637616664393035333136356161646633346334346436363636383761356433
-          65626563613532393566346332613762306539653838653933653964303937396264346333373965
-          35323261386365666161396537323530626166373362656430333733323565653538373737366439
-          31643032383038633638373035316632373931653465343835326530303734616134393038373731
-          38613066346632626465393338306532393330333833663064373230383634333934343661363737
-          64313932393535386431346231653961376265653237393435616433356535656233333938303631
-          31333437386437313561303666383864633865626631643764626338396330643864653965323865
-          32346636386366623034333634393034336530303836313366356331376537633561373434343834
-          31663935643761653865363761356230383734373063643365373165363034643130316639633261
-          63366532396630353830386434666135346563313834306435323836336336613634383563346638
-          64373338306466623063363438346263303630393364646163323161396239646461626563666134
-          38396237633934623730646630613961363535343164666462383238653838386663313636613532
-          38626634656437353965373137646430323933396531306336393963313963373738346562663933
-          34396534363635343736616661663439323830656262383066633038353032636137633764366165
-          63396632313063333234633238633237373865633365656130636135633666663238326662373532
-          34393832613332633730306664363935616563643233333834626463386564616633616434363939
-          64376238353932383062316536336430623163323933333961636533363139376233306262316366
-          64643234303362376138373361646464373263623737366265343464373436383934353264326561
-          37386165316438336465
-        static_path: src/trikub/dist
-        static_build:
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/games/trikub/src/trikub/dist'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/trikub/src/trikub'
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/games/trikub/src/trikub/build.js'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/trikub/src/trikub'
-    - role: ../../../../roles/static
-      vars:
-        static_name: koromix.dev/games/motris
-        static_repo: git@github.com:Koromix/games.git
-        static_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          33623435336262343866646637623864636663383838643339306564366362383539373439626263
-          3663613961613633623131336663373139363139313330340a353162316236393330646434396165
-          30613961653835626564326535326136643134303862356538656263663666393464643664333332
-          6463376661343034380a326332333738343266643132636564353432333961633335356265333231
-          38333033663065323436373039363030623539343035303265353631383833336161653665306436
-          38383364656532316637616664393035333136356161646633346334346436363636383761356433
-          65626563613532393566346332613762306539653838653933653964303937396264346333373965
-          35323261386365666161396537323530626166373362656430333733323565653538373737366439
-          31643032383038633638373035316632373931653465343835326530303734616134393038373731
-          38613066346632626465393338306532393330333833663064373230383634333934343661363737
-          64313932393535386431346231653961376265653237393435616433356535656233333938303631
-          31333437386437313561303666383864633865626631643764626338396330643864653965323865
-          32346636386366623034333634393034336530303836313366356331376537633561373434343834
-          31663935643761653865363761356230383734373063643365373165363034643130316639633261
-          63366532396630353830386434666135346563313834306435323836336336613634383563346638
-          64373338306466623063363438346263303630393364646163323161396239646461626563666134
-          38396237633934623730646630613961363535343164666462383238653838386663313636613532
-          38626634656437353965373137646430323933396531306336393963313963373738346562663933
-          34396534363635343736616661663439323830656262383066633038353032636137633764366165
-          63396632313063333234633238633237373865633365656130636135633666663238326662373532
-          34393832613332633730306664363935616563643233333834626463386564616633616434363939
-          64376238353932383062316536336430623163323933333961636533363139376233306262316366
-          64643234303362376138373361646464373263623737366265343464373436383934353264326561
-          37386165316438336465
-        static_path: src/motris/dist
-        static_build:
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/dist'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris'
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/build.js'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris'
+          - '{{ static_root_path }}/repo/koromix.dev/games/src/otocyon/build.js'
+          - '{{ static_root_path }}/repo/koromix.dev/games/src/staks/build.js'
+          - '{{ static_root_path }}/repo/koromix.dev/games/src/trikub/build.js'
+          - '{{ static_root_path }}/repo/koromix.dev/games/src/motris/build.js'
           - cmd: 'sh -c "gzip -k static/*.js static/*.css static/*.json"'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/motris/src/motris/dist'
-    - role: ../../../../roles/static
-      vars:
-        static_name: koromix.dev/games/otocyon
-        static_repo: git@github.com:Koromix/games.git
-        static_key: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          33623435336262343866646637623864636663383838643339306564366362383539373439626263
-          3663613961613633623131336663373139363139313330340a353162316236393330646434396165
-          30613961653835626564326535326136643134303862356538656263663666393464643664333332
-          6463376661343034380a326332333738343266643132636564353432333961633335356265333231
-          38333033663065323436373039363030623539343035303265353631383833336161653665306436
-          38383364656532316637616664393035333136356161646633346334346436363636383761356433
-          65626563613532393566346332613762306539653838653933653964303937396264346333373965
-          35323261386365666161396537323530626166373362656430333733323565653538373737366439
-          31643032383038633638373035316632373931653465343835326530303734616134393038373731
-          38613066346632626465393338306532393330333833663064373230383634333934343661363737
-          64313932393535386431346231653961376265653237393435616433356535656233333938303631
-          31333437386437313561303666383864633865626631643764626338396330643864653965323865
-          32346636386366623034333634393034336530303836313366356331376537633561373434343834
-          31663935643761653865363761356230383734373063643365373165363034643130316639633261
-          63366532396630353830386434666135346563313834306435323836336336613634383563346638
-          64373338306466623063363438346263303630393364646163323161396239646461626563666134
-          38396237633934623730646630613961363535343164666462383238653838386663313636613532
-          38626634656437353965373137646430323933396531306336393963313963373738346562663933
-          34396534363635343736616661663439323830656262383066633038353032636137633764366165
-          63396632313063333234633238633237373865633365656130636135633666663238326662373532
-          34393832613332633730306664363935616563643233333834626463386564616633616434363939
-          64376238353932383062316536336430623163323933333961636533363139376233306262316366
-          64643234303362376138373361646464373263623737366265343464373436383934353264326561
-          37386165316438336465
-        static_path: src/otocyon/dist
-        static_build:
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koromix.dev/games/otocyon/src/otocyon/dist'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/otocyon/src/otocyon'
-          - cmd: '{{ static_root_path }}/repo/koromix.dev/games/otocyon/src/otocyon/build.js'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/otocyon/src/otocyon'
-          - cmd: 'sh -c "gzip -k static/*.js static/*.css"'
-            chdir: '{{ static_root_path }}/repo/koromix.dev/games/otocyon/src/otocyon/dist'
+            chdir: '{{ static_root_path }}/repo/koromix.dev/games/bin/motris'
+        static_path: bin
     - role: ../../../../roles/static
       vars:
         static_name: koromix.dev/test
@@ -210,14 +60,9 @@
       vars:
         static_name: koffi.dev/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: web/koffi.dev/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/koffi.dev/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/koffi.dev/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev/dist'
-            chdir: '{{ static_root_path }}/repo/koffi.dev/www'
-          - cmd: '{{ static_root_path }}/repo/koffi.dev/www/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev'
+          - '{{ static_root_path }}/repo/koffi.dev/www/web/koffi.dev/build.sh'
+        static_path: bin/Web/koffi.dev
   tags: [koffi.dev, static]
 
 - name: demheter.fr
@@ -227,14 +72,9 @@
       vars:
         static_name: demheter.fr/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: web/demheter.fr/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/demheter.fr/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/demheter.fr/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr/dist'
-            chdir: '{{ static_root_path }}/repo/demheter.fr/www'
-          - cmd: '{{ static_root_path }}/repo/demheter.fr/www/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr'
+          - '{{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr/build.sh'
+        static_path: bin/Web/demheter.fr
   tags: [demheter.fr, static]
 
 - name: cn2r.fr test area
@@ -260,14 +100,9 @@
       vars:
         static_name: rekkord.org/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: web/rekkord.org/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/rekkord.org/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/rekkord.org/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org/dist'
-            chdir: '{{ static_root_path }}/repo/rekkord.org/www'
-          - cmd: '{{ static_root_path }}/repo/rekkord.org/www/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org'
+          - '{{ static_root_path }}/repo/rekkord.org/www/web/rekkord.org/build.sh'
+        static_path: bin/Web/rekkord.org
   tags: [rekkord.org, static]
 
 - name: ldv-recherche.fr
@@ -278,26 +113,16 @@
         static_name: ldv-recherche.fr/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
         static_version: pub/ldv
-        static_path: src/ludivine/web/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/www/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/www'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/ldv-recherche.fr/www/src/ludivine/web/dist'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/www'
-          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/www/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/www/src/ludivine/web'
+          - '{{ static_root_path }}/repo/ldv-recherche.fr/www/web/ldv-recherche.fr/build.sh'
+        static_path: bin/Web/ldv-recherche.fr
     - role: ../../../../roles/static
       vars:
         static_name: ldv-recherche.fr/beta
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: src/ludivine/web/dist
         static_build:
-          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/bootstrap.sh'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta'
-          - cmd: '/usr/bin/rm -rf {{ static_root_path }}/repo/ldv-recherche.fr/beta/src/ludivine/web/dist'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta'
-          - cmd: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/felix -pFast --run_here hodler . -O dist --gzip'
-            chdir: '{{ static_root_path }}/repo/ldv-recherche.fr/beta/src/ludivine/web'
+          - '{{ static_root_path }}/repo/ldv-recherche.fr/beta/web/ldv-recherche.fr/build.sh'
+        static_path: bin/Web/ldv-recherche.fr
   tags: [ldv-recherche.fr, static]
 
 - name: interactions-team.fr

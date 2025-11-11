@@ -123,7 +123,7 @@
 
 - name: Run build commands
   command:
-    cmd: '{{ item.cmd }}'
+    cmd: '{{ item.cmd | default(item) }}'
     chdir: '{{ item.chdir | default(".") }}'
   environment:
     POETRY_HOME: '{{ static_root_path }}/poetry'
