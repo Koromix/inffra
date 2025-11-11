@@ -82,6 +82,14 @@
   become: yes
   become_user: www-data
 
+- name: Clean up build directory
+  command:
+    argv: ['git', 'clean', '-fdx', '{{ static_path }}']
+    chdir: '{{ static_root_path }}/repo/{{ static_name }}'
+  when: 'static_repo is defined'
+  become: yes
+  become_user: www-data
+
 - name: Create live directory
   file:
     path: '{{ static_root_path }}/live/{{ static_name }}'
