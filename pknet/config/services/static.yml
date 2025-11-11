@@ -45,6 +45,7 @@
           - '{{ static_root_path }}/repo/koromix.dev/games/src/staks/build.js'
           - '{{ static_root_path }}/repo/koromix.dev/games/src/trikub/build.js'
           - '{{ static_root_path }}/repo/koromix.dev/games/src/motris/build.js'
+          - '{{ static_root_path }}/repo/koromix.dev/games/src/rubus/build.js'
           - cmd: 'sh -c "gzip -k static/*.js static/*.css static/*.json"'
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/bin/motris'
         static_path: bin
