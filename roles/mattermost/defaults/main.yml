@@ -22,3 +22,4 @@ mattermost_port: 8065
 # mattermost_root:
 # mattermost_database:
 # mattermost_smtp:
+# mattermost_support:

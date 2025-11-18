@@ -62,4 +62,5 @@
           name: Chat INTERACTIONS
           from: nepasrepondre@interactions-team.fr
           mode: starttls
+        mattermost_support: niels.martignene@protonmail.com
   tags: [mattermost]

@@ -62,4 +62,5 @@
           name: Chat F2RSMpsy
           from: no-reply@f2rsmpsy.org
           mode: starttls
+        mattermost_support: niels.martignene@protonmail.com
   tags: [mattermost]
