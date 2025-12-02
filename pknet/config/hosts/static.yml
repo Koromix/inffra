@@ -71,7 +71,12 @@ nginx_domains:
           }
 
           error_page 404 /404.html;
-          location /en/ { error_page 404 /en/404.html; }
+
+          location /en/ {
+              rewrite ^((?:/.+)*/[a-zA-Z0-9]+)$ $1.html;
+              rewrite ^((?:/.+)*/[a-zA-Z0-9]+)/$ $1 permanent;
+              error_page 404 /en/404.html;
+          }
       }
 
       location /files/ {
