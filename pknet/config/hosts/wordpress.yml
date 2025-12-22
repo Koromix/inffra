@@ -37,6 +37,7 @@ nginx_domains:
       root /opt/wordpress/cn2r/wordpress;
 
       location / {
+          client_max_body_size 1G;
           index index.php index.html index.htm;
           try_files $uri $uri/ /index.php?$args;
       }
