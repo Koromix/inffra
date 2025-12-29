@@ -78,6 +78,8 @@ http {
         ''      close;
     }
 
+    {{ nginx_config_misc }}
+
 {% if nginx_default_server %}
 
     server {

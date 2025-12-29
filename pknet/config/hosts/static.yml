@@ -11,6 +11,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
+nginx_config_misc: |
+  map $upstream_http_content_security_policy $ldv_csp {
+      '' "base-uri 'none'; default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; style-src-elem 'self'; style-src-attr 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; form-action 'none'";
+  }
+
 nginx_domains:
   - name: '{{ ansible_host }}'
     config: |
@@ -519,6 +524,9 @@ nginx_domains:
 
           add_header Cross-Origin-Opener-Policy "same-origin" always;
           add_header Cross-Origin-Embedder-Policy "require-corp" always;
+          location ~* \.html$ {
+              add_header Content-Security-Policy $ldv_csp always;
+          }
 
           gzip on;
           gzip_vary on;
@@ -571,6 +579,9 @@ nginx_domains:
 
           add_header Cross-Origin-Opener-Policy "same-origin" always;
           add_header Cross-Origin-Embedder-Policy "require-corp" always;
+          location ~* \.html$ {
+              add_header Content-Security-Policy $ldv_csp always;
+          }
 
           gzip on;
           gzip_vary on;
