@@ -524,9 +524,6 @@ nginx_domains:
 
           add_header Cross-Origin-Opener-Policy "same-origin" always;
           add_header Cross-Origin-Embedder-Policy "require-corp" always;
-          location ~* \.html$ {
-              add_header Content-Security-Policy $ldv_csp always;
-          }
 
           gzip on;
           gzip_vary on;
@@ -535,8 +532,18 @@ nginx_domains:
           gzip_min_length 1000;
           gzip_static on;
 
-          location /static/ {
+          location ~* \.html$ {
               try_files $uri $uri/ @app;
+
+              expires 1h;
+              add_header Cache-Control "public, no-transform";
+
+              add_header Cross-Origin-Opener-Policy "same-origin" always;
+              add_header Cross-Origin-Embedder-Policy "require-corp" always;
+              add_header Content-Security-Policy $ldv_csp always;
+          }
+
+          location /static/ {
               expires 28d;
           }
       }
@@ -579,9 +586,6 @@ nginx_domains:
 
           add_header Cross-Origin-Opener-Policy "same-origin" always;
           add_header Cross-Origin-Embedder-Policy "require-corp" always;
-          location ~* \.html$ {
-              add_header Content-Security-Policy $ldv_csp always;
-          }
 
           gzip on;
           gzip_vary on;
@@ -589,6 +593,17 @@ nginx_domains:
           gzip_proxied no-cache no-store private expired auth;
           gzip_min_length 1000;
           gzip_static on;
+
+          location ~* \.html$ {
+              try_files $uri $uri/ @app;
+
+              expires 1h;
+              add_header Cache-Control "public, no-transform";
+
+              add_header Cross-Origin-Opener-Policy "same-origin" always;
+              add_header Cross-Origin-Embedder-Policy "require-corp" always;
+              add_header Content-Security-Policy $ldv_csp always;
+          }
 
           location /static/ {
               try_files $uri $uri/ @app;
