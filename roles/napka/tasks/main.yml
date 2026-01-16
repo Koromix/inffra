@@ -91,7 +91,7 @@
   delegate_to: '{{ inventory_hostname }}'
   loop:
     - src/napka
-    - src/web
+    - lib/web
     - vendor/esbuild
     - vendor/lit-html
   become: yes
