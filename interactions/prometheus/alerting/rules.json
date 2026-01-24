@@ -2,7 +2,7 @@
     "groups": [
         {
             "orgID": 1,
-            "name": "MLA",
+            "name": "INTERACTIONS",
             "folder": "Alerts",
             "interval": "2m",
             "rules": [
@@ -739,7 +739,7 @@
         },
         {
             "orgID": 1,
-            "name": "MLA",
+            "name": "INTERACTIONS",
             "folder": "Watchdog",
             "interval": "2m",
             "rules": [
