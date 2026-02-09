@@ -12,25 +12,25 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description=THOP %i
-Documentation=https://koromix.dev/misc
+Description=Ludivine (Lignes de Vie) %i
+Documentation=https://ldv-recherche.fr/architecture
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=notify
-User={{ thop_run_user }}
-Group={{ thop_run_group }}
-RuntimeDirectory=thop
+User={{ ludivine_run_user }}
+Group={{ ludivine_run_group }}
+RuntimeDirectory=ludivine
 RuntimeDirectoryPreserve=yes
-WorkingDirectory={{ thop_root_path }}/%i
-ExecStart={{ thop_root_path }}/thop {{ '--sandbox' if thop_sandbox else '' }}
+WorkingDirectory={{ ludivine_root_path }}/%i
+ExecStart={{ ludivine_root_path }}/ludivine {{ '--sandbox' if ludivine_sandbox else '' }}
 Restart=on-failure
 RestartSec=20
 TimeoutStopSec=30
 
-{% if thop_sandbox %}
-# Allow THOP to manipulate namespaces despite
+{% if ludivine_sandbox %}
+# Allow ludivine to manipulate namespaces despite
 # kernel.unprivileged_userns_clone=0.
 SecureBits=keep-caps
 CapabilityBoundingSet=CAP_SYS_ADMIN

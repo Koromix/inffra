@@ -12,13 +12,13 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Lufi for F2RSMpsy
-  hosts: tools2
+  hosts: tools1
   roles:
     - role: ../../../../roles/postgresql
       vars:
         postgresql_databases:
-          - database: lu_f2rsm
-            user: lu_f2rsm
+          - database: lu_f2rsmpsy
+            user: lu_f2rsmpsy
             password: !vault |
               $ANSIBLE_VAULT;1.1;AES256
               34363936376637343630333830393466646338376335306239323834303836356363633234373334
@@ -31,15 +31,15 @@
               39393963376264356338
     - role: ../../../../roles/lufi
       vars:
-        lufi_name: f2rsm
+        lufi_name: f2rsmpsy
         lufi_title: 'F2RSM psy'
         lufi_contact: niels.martignene@protonmail.com
         lufi_port: 12000
         lufi_database:
           type: postgresql
           host: 127.0.0.1
-          name: lu_f2rsm
-          user: lu_f2rsm
+          name: lu_f2rsmpsy
+          user: lu_f2rsmpsy
           password: !vault |
             $ANSIBLE_VAULT;1.1;AES256
             34363936376637343630333830393466646338376335306239323834303836356363633234373334
@@ -50,41 +50,4 @@
             36323836616631393130393032653936656435633764333636323463373833333533613533663138
             61346364346665353439336463306434313864303332363033643363393062666436316662626234
             39393963376264356338
-  tags: [lufi]
-
-- name: Lufi for INTERACTIONS
-  hosts: tools2
-  roles:
-    - role: ../../../../roles/postgresql
-      vars:
-        postgresql_databases:
-          - database: lu_interactions
-            user: lu_interactions
-            password: !vault |
-              $ANSIBLE_VAULT;1.1;AES256
-              35393633653064326338343230393164396634633332303462353361376432633934653734323330
-              3361653530623234626435626134363136396163306237320a323937646164363834303161313631
-              33653735623030306534336161363363353934326664313030626133326530613565393862636432
-              3664363364346334370a336433336563313839636231383936383965646231363366393736303066
-              62313439353764356430626635653234366165333166633864323839306530356333363531313764
-              3561636361363265636630396261326136653232643361343531
-    - role: ../../../../roles/lufi
-      vars:
-        lufi_name: interactions
-        lufi_title: INTERACTIONS
-        lufi_contact: niels.martignene@protonmail.com
-        lufi_port: 12001
-        lufi_database:
-          type: postgresql
-          host: 127.0.0.1
-          name: lu_interactions
-          user: lu_interactions
-          password: !vault |
-            $ANSIBLE_VAULT;1.1;AES256
-            35393633653064326338343230393164396634633332303462353361376432633934653734323330
-            3361653530623234626435626134363136396163306237320a323937646164363834303161313631
-            33653735623030306534336161363363353934326664313030626133326530613565393862636432
-            3664363364346334370a336433336563313839636231383936383965646231363366393736303066
-            62313439353764356430626635653234366165333166633864323839306530356333363531313764
-            3561636361363265636630396261326136653232643361343531
   tags: [lufi]

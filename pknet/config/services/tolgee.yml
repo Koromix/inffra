@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Tolgee for PKnet
-  hosts: tools2
+  hosts: tools1
   roles:
     - role: ../../../../roles/postgresql
       vars:

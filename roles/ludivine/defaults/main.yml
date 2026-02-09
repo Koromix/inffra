@@ -1,0 +1,48 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+ludivine_repo: https://git.interactions-team.fr/Koromix/rygel.git
+ludivine_commit: master
+
+ludivine_root_path: /opt/ludivine # Installation directory
+ludivine_run_user: ludivine # POSIX user that will run services
+ludivine_run_group: ludivine # POSIX group that will run services
+
+ludivine_sandbox: yes
+
+# ludivine_name:
+# ludivine_title:
+# ludivine_url:
+# ludivine_contact:
+
+# ludivine_smtp:
+#   url:
+#   username:
+#   password:
+#   from:
+
+ludivine_pages:
+  - title: Participer
+    url: /participer
+  - title: Participer
+    url: /etude
+  - title: Participer
+    url: /profil
+  - title: Participer
+    url: /journal
+  - title: Participer
+    url: /rappels
+  - title: Participer
+    url: /connexion
+
+# ludivine_static:

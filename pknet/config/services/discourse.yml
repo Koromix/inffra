@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Discourse for F2RSMpsy
-  hosts: tools2
+  hosts: tools1
   roles:
     - role: ../../../../roles/postgresql
       vars:
@@ -30,6 +30,7 @@
             sql: |
               CREATE EXTENSION IF NOT EXISTS hstore;
               CREATE EXTENSION IF NOT EXISTS pg_trgm;
+              CREATE EXTENSION IF NOT EXISTS vector;
     - role: ../../../../roles/discourse
       vars:
         discourse_name: f2rsmpsy
@@ -66,8 +67,6 @@
           from: no-reply@f2rsmpsy.org
           mode: starttls
         discourse_plugins:
-          - https://github.com/discourse/discourse-chat-integration
-          - https://github.com/discourse/discourse-solved
           - https://github.com/angusmcleod/discourse-events
           - https://github.com/angusmcleod/discourse-locations
 

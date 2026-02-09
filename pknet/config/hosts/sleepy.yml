@@ -21,7 +21,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.static.ansible_host }};
+          allow {{ hostvars.tools2.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
@@ -34,7 +34,7 @@ nginx_domains:
       {% if blackbox_sites is defined %}
 
       location /metrics/probe {
-          allow {{ hostvars.static.ansible_host }};
+          allow {{ hostvars.tools2.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;
@@ -48,11 +48,6 @@ nginx_domains:
 
       location /R/ {
           proxy_pass http://127.0.0.1:3838/;
-      }
-
-      location /procemot/ {
-          client_max_body_size 256M;
-          proxy_pass http://127.0.0.1:9999;
       }
 
       location /photo/ {
@@ -96,7 +91,6 @@ blackbox_sites:
   - https://rekkord.org
   - https://web.rekkord.org
 
-  - https://thop.koromix.dev/
   - https://watch.koromix.dev/
   - https://cloud.koromix.dev/
   - https://i18n.koromix.dev/

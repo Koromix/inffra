@@ -1,0 +1,111 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Ludivine deployments
+  hosts: ludivine
+  roles:
+    - role: ../../roles/ludivine
+      vars:
+        ludivine_name: beta
+        ludivine_title: Lignes de Vie BETA
+        ludivine_url: https://beta.ldv-recherche.fr
+        ludivine_contact: contact@ldv-recherche.fr
+        ludivine_smtp:
+          url: smtps://mail.smtp2go.com:465
+          username: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            37653766366462306139623138303663353565346438633931346165363739333635636261363730
+            3735626263366464353739666363346363383065366439660a633834363938666131666661626664
+            63303361373433656662643638303738613837646330366237303535633632643364623038633565
+            6363363537616333300a366366656130656535326363333736623366343837313762333461626134
+            6164
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            37323236313039643230303365363532303031323861613836343263663235326639393638313434
+            3031313530663762396533303430306561376639323435330a326634633631326465363666636239
+            65336432626162653566633266383930373139393734366162333035663439346339646564643763
+            6564376564393761390a356466613864333366316263346537326434303738626163323035663563
+            34613030393761616462353565643264616333356664373037386166383362643235
+          from: inscription@ldv-recherche.fr
+        ludivine_pages:
+          - title: Accueil
+            url: /
+          - title: Participer
+            url: /participer
+          - title: Participer
+            url: /etude
+          - title: Participer
+            url: /profil
+          - title: Participer
+            url: /journal
+          - title: Participer
+            url: /rappels
+          - title: Participer
+            url: /connexion
+          - title: Études
+            url: /etudes
+          - title: Ressources
+            url: /videos
+          - title: Se détendre
+            url: /detente
+          - title: Qui sommes-nous ?
+            url: /equipe
+        ludivine_static: /opt/static/live/ldv-recherche.fr/beta
+    - role: ../../roles/ludivine
+      vars:
+        ludivine_name: www
+        ludivine_title: Lignes de Vie
+        ludivine_url: https://ldv-recherche.fr
+        ludivine_contact: contact@ldv-recherche.fr
+        ludivine_smtp:
+          url: smtps://mail.smtp2go.com:465
+          username: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            37653766366462306139623138303663353565346438633931346165363739333635636261363730
+            3735626263366464353739666363346363383065366439660a633834363938666131666661626664
+            63303361373433656662643638303738613837646330366237303535633632643364623038633565
+            6363363537616333300a366366656130656535326363333736623366343837313762333461626134
+            6164
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            37323236313039643230303365363532303031323861613836343263663235326639393638313434
+            3031313530663762396533303430306561376639323435330a326634633631326465363666636239
+            65336432626162653566633266383930373139393734366162333035663439346339646564643763
+            6564376564393761390a356466613864333366316263346537326434303738626163323035663563
+            34613030393761616462353565643264616333356664373037386166383362643235
+          from: inscription@ldv-recherche.fr
+        ludivine_pages:
+          - title: Accueil
+            url: /
+          - title: Participer
+            url: /participer
+          - title: Participer
+            url: /etude
+          - title: Participer
+            url: /profil
+          - title: Participer
+            url: /journal
+          - title: Participer
+            url: /rappels
+          - title: Participer
+            url: /connexion
+          - title: Études
+            url: /etudes
+          - title: Ressources
+            url: /videos
+          - title: Se détendre
+            url: /detente
+          - title: Qui sommes-nous ?
+            url: /equipe
+        ludivine_static: /opt/static/live/ldv-recherche.fr/www
+  tags: [ludivine]

@@ -14,10 +14,10 @@
 - name: goupile.org
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: goupile.org/files
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: goupile.org/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
@@ -29,14 +29,14 @@
 - name: koromix.dev
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: koromix.dev/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
         static_build:
           - '{{ static_root_path }}/repo/koromix.dev/www/web/koromix.dev/build.sh'
         static_path: bin/Web/koromix.dev
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: koromix.dev/games
         static_repo: https://git.interactions-team.fr/Koromix/games.git
@@ -50,7 +50,7 @@
           - cmd: 'sh -c "gzip -k static/*.js static/*.css static/*.json"'
             chdir: '{{ static_root_path }}/repo/koromix.dev/games/bin/motris'
         static_path: bin
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: koromix.dev/test
   tags: [koromix.dev, static]
@@ -58,7 +58,7 @@
 - name: koffi.dev
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: koffi.dev/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
@@ -70,7 +70,7 @@
 - name: demheter.fr
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: demheter.fr/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
@@ -82,7 +82,7 @@
 - name: cn2r.fr test area
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: cn2r.fr/test
   tags: [cn2r.fr, static]
@@ -90,7 +90,7 @@
 - name: interactions-team.fr test area
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: interactions-team.fr/test
   tags: [interactions-team.fr, static]
@@ -98,7 +98,7 @@
 - name: rekkord.org
   hosts: static
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: rekkord.org/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
@@ -108,16 +108,16 @@
   tags: [rekkord.org, static]
 
 - name: ldv-recherche.fr
-  hosts: static
+  hosts: ludivine
   roles:
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: ldv-recherche.fr/www
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
         static_build:
           - '{{ static_root_path }}/repo/ldv-recherche.fr/www/web/ldv-recherche.fr/build.sh'
         static_path: bin/Web/ldv-recherche.fr
-    - role: ../../../../roles/static
+    - role: ../../roles/static
       vars:
         static_name: ldv-recherche.fr/beta
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
@@ -125,13 +125,3 @@
           - '{{ static_root_path }}/repo/ldv-recherche.fr/beta/web/ldv-recherche.fr/build.sh'
         static_path: bin/Web/ldv-recherche.fr
   tags: [ldv-recherche.fr, static]
-
-- name: interactions-team.fr
-  hosts: static
-  roles:
-    - role: ../../../../roles/static
-      vars:
-        static_name: interactions-team.fr/www
-        static_repo: https://git.interactions-team.fr/Koromix/rygel.git
-        static_path: web/interactions-team.fr
-  tags: [interactions-team.fr, static]

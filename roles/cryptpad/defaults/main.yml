@@ -16,6 +16,8 @@ cpad_commit: 2025.9.0
 
 cpad_root_path: /opt/cryptpad
 
+cpad_port: 4242
+
 # cpad_name:
 # cpad_main_domain:
 # cpad_safe_domain:

@@ -11,11 +11,35 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-[Resources]
-ProfileDirectory = .
-TableDirectory = tables
+[General]
+Title = {{ ludivine_title }}
+URL = {{ ludivine_url }}
+Contact = {{ ludivine_contact }}
+
+[Data]
+DatabaseFile = data/ludivine.db
+TempDirectory = tmp
+
+[Pages]
+{% for page in ludivine_pages %}
+{{ page.title }} = {{ page.url }}
+{% endfor %}
+
+{% if ludivine_static is defined %}
+[Static]
+StaticDirectory = {{ ludivine_static }}
+AutoGzip = On
+{% endif %}
 
 [HTTP]
 SocketType = Unix
-UnixPath = /run/thop/{{ thop_name }}.sock
+UnixPath = /run/ludivine/{{ ludivine_name }}.sock
 ClientAddress = X-Forwarded-For
+
+[SMTP]
+URL = {{ ludivine_smtp.url }}
+{% if ludivine_smtp.username is defined %}
+Username = {{ ludivine_smtp.username }}
+Password = {{ ludivine_smtp.password }}
+{% endif %}
+From = {{ ludivine_smtp.from }}
