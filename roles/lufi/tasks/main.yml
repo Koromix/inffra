@@ -30,17 +30,8 @@
       - zlib1g-dev
       - libpq-dev
       - libsqlite3-dev
-      - libmariadb-dev
       - acl
     state: latest
-  become: yes
-
-- name: Set up mysql_config symbolic link
-  file:
-    path: /usr/local/bin/mysql_config
-    src: /usr/bin/mariadb_config
-    state: link
-  ignore_errors: yes
   become: yes
 
 - name: Prepare Lufi base directories
@@ -78,7 +69,7 @@
 
 - name: Install Lufi dependencies
   command:
-    cmd: 'carton install --deployment --without=test'
+    cmd: 'carton install --deployment --without=test --without=mysql'
     chdir: '{{ lufi_root_path }}/{{ lufi_name }}/app'
   register: carton
   changed_when: '(carton.stderr_lines | length) > 0 or (carton.stdout_lines | length) > 2'

@@ -31,14 +31,6 @@
         pwd      => '{{ lufi_database.password }}',
         database => '{{ lufi_database.name }}'
     }
-{% elif lufi_database.type == 'mysql' %}
-    dbtype => 'mysql',
-    mysqldb => {
-        host     => '{{ lufi_database.host }}',
-        user     => '{{ lufi_database.user }}',
-        pwd      => '{{ lufi_database.password }}',
-        database => '{{ lufi_database.name }}'
-    }
 {% elif lufi_database.type == 'sqlite' %}
     dbtype => 'sqlite',
     db_path => '{{ lufi_database.path }}'
