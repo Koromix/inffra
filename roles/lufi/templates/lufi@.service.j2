@@ -3,6 +3,9 @@ Description=File hosting service with encryption
 Documentation=https://framagit.org/luc/lufi
 Requires=network.target
 After=network.target
+{% if lufi_database.type == 'postgresql' %}
+After=postgresql.service
+{% endif %}
 
 [Service]
 Type=forking
