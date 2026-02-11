@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: Mattermost for F2RSMpsy
-  hosts: tools1
+  hosts: f2rsm1
   roles:
     - role: ../../../../roles/postgresql
       vars:

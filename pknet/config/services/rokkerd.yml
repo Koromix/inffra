@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: rokkerd on PKnet
-  hosts: tools2
+  hosts: f2rsm2
   roles:
     - role: ../../../../roles/rokkerd
       vars:

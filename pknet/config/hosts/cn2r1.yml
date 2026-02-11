@@ -21,7 +21,7 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.tools2.ansible_host }};
+          allow {{ hostvars.f2rsm2.ansible_host }};
           deny all;
 
           proxy_set_header Host $host;

@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 - name: CN2R WordPress
-  hosts: wordpress
+  hosts: cn2r1
   roles:
     - role: ../../../../roles/mariadb
       vars:
@@ -46,7 +46,7 @@
   tags: [wordpress]
 
 - name: CN2R WordPress Beta
-  hosts: wordpress
+  hosts: cn2r1
   roles:
     - role: ../../../../roles/mariadb
       vars:
