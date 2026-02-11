@@ -31,6 +31,18 @@ nginx_domains:
       }
       {% endfor %}
 
+      location /metrics/probe {
+          allow {{ hostvars.tools2.ansible_host }};
+          deny all;
+
+          proxy_set_header Host $host;
+          proxy_set_header X-Forwarded-Proto https;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Real-IP $remote_addr;
+
+          proxy_pass http://127.0.0.1:{{ prometheus_packages.blackbox_exporter.port }}/probe$is_args$args;
+      }
+
   - name: watch.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
@@ -62,6 +74,54 @@ prometheus_exporters:
   - node_exporter
   - nginx_exporter
   - systemd_exporter
+  - blackbox_exporter
+
+blackbox_sites:
+  - https://koromix.dev/
+  - https://goupile.org/
+  - https://koffi.dev/
+  - https://interactions-team.fr/
+
+  - https://rekkord.org
+  - https://web.rekkord.org
+
+  - https://watch.koromix.dev/
+  - https://cloud.koromix.dev/
+  - https://i18n.koromix.dev/
+
+  - https://cn2r.fr/
+  - https://carto.cn2r.fr/
+  - https://cloud.cn2r.fr/
+  - https://crp.cn2r.fr/
+  - https://office.cn2r.fr/
+  - https://cn2r.fr/évènement/save-the-date-colloque-du-cn2r-soutien-social-et-psychotraumatisme/
+
+  - https://cn2r.goupile.fr/
+  - https://f2rsm.goupile.org/
+  - https://medita.goupile.fr/
+  - https://psy-lille.goupile.fr/
+  - https://goupile.interhop.org/
+  - https://goupile.hds.interhop.org/
+  - https://beta.goupile.fr/
+  - https://demo.goupile.fr/
+
+  - https://demheter.fr/
+  - https://carto.demheter.fr/
+  - https://cloud.demheter.fr/
+
+  - https://koromix.dev/procemot/
+
+  - https://chat.f2rsmpsy.org/
+  - https://cpad.f2rsmpsy.org/
+  - https://cpadsb.f2rsmpsy.org/
+  - https://drop.f2rsmpsy.org/
+  - https://forum.f2rsmpsy.org/
+  - https://git.f2rsmpsy.org/
+  - https://vault.f2rsmpsy.org/
+
+  - https://ldv-recherche.fr/
+  - https://www.ldv-recherche.fr/
+  - https://beta.ldv-recherche.fr/
 
 grafana_url: 'https://watch.koromix.dev/'
 grafana_default_password: !vault |
