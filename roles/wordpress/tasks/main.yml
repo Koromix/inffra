@@ -25,7 +25,7 @@
 
 - name: Install packages
   apt:
-    update_cache: yes
+    update_cache: no
     pkg:
       - php8.2-cli
       - php8.2-mysql

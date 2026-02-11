@@ -35,7 +35,7 @@
 
 - name: Install packages
   apt:
-    update_cache: yes
+    update_cache: no
     pkg:
       - grafana
       - sqlite3

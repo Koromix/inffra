@@ -13,7 +13,7 @@
 
 - name: Install packages
   package:
-    update_cache: yes
+    update_cache: no
     pkg:
       - nginx
       - python3-certbot-nginx

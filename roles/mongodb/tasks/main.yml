@@ -26,7 +26,7 @@
 
 - name: Install packages
   apt:
-    update_cache: yes
+    update_cache: no
     pkg:
       - mongodb-org
     state: latest

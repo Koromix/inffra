@@ -13,7 +13,7 @@
 
 - name: Install packages
   apt:
-    update_cache: yes
+    update_cache: no
     pkg:
       - libncursesw5-dev
       - libmaxminddb-dev
