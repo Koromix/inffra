@@ -108,7 +108,7 @@ def list_domains(key_dir, root_dir, archive_dir, snapshot_dir):
 
         domain.name = name
         domain.main_directory = os.path.join(root_dir, name)
-        domain.data_directory = os.path.join(domain.main_directory, 'data')
+        domain.data_directory = domain.main_directory
         domain.archive_directory = os.path.join(archive_dir, name)
         domain.snapshot_directory = os.path.join(snapshot_dir, name)
         domain.socket = f'/run/goupile/{name}.sock'
