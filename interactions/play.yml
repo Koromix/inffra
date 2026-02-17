@@ -29,6 +29,7 @@
   tags: [system, rekkord]
 
 - import_playbook: 'services/authentik.yml'
+- import_playbook: 'services/alicare.yml'
 - import_playbook: 'services/forgejo.yml'
 - import_playbook: 'services/goupile.yml'
 - import_playbook: 'services/ludivine.yml'
