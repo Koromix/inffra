@@ -69,7 +69,7 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
-- name: Creates Let's Encrypt certificate symbolic links
+- name: Create Let's Encrypt certificate symbolic links
   file:
     state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt'
