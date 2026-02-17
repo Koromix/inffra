@@ -37,4 +37,3 @@
 - import_playbook: 'services/nextcloud.yml'
 - import_playbook: 'services/static.yml'
 - import_playbook: 'services/vaultwarden.yml'
-- import_playbook: 'services/wireguard.yml'
