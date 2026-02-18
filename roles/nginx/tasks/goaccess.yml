@@ -106,7 +106,7 @@
   when: 'not ansible_check_mode'
   become: yes
 
-- name: Enabled scheduled backups
+- name: Enabled periodic GoAccess refreshes
   service:
     name: goaccess.timer
     state: started
