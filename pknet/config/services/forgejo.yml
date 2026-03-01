@@ -45,4 +45,6 @@
             REGISTER_EMAIL_CONFIRM = false
             REGISTER_MANUAL_CONFIRM = true
             REQUIRE_SIGNIN_VIEW = true
+          repository: |
+            DISABLE_DOWNLOAD_SOURCE_ARCHIVES = true
   tags: [forgejo]
