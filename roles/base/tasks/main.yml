@@ -42,6 +42,7 @@
       - dfc
       - atool
       - ripgrep
+      - ncdu
       - vim
       - systemd-coredump
     state: latest
