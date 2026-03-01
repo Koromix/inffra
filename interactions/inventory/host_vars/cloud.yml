@@ -11,30 +11,12 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ansible_host: 10.147.18.241
+ansible_host: 100.78.2.150
 ansible_port: 22
 ansible_user: debian
 ansible_python_interpreter: /usr/bin/python3
 
 nginx_relay: 10.10.10.4
-
-ufw_rules:
-  - rule: allow
-    to: '{{ ansible_host }}'
-    port: 22
-    proto: tcp
-  - rule: allow
-    port: 80
-    proto: tcp
-  - rule: allow
-    port: 443
-    proto: tcp
-  - rule: allow
-    port: 9993
-    proto: udp
-  - rule: allow
-    port: 51820
-    proto: udp
 
 rekkord_directories:
   - name: '{{ inventory_hostname }}/opt'

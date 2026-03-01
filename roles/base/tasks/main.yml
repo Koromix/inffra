@@ -152,13 +152,22 @@
   when: 'ufw_enable and not ansible_check_mode'
   become: yes
 
-- name: Configure ufw rules
+- name: Configure ufw ports
   ufw:
-    rule: '{{ item.rule }}'
-    to: '{{ item.to | default("any") }}'
+    rule: allow
     port: '{{ item.port }}'
+    to: '{{ item.to | default("any") }}'
     proto: '{{ item.proto | default("any") }}'
-  loop: '{{ ufw_rules }}'
+  loop: '{{ ufw_ports }}'
+  when: 'ufw_enable'
+  become: yes
+
+- name: Configure ufw interfaces
+  ufw:
+    rule: allow
+    interface: '{{ item.name }}'
+    direction: '{{ item.direction }}'
+  loop: '{{ ufw_interfaces }}'
   when: 'ufw_enable'
   become: yes
 

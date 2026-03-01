@@ -19,7 +19,7 @@ force_self_ssl: no
 timezone: Etc/UTC
 
 ufw_enable: yes
-ufw_rules:
+ufw_ports:
   - rule: allow
     to: '{{ ansible_host if restrict_ssh_access else "any" }}'
     port: 22
@@ -30,6 +30,7 @@ ufw_rules:
   - rule: allow
     port: 443
     proto: tcp
+ufw_interfaces:
 
 coredump_size: 16G
 coredump_days: 7
