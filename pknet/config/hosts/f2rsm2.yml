@@ -71,14 +71,6 @@ prometheus_exporters:
   - blackbox_exporter
 
 blackbox_sites:
-  - https://koromix.dev/
-  - https://goupile.org/
-  - https://koffi.dev/
-  - https://interactions-team.fr/
-
-  - https://rekkord.org
-  - https://web.rekkord.org
-
   - https://watch.koromix.dev/
   - https://cloud.koromix.dev/
   - https://i18n.koromix.dev/
@@ -90,20 +82,8 @@ blackbox_sites:
   - https://office.cn2r.fr/
   - https://cn2r.fr/évènement/save-the-date-colloque-du-cn2r-soutien-social-et-psychotraumatisme/
 
-  - https://cn2r.goupile.fr/
-  - https://f2rsm.goupile.org/
-  - https://medita.goupile.fr/
-  - https://psy-lille.goupile.fr/
-  - https://goupile.interhop.org/
-  - https://goupile.hds.interhop.org/
-  - https://beta.goupile.fr/
-  - https://demo.goupile.fr/
-
-  - https://demheter.fr/
   - https://carto.demheter.fr/
   - https://cloud.demheter.fr/
-
-  - https://koromix.dev/procemot/
 
   - https://chat.f2rsmpsy.org/
   - https://cpad.f2rsmpsy.org/
@@ -112,10 +92,6 @@ blackbox_sites:
   - https://forum.f2rsmpsy.org/
   - https://git.f2rsmpsy.org/
   - https://vault.f2rsmpsy.org/
-
-  - https://ldv-recherche.fr/
-  - https://www.ldv-recherche.fr/
-  - https://beta.ldv-recherche.fr/
 
 grafana_url: 'https://watch.koromix.dev/'
 grafana_default_password: !vault |
