@@ -21,9 +21,6 @@ nginx_domains:
       {% for exporter in prometheus_exporters %}
 
       location /metrics/{{ exporter }} {
-          allow {{ hostvars.f2rsm2.ansible_host }};
-          deny all;
-
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
@@ -32,9 +29,6 @@ nginx_domains:
       {% endfor %}
 
       location /metrics/probe {
-          allow {{ hostvars.f2rsm2.ansible_host }};
-          deny all;
-
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-Proto https;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
