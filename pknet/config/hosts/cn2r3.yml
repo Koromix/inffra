@@ -14,9 +14,10 @@
 nginx_domains:
   - name: '{{ ansible_host }}'
     config: |
-      ssl_client_certificate /opt/nginx/ssl/internal/ca.crt;
-      ssl_verify_client on;
-      ssl_verify_depth 2;
+      # Hacked out to allow access from INTERACTIONS (temporary)
+      # ssl_client_certificate /opt/nginx/ssl/internal/ca.crt;
+      # ssl_verify_client on;
+      # ssl_verify_depth 2;
 
       {% for exporter in prometheus_exporters %}
 
