@@ -148,7 +148,7 @@ nginx_domains:
           proxy_ssl_trusted_certificate /opt/nginx/ssl/internal/ca.crt;
           proxy_ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
           proxy_ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
-          proxy_pass https://10.147.18.242;
+          proxy_pass https://100.78.42.168;
       }
 
   - name: demo.goupile.fr
