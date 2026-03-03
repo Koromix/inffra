@@ -31,3 +31,7 @@ Username = {{ alicare_smtp.username }}
 Password = {{ alicare_smtp.password }}
 {% endif %}
 From = {{ alicare_smtp.from }}
+
+[Authentication]
+AllowInternal = {{ 'On' if alicare_auth.internal else 'Off' }}
+AllowRegister = {{ 'On' if alicare_auth.register else 'Off' }}

@@ -29,3 +29,7 @@ alicare_sandbox: yes
 #   username:
 #   password:
 #   from:
+
+alicare_auth:
+  internal: yes
+  register: yes
