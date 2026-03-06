@@ -11,25 +11,30 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-alicare_repo: https://git.interactions-team.fr/INTERACTIONS/calypso.git
-alicare_commit: main
+[Unit]
+Description=Medita %i
+Wants=network-online.target
+After=network-online.target
 
-alicare_root_path: /opt/alicare # Installation directory
-alicare_run_user: alicare # POSIX user that will run service
-alicare_run_group: alicare # POSIX group that will run service
+[Service]
+Type=notify
+User={{ medita_run_user }}
+Group={{ medita_run_group }}
+RuntimeDirectory=medita
+RuntimeDirectoryPreserve=yes
+WorkingDirectory={{ medita_root_path }}/%i
+ExecStart={{ medita_root_path }}/medita {{ '--sandbox' if medita_sandbox else '' }}
+Restart=on-failure
+RestartSec=20
+TimeoutStopSec=30
 
-alicare_sandbox: yes
+{% if medita_sandbox %}
+# Allow Rekkow to manipulate namespaces despite
+# kernel.unprivileged_userns_clone=0.
+SecureBits=keep-caps
+CapabilityBoundingSet=CAP_SYS_ADMIN
+AmbientCapabilities=CAP_SYS_ADMIN
+{% endif %}
 
-# alicare_name:
-# alicare_title:
-# alicare_url:
-
-# alicare_smtp:
-#   url:
-#   username:
-#   password:
-#   from:
-
-alicare_auth:
-  internal: yes
-  register: yes
+[Install]
+WantedBy=multi-user.target

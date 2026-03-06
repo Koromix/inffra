@@ -12,8 +12,8 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [General]
-Title = {{ alicare_title }}
-URL = {{ alicare_url }}
+Title = {{ medita_title }}
+URL = {{ medita_url }}
 
 [Data]
 DatabaseFile = data/data.db
@@ -21,17 +21,17 @@ TempDirectory = tmp
 
 [HTTP]
 SocketType = Unix
-UnixPath = /run/alicare/{{ alicare_name }}.sock
+UnixPath = /run/medita/{{ medita_name }}.sock
 ClientAddress = X-Forwarded-For
 
 [SMTP]
-URL = {{ alicare_smtp.url }}
-{% if alicare_smtp.username is defined %}
-Username = {{ alicare_smtp.username }}
-Password = {{ alicare_smtp.password }}
+URL = {{ medita_smtp.url }}
+{% if medita_smtp.username is defined %}
+Username = {{ medita_smtp.username }}
+Password = {{ medita_smtp.password }}
 {% endif %}
-From = {{ alicare_smtp.from }}
+From = {{ medita_smtp.from }}
 
 [Authentication]
-AllowInternal = {{ 'On' if alicare_auth.internal else 'Off' }}
-AllowRegister = {{ 'On' if alicare_auth.register else 'Off' }}
+AllowInternal = {{ 'On' if medita_auth.internal else 'Off' }}
+AllowRegister = {{ 'On' if medita_auth.register else 'Off' }}

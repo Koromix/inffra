@@ -11,15 +11,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: ALI-Care Online
-  hosts: alicare
+- name: Medita Online
+  hosts: medita
   roles:
-    - role: ../roles/alicare
+    - role: ../roles/medita
       vars:
-        alicare_name: online
-        alicare_title: 'Études en ligne'
-        alicare_url: https://online.interactions-team.fr
-        alicare_smtp:
+        medita_name: online
+        medita_title: 'Études en ligne'
+        medita_url: https://online.interactions-team.fr
+        medita_smtp:
           url: smtps://mail.smtp2go.com:465
           username: !vault |
             $ANSIBLE_VAULT;1.1;AES256
@@ -36,7 +36,7 @@
             6564376564393761390a356466613864333366316263346537326434303738626163323035663563
             34613030393761616462353565643264616333356664373037386166383362643235
           from: nepasrepondre@interactions-team.fr
-        alicare_auth:
+        medita_auth:
           internal: yes
           register: no
-  tags: [alicare]
+  tags: [medita]
