@@ -12,7 +12,5 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 postgresql_backup_path: /opt/postgresql
-postgresql_backup_schedule: '*-*-* 03:00'
-postgresql_backup_randomize: 20m
 
 postgresql_databases: []

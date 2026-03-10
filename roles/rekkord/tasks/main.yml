@@ -32,13 +32,18 @@
     state: latest
   become: yes
 
-- name: Prepare rekkord base directory
+- name: Prepare rekkord base directories
   file:
-    path: '{{ rekkord_root_path }}'
+    path: '{{ item }}'
     state: directory
     owner: root
     group: root
     mode: '0755'
+  loop:
+    - '{{ rekkord_root_path }}'
+    - '{{ rekkord_root_path }}/hooks'
+    - '{{ rekkord_root_path }}/hooks/presave'
+    - '{{ rekkord_root_path }}/hooks/postsave'
   become: yes
 
 - name: Create rekkord config file

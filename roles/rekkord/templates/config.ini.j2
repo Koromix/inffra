@@ -8,3 +8,7 @@ KeyFile=rekkord.key
 {% endif %}
 
 {% endfor %}
+
+[Hooks]
+PreSaveDirectory = {{ rekkord_root_path }}/hooks/presave
+PostSaveDirectory = {{ rekkord_root_path }}/hooks/postsave

@@ -15,5 +15,3 @@ mongodb_version: 8.0
 mongodb_key_id: 4E7DCA05
 
 mongodb_backup_path: /opt/mongodb
-mongodb_backup_schedule: '*-*-* 03:00'
-mongodb_backup_randomize: 20m
