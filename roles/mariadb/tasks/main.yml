@@ -89,7 +89,7 @@
   become: yes
 
 - name: Install Rekkord backup hook
-  template:
+  file:
     path: /opt/rekkord/hooks/presave/mariadb
     src: '{{ mariadb_backup_path }}/backup.sh'
     state: link

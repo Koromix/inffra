@@ -137,7 +137,7 @@
   become: yes
 
 - name: Install Rekkord backup hook
-  template:
+  file:
     path: /opt/rekkord/hooks/presave/postgresql
     src: '{{ postgresql_backup_path }}/backup.sh'
     state: link
