@@ -15,5 +15,10 @@
 
 cd "{{ mariadb_backup_path }}"
 
-mysqldump --all-databases --single-transaction --quick --lock-tables=false > "backups/$(date +%Y%m%d_%H%M%S).sql"
-ls -1 backups/* | sort -r | tail -n +3 | xargs rm -f
+suffix=_$(date +%Y%m%d%H%M%S)
+
+for db in $(mysql -N -e 'show databases'); do
+    mysqldump --complete-insert --routines --triggers --single-transaction --lock-tables=false "$db" > "backups/$db$suffix.sql"
+done
+
+find backups/ -name '*.sql' -daystart -mtime +3 -delete
