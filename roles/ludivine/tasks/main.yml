@@ -121,6 +121,13 @@
     mode: '0755'
   become: yes
 
+- name: Create Ludivine binary link
+  file:
+    path: '{{ ludivine_root_path }}/{{ ludivine_name }}/ludivine'
+    src: '{{ ludivine_root_path }}/ludivine'
+    state: link
+  become: yes
+
 - name: Enable Ludivine service
   service:
     name: 'ludivine@{{ ludivine_name }}'
