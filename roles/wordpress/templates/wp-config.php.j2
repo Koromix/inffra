@@ -77,7 +77,7 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-{% if defined wordpress_home %}
+{% if wordpress_home is defined %}
 define( 'WP_HOME', '{{ wordpress_home }}' );
 define( 'WP_SITEURL', '{{ wordpress_home }}' );
 {% endif %}
