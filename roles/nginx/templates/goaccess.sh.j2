@@ -9,7 +9,7 @@ rm -rf tmp
 mkdir tmp
 cp /var/log/nginx/{{ domain }}.access.log* tmp/
 gunzip tmp/*.gz || exit 0
-cat tmp/* | grep -v HetrixTools | grep -v -i blackbox | grep -E -v "\.[a-zA-Z0-9]+(\?[^/]*)? HTTP" > tmp/access.log
+cat tmp/* | grep -v 'curl/' | grep -v -i blackbox | grep -E -v "\.[a-zA-Z0-9]+(\?[^/]*)? HTTP" > tmp/access.log
 
 mkdir -p {{ goaccess_root_path }}/html/{{ domain }}
 {{ goaccess_root_path }}/goaccess \
