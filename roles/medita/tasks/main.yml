@@ -33,7 +33,6 @@
       - gcc
       - g++
       - unzip
-      - felix
     state: latest
   become: yes
 
@@ -109,9 +108,16 @@
   when: upload_config.changed
   become: yes
 
+- name: Bootstrap Felix
+  shell:
+    cmd: '{{ medita_root_path }}/repo/bootstrap.sh'
+    chdir: '{{ medita_root_path }}/repo'
+  when: 'not ansible_check_mode'
+  become: no
+
 - name: Build Medita
   command:
-    cmd: 'felix -pParanoid --host=:clang:lld medita'
+    cmd: '{{ medita_root_path }}/repo/felix -pParanoid --host=:clang:lld medita'
     chdir: '{{ medita_root_path }}/repo'
   register: build_medita
   changed_when: 'build_medita.stderr_lines[-1] != "Nothing to do!" and build_medita.stderr_lines[-2] != "Nothing to do!"'
