@@ -25,7 +25,7 @@
   hosts: all
   roles:
     - name: rekkord
-      when: 'rekkord_directories is defined'
+      when: 'rekkord_snapshots is defined'
   tags: [system, rekkord]
 
 - import_playbook: 'services/authentik.yml'

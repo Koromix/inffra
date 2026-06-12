@@ -18,4 +18,4 @@ rekkord_randomize: 1h
 rekkord_timeout: 3h
 
 # rekkord_config:
-# rekkord_directories:
+# rekkord_snapshots:
