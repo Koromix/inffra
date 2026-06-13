@@ -18,10 +18,8 @@ ansible_python_interpreter: /usr/bin/python3
 
 nginx_relay: 10.10.10.13
 
-rekkord_snapshots:
-  - name: '{{ inventory_hostname }}'
-    sources:
-      - /opt
+rekkord_paths:
+  - /opt
 
 rekkord_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256

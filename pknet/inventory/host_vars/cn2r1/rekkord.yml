@@ -11,10 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-rekkord_snapshots:
-  - name: '{{ inventory_hostname }}'
-    sources:
-      - /opt
+rekkord_paths:
+  - /opt
 
 rekkord_key: !vault |
   $ANSIBLE_VAULT;1.1;AES256

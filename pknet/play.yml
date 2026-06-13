@@ -25,7 +25,7 @@
   hosts: all
   roles:
     - name: rekkord
-      when: 'rekkord_snapshots is defined'
+      when: 'rekkord_paths is defined'
   tags: [system, rekkord]
 
 - import_playbook: 'config/services/lufi.yml'

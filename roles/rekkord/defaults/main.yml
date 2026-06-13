@@ -17,5 +17,6 @@ rekkord_schedule: '*-*-* 5:00'
 rekkord_randomize: 1h
 rekkord_timeout: 3h
 
+# rekkord_channel:
 # rekkord_config:
-# rekkord_snapshots:
+# rekkord_paths:
