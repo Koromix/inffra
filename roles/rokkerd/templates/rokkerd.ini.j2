@@ -31,3 +31,13 @@ Username = {{ rokkerd_smtp.username }}
 Password = {{ rokkerd_smtp.password }}
 {% endif %}
 From = {{ rokkerd_smtp.from }}
+
+{% if rokkerd_extra is defined %}
+{% for section, values in rokkerd_extra.items() %}
+[{{ section }}]
+{% for key, value in values.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+
+{% endfor %}
+{% endif %}
