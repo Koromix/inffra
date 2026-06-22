@@ -7,6 +7,9 @@ tolgee:
     initial-password: {{ tolgee_admin_password }}
     needs-email-verification: true
 
+  rate-limits:
+    endpoint-limits: false
+
   machine-translation:
 {% if tolgee_translators.deepl is defined %}
     deepl:
