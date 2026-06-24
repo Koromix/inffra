@@ -19,6 +19,7 @@ ansible_python_interpreter: /usr/bin/python3
 nginx_relay: 10.10.10.15
 
 rekkord_paths:
+  - /etc
   - /opt
 
 rekkord_key: !vault |
