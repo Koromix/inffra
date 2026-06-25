@@ -37,9 +37,10 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
         rokkerd_extra:
-          Services:
-            Backup: Yes
-            Drop: No
+          Backup:
+            Enabled: Yes
+          Drop:
+            Enabled: No
           SSO:
             Title: Codeberg
             URL: https://codeberg.org
@@ -84,9 +85,11 @@
             35646430303463353032383534346638333062666136396537353136653864633632
           from: no-reply@koromix.dev
         rokkerd_extra:
-          Services:
-            Backup: No
-            Drop: Yes
+          Backup:
+            Enabled: No
+          Drop:
+            Enabled: Yes
+            Quota: 10G
           S3:
             Location: !vault |
               $ANSIBLE_VAULT;1.1;AES256
