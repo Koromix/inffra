@@ -46,10 +46,19 @@
     - '{{ rekkord_root_path }}/hooks/postsave'
   become: yes
 
+- name: Create rekkord backup script
+  template:
+    src: backup.sh.j2
+    dest: '{{ rekkord_root_path }}/backup.sh'
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
 - name: Create rekkord config file
   template:
-    src: config.ini.j2
-    dest: '{{ rekkord_root_path }}/config.ini'
+    src: rekkord.ini.j2
+    dest: '{{ rekkord_root_path }}/rekkord.ini'
     owner: root
     group: root
     mode: '0600'

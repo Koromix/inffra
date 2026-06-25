@@ -1,0 +1,4 @@
+#!/bin/sh
+set -euo pipefail
+
+rekkord -C "{{ rekkord_root_path }}/rekkord.ini" "{{ rekkord_channel }}" {{ rekkord_paths | map('quote') | join(' ') }}

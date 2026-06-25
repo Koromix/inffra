@@ -20,4 +20,4 @@ After=network-online.target
 Type=oneshot
 TimeoutStartSec={{ rekkord_timeout }}
 Environment=HOME=/root
-ExecStart=/usr/bin/rekkord save -C "{{ rekkord_root_path }}/config.ini" "{{ rekkord_channel }}" {{ rekkord_paths | map('quote') | join(' ') }}
+ExecStart={{ rekkord_root_path }}/backup.sh
