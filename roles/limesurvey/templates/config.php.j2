@@ -1,0 +1,59 @@
+<?php
+
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+
+return array(
+    'components' => array(
+        'db' => array(
+            'connectionString' => 'mysql:host={{ limesurvey_database.host }};port=3306;dbname={{ limesurvey_database.name }};',
+            'emulatePrepare' => true,
+            'username' => '{{ limesurvey_database.user }}',
+            'password' => '{{ limesurvey_database.password }}',
+            'charset' => 'utf8mb4',
+            'tablePrefix' => 'lime_'
+        ),
+
+        'session' => array(
+            'sessionName' => 'LS-{{ limesurvey_session }}'
+        ),
+
+        'urlManager' => array(
+            'urlFormat' => 'path',
+            'rules' => array(),
+            'showScriptName' => true
+        ),
+
+        'request' => array(),
+    ),
+
+    'runtimePath' => '{{ limesurvey_root_path }}/{{ limesurvey_name }}/runtime',
+
+    'config' => array(
+        'debug' => 0,
+        'debugsql' => 0,
+
+        'sitename' => '{{ limesurvey_title }}',
+        'siteadminname' => '{{ limesurvey_title }}',
+
+        'publicurl' => '{{ limesurvey_home }}',
+        'mysqlEngine' => 'MYISAM',
+
+{% if limesurvey_smtp is defined %}
+        'emailmethod' => 'smtp',
+        'emailsmtphost' => '{{ limesurvey_smtp.host }}',
+{% if limesurvey_smtp.username is defined %}
+        'emailsmtpuser' => '{{ limesurvey_smtp.username }}',
+        'emailsmtppassword' => '{{ limesurvey_smtp.password }}',
+{% endif %}
+{% if limesurvey_smtp.mode == 'starttls' %}
+        'emailsmtpssl' => 'tls',
+{% elif limesurvey_smtp.mode == 'smtps' %}
+        'emailsmtpssl' => 'ssl',
+{% endif %}
+
+        'siteadminemail' => '{{ limesurvey_smtp.from }}',
+{% endif %}
+    )
+);
+
+?>

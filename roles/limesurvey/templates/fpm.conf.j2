@@ -1,0 +1,21 @@
+[limesurvey]
+user = www-data
+group = www-data
+
+listen = /run/php/limesurvey-fpm.sock
+
+listen.owner = www-data
+listen.group = www-data
+
+pm = ondemand
+pm.max_children = 32
+pm.process_idle_timeout = 10s
+
+php_value[upload_max_filesize] = 128M
+php_value[post_max_size] = 128M
+php_admin_value[memory_limit] = 128M
+
+env[PATH] = /usr/local/bin:/usr/bin:/bin
+env[TMP] = /tmp
+env[TMPDIR] = /tmp
+env[TEMP] = /tmp

@@ -1,0 +1,156 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Fetch SURY repository key
+  get_url:
+    url: https://packages.sury.org/php/apt.gpg
+    dest: /usr/share/keyrings/deb.sury.org-php.gpg
+  become: yes
+
+- name: Configure SURY repository
+  apt_repository:
+    repo: 'deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ {{ ansible_distribution_release }} main'
+    state: present
+  become: yes
+
+- name: Install packages
+  apt:
+    update_cache: no
+    pkg:
+      - php8.4-cli
+      - php8.4-mysql
+      - php8.4-curl
+      - php8.4-gd
+      - php8.4-intl
+      - php8.4-xml
+      - php8.4-sqlite3
+      - php8.4-fpm
+      - php8.4-imagick
+      - php8.4-mbstring
+      - php8.4-zip
+      - php8.4-ldap
+      - php8.4-imap
+    state: latest
+  become: yes
+
+- name: Prepare Limesurvey base directory
+  file:
+    path: '{{ item.path }}'
+    state: directory
+    owner: '{{ item.owner }}'
+    group: '{{ item.group }}'
+    mode: '0755'
+  loop:
+    - path: '{{ limesurvey_root_path }}'
+      owner: root
+      group: root
+    - path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}'
+      owner: root
+      group: root
+    - path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey'
+      owner: www-data
+      group: www-data
+  become: yes
+
+- name: Fetch Limesurvey archive
+  get_url:
+    url: '{{ limesurvey_url }}'
+    dest: '{{ limesurvey_root_path }}/{{ limesurvey_name }}.zip'
+    checksum: '{{ limesurvey_checksum }}'
+  become: yes
+
+- name: Extract Limesurvey archive
+  unarchive:
+    src: '{{ limesurvey_root_path }}/{{ limesurvey_name }}.zip'
+    dest: '{{ limesurvey_root_path }}/{{ limesurvey_name }}'
+    remote_src: yes
+    owner: root
+    group: root
+    mode: 'u=rwX,g=rX,o=rX'
+  become: yes
+
+- name: Adjust writable directories
+  file:
+    path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/{{ item }}'
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+    recurse: true
+  loop:
+    - limesurvey/application/config
+    - limesurvey/tmp
+    - limesurvey/upload
+    - runtime
+  become: yes
+
+- name: Generate random session name
+  block:
+  - name: Generate random session name 1/4
+    stat:
+      path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/session'
+    register: session1
+    become: yes
+  - name: Generate random session name 2/4
+    copy:
+      content: '{{ lookup("ansible.builtin.password", "/dev/null", chars=["ascii_uppercase"], length=16) }}'
+      dest: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/session'
+    when: 'not session1.stat.exists'
+    become: yes
+  - name: Generate random session name 3/4
+    slurp:
+      src: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/session'
+    register: session2
+    become: yes
+  - name: Generate random session name 4/4
+    set_fact:
+      limesurvey_session: '{{ session2.content | b64decode }}'
+
+- name: Configure Limesurvey
+  template:
+    src: config.php.j2
+    dest: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/config/config.php'
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Check installation
+  stat:
+    path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/config/security.php'
+  register: install_check
+  become: yes
+
+- name: Run install script
+  shell:
+    cmd: '/usr/bin/php8.4 {{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/commands/console.php install admin "{{ limesurvey_admin_password }}" Admin "{{ limesurvey_admin_mail }}"'
+    chdir: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/commands'
+  when: 'not install_check.stat.exists'
+  become: yes
+
+- name: Configure PHP-FPM pool
+  template:
+    src: fpm.conf.j2
+    dest: /etc/php/8.4/fpm/pool.d/limesurvey.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+
+- name: Restart PHP-FPM service
+  service:
+    name: php8.4-fpm
+    state: restarted
+    enabled: yes
+  when: 'not ansible_check_mode'
+  become: yes
