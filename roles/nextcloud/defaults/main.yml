@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 nextcloud_url: https://download.nextcloud.com/server/releases/nextcloud-33.0.6.tar.bz2
-nextcloud_checksum: 'sha256:ed46b91d8da4e1f0234d0188b25bee9448fa2f301887e5b28013e6b547d6dcca'
+nextcloud_checksum: 'sha256:791821a55029944de04319cfcafcac4ae8e7ef56b4cd1efc2631bf30b79d16de'
 
 nextcloud_root_path: /opt/nextcloud
 
