@@ -212,6 +212,13 @@ nginx_domains:
               autoindex on;
               autoindex_exact_size off;
           }
+
+          location /files/meestic {
+              return 301 https://download.koromix.dev/releases/meestic/;
+          }
+          location /files/tytools {
+              return 301 https://download.koromix.dev/releases/tytools/;
+          }
       }
 
       location /procemot/ {
@@ -232,6 +239,16 @@ nginx_domains:
 
           autoindex on;
           autoindex_exact_size on;
+
+          location /meestic {
+              return 301 https://download.koromix.dev/releases$request_uri;
+          }
+          location /rekkord {
+              return 301 https://download.koromix.dev/releases$request_uri;
+          }
+          location /tytools {
+              return 301 https://download.koromix.dev/releases$request_uri;
+          }
       }
   - name: games.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
