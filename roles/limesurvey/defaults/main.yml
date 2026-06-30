@@ -23,3 +23,6 @@ limesurvey_root_path: /opt/limesurvey
 # limesurvey_admin_mail:
 # limesurvey_database:
 # limesurvey_smtp:
+
+limesurvey_patches:
+  - fix-classic-subquestion-removal.patch

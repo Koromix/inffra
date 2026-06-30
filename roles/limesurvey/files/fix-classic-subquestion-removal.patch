@@ -1,0 +1,69 @@
+diff --git a/assets/scripts/admin/questionEditor.js b/assets/scripts/admin/questionEditor.js
+index 85f5730cc8..fb56a70867 100644
+--- a/assets/scripts/admin/questionEditor.js
++++ b/assets/scripts/admin/questionEditor.js
+@@ -558,11 +558,11 @@ $(document).on('ready pjax:scriptcomplete', function () {
+       // NB: Only answer options use position. Subquestions use id.
+       let position;
+       const classes = $(target).closest('tr').attr('class').split(' ');
+-      _.forEach(classes, (curClass) => {
++      for (let curClass of classes) {
+         if (curClass.substr(0, 3) === 'row') {
+           position = curClass.substr(4);
+         }
+-      });
++      }
+ 
+       const info = $(target).closest('tr').attr('id').split('_');
+       // TODO: use data-scaleid.
+@@ -570,7 +570,8 @@ $(document).on('ready pjax:scriptcomplete', function () {
+       const subquestionId = info[2];
+       const languages = languageJson.langs.split(';');
+ 
+-      _.forEach(languages, (curLanguage, x) => {
++      for (let x = 0; x < languages.length; x++) {
++        let curLanguage = languages[x];
+         const $tablerow = $(`#row_${languages[x]}_${subquestionId}_${scaleId}`);
+         if ($tablerow.length === 0) {
+           alert('Internal error: Could not find row to delete');
+@@ -584,7 +585,7 @@ $(document).on('ready pjax:scriptcomplete', function () {
+         } else {
+           $tablerow.remove();
+         }
+-      });
++      }
+     } else {
+       // Do nothing, can't delete last row.
+     }
+@@ -607,18 +608,19 @@ $(document).on('ready pjax:scriptcomplete', function () {
+       // NB: Only answer options use position. Subquestions use id.
+       let position;
+       const classes = $(target).closest('tr').attr('class').split(' ');
+-      _.forEach(classes, (curClass) => {
++      for (let curClass of classes) {
+         if (curClass.substr(0, 3) === 'row') {
+           position = curClass.substr(4);
+         }
+-      });
++      }
+ 
+       // Info is array like: ["row", lang, position, questionId, scale id].
+       const info = $(target).closest('tr').attr('id').split('_');
+       // TODO: use data-scaleid.
+       const languages = languageJson.langs.split(';');
+ 
+-      _.forEach(languages, (curLanguage, x) => {
++      for (let x = 0; x < languages.length; x++) {
++        let curLanguage = languages[x];
+         // TODO: This is the only row that's different from deleteSubquestionInput().
+         const rowId = `#row_${languages[x]}_${info[2]}_${info[3]}`;
+         const $tablerow = $(rowId);
+@@ -635,7 +637,7 @@ $(document).on('ready pjax:scriptcomplete', function () {
+         } else {
+           $tablerow.remove();
+         }
+-      });
++      }
+     } else {
+       // Do nothing, can't delete last row.
+     }

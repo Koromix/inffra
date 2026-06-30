@@ -60,6 +60,9 @@
     - path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey'
       owner: www-data
       group: www-data
+    - path: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/patches'
+      owner: root
+      group: root
   become: yes
 
 - name: Fetch Limesurvey archive
@@ -77,6 +80,23 @@
     owner: root
     group: root
     mode: 'u=rwX,g=rX,o=rX'
+  become: yes
+
+- name: Copy Limesurvey patches
+  copy:
+    src: '{{ item }}'
+    dest: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/patches/{{ item }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop: '{{ limesurvey_patches }}'
+  become: yes
+
+- name: Apply Limesurvey patches
+  shell:
+    cmd: 'patch -p1 < ../patches/{{ item }}'
+    chdir: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey'
+  loop: '{{ limesurvey_patches }}'
   become: yes
 
 - name: Adjust writable directories
