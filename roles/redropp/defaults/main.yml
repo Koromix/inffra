@@ -11,28 +11,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-rekkorddrop_repo: https://git.interactions-team.fr/Koromix/rygel.git
-rekkorddrop_commit: master
+redropp_repo: https://git.interactions-team.fr/Koromix/rygel.git
+redropp_commit: master
 
-rekkorddrop_root_path: /opt/rekkorddrop # Installation directory
-rekkorddrop_run_user: rekkorddrop # POSIX user that will run THOP services
-rekkorddrop_run_group: rekkorddrop # POSIX group that will run THOP services
+redropp_root_path: /opt/redropp # Installation directory
+redropp_run_user: redropp # POSIX user that will run services
+redropp_run_group: redropp # POSIX group that will run services
 
-rekkorddrop_sandbox: yes
+redropp_sandbox: yes
 
-# rekkorddrop_name:
-# rekkorddrop_title:
-# rekkorddrop_url:
+# redropp_name:
+# redropp_title:
+# redropp_url:
 
-rekkorddrop_quota: 10G
+redropp_quota: 10G
 
-# rekkorddrop_smtp:
+# redropp_smtp:
 #   url:
 #   username:
 #   password:
 #   from:
 
-# rekkorddrop_s3:
+# redropp_s3:
 #   location:
 #   access_key_id:
 #   secret_access_key:

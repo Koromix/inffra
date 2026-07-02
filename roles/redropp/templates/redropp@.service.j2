@@ -12,24 +12,24 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description=Rekkord Drop %i
-Documentation=https://rekkord.org/drop
+Description=Redropp %i
+Documentation=https://redropp.org/
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=notify
-User={{ rekkorddrop_run_user }}
-Group={{ rekkorddrop_run_group }}
-RuntimeDirectory=rekkorddrop
+User={{ redropp_run_user }}
+Group={{ redropp_run_group }}
+RuntimeDirectory=redropp
 RuntimeDirectoryPreserve=yes
-WorkingDirectory={{ rekkorddrop_root_path }}/%i
-ExecStart={{ rekkorddrop_root_path }}/RekkordDrop {{ '--sandbox' if rekkorddrop_sandbox else '' }}
+WorkingDirectory={{ redropp_root_path }}/%i
+ExecStart={{ redropp_root_path }}/redropp {{ '--sandbox' if redropp_sandbox else '' }}
 Restart=on-failure
 RestartSec=20
 TimeoutStopSec=30
 
-{% if rekkorddrop_sandbox %}
+{% if redropp_sandbox %}
 # Allow Rekkow to manipulate namespaces despite
 # kernel.unprivileged_userns_clone=0.
 SecureBits=keep-caps

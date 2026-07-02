@@ -24,17 +24,17 @@
     state: latest
   become: yes
 
-- name: Create rekkorddrop user
+- name: Create redropp user
   user:
-    name: rekkorddrop
+    name: redropp
     create_home: no
     home: /nonexistent
     shell: /usr/sbin/nologin
     system: yes
-  register: rekkorddrop_user
+  register: redropp_user
   become: yes
 
-- name: Prepare Rekkord Drop installation directories
+- name: Prepare Redropp installation directories
   file:
     path: '{{ item }}'
     state: directory
@@ -42,34 +42,34 @@
     group: root
     mode: '0755'
   loop:
-    - '{{ rekkorddrop_root_path }}'
-    - '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}'
+    - '{{ redropp_root_path }}'
+    - '{{ redropp_root_path }}/{{ redropp_name }}'
   become: yes
 
-- name: Prepare Rekkord Drop data directories
+- name: Prepare Redropp data directories
   file:
     path: '{{ item }}'
     state: directory
-    owner: rekkorddrop
-    group: rekkorddrop
+    owner: redropp
+    group: redropp
     mode: '0755'
   loop:
-    - '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}/data'
-    - '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}/tmp'
+    - '{{ redropp_root_path }}/{{ redropp_name }}/data'
+    - '{{ redropp_root_path }}/{{ redropp_name }}/tmp'
   become: yes
 
-- name: Prepare Rekkord Drop repository directory
+- name: Prepare Redropp repository directory
   file:
-    path: '{{ rekkorddrop_root_path }}/repo'
+    path: '{{ redropp_root_path }}/repo'
     state: directory
     owner: '{{ ansible_user | default(lookup("env", "USER"), True) }}'
   become: yes
 
-- name: Fetch Rekkord Drop repository
+- name: Fetch Redropp repository
   git:
-    repo: '{{ rekkorddrop_repo }}'
-    version: '{{ rekkorddrop_commit }}'
-    dest: '{{ rekkorddrop_root_path }}/repo'
+    repo: '{{ redropp_repo }}'
+    version: '{{ redropp_commit }}'
+    dest: '{{ redropp_root_path }}/repo'
     force: yes
   become: no
 
@@ -81,11 +81,11 @@
     group: root
     mode: '{{ item.mode }}'
   loop:
-    - src: RekkordDrop.ini.j2
-      dest: '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}/RekkordDrop.ini'
+    - src: redropp.ini.j2
+      dest: '{{ redropp_root_path }}/{{ redropp_name }}/redropp.ini'
       mode: '0644'
-    - src: rekkorddrop@.service.j2
-      dest: /etc/systemd/system/rekkorddrop@.service
+    - src: redropp@.service.j2
+      dest: /etc/systemd/system/redropp@.service
       mode: '0644'
   register: upload_config
   become: yes
@@ -98,38 +98,38 @@
 
 - name: Bootstrap Felix
   shell:
-    cmd: '{{ rekkorddrop_root_path }}/repo/bootstrap.sh'
-    chdir: '{{ rekkorddrop_root_path }}/repo'
+    cmd: '{{ redropp_root_path }}/repo/bootstrap.sh'
+    chdir: '{{ redropp_root_path }}/repo'
   when: 'not ansible_check_mode'
   become: no
 
-- name: Build Rekkord Drop
+- name: Build Redropp
   command:
-    cmd: '{{ rekkorddrop_root_path }}/repo/felix -pParanoid --host=:clang:lld RekkordDrop'
-    chdir: '{{ rekkorddrop_root_path }}/repo'
-  register: build_rekkorddrop
-  changed_when: 'build_rekkorddrop.stderr_lines[-1] != "Nothing to do!" and build_rekkorddrop.stderr_lines[-2] != "Nothing to do!"'
+    cmd: '{{ redropp_root_path }}/repo/felix -pParanoid --host=:clang:lld redropp'
+    chdir: '{{ redropp_root_path }}/repo'
+  register: build_redropp
+  changed_when: 'build_redropp.stderr_lines[-1] != "Nothing to do!" and build_redropp.stderr_lines[-2] != "Nothing to do!"'
   become: no
 
-- name: Install Rekkord Drop
+- name: Install Redropp
   copy:
-    src: '{{ rekkorddrop_root_path }}/repo/bin/Paranoid/RekkordDrop'
+    src: '{{ redropp_root_path }}/repo/bin/Paranoid/redropp'
     remote_src: yes
-    dest: '{{ rekkorddrop_root_path }}/RekkordDrop'
+    dest: '{{ redropp_root_path }}/redropp'
     owner: root
     group: root
     mode: '0755'
   become: yes
 
-- name: Enable Rekkord Drop service
+- name: Enable Redropp service
   service:
-    name: 'rekkorddrop@{{ rekkorddrop_name }}'
+    name: 'redropp@{{ redropp_name }}'
     enabled: yes
   become: yes
 
-- name: Restart Rekkord Drop
+- name: Restart Redropp
   service:
-    name: 'rekkorddrop@{{ rekkorddrop_name }}'
+    name: 'redropp@{{ redropp_name }}'
     state: restarted
   when: 'not ansible_check_mode'
   become: yes
