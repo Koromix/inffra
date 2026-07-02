@@ -109,6 +109,18 @@
         static_path: bin/Web/rekkord.org
   tags: [rekkord.org, static]
 
+- name: redropp.org
+  hosts: static
+  roles:
+    - role: ../../roles/static
+      vars:
+        static_name: redropp.org/www
+        static_repo: https://git.interactions-team.fr/Koromix/rygel.git
+        static_build:
+          - '{{ static_root_path }}/repo/redropp.org/www/web/redropp.org/build.sh'
+        static_path: bin/Web/redropp.org
+  tags: [redropp.org, static]
+
 - name: ldv-recherche.fr
   hosts: ludivine
   roles:
