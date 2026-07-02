@@ -12,8 +12,8 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [General]
-Title = {{ rokkerd_title }}
-URL = {{ rokkerd_url }}
+Title = {{ rekkorddrop_title }}
+URL = {{ rekkorddrop_url }}
 
 [Data]
 DatabaseFile = data/data.db
@@ -21,19 +21,27 @@ TempDirectory = tmp
 
 [HTTP]
 SocketType = Unix
-UnixPath = /run/rokkerd/{{ rokkerd_name }}.sock
+UnixPath = /run/rekkorddrop/{{ rekkorddrop_name }}.sock
 ClientAddress = X-Forwarded-For
 
-[SMTP]
-URL = {{ rokkerd_smtp.url }}
-{% if rokkerd_smtp.username is defined %}
-Username = {{ rokkerd_smtp.username }}
-Password = {{ rokkerd_smtp.password }}
-{% endif %}
-From = {{ rokkerd_smtp.from }}
+[Drop]
+Quota = {{ rekkorddrop_quota }}
 
-{% if rokkerd_extra is defined %}
-{% for section, values in rokkerd_extra.items() %}
+[S3]
+Location = {{ rekkorddrop_s3.location }}
+KeyID = {{ rekkorddrop_s3.access_key_id }}
+SecretKey = {{ rekkorddrop_s3.secret_access_key }}
+
+[SMTP]
+URL = {{ rekkorddrop_smtp.url }}
+{% if rekkorddrop_smtp.username is defined %}
+Username = {{ rekkorddrop_smtp.username }}
+Password = {{ rekkorddrop_smtp.password }}
+{% endif %}
+From = {{ rekkorddrop_smtp.from }}
+
+{% if rekkorddrop_extra is defined %}
+{% for section, values in rekkorddrop_extra.items() %}
 [{{ section }}]
 {% for key, value in values.items() %}
 {{ key }}={{ value }}

@@ -11,21 +11,28 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-rokkerd_repo: https://git.interactions-team.fr/Koromix/rygel.git
-rokkerd_commit: master
+rekkorddrop_repo: https://git.interactions-team.fr/Koromix/rygel.git
+rekkorddrop_commit: master
 
-rokkerd_root_path: /opt/rokkerd # Installation directory
-rokkerd_run_user: rokkerd # POSIX user that will run THOP services
-rokkerd_run_group: rokkerd # POSIX group that will run THOP services
+rekkorddrop_root_path: /opt/rekkorddrop # Installation directory
+rekkorddrop_run_user: rekkorddrop # POSIX user that will run THOP services
+rekkorddrop_run_group: rekkorddrop # POSIX group that will run THOP services
 
-rokkerd_sandbox: yes
+rekkorddrop_sandbox: yes
 
-# rokkerd_name:
-# rokkerd_title:
-# rokkerd_url:
+# rekkorddrop_name:
+# rekkorddrop_title:
+# rekkorddrop_url:
 
-# rokkerd_smtp:
+rekkorddrop_quota: 10G
+
+# rekkorddrop_smtp:
 #   url:
 #   username:
 #   password:
 #   from:
+
+# rekkorddrop_s3:
+#   location:
+#   access_key_id:
+#   secret_access_key:

@@ -12,24 +12,24 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description=Rekkow %i
-Documentation=https://koromix.dev/misc
+Description=Rekkord Drop %i
+Documentation=https://rekkord.org/drop
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 Type=notify
-User={{ rokkerd_run_user }}
-Group={{ rokkerd_run_group }}
-RuntimeDirectory=rokkerd
+User={{ rekkorddrop_run_user }}
+Group={{ rekkorddrop_run_group }}
+RuntimeDirectory=rekkorddrop
 RuntimeDirectoryPreserve=yes
-WorkingDirectory={{ rokkerd_root_path }}/%i
-ExecStart={{ rokkerd_root_path }}/rokkerd {{ '--sandbox' if rokkerd_sandbox else '' }}
+WorkingDirectory={{ rekkorddrop_root_path }}/%i
+ExecStart={{ rekkorddrop_root_path }}/RekkordDrop {{ '--sandbox' if rekkorddrop_sandbox else '' }}
 Restart=on-failure
 RestartSec=20
 TimeoutStopSec=30
 
-{% if rokkerd_sandbox %}
+{% if rekkorddrop_sandbox %}
 # Allow Rekkow to manipulate namespaces despite
 # kernel.unprivileged_userns_clone=0.
 SecureBits=keep-caps

@@ -30,7 +30,6 @@
 
 - import_playbook: 'config/services/lufi.yml'
 - import_playbook: 'config/services/napka.yml'
-- import_playbook: 'config/services/rokkerd.yml'
 - import_playbook: 'config/services/forgejo.yml'
 - import_playbook: 'config/services/wordpress.yml'
 - import_playbook: 'config/services/discourse.yml'
@@ -39,4 +38,5 @@
 - import_playbook: 'config/services/cryptpad.yml'
 - import_playbook: 'config/services/vaultwarden.yml'
 - import_playbook: 'config/services/tolgee.yml'
+- import_playbook: 'config/services/rekkorddrop.yml'
 - import_playbook: 'config/services/limesurvey.yml'

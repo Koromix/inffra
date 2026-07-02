@@ -24,17 +24,17 @@
     state: latest
   become: yes
 
-- name: Create rokkerd user
+- name: Create rekkorddrop user
   user:
-    name: rokkerd
+    name: rekkorddrop
     create_home: no
     home: /nonexistent
     shell: /usr/sbin/nologin
     system: yes
-  register: rokkerd_user
+  register: rekkorddrop_user
   become: yes
 
-- name: Prepare rokkerd installation directories
+- name: Prepare Rekkord Drop installation directories
   file:
     path: '{{ item }}'
     state: directory
@@ -42,34 +42,34 @@
     group: root
     mode: '0755'
   loop:
-    - '{{ rokkerd_root_path }}'
-    - '{{ rokkerd_root_path }}/{{ rokkerd_name }}'
+    - '{{ rekkorddrop_root_path }}'
+    - '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}'
   become: yes
 
-- name: Prepare rokkerd data directories
+- name: Prepare Rekkord Drop data directories
   file:
     path: '{{ item }}'
     state: directory
-    owner: rokkerd
-    group: rokkerd
+    owner: rekkorddrop
+    group: rekkorddrop
     mode: '0755'
   loop:
-    - '{{ rokkerd_root_path }}/{{ rokkerd_name }}/data'
-    - '{{ rokkerd_root_path }}/{{ rokkerd_name }}/tmp'
+    - '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}/data'
+    - '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}/tmp'
   become: yes
 
-- name: Prepare rokkerd repository directory
+- name: Prepare Rekkord Drop repository directory
   file:
-    path: '{{ rokkerd_root_path }}/repo'
+    path: '{{ rekkorddrop_root_path }}/repo'
     state: directory
     owner: '{{ ansible_user | default(lookup("env", "USER"), True) }}'
   become: yes
 
-- name: Fetch rokkerd repository
+- name: Fetch Rekkord Drop repository
   git:
-    repo: '{{ rokkerd_repo }}'
-    version: '{{ rokkerd_commit }}'
-    dest: '{{ rokkerd_root_path }}/repo'
+    repo: '{{ rekkorddrop_repo }}'
+    version: '{{ rekkorddrop_commit }}'
+    dest: '{{ rekkorddrop_root_path }}/repo'
     force: yes
   become: no
 
@@ -81,11 +81,11 @@
     group: root
     mode: '{{ item.mode }}'
   loop:
-    - src: rokkerd.ini.j2
-      dest: '{{ rokkerd_root_path }}/{{ rokkerd_name }}/rokkerd.ini'
+    - src: RekkordDrop.ini.j2
+      dest: '{{ rekkorddrop_root_path }}/{{ rekkorddrop_name }}/RekkordDrop.ini'
       mode: '0644'
-    - src: rokkerd@.service.j2
-      dest: /etc/systemd/system/rokkerd@.service
+    - src: rekkorddrop@.service.j2
+      dest: /etc/systemd/system/rekkorddrop@.service
       mode: '0644'
   register: upload_config
   become: yes
@@ -98,38 +98,38 @@
 
 - name: Bootstrap Felix
   shell:
-    cmd: '{{ rokkerd_root_path }}/repo/bootstrap.sh'
-    chdir: '{{ rokkerd_root_path }}/repo'
+    cmd: '{{ rekkorddrop_root_path }}/repo/bootstrap.sh'
+    chdir: '{{ rekkorddrop_root_path }}/repo'
   when: 'not ansible_check_mode'
   become: no
 
-- name: Build rokkerd
+- name: Build Rekkord Drop
   command:
-    cmd: '{{ rokkerd_root_path }}/repo/felix -pParanoid --host=:clang:lld rokkerd'
-    chdir: '{{ rokkerd_root_path }}/repo'
-  register: build_rokkerd
-  changed_when: 'build_rokkerd.stderr_lines[-1] != "Nothing to do!" and build_rokkerd.stderr_lines[-2] != "Nothing to do!"'
+    cmd: '{{ rekkorddrop_root_path }}/repo/felix -pParanoid --host=:clang:lld RekkordDrop'
+    chdir: '{{ rekkorddrop_root_path }}/repo'
+  register: build_rekkorddrop
+  changed_when: 'build_rekkorddrop.stderr_lines[-1] != "Nothing to do!" and build_rekkorddrop.stderr_lines[-2] != "Nothing to do!"'
   become: no
 
-- name: Install rokkerd
+- name: Install Rekkord Drop
   copy:
-    src: '{{ rokkerd_root_path }}/repo/bin/Paranoid/rokkerd'
+    src: '{{ rekkorddrop_root_path }}/repo/bin/Paranoid/RekkordDrop'
     remote_src: yes
-    dest: '{{ rokkerd_root_path }}/rokkerd'
+    dest: '{{ rekkorddrop_root_path }}/RekkordDrop'
     owner: root
     group: root
     mode: '0755'
   become: yes
 
-- name: Enable rokkerd service
+- name: Enable Rekkord Drop service
   service:
-    name: 'rokkerd@{{ rokkerd_name }}'
+    name: 'rekkorddrop@{{ rekkorddrop_name }}'
     enabled: yes
   become: yes
 
-- name: Restart rokkerd
+- name: Restart Rekkord Drop
   service:
-    name: 'rokkerd@{{ rokkerd_name }}'
+    name: 'rekkorddrop@{{ rekkorddrop_name }}'
     state: restarted
-  when: build_rokkerd.changed
+  when: 'not ansible_check_mode'
   become: yes

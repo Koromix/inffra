@@ -49,20 +49,6 @@ nginx_domains:
           proxy_pass http://127.0.0.1:9200;
       }
 
-  - name: web.rekkord.org
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location / {
-          proxy_http_version 1.1;
-          proxy_buffering on;
-          proxy_read_timeout 180;
-          send_timeout 180;
-
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://unix:/run/rokkerd/web.sock:;
-      }
   - name: drop.rekkord.org
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
@@ -75,7 +61,7 @@ nginx_domains:
           proxy_set_header Host $host;
           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
-          proxy_pass http://unix:/run/rokkerd/drop.sock:;
+          proxy_pass http://unix:/run/rekkorddrop/drop.sock:;
       }
 
 prometheus_exporters:
