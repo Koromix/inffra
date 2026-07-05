@@ -582,7 +582,7 @@
         "Enable": false
       },
       "mattermost-ai": {
-          "Enable": false
+        "Enable": false
       }
     },
     "EnableMarketplace": true,
@@ -590,7 +590,9 @@
     "AutomaticPrepackagedPlugins": true,
     "RequirePluginSignature": false,
     "MarketplaceURL": "https://api.integrations.mattermost.com",
-    "SignaturePublicKeyFiles": [],
+    "SignaturePublicKeyFiles": [
+      "{{ mattermost_root_path }}/plugin.key"
+    ],
     "ChimeraOAuthProxyURL": ""
   },
   "DisplaySettings": {

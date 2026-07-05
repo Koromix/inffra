@@ -24,3 +24,6 @@ mattermost_locale: en
 # mattermost_database:
 # mattermost_smtp:
 # mattermost_support:
+
+# mattermost_plugins:
+# mattermost_config:

@@ -68,9 +68,37 @@
     mode: '0644'
   become: yes
 
+- name: Download prepackaged plugins
+  get_url:
+    url: '{{ item.url }}'
+    dest: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | basename }}'
+    checksum: '{{ item.checksum }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop: '{{ mattermost_plugins }}'
+  become: yes
+
+- name: Create Mattermost signing key
+  shell:
+    cmd: |
+      gpg --quick-generate-key --batch --passphrase "" mattermost-plugins | true
+      gpg --batch --export mattermost-plugins > '{{ mattermost_root_path }}/plugin.key'
+    creates: '{{ mattermost_root_path }}/plugin.key'
+  when: 'not ansible_check_mode'
+  become: yes
+
+- name: Sign prepackaged plugins
+  shell:
+    cmd: |
+      gpg --yes -u mattermost-plugins --verbose --personal-digest-preferences SHA256 --detach-sign '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | basename }}'
+    creates: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | basename }}.sig'
+  loop: '{{ mattermost_plugins }}'
+  become: yes
+
 - name: Configure Mattermost
-  template:
-    src: config.json.j2
+  copy:
+    content: '{{ lookup("ansible.builtin.template", "templates/config.json.j2") | combine(mattermost_config, recursive=True) | to_nice_json }}'
     dest: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/config/config.json'
     owner: mattermost
     group: mattermost
