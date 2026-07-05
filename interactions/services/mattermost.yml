@@ -64,6 +64,10 @@
           from: nepasrepondre@interactions-team.fr
           mode: starttls
         mattermost_support: niels.martignene@protonmail.com
+        mattermost_plugins:
+          - name: com.mattermost.welcomebot
+            url: https://github.com/mattermost-community/mattermost-plugin-welcomebot/releases/download/v1.4.1/com.mattermost.welcomebot-1.4.1.tar.gz
+            checksum: 'sha256:3ed69452d7f9dbb3c3031f44d18a6edb0b121e8e2f70ad7c6c7ae15bf4177a3e'
         mattermost_config:
           OpenIdSettings:
               Enable: true
@@ -95,4 +99,28 @@
               ButtonText: NextCloud
               ButtonColor: '#145DBF'
               UsePreferredUsername: true
+          PluginSettings:
+            PluginStates:
+              com.mattermost.calls:
+                Enable: true
+              com.mattermost.nps:
+                Enable: false
+              playbooks:
+                Enable: false
+              mattermost-ai:
+                Enable: false
+              com.mattermost.welcomebot:
+                Enable: true
+            Plugins:
+              com.mattermost.welcomebot:
+                WelcomeMessages:
+                  TeamName: interactions
+                  DelayInSeconds: 5
+                  Actions:
+                    - ActionType: automatic
+                      ChannelsAddedTo:
+                        - annonces
+                        - town-square
+                        - support-administratif
+                        - support-technique
   tags: [mattermost]
