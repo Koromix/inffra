@@ -7,6 +7,7 @@ Type=notify
 User=mattermost
 Group=mattermost
 WorkingDirectory={{ mattermost_root_path }}/%i/app
+RuntimeDirectory=mattermost
 ExecStart={{ mattermost_root_path }}/%i/app/bin/mattermost
 TimeoutStartSec=3600
 KillMode=mixed
