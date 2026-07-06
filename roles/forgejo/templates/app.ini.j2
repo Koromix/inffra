@@ -6,7 +6,11 @@ HTTP_ADDR = 127.0.0.1
 HTTP_PORT = {{ forgejo_port }}
 ROOT_URL = https://{{ forgejo_domain }}
 
-{{ forgejo_config.server | default('') }}
+{% if forgejo_config.server is defined %}
+{% for key, value in forgejo_config.server.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+{% endif %}
 
 [database]
 DB_TYPE = sqlite3
@@ -17,7 +21,11 @@ INSTALL_LOCK = true
 SECRET_KEY_URI = file:{{ forgejo_root_path }}/etc/secret_key
 INTERNAL_TOKEN_URI = file:{{ forgejo_root_path }}/etc/internal_token
 
-{{ forgejo_config.security | default('') }}
+{% if forgejo_config.security is defined %}
+{% for key, value in forgejo_config.security.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+{% endif %}
 
 {% if forgejo_smtp is defined -%}
 
@@ -37,13 +45,19 @@ FROM = {{ forgejo_smtp.from }}
 [session]
 COOKIE_SECURE = true
 
-{{ forgejo_config.session | default('') }}
+{% if forgejo_config.session is defined %}
+{% for key, value in forgejo_config.session.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+{% endif %}
 
 {% for section, config in forgejo_config.items() %}
 {% if section != 'server' and section != 'security' and section != 'session' -%}
 
 [{{ section }}]
-{{ config }}
+{% for key, value in config.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
 
 {%- endif %}
 {% endfor %}
