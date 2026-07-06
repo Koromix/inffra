@@ -45,10 +45,15 @@
             LANGS = fr-FR,en-US
             NAMES = Français,English
           service: |
+            ENABLE_INTERNAL_SIGNIN = false
+            DISABLE_REGISTRATION = true
             SEND_NOTIFICATION_EMAIL_ON_NEW_USER = true
             REGISTER_EMAIL_CONFIRM = false
-            REGISTER_MANUAL_CONFIRM = true
+            REGISTER_MANUAL_CONFIRM = false
             REQUIRE_SIGNIN_VIEW = false
           repository: |
             DISABLE_DOWNLOAD_SOURCE_ARCHIVES = true
+          oauth2_client: |
+            ENABLE_AUTO_REGISTRATION = true
+            ACCOUNT_LINKING = auto
   tags: [forgejo]
