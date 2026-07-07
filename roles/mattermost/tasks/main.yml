@@ -77,6 +77,18 @@
     group: root
     mode: '0644'
   loop: '{{ mattermost_plugins }}'
+  when: 'item.url is defined'
+  become: yes
+
+- name: Copy local plugins
+  copy:
+    src: '{{ item.file }}'
+    dest: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.file }}'
+    owner: root
+    group: root
+    mode: '0644'
+  loop: '{{ mattermost_plugins }}'
+  when: 'item.file is defined'
   become: yes
 
 - name: Create Mattermost signing key
@@ -91,8 +103,8 @@
 - name: Sign prepackaged plugins
   shell:
     cmd: |
-      gpg --yes -u mattermost-plugins --verbose --personal-digest-preferences SHA256 --detach-sign '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | basename }}'
-    creates: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | basename }}.sig'
+      gpg --yes -u mattermost-plugins --verbose --personal-digest-preferences SHA256 --detach-sign '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | default(item.file) | basename }}'
+    creates: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/prepackaged_plugins/{{ item.url | default(item.file) | basename }}.sig'
   loop: '{{ mattermost_plugins }}'
   become: yes
 

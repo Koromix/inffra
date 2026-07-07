@@ -65,9 +65,10 @@
           mode: starttls
         mattermost_support: niels.martignene@protonmail.com
         mattermost_plugins:
-          - name: com.mattermost.welcomebot
-            url: https://github.com/mattermost-community/mattermost-plugin-welcomebot/releases/download/v1.4.1/com.mattermost.welcomebot-1.4.1.tar.gz
-            checksum: 'sha256:3ed69452d7f9dbb3c3031f44d18a6edb0b121e8e2f70ad7c6c7ae15bf4177a3e'
+          - name: dgigel.auto-join-channels-1.0.0
+            file: dgigel.auto-join-channels-1.0.0.tar.gz
+            # Found here: https://github.com/dgigel/mattermost-auto-join-channels/
+            # Thank you man!
         mattermost_config:
           EmailSettings:
             EnableSignUpWithEmail: false
@@ -113,18 +114,6 @@
                 Enable: false
               mattermost-ai:
                 Enable: false
-              com.mattermost.welcomebot:
+              dgigel.auto-join-channels:
                 Enable: true
-            Plugins:
-              com.mattermost.welcomebot:
-                WelcomeMessages:
-                  TeamName: interactions
-                  DelayInSeconds: 5
-                  Actions:
-                    - ActionType: automatic
-                      ChannelsAddedTo:
-                        - annonces
-                        - town-square
-                        - support-administratif
-                        - support-technique
   tags: [mattermost]
