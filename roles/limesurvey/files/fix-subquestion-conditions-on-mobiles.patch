@@ -1,0 +1,104 @@
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_apple-rtl.css b/themes/survey/fruity_twentythree/css/variations/theme_apple-rtl.css
+index 3bd2d5a33a..4b18e3d8a5 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_apple-rtl.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_apple-rtl.css
+@@ -11691,7 +11691,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_apple.css b/themes/survey/fruity_twentythree/css/variations/theme_apple.css
+index 4ef518a0a6..fb4c0c0ab9 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_apple.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_apple.css
+@@ -11714,7 +11714,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_blueberry-rtl.css b/themes/survey/fruity_twentythree/css/variations/theme_blueberry-rtl.css
+index ac65928cfd..dde463cc0e 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_blueberry-rtl.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_blueberry-rtl.css
+@@ -11691,7 +11691,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_blueberry.css b/themes/survey/fruity_twentythree/css/variations/theme_blueberry.css
+index 5fd3f105a8..b8bddfbd4d 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_blueberry.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_blueberry.css
+@@ -11714,7 +11714,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_grape-rtl.css b/themes/survey/fruity_twentythree/css/variations/theme_grape-rtl.css
+index 1b811ccf3e..51cfe1bcd6 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_grape-rtl.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_grape-rtl.css
+@@ -11691,7 +11691,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_grape.css b/themes/survey/fruity_twentythree/css/variations/theme_grape.css
+index 4c1211f2da..b4fe2f883d 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_grape.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_grape.css
+@@ -11714,7 +11714,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_mango-rtl.css b/themes/survey/fruity_twentythree/css/variations/theme_mango-rtl.css
+index 6231564dd0..8bc1b548fb 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_mango-rtl.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_mango-rtl.css
+@@ -11691,7 +11691,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
+diff --git a/themes/survey/fruity_twentythree/css/variations/theme_mango.css b/themes/survey/fruity_twentythree/css/variations/theme_mango.css
+index baa115bca9..8735ac6c47 100644
+--- a/themes/survey/fruity_twentythree/css/variations/theme_mango.css
++++ b/themes/survey/fruity_twentythree/css/variations/theme_mango.css
+@@ -11714,7 +11714,7 @@ body .answer-item label::after {
+  * Expression manager relevance system
+  */
+ .js .ls-hidden {
+-  display: none;
++  display: none !important;
+ }
+ 
+ /* 3 class , and don't hide without javascript*/
