@@ -88,5 +88,4 @@
               39636661396165353839303937303933366635646633323430393265663161633230333565373532
               64663637343962653733
             JwtAlgorithm: RS256
-            AuthorizationClaims: '{ "id_token": { "preferred_username": null, "email": { "essential": true }, "email_verified": null } }'
   tags: [redropp]
