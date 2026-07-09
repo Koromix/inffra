@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 redropp_repo: https://git.interactions-team.fr/Koromix/rygel.git
-redropp_commit: master
+redropp_commit: redropp/0.6
 
 redropp_root_path: /opt/redropp # Installation directory
 redropp_run_user: redropp # POSIX user that will run services
