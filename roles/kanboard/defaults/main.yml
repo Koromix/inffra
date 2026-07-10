@@ -1,0 +1,21 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+kanboard_url: https://github.com/kanboard/kanboard/archive/refs/tags/v1.2.52.tar.gz
+kanboard_checksum: 'sha256:f5bc4d00489ae9b6e98609251a243b9b32ca9bdf29340bde1014ec26ad575660'
+
+kanboard_root_path: /opt/kanboard
+
+# kanboard_name:
+# kanboard_database:
+# kanboard_smtp:
