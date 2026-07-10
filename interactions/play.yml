@@ -35,5 +35,6 @@
 - import_playbook: 'services/mattermost.yml'
 - import_playbook: 'services/medita.yml'
 - import_playbook: 'services/nextcloud.yml'
+- import_playbook: 'services/kanboard.yml'
 - import_playbook: 'services/static.yml'
 - import_playbook: 'services/vaultwarden.yml'

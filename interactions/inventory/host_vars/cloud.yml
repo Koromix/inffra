@@ -225,6 +225,23 @@ nginx_domains:
           proxy_http_version 1.1;
       }
 
+  - name: projet.interactions-team.fr
+    ssl_certbot_email: niels.martignene@protonmail.com
+    config: |
+      root /opt/kanboard/interactions/kanboard;
+
+      location / {
+          client_max_body_size 128M;
+          index index.php index.html index.htm;
+          try_files $uri $uri/ /index.php?$args;
+      }
+
+      location ~ \.php$ {
+          include fastcgi_params;
+          fastcgi_param SCRIPT_FILENAME $request_filename;
+          fastcgi_pass unix:/run/php/kanboard-fpm.sock;
+      }
+
 prometheus_exporters:
   - node_exporter
   - nginx_exporter
