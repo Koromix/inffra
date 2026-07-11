@@ -19,7 +19,7 @@
         redropp_name: interactions
         redropp_title: Drop INTERACTIONS
         redropp_url: https://drop.interactions-team.fr
-        redropp_quota: 10G
+        redropp_quota: 50G
         redropp_s3:
           location: !vault |
             $ANSIBLE_VAULT;1.1;AES256
