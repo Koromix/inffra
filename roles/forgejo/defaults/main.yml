@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-forgejo_url: https://codeberg.org/forgejo/forgejo/releases/download/v15.0.4/forgejo-15.0.4-linux-amd64
-forgejo_checksum: 'sha256:89f8d91f18367e50dca32ec896911e7b9d5573adb9161f9d4e00209f9653fa02'
+forgejo_url: https://codeberg.org/forgejo/forgejo/releases/download/v16.0.1/forgejo-16.0.1-linux-amd64
+forgejo_checksum: 'sha256:7a4c568136650c10498a9d3d62c7fd630a0cf09c166293ebd78708248f6398fc'
 
 forgejo_root_path: /opt/forgejo
 
