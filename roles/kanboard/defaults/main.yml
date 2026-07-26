@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-kanboard_url: https://github.com/kanboard/kanboard/archive/refs/tags/v1.2.52.tar.gz
-kanboard_checksum: 'sha256:f5bc4d00489ae9b6e98609251a243b9b32ca9bdf29340bde1014ec26ad575660'
+kanboard_url: https://github.com/kanboard/kanboard/archive/refs/tags/v1.2.53.tar.gz
+kanboard_checksum: 'sha256:f98a1a6df9c3980d51d57bdabee8009a1de5d6c45344f60dbbc868d2f09dedeb'
 
 kanboard_root_path: /opt/kanboard
 
