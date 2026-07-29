@@ -26,4 +26,3 @@ limesurvey_root_path: /opt/limesurvey
 
 limesurvey_patches:
   - fix-classic-subquestion-removal.patch
-  - fix-subquestion-conditions-on-mobiles.patch
