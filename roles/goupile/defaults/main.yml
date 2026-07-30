@@ -12,7 +12,7 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 goupile_repo: https://git.interactions-team.fr/Koromix/rygel.git
-goupile_commit: goupile/3.12.5
+goupile_commit: goupile/3.12.6
 
 goupile_update_auto: yes
 goupile_update_hour: 3 # UTC
