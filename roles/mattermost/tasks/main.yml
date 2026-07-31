@@ -110,7 +110,7 @@
 
 - name: Configure Mattermost
   copy:
-    content: '{{ lookup("ansible.builtin.template", "templates/config.json.j2") | combine(mattermost_config, recursive=True) | to_nice_json }}'
+    content: '{{ lookup("ansible.builtin.template", "templates/config.json.j2") | from_json | combine(mattermost_config, recursive=True) | to_nice_json }}'
     dest: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/config/config.json'
     owner: mattermost
     group: mattermost
