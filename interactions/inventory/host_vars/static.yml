@@ -115,18 +115,18 @@ nginx_domains:
       }
       {% endfor %}
 
-  - name: goupile.fr
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location / {
-          return 301 https://goupile.org$request_uri;
-      }
-  - name: www.goupile.fr
-    ssl_certbot_email: niels.martignene@protonmail.com
-    config: |
-      location / {
-          return 301 https://goupile.org$request_uri;
-      }
+  # - name: goupile.fr
+  #   ssl_certbot_email: niels.martignene@protonmail.com
+  #   config: |
+  #     location / {
+  #         return 301 https://goupile.org$request_uri;
+  #     }
+  # - name: www.goupile.fr
+  #   ssl_certbot_email: niels.martignene@protonmail.com
+  #   config: |
+  #     location / {
+  #         return 301 https://goupile.org$request_uri;
+  #     }
 
   - name: goupile.org
     ssl_certbot_email: niels.martignene@protonmail.com

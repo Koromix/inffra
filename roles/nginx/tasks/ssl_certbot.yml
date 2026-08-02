@@ -23,7 +23,7 @@
   when: 'nginx_mode == "front"'
   become: no
 
-- name: Bootstrap missing Let's Encrypt certificates
+- name: Bootstrap missing Certbot certificates
   shell:
     cmd: |
       ln -sf "/opt/nginx/ssl/internal/{{ inventory_hostname }}.key" "/opt/nginx/ssl/letsencrypt/{{ item.name }}.key"
@@ -50,17 +50,21 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
-- name: Generate Let's Encrypt certificates
+- name: Generate Certbot certificates
   shell:
     cmd: |
       rm -rf /etc/letsencrypt/live/{{ item.name }} /etc/letsencrypt/renewal/{{ item.name }}.conf /etc/letsencrypt/archive/{{ item.name }}
-      certbot certonly --cert-name {{ item.name }} --webroot --preferred-challenges http -w /opt/nginx/ssl/webroot/{{ item.name }} -d {{ item.name }} -m {{ item.ssl_certbot_email }} --agree-tos --noninteractive
+      certbot certonly --cert-name {{ item.name }} --webroot --preferred-challenges http -w /opt/nginx/ssl/webroot/{{ item.name }} -d {{ item.name }} -m {{ item.ssl_certbot_email }} --agree-tos --noninteractive {{ item.ssl_certbot_options | default(ssl_certbot_options) }}
     creates: '/etc/letsencrypt/live/{{ item.name }}/chain.pem'
+  register: certbot_gen
+  retries: 3
+  delay: 6
+  until: 'certbot_gen is not failed'
   loop: '{{ nginx_certificates }}'
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
-- name: Create Let's Encrypt key symbolic links
+- name: Create Certbot key symbolic links
   file:
     state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
@@ -69,7 +73,7 @@
   when: 'not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
-- name: Create Let's Encrypt certificate symbolic links
+- name: Create Certbot certificate symbolic links
   file:
     state: link
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt'
