@@ -120,10 +120,7 @@ nginx_domains:
           send_timeout 180;
 
           # Protect from basic scrappers, but allow blackbox and git clone!
-          if ($http_user_agent ~* "blackbox|git/|git-lfs/") {
-              set $bypass_cookie 1;
-          }
-          if ($http_user_agent ~* "blackbox/|git-lfs/") {
+          if ($http_user_agent ~* "|blackbox|git/|git-lfs/") {
               set $bypass_cookie 1;
           }
           if ($cookie_open_the_door = "1") {
