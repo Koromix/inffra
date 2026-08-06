@@ -5,6 +5,11 @@ default_md = sha256
 encrypt_key = no
 distinguished_name = dn
 
+[v3_ca]
+basicConstraints = critical,CA:TRUE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer:always
+
 [dn]
 C = FR
 L = Paris

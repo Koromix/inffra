@@ -37,7 +37,7 @@
 - name: Generate root CA certificate
   shell: |
     openssl genrsa -out tmp/ssl/ca.key 4096
-    openssl req -x509 -new -key tmp/ssl/ca.key -config tmp/ssl/ca.conf -days 372 -out tmp/ssl/ca.crt
+    openssl req -x509 -new -extensions v3_ca -key tmp/ssl/ca.key -config tmp/ssl/ca.conf -days 372 -out tmp/ssl/ca.crt
   delegate_to: localhost
   run_once: yes
   become: no
