@@ -139,7 +139,7 @@
           Authentication:
             AllowInternal: No
           SSO:
-            Title: Git F2RSMpsy
+            Title: Git
             URL: https://git.f2rsmpsy.org
             ClientID: !vault |
               $ANSIBLE_VAULT;1.1;AES256
