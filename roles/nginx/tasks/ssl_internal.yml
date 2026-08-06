@@ -57,7 +57,6 @@
     owner: root
     group: root
     mode: '0644'
-  when: ''
   become: yes
 
 - name: Push internal host keys and certificates
