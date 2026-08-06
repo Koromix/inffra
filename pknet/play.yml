@@ -28,7 +28,6 @@
       when: 'rekkord_paths is defined'
   tags: [system, rekkord]
 
-- import_playbook: 'config/services/lufi.yml'
 - import_playbook: 'config/services/napka.yml'
 - import_playbook: 'config/services/forgejo.yml'
 - import_playbook: 'config/services/wordpress.yml'
