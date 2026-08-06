@@ -19,7 +19,7 @@
         redropp_name: drop
         redropp_title: Rekkord Drop
         redropp_url: https://drop.rekkord.org
-        redropp_quota: 10G
+        redropp_quota: 1G
         redropp_s3:
           location: !vault |
             $ANSIBLE_VAULT;1.1;AES256
