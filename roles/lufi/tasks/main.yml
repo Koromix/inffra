@@ -101,7 +101,7 @@
     set_fact:
       lufi_salt: '{{ salt2.content | b64decode }}'
 
-- name: Update configuration files
+- name: Update unit and configuration files
   template:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
@@ -113,6 +113,17 @@
       dest: '{{ lufi_root_path }}/{{ lufi_name }}/app/lufi.conf'
     - src: lufi@.service.j2
       dest: /etc/systemd/system/lufi@.service
+    - src: lufi_cron@.service.j2
+      dest: /etc/systemd/system/lufi_cron@.service
+    - src: lufi_cron@.timer.j2
+      dest: /etc/systemd/system/lufi_cron@.timer
+  become: yes
+
+- name: Enabled periodic task units
+  service:
+    name: 'lufi_cron@{{ lufi_name }}.timer'
+    state: started
+    enabled: yes
   become: yes
 
 - name: Restart Lufi service
