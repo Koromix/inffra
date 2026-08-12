@@ -52,7 +52,7 @@
     state: directory
     owner: ludivine
     group: ludivine
-    mode: '0755'
+    mode: '0700'
   loop:
     - '{{ ludivine_root_path }}/{{ ludivine_name }}/data'
     - '{{ ludivine_root_path }}/{{ ludivine_name }}/tmp'
