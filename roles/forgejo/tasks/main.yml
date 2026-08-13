@@ -64,7 +64,7 @@
     dest: '{{ forgejo_root_path }}/etc/app.ini'
     owner: forgejo
     group: forgejo
-    mode: '0644'
+    mode: '0600'
   become: yes
 
 - name: Create Forgejo keys

@@ -77,16 +77,16 @@
   template:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
-    owner: root
-    group: redropp
-    mode: '{{ item.mode }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+    mode: '{{ item.mode | default("0644") }}'
   loop:
     - src: redropp.ini.j2
       dest: '{{ redropp_root_path }}/{{ redropp_name }}/redropp.ini'
+      group: redropp
       mode: '0640'
     - src: redropp@.service.j2
       dest: /etc/systemd/system/redropp@.service
-      mode: '0644'
   register: upload_config
   become: yes
 

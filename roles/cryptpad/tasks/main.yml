@@ -107,16 +107,16 @@
   template:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
-    owner: cpad
-    group: cpad
-    mode: '{{ item.mode }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+    mode: '{{ item.mode | default("0644") }}'
   loop:
     - src: config.js.j2
       dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/config/config.js'
-      mode: '0600'
+      group: cpad
+      mode: '0640'
     - src: application_config.js.j2
       dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/customize/application_config.js'
-      mode: '0644'
   become: yes
 
 - name: Install components

@@ -114,7 +114,7 @@
     dest: '{{ mattermost_root_path }}/{{ mattermost_name }}/app/config/config.json'
     owner: mattermost
     group: mattermost
-    mode: '0644'
+    mode: '0600'
   become: yes
 
 - name: Reload systemd units

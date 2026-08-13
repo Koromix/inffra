@@ -141,8 +141,8 @@
     src: config.php.j2
     dest: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/config/config.php'
     owner: root
-    group: root
-    mode: '0644'
+    group: www-data
+    mode: '0640'
   become: yes
 
 - name: Check installation

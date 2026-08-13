@@ -180,9 +180,9 @@
   template:
     src: config.json.j2
     dest: '{{ nextcloud_root_path }}/{{ nextcloud_name }}/live/config/config.json'
-    owner: www-data
+    owner: root
     group: www-data
-    mode: '0755'
+    mode: '0640'
   become: yes
 
 - name: Import JSON settings

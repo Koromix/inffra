@@ -107,8 +107,8 @@
     src: config.php.j2
     dest: '{{ kanboard_root_path }}/{{ kanboard_name }}/kanboard/config.php'
     owner: root
-    group: root
-    mode: '0644'
+    group: www-data
+    mode: '0640'
   become: yes
 
 - name: Configure PHP-FPM pool

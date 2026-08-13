@@ -89,16 +89,16 @@
   template:
     src: '{{ item.src }}'
     dest: '{{ item.dest }}'
-    owner: root
-    group: root
-    mode: '{{ item.mode }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+    mode: '{{ item.mode | default("0644") }}'
   loop:
     - src: medita.ini.j2
       dest: '{{ medita_root_path }}/{{ medita_name }}/medita.ini'
-      mode: '0644'
+      group: medita
+      mode: '0640'
     - src: medita@.service.j2
       dest: /etc/systemd/system/medita@.service
-      mode: '0644'
   register: upload_config
   become: yes
 
