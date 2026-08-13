@@ -25,5 +25,5 @@ mattermost_locale: en
 # mattermost_smtp:
 # mattermost_support:
 
-# mattermost_plugins:
-# mattermost_config:
+mattermost_config: {}
+mattermost_plugins: []
