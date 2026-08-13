@@ -127,7 +127,6 @@
     - role: ../../roles/static
       vars:
         static_name: ldv-recherche.fr/www
-        static_version: pub/ldv
         static_repo: https://git.interactions-team.fr/Koromix/rygel.git
         static_build:
           - '{{ static_root_path }}/repo/ldv-recherche.fr/www/web/ldv-recherche.fr/build.sh'
