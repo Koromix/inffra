@@ -373,6 +373,11 @@ nginx_domains:
           location /static/ {
               expires 28d;
           }
+          location /data/ {
+              location ~ \.(png|webp)$ {
+                  expires 28d;
+              }
+          }
 
           location = /courier {
             return 301 https://$host/courrier;
