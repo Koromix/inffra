@@ -78,7 +78,7 @@ http {
         ''      close;
     }
 
-    {{ nginx_config_misc }}
+    {{ nginx_misc | default('') }}
 
 {% if nginx_default_server %}
 
@@ -115,9 +115,45 @@ http {
 
 {% endif %}
 
+{% if prometheus_exporters is defined %}
+
+    server {
+        {{ configure_https(ansible_host, nginx_https_port) }}
+
+        ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
+        ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
+
+        ssl_client_certificate /opt/nginx/ssl/internal/ca.crt;
+        ssl_verify_client on;
+        ssl_verify_depth 2;
+
+        {% for exporter in prometheus_exporters %}
+
+        location /metrics/{{ exporter }} {
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+            proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
+        }
+        {% endfor %}
+
+        {% if blackbox_sites is defined %}
+
+        location /metrics/probe {
+            proxy_set_header Host $host;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Real-IP $remote_addr;
+
+            proxy_pass http://127.0.0.1:{{ prometheus_packages.blackbox_exporter.port }}/probe$is_args$args;
+        }
+        {% endif %}
+    }
+{% endif %}
+
 {% for domain in nginx_domains %}
 
-{% if nginx_mode != 'back' %}
+{% if nginx_front is not defined %}
     server {
         {{ configure_http(domain.name, domain.http_port if domain.http_port is defined else nginx_http_port) }}
 
@@ -134,7 +170,7 @@ http {
     server {
         {{ configure_https(domain.name, domain.https_port if domain.https_port is defined else nginx_https_port) }}
 
-{% if nginx_mode == 'back' %}
+{% if nginx_front is defined %}
         ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
         ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
 
@@ -161,9 +197,8 @@ http {
 
 {% endfor %}
 
-{% if nginx_mode == 'front' %}
 {% for host, vars in hostvars.items() %}
-{% if vars.nginx_mode == 'back' and vars.nginx_domains is defined %}
+{% if vars.nginx_front is defined and vars.nginx_front == inventory_hostname %}
 {% for domain in vars.nginx_domains %}
 
     server {
@@ -223,5 +258,4 @@ http {
 {% endfor %}
 {% endif %}
 {% endfor %}
-{% endif %}
 }

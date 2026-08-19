@@ -11,16 +11,21 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-- name: Gather domain names (back)
-  set_fact:
-    nginx_certificates: '{{ nginx_domains }}'
-  when: 'nginx_mode != "front"'
-  become: no
+- name: Load Prometheus information
+  include_vars:
+    file: ../prometheus/vars/main.yml
 
-- name: Gather domain names (front)
-  set_fact:
-    nginx_certificates: '{{ hostvars.values() | map(attribute = "nginx_domains", default = []) | list | flatten }}'
-  when: 'nginx_mode == "front"'
+- name: Gather domain names
+  block:
+    - name: Gather domain names 1/3
+      set_fact:
+        nginx_certificates_direct: '{{ nginx_domains | default([]) }}'
+    - name: Gather domain names 2/3
+      set_fact:
+        nginx_certificates_front: '{{ hostvars.values() | selectattr("nginx_front", "defined") | selectattr("nginx_front", "equalto", inventory_hostname) | map(attribute = "nginx_domains", default = []) | list | flatten }}'
+    - name: Gather domain names 3/3
+      set_fact:
+        nginx_certificates: '{{ nginx_certificates_direct | union(nginx_certificates_front) }}'
   become: no
 
 - name: Bootstrap missing Certbot certificates

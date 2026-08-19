@@ -96,20 +96,8 @@ rekkord_key: !vault |
   64653339373936316133346464313931383433363366663437646537333730626563623037613266
   363230363032626435376638633939373062
 
-nginx_mode: back
+nginx_front: front
 nginx_domains:
-  - name: '{{ ansible_host }}'
-    config: |
-      {% for exporter in prometheus_exporters %}
-
-      location /metrics/{{ exporter }} {
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
-      }
-      {% endfor %}
-
   - name: beta.goupile.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |

@@ -96,20 +96,8 @@ rekkord_key: !vault |
   35663565383939666530373664356534313535653562643465623039656134353761313966373533
   323831666465656237393636376231363436
 
-nginx_mode: back
+nginx_front: front
 nginx_domains:
-  - name: '{{ ansible_host }}'
-    config: |
-      {% for exporter in prometheus_exporters %}
-
-      location /metrics/{{ exporter }} {
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
-      }
-      {% endfor %}
-
   - name: online.interactions-team.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |

@@ -86,7 +86,7 @@
 
 - name: Configure certbot
   include_tasks: ssl_certbot.yml
-  when: 'nginx_mode == "single" or nginx_mode == "front"'
+  when: 'nginx_front is not defined'
 
 - name: Reload NGINX
   service:
