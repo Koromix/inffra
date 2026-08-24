@@ -37,5 +37,4 @@
 - import_playbook: 'config/services/cryptpad.yml'
 - import_playbook: 'config/services/vaultwarden.yml'
 - import_playbook: 'config/services/tolgee.yml'
-- import_playbook: 'config/services/redropp.yml'
 - import_playbook: 'config/services/limesurvey.yml'
