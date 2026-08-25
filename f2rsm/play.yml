@@ -29,4 +29,5 @@
   tags: [system, rekkord]
 
 - import_playbook: 'services/forgejo.yml'
+- import_playbook: 'services/limesurvey.yml'
 - import_playbook: 'services/redropp.yml'
