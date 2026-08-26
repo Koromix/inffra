@@ -12,12 +12,11 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 [Unit]
-Description=Update GoAccess
+Description=Update GoAccess stats
 
 [Timer]
-OnCalendar={{ goaccess_schedule }}
+OnCalendar=hourly
 Persistent=true
-RandomizedDelaySec={{ goaccess_randomize }}
 
 [Install]
 WantedBy=timers.target

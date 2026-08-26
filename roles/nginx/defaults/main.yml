@@ -29,8 +29,5 @@ goaccess_checksum: 'sha256:0e9aaba29c021d1c6a187130a91404730183ee8ab81cd31381854
 
 goaccess_root_path: /opt/goaccess
 
-goaccess_schedule: '*-*-* 01:00'
-goaccess_randomize: 20m
-
 # List of domains with stats
 # goaccess_domains:
