@@ -33,7 +33,6 @@ prometheus_exporters:
 blackbox_sites:
   - https://watch.koromix.dev/
   - https://cloud.koromix.dev/
-  - https://i18n.koromix.dev/
 
   - https://cn2r.fr/
   - https://carto.cn2r.fr/

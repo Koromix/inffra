@@ -32,4 +32,3 @@
 - import_playbook: 'config/services/forgejo.yml'
 - import_playbook: 'config/services/wordpress.yml'
 - import_playbook: 'config/services/nextcloud.yml'
-- import_playbook: 'config/services/tolgee.yml'
