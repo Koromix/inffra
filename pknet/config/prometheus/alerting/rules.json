@@ -734,6 +734,77 @@
                     "noDataState": "NoData",
                     "execErrState": "Error",
                     "for": "6m"
+                },
+                {
+                    "uid": "dfxn54q09o3cwd",
+                    "title": "High CPU usage",
+                    "condition": "C",
+                    "data": [
+                        {
+                            "refId": "A",
+                            "relativeTimeRange": {
+                                "from": 600,
+                                "to": 0
+                            },
+                            "datasourceUid": "PBFA97CFB590B2093",
+                            "model": {
+                                "editorMode": "code",
+                                "expr": "1 - avg by(instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m]))",
+                                "instant": true,
+                                "intervalMs": 1000,
+                                "legendFormat": "__auto",
+                                "maxDataPoints": 43200,
+                                "range": false,
+                                "refId": "A"
+                            }
+                        },
+                        {
+                            "refId": "C",
+                            "queryType": "expression",
+                            "relativeTimeRange": {
+                                "from": 0,
+                                "to": 0
+                            },
+                            "datasourceUid": "__expr__",
+                            "model": {
+                                "conditions": [
+                                    {
+                                        "evaluator": {
+                                            "params": [
+                                                0.8
+                                            ],
+                                            "type": "gt"
+                                        },
+                                        "operator": {
+                                            "type": "and"
+                                        },
+                                        "query": {
+                                            "params": [
+                                                "C"
+                                            ]
+                                        },
+                                        "reducer": {
+                                            "params": [],
+                                            "type": "last"
+                                        },
+                                        "type": "query"
+                                    }
+                                ],
+                                "datasource": {
+                                    "type": "__expr__",
+                                    "uid": "__expr__"
+                                },
+                                "expression": "A",
+                                "intervalMs": 1000,
+                                "maxDataPoints": 43200,
+                                "refId": "C",
+                                "type": "threshold"
+                            }
+                        }
+                    ],
+                    "noDataState": "NoData",
+                    "execErrState": "Error",
+                    "for": "2m"
                 }
             ]
         },
