@@ -123,6 +123,7 @@ blackbox_sites:
 
   - https://drop.rekkord.org/
   - https://i18n.koromix.dev/
+  - https://web.rekkord.org/
 
 grafana_url: https://watch.f2rsmpsy.org
 grafana_default_password: !vault |

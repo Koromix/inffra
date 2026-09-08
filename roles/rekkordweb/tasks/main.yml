@@ -1,0 +1,135 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Install packages
+  apt:
+    update_cache: no
+    pkg:
+      - git
+      - clang
+      - lld
+      - gcc
+      - g++
+      - unzip
+    state: latest
+  become: yes
+
+- name: Create rekkordweb user
+  user:
+    name: rekkordweb
+    create_home: no
+    home: /nonexistent
+    shell: /usr/sbin/nologin
+    system: yes
+  register: rekkordweb_user
+  become: yes
+
+- name: Prepare Rekkord Web installation directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  loop:
+    - '{{ rekkordweb_root_path }}'
+    - '{{ rekkordweb_root_path }}/{{ rekkordweb_name }}'
+  become: yes
+
+- name: Prepare Rekkord Web data directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: rekkordweb
+    group: rekkordweb
+    mode: '0700'
+  loop:
+    - '{{ rekkordweb_root_path }}/{{ rekkordweb_name }}/data'
+    - '{{ rekkordweb_root_path }}/{{ rekkordweb_name }}/tmp'
+  become: yes
+
+- name: Prepare Rekkord Web repository directory
+  file:
+    path: '{{ rekkordweb_root_path }}/repo'
+    state: directory
+    owner: '{{ ansible_user | default(lookup("env", "USER"), True) }}'
+  become: yes
+
+- name: Fetch Rekkord Web repository
+  git:
+    repo: '{{ rekkordweb_repo }}'
+    version: '{{ rekkordweb_commit }}'
+    dest: '{{ rekkordweb_root_path }}/repo'
+    force: yes
+  become: no
+
+- name: Update configuration files
+  template:
+    src: '{{ item.src }}'
+    dest: '{{ item.dest }}'
+    owner: '{{ item.owner | default("root") }}'
+    group: '{{ item.group | default("root") }}'
+    mode: '{{ item.mode | default("0644") }}'
+  loop:
+    - src: RekkordWeb.ini.j2
+      dest: '{{ rekkordweb_root_path }}/{{ rekkordweb_name }}/RekkordWeb.ini'
+      group: rekkordweb
+      mode: '0640'
+    - src: rekkordweb@.service.j2
+      dest: /etc/systemd/system/rekkordweb@.service
+  register: upload_config
+  become: yes
+
+- name: Reload systemd units
+  systemd:
+    daemon_reload: yes
+  when: upload_config.changed
+  become: yes
+
+- name: Bootstrap Felix
+  shell:
+    cmd: '{{ rekkordweb_root_path }}/repo/bootstrap.sh'
+    chdir: '{{ rekkordweb_root_path }}/repo'
+  when: 'not ansible_check_mode'
+  become: no
+
+- name: Build Rekkord Web
+  command:
+    cmd: '{{ rekkordweb_root_path }}/repo/felix -pParanoid --host=:clang:lld RekkordWeb'
+    chdir: '{{ rekkordweb_root_path }}/repo'
+  register: build_rekkordweb
+  changed_when: 'build_rekkordweb.stderr_lines[-1] != "Nothing to do!" and build_rekkordweb.stderr_lines[-2] != "Nothing to do!"'
+  become: no
+
+- name: Install Rekkord Web
+  copy:
+    src: '{{ rekkordweb_root_path }}/repo/bin/Paranoid/RekkordWeb'
+    remote_src: yes
+    dest: '{{ rekkordweb_root_path }}/RekkordWeb'
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Enable Rekkord Web service
+  service:
+    name: 'rekkordweb@{{ rekkordweb_name }}'
+    enabled: yes
+  become: yes
+
+- name: Restart Rekkord Web
+  service:
+    name: 'rekkordweb@{{ rekkordweb_name }}'
+    state: restarted
+  when: 'not ansible_check_mode'
+  become: yes

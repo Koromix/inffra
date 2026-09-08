@@ -1,0 +1,39 @@
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program. If not, see https://www.gnu.org/licenses/.
+
+- name: Rekkord Web
+  hosts: moya
+  roles:
+    - role: ../roles/rekkordweb
+      vars:
+        rekkordweb_name: rekkord
+        rekkordweb_title: Rekkord Web
+        rekkordweb_url: https://web.rekkord.org
+        rekkordweb_smtp:
+          url: smtps://mail.smtp2go.com:465
+          username: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            30383035653036313039383165616463626138303164386562373961646235343837303463633039
+            6637613537333566616564363464626465663465323063630a616231386561663765336462333866
+            36303065613238666165336261626334646539323365613030373739356163613932303830666530
+            3533353538613130350a373232366636343834313733666463393538376366656330323263623364
+            3833
+          password: !vault |
+            $ANSIBLE_VAULT;1.1;AES256
+            38353739663935376165623130613838326262643464643464633537303639333338656530616537
+            3539363238336432356662396264383765643033653433340a313961373864376532396533303830
+            34393462643635623965353234386132303763653330356638376161383564343461373835303137
+            3939613438663565630a323233363537313064383339613131326534333437303233343531346337
+            61386432643032626661313933346262313738656662333361656666616637636532
+          from: nepasrepondre@koromix.dev
+  tags: [rekkordweb]
