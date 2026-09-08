@@ -17,7 +17,7 @@
     - role: ../roles/redropp
       vars:
         redropp_name: rekkord
-        redropp_title: Rekkord Drop
+        redropp_title: Redropp Free
         redropp_url: https://drop.rekkord.org
         redropp_quota: 1G
         redropp_s3:
