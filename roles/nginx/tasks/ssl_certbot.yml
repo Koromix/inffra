@@ -14,6 +14,7 @@
 - name: Load Prometheus information
   include_vars:
     file: ../prometheus/vars/main.yml
+  when: 'nginx_front is not defined'
 
 - name: Gather domain names
   block:
@@ -26,6 +27,7 @@
     - name: Gather domain names 3/3
       set_fact:
         nginx_certificates: '{{ nginx_certificates_direct | union(nginx_certificates_front) }}'
+  when: 'nginx_front is not defined'
   become: no
 
 - name: Bootstrap missing Certbot certificates
@@ -35,13 +37,14 @@
       ln -sf "/opt/nginx/ssl/internal/{{ inventory_hostname }}.crt" "/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt"
     creates: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
   loop: '{{ nginx_certificates }}'
+  when: 'nginx_front is not defined'
   become: yes
 
 - name: Reload NGINX (for certbot)
   service:
     name: nginx
     state: reloaded
-  when: 'nginx_config.changed and not ansible_check_mode'
+  when: 'not ansible_check_mode'
   become: yes
 
 - name: Prepare webroot directories for certbot
@@ -52,7 +55,7 @@
     group: root
     mode: '0755'
   loop: '{{ nginx_certificates }}'
-  when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  when: 'nginx_front is not defined and not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
 - name: Generate Certbot certificates
@@ -66,7 +69,7 @@
   delay: 6
   until: 'certbot_gen is not failed'
   loop: '{{ nginx_certificates }}'
-  when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  when: 'nginx_front is not defined and not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
 - name: Create Certbot key symbolic links
@@ -75,7 +78,7 @@
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.key'
     src: '/etc/letsencrypt/live/{{ item.name }}/privkey.pem'
   loop: '{{ nginx_certificates }}'
-  when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  when: 'nginx_front is not defined and not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
 - name: Create Certbot certificate symbolic links
@@ -84,7 +87,7 @@
     path: '/opt/nginx/ssl/letsencrypt/{{ item.name }}.crt'
     src: '/etc/letsencrypt/live/{{ item.name }}/fullchain.pem'
   loop: '{{ nginx_certificates }}'
-  when: 'not force_self_ssl and item.ssl_certbot_email is defined'
+  when: 'nginx_front is not defined and not force_self_ssl and item.ssl_certbot_email is defined'
   become: yes
 
 - name: Make sure Certbot post-renewal directory exists
@@ -94,7 +97,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: 'not force_self_ssl'
+  when: 'nginx_front is not defined and not force_self_ssl'
   become: yes
 
 - name: Install post-renewal script
@@ -104,7 +107,7 @@
     owner: root
     group: root
     mode: '0755'
-  when: 'not force_self_ssl'
+  when: 'nginx_front is not defined and not force_self_ssl'
   become: yes
 
 - name: List old certbot renewals
@@ -123,7 +126,7 @@
          union(nginx_certificates | map(attribute = "name") | map("regex_replace", "^(.*)$", "\1.crt") | list) |
          union(["README"]) }}
   register: certbot_old
-  when: 'not force_self_ssl'
+  when: 'nginx_front is not defined and not force_self_ssl'
   become: yes
 
 - name: Clean up old certbot renewals
@@ -131,7 +134,7 @@
     path: '{{ item.path }}'
     state: absent
   loop: '{{ certbot_old.files }}'
-  when: 'not force_self_ssl'
+  when: 'nginx_front is not defined and not force_self_ssl'
   become: yes
 
 - name: Remove custom certbot systemd units
@@ -141,6 +144,7 @@
   loop:
     - certbot.service
     - certbot.timer
+  when: 'nginx_front is not defined'
   become: yes
 
 - name: Reload systemd units
@@ -154,5 +158,5 @@
     name: certbot.timer
     state: started
     enabled: yes
-  when: 'not force_self_ssl'
+  when: 'nginx_front is not defined and not force_self_ssl'
   become: yes
