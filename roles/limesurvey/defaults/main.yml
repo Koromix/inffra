@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-limesurvey_url: https://download.limesurvey.org/latest-master/limesurvey7.0.13+260903.zip
-limesurvey_checksum: 'sha256:33742375dcb4d8bbd86b9dedf5210f591632e1cd417f2f2e591a26a487362709'
+limesurvey_url: https://download.limesurvey.org/latest-master/limesurvey7.0.14+260904.zip
+limesurvey_checksum: 'sha256:93601117a4bf7f72c38b596fe4618a8e4bf4a31157d06333c8890e60d2fe3293'
 
 limesurvey_root_path: /opt/limesurvey
 
