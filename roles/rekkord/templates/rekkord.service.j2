@@ -19,5 +19,6 @@ After=network-online.target
 [Service]
 Type=oneshot
 TimeoutStartSec={{ rekkord_timeout }}
+TimeoutStartFailureMode=abort
 Environment=HOME=/root
 ExecStart={{ rekkord_root_path }}/backup.sh
