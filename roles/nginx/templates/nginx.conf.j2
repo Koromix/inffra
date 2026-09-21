@@ -12,23 +12,23 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 {% macro configure_http(name, port) -%}
-        server_name {{ name }};
+        server_name "{{ name }}";
 
         listen {{ port | string }};
         listen [::]:{{ port | string }};
 
-        access_log /var/log/nginx/{{ name }}.access.log;
-        error_log /var/log/nginx/{{ name }}.error.log error;
+        access_log /var/log/nginx/{{ name or '_' }}.access.log;
+        error_log /var/log/nginx/{{ name or '_' }}.error.log error;
 {%- endmacro %}
 
 {% macro configure_https(name, port) -%}
-        server_name {{ name }};
+        server_name "{{ name }}";
 
         listen {{ port | string }} ssl;
         listen [::]:{{ port | string }} ssl;
 
-        access_log /var/log/nginx/{{ name }}.access.log;
-        error_log /var/log/nginx/{{ name }}.error.log error;
+        access_log /var/log/nginx/{{ name or '_' }}.access.log;
+        error_log /var/log/nginx/{{ name or '_' }}.error.log error;
 
         client_max_body_size 256M;
 
@@ -83,7 +83,7 @@ http {
 {% if nginx_default_server %}
 
     server {
-        {{ configure_http('_', nginx_http_port) }}
+        {{ configure_http('', nginx_http_port) }}
 
         location / {
             return 404;
@@ -99,7 +99,7 @@ http {
     }
 
     server {
-        {{ configure_https('_', nginx_https_port) }}
+        {{ configure_https('', nginx_https_port) }}
 
         ssl_certificate /opt/nginx/ssl/internal/{{ inventory_hostname }}.crt;
         ssl_certificate_key /opt/nginx/ssl/internal/{{ inventory_hostname }}.key;
