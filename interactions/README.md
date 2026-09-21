@@ -58,8 +58,8 @@ network:
           via: 10.10.10.1
       nameservers:
         addresses:
-          - 8.8.8.8
-          - 8.8.4.4
+          - 86.54.11.100
+          - 86.54.11.200
 ```
 
 ## Configuration Netbird
