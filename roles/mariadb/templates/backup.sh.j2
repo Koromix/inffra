@@ -16,9 +16,24 @@
 cd "{{ mariadb_backup_path }}"
 
 suffix=_$(date +%Y%m%d%H%M%S)
+failures=""
 
 for db in $(mysql -N -e 'show databases'); do
-    mysqldump --complete-insert --routines --triggers --single-transaction --lock-tables=false "$db" > "backups/$db$suffix.sql"
+    echo "Dumping $db..."
+    if ! mysqldump --complete-insert --routines --triggers --single-transaction --lock-tables=false "$db" > "backups/$db$suffix.sql"; then
+        rm -f "backups/$db$suffix.sql"
+        failures="$failures $db"
+    fi
 done
+
+if [ -n "$failures" ]; then
+    echo "Some database dumps failed, retrying in two minutes..."
+    sleep 120
+
+    for db in $failures; do
+        echo "Dumping $db..."
+        mysqldump --complete-insert --routines --triggers --single-transaction --lock-tables=false "$db" > "backups/$db$suffix.sql"
+    done
+fi
 
 find backups/ -name '*.sql' -daystart -mtime +3 -delete
