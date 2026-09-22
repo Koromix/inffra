@@ -50,7 +50,7 @@ iface ens18 inet static
 
 ```plain
 # /etc/resolv.conf
-#
+
 nameserver 86.54.11.100
 nameserver 86.54.11.200
 ```
