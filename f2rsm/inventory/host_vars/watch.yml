@@ -102,12 +102,7 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          # limit_req zone=default burst=100 nodelay;
-
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://127.0.0.1:9200;
+          {{ nginx_proxy('http://127.0.0.1:9200') }}
       }
 
 prometheus_exporters:

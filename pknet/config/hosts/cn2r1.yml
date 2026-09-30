@@ -63,21 +63,21 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_pass http://127.0.0.1:9977/cn2r/;
+          {{ nginx_proxy('http://127.0.0.1:9977/cn2r/') }}
       }
 
   - name: carto.demheter.fr
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_pass http://127.0.0.1:9977/demheter/;
+          {{ nginx_proxy('http://127.0.0.1:9977/demheter/') }}
       }
 
   - name: carto.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_pass http://127.0.0.1:9977/;
+          {{ nginx_proxy('http://127.0.0.1:9977/') }}
       }
 
 prometheus_exporters:

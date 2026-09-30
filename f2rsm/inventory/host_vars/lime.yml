@@ -104,7 +104,6 @@ nginx_domains:
       root /opt/limesurvey/cn2r/limesurvey;
 
       location / {
-          client_max_body_size 128M;
           index index.php index.html index.htm;
           try_files $uri $uri/ /index.php?$args;
       }

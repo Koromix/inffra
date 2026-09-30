@@ -102,11 +102,6 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_http_version 1.1;
-          proxy_buffering on;
-          proxy_read_timeout 180;
-          send_timeout 180;
-
           # Protect from basic scrappers, but allow blackbox and git clone!
           if ($http_user_agent ~* "|blackbox|git/|git-lfs/") {
               set $bypass_cookie 1;
@@ -119,13 +114,12 @@ nginx_domains:
               return 418 '<script>document.cookie = "open_the_door=1; Path=/;"; window.location.reload();</script>';
           }
 
-          proxy_request_buffering off;
+          {{ nginx_proxy('http://127.0.0.1:3000') }}
+
           client_max_body_size 2G;
-
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://127.0.0.1:3000/;
+          proxy_read_timeout 180;
+          send_timeout 180;
+          proxy_request_buffering off;
       }
 
 prometheus_exporters:

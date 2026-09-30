@@ -31,6 +31,7 @@
         error_log /var/log/nginx/{{ name }}.error.log error;
 
         client_max_body_size 256M;
+        send_timeout 180s;
 
         ssl_dhparam /opt/nginx/ssl/dhparam.pem;
         ssl_protocols TLSv1.2 TLSv1.3;
@@ -39,6 +40,22 @@
         ssl_session_timeout 4h;
         ssl_session_cache shared:MozSSL:20m;
         ssl_session_tickets off;
+{%- endmacro %}
+
+{% macro nginx_proxy(url) -%}
+        proxy_http_version 1.1;
+        proxy_read_timeout 180s;
+
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP $remote_addr;
+
+        proxy_pass {{ url }};
 {%- endmacro %}
 
 user www-data www-data;
@@ -130,9 +147,6 @@ http {
         {% for exporter in prometheus_exporters %}
 
         location /metrics/{{ exporter }} {
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
             proxy_pass http://127.0.0.1:{{ prometheus_packages[exporter].port }}/metrics;
         }
         {% endfor %}
@@ -140,11 +154,6 @@ http {
         {% if blackbox_sites is defined %}
 
         location /metrics/probe {
-            proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-Proto https;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Real-IP $remote_addr;
-
             proxy_pass http://127.0.0.1:{{ prometheus_packages.blackbox_exporter.port }}/probe$is_args$args;
         }
         {% endif %}
@@ -245,9 +254,11 @@ http {
             proxy_ssl_verify_depth 2;
             proxy_ssl_name {{ vars.ansible_host }};
 
-            proxy_pass_request_headers on;
             proxy_set_header Host $host;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Proto https;
+            proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+            proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header Upgrade $http_upgrade;
             proxy_set_header Connection $connection_upgrade;
 

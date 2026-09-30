@@ -102,29 +102,19 @@ nginx_domains:
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_http_version 1.1;
-          proxy_buffering on;
+          {{ nginx_proxy('http://unix:/run/redropp/f2rsmpsy.sock:') }}
+
           proxy_read_timeout 180;
           send_timeout 180;
-
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://unix:/run/redropp/f2rsmpsy.sock:;
       }
   - name: drop.rekkord.org
     ssl_certbot_email: niels.martignene@protonmail.com
     config: |
       location / {
-          proxy_http_version 1.1;
-          proxy_buffering on;
+          {{ nginx_proxy('http://unix:/run/redropp/rekkord.sock:') }}
+
           proxy_read_timeout 180;
           send_timeout 180;
-
-          proxy_set_header Host $host;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-          proxy_pass http://unix:/run/redropp/rekkord.sock:;
       }
 
 prometheus_exporters:

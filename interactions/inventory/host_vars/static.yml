@@ -206,8 +206,7 @@ nginx_domains:
       }
 
       location /procemot/ {
-          client_max_body_size 256M;
-          proxy_pass http://127.0.0.1:9999;
+          {{ nginx_proxy('http://127.0.0.1:9999') }}
       }
   - name: www.koromix.dev
     ssl_certbot_email: niels.martignene@protonmail.com
