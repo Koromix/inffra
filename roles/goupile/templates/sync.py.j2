@@ -192,6 +192,7 @@ def update_domain_config(domain, info, smtp, sms):
     ini.set('HTTP', 'SocketType', 'Unix')
     ini.set('HTTP', 'UnixPath', info.socket)
     ini.set('HTTP', 'ClientAddress', 'X-Forwarded-For')
+    ini.set('HTTP', 'SecureCookies', 'Yes')
 
     if smtp is not None:
         ini.add_section('SMTP')
