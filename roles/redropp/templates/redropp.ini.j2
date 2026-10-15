@@ -23,6 +23,7 @@ TempDirectory = tmp
 SocketType = Unix
 UnixPath = /run/redropp/{{ redropp_name }}.sock
 ClientAddress = X-Forwarded-For
+SecureCookies = Yes
 
 [Drop]
 Quota = {{ redropp_quota }}

@@ -23,6 +23,7 @@ TempDirectory = tmp
 SocketType = Unix
 UnixPath = /run/rekkordweb/{{ rekkordweb_name }}.sock
 ClientAddress = X-Forwarded-For
+SecureCookies = Yes
 
 [SMTP]
 URL = {{ rekkordweb_smtp.url }}

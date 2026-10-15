@@ -23,6 +23,7 @@ TempDirectory = tmp
 SocketType = Unix
 UnixPath = /run/medita/{{ medita_name }}.sock
 ClientAddress = X-Forwarded-For
+SecureCookies = Yes
 
 [SMTP]
 URL = {{ medita_smtp.url }}
