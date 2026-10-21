@@ -19,6 +19,12 @@
 
         access_log /var/log/nginx/{{ name or '_' }}.access.log;
         error_log /var/log/nginx/{{ name or '_' }}.error.log error;
+
+        error_page 502 /502.html;
+
+        location /502.html {
+            root /var/www/html;
+        }
 {%- endmacro %}
 
 {% macro configure_https(name, port) -%}
@@ -39,6 +45,12 @@
         ssl_session_timeout 4h;
         ssl_session_cache shared:MozSSL:20m;
         ssl_session_tickets off;
+
+        error_page 502 /502.html;
+
+        location /502.html {
+            root /var/www/html;
+        }
 {%- endmacro %}
 
 user www-data www-data;
