@@ -158,6 +158,14 @@
   when: 'not install_check.stat.exists'
   become: yes
 
+- name: Run database upgrade
+  shell:
+    cmd: '/usr/bin/php8.4 {{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/commands/console.php updatedb'
+    chdir: '{{ limesurvey_root_path }}/{{ limesurvey_name }}/limesurvey/application/commands'
+  register: updatedb
+  changed_when: '"no need update" not in updatedb.stdout'
+  become: yes
+
 - name: Configure PHP-FPM pool
   template:
     src: fpm.conf.j2
