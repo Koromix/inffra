@@ -11,8 +11,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
-ludivine_repo: https://git.interactions-team.fr/Koromix/rygel.git
-ludivine_commit: master
+ludivine_repo: https://git.interactions-team.fr/INTERACTIONS/calypso.git
+ludivine_commit: main
 
 ludivine_root_path: /opt/ludivine # Installation directory
 ludivine_run_user: ludivine # POSIX user that will run services
