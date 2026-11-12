@@ -12,11 +12,12 @@
 # along with this program. If not, see https://www.gnu.org/licenses/.
 
 cpad_repo: https://github.com/cryptpad/cryptpad
-cpad_commit: 2026.5.1
+cpad_commit: 2026.10.1
 
 cpad_root_path: /opt/cryptpad
 
 cpad_port: 4242
+cpad_safe_port: 4243
 
 # cpad_name:
 # cpad_main_domain:

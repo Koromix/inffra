@@ -115,6 +115,10 @@
       dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/config/config.js'
       group: cpad
       mode: '0640'
+    - src: infra.js.j2
+      dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/config/infra.js'
+      group: cpad
+      mode: '0640'
     - src: application_config.js.j2
       dest: '{{ cpad_root_path }}/{{ cpad_name }}/app/customize/application_config.js'
   become: yes
