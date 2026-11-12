@@ -28,6 +28,7 @@
       when: 'rekkord_paths is defined'
   tags: [system, rekkord]
 
+- import_playbook: 'services/cryptpad.yml'
 - import_playbook: 'services/forgejo.yml'
 - import_playbook: 'services/goupile.yml'
 - import_playbook: 'services/ludivine.yml'

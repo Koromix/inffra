@@ -119,6 +119,8 @@ prometheus_exporters:
 blackbox_sites:
   - https://cloud.interactions-team.fr/
   - https://chat.interactions-team.fr/
+  - https://cpad.interactions-team.fr/
+  - https://cpadsb.interactions-team.fr/
   - https://drop.interactions-team.fr/
   - https://git.interactions-team.fr/
   - https://office.interactions-team.fr/
