@@ -130,6 +130,13 @@
   when: 'not ansible_check_mode'
   become: yes
 
+- name: Install Euro-Office
+  command:
+    cmd: '{{ cpad_root_path }}/{{ cpad_name }}/app/install-office.sh -a -t'
+    chdir: '{{ cpad_root_path }}/{{ cpad_name }}/app'
+  when: 'not ansible_check_mode'
+  become: yes
+
 - name: Install Cryptpad service file
   template:
     src: cryptpad@.service.j2
