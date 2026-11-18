@@ -79,6 +79,13 @@
         static_build:
           - '{{ static_root_path }}/repo/demheter.fr/www/web/demheter.fr/build.sh'
         static_path: bin/Web/demheter.fr
+    - role: ../../roles/static
+      vars:
+        static_name: demheter.fr/beta
+        static_repo: https://git.interactions-team.fr/Koromix/rygel.git
+        static_build:
+          - '{{ static_root_path }}/repo/demheter.fr/beta/web/demheter.fr/build.sh'
+        static_path: bin/Web/demheter.fr
   tags: [demheter.fr, static]
 
 - name: cn2r.fr test area
