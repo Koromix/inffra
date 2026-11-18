@@ -65,6 +65,7 @@
           Authentication:
             AllowInternal: No
           SSO:
+            Name: nextcloud
             Title: Nextcloud
             URL: https://cloud.interactions-team.fr/index.php
             ClientID: !vault |

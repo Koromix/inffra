@@ -63,6 +63,7 @@
           from: noreply@koromix.dev
         redropp_extra:
           SSO:
+            Name: codeberg
             Title: Codeberg
             URL: https://codeberg.org
             ClientID: !vault |
@@ -139,6 +140,7 @@
           Authentication:
             AllowInternal: No
           SSO:
+            Name: git
             Title: Git
             URL: https://git.f2rsmpsy.org
             ClientID: !vault |
